@@ -1,0 +1,6 @@
+.netrwhist
+nodepath.vim
+autoload/plugged/*
+vimspector-config/*
+session
+intelephense
