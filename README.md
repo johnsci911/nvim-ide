@@ -1,4 +1,4 @@
-       $$$$$\ $$\   $$\      $$\    $$\ $$$$$$\ $$\      $$\ 
+       $$$$$\ $$\   $$\      $$\    $$\ $$$$$$\ $$\      $$\
        \__$$ |$$ | $$  |     $$ |   $$ |\_$$  _|$$$\    $$$ |
           $$ |$$ |$$  /      $$ |   $$ |  $$ |  $$$$\  $$$$ |
           $$ |$$$$$  /$$$$$$\\$$\  $$  |  $$ |  $$\$$\$$ $$ |
@@ -10,19 +10,17 @@
 ## Install Neovim
 
 - Ubuntu
-    ```
-    sudo apt install neovim
-    ```
 
-    **Note**
-    If you want to use Intelephense, you need Neovim 0.5
+  ```
+  sudo apt install neovim
+  ```
+
+  **Note**
+  If you want to use Intelephense, you need Neovim 0.5
 
 ## Todo
 
-- coc for code completions
-- git
-- syntax highlighting
-- keybindings
+- syntax highlighting (Treesitter)
 - vs-code keybindings
 
 My goal here is to make my config as small as possible.
