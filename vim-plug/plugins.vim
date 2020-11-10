@@ -61,8 +61,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'AndrewRadev/tagalong.vim'
     " Json comments
     Plug 'neoclide/jsonc.vim'
-    " Multi-Select
-    Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+    " Better align
+    Plug 'junegunn/vim-easy-align'
 
     " Themes
     Plug 'drewtempelmeyer/palenight.vim'
