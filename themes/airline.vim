@@ -36,9 +36,6 @@ let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning'
 let g:airline_section_c = airline#section#create([''])
 " let g:airline_section_z = airline#section#create(['linenr'])
 
-" Switch to your current theme
-let g:airline_theme = 'palenight'
-
 " Always show tabs
 set showtabline=2
 

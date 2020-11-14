@@ -61,6 +61,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'neoclide/jsonc.vim'
     " Better align
     Plug 'junegunn/vim-easy-align'
+    " Laravel Blade
+    Plug 'jwalton512/vim-blade'
 
     " Themes
     Plug 'drewtempelmeyer/palenight.vim'
