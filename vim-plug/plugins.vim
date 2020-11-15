@@ -39,6 +39,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'stsewd/fzf-checkout.vim'
     " Status Line
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     " Better tabline
     Plug 'mg979/vim-xtabline'
     " Swap Windows
