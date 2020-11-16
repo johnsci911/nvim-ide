@@ -3,5 +3,5 @@ if (has("termguicolors"))
 endif
 
 let g:lightline = { 'colorscheme': 'palenight' }
-let g:airline_theme = "deus"
+let g:airline_theme = "wombat"
 let g:palenight_terminal_italics=1
