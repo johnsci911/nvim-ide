@@ -27,10 +27,8 @@ source $HOME/.config/nvim/plug-config/easy-align.vim
 " Themes
 source $HOME/.config/nvim/themes/airline.vim
 " source $HOME/.config/nvim/themes/palenight.vim
-
-" Treesitter
-luafile $HOME/.config/nvim/lua/treesitter.lua
-source $HOME/.config/nvim/plug-config/treesitter.vim
+source $HOME/.config/nvim/themes/gruvbox.vim
+" source $HOME/.config/nvim/themes/felipec.vim
 
 " Lua Plugin Configurations
 luafile $HOME/.config/nvim/lua/plug-colorizer.lua

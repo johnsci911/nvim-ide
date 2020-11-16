@@ -64,9 +64,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/vim-easy-align'
     " Laravel Blade
     Plug 'jwalton512/vim-blade'
-    " TreeSitter
-    Plug 'christianchiarulli/nvcode-color-schemes.vim'
-    Plug 'nvim-treesitter/nvim-treesitter'
 
     " Themes
     Plug 'drewtempelmeyer/palenight.vim'
