@@ -176,7 +176,6 @@ let g:which_key_map.l = {
     \ 't' : ['<Plug>(coc-type-definition)'         , 'type definition'],
     \ 'u' : [':CocListResume'                      , 'resume list'],
     \ 'U' : [':CocUpdate'                          , 'update CoC'],
-    \ 'v' : [':Vista!!'                            , 'tag viewer'],
     \ 'z' : [':CocDisable'                         , 'disable CoC'],
     \ 'Z' : [':CocEnable'                          , 'enable CoC'],
     \ }
