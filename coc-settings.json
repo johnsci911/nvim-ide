@@ -25,7 +25,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "markdown",
-    "javascript",
+    /* "javascript", */
     "graphql",
     "html",
     "yaml",
