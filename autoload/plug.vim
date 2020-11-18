@@ -1572,7 +1572,7 @@ execute py_exe "<< EOF"
 import datetime
 import functools
 import os
-try:
+try;
   import queue
 except ImportError:
   import Queue as queue

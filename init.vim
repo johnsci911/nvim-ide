@@ -23,6 +23,7 @@ source $HOME/.config/nvim/plug-config/illuminate.vim
 source $HOME/.config/nvim/plug-config/better-whitespace.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/easy-align.vim
+luafile $HOME/.config/nvim/lua/tree-sitter.lua
 
 " Themes
 " source $HOME/.config/nvim/themes/airline.vim
