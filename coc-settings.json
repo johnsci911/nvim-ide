@@ -57,7 +57,10 @@
   "explorer.file.showHiddenFiles":   true,
   "explorer.keyMappings.global":     {
     "<cr>": ["expandable?", "expand", "open"],
-    "v":    "open:vsplit"
+    "v":    "open:vsplit",
+
+    "gs": "gitStage",
+    "gu": "gitUnstage"
   },
 
   // coc-emoji
