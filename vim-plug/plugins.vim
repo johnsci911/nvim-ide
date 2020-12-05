@@ -31,9 +31,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 " Status Line
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'glepnir/galaxyline.nvim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'glepnir/galaxyline.nvim'
 " Follow Project Root Directory
 Plug 'airblade/vim-rooter'
 " Git
@@ -67,11 +67,15 @@ Plug 'neoclide/jsonc.vim'
 Plug 'junegunn/vim-easy-align'
 " Laravel Blade
 Plug 'jwalton512/vim-blade'
+
 " Better Syntax highlighting
+" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'sheerun/vim-polyglot'
 
 " Easily Create Gists
 Plug 'mattn/vim-gist'
 Plug 'mattn/webapi-vim'
+
 " Auto Indent
 Plug 'tpope/vim-sleuth'
 

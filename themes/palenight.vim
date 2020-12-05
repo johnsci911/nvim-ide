@@ -1,7 +1,3 @@
-if (has("termguicolors"))
-  set termguicolors
-endif
-
 set background=dark
 
 let g:lightline = { 'colorscheme': 'palenight' }
