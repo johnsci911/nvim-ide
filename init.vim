@@ -23,15 +23,14 @@ source $HOME/.config/nvim/plug-config/illuminate.vim
 source $HOME/.config/nvim/plug-config/better-whitespace.vim
 source $HOME/.config/nvim/plug-config/tagalong.vim
 source $HOME/.config/nvim/plug-config/easy-align.vim
-luafile $HOME/.config/nvim/lua/tree-sitter.lua
 
 " Themes
-" source $HOME/.config/nvim/themes/airline.vim
-" source $HOME/.config/nvim/themes/palenight.vim
+source $HOME/.config/nvim/themes/airline.vim
+source $HOME/.config/nvim/themes/palenight.vim
 
 " Custom Theme -- Comment if you're not using custom theme
-source $HOME/.config/nvim/themes/termguicolors.vim
-source $HOME/.config/nvim/themes/gruvbox.vim
+" source $HOME/.config/nvim/themes/termguicolors.vim
+" source $HOME/.config/nvim/themes/gruvbox.vim
 
 " Lua Plugin Configurations
 luafile $HOME/.config/nvim/lua/plug-colorizer.lua
