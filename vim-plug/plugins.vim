@@ -43,8 +43,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'stsewd/fzf-checkout.vim'
-" Better tabline
-Plug 'mg979/vim-xtabline'
 " Swap Windows
 Plug 'wesQ3/vim-windowswap'
 " Start Screen
@@ -81,6 +79,7 @@ Plug 'tpope/vim-sleuth'
 
 " Themes
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'sainnhe/sonokai'
 
 " Colorizer
 Plug 'norcalli/nvim-colorizer.lua'

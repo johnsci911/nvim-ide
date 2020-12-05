@@ -48,3 +48,5 @@ let g:airline_section_a = " JK"
 " let g:airline_section_a = ""
 let g:airline_section_y = ''
 let g:webdevicons_enable_airline_tabline = 1
+
+let g:airline_theme = "sonokai"
