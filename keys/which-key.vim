@@ -40,11 +40,12 @@ let g:which_key_map['q'] = [ 'q'                                  , 'quit' ]
 " a = actions
 let g:which_key_map.a = {
     \ 'name' : '+actions' ,
-    \ 'c' : [':ColorizerToggle'        , 'colorizer'],
-    \ 'e' : [':CocCommand explorer'    , 'explorer'],
-    \ 's' : [':let @/ = ""'            , 'remove search highlight'],
-    \ 'w' : [':StripWhitespace'        , 'strip whitespace'],
-    \ 'm' : [':MarkdownPreview'        , 'markdown preview'],
+    \ 'c' : [':ColorizerToggle'         , 'colorizer'],
+    \ 'e' : [':CocCommand explorer'     , 'explorer'],
+    \ 's' : [':let @/ = ""'             , 'remove search highlight'],
+    \ 'w' : [':StripWhitespace'         , 'strip whitespace'],
+    \ 'm' : [':MarkdownPreview'         , 'markdown preview'],
+    \ 'h' : [':SemanticHighlightToggle' , 'markdown preview'],
     \ }
 
 " b = buffer

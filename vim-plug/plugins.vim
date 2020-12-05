@@ -68,7 +68,7 @@ Plug 'junegunn/vim-easy-align'
 " Laravel Blade
 Plug 'jwalton512/vim-blade'
 " Better Syntax highlighting
-" Plug 'nvim-treesitter/nvim-treesitter'
+
 " Easily Create Gists
 Plug 'mattn/vim-gist'
 Plug 'mattn/webapi-vim'
