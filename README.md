@@ -16,11 +16,9 @@
   ```
 
   **Note**
-  If you want to use Intelephense, you need Neovim 0.5
+  Neovim 0.5 is needed
 
 ## Todo
 
 - syntax highlighting (Treesitter)
 - vs-code keybindings
-
-My goal here is to make my config as small as possible.
