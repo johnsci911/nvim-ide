@@ -18,9 +18,9 @@ Plug 'voldikss/vim-floaterm'
 Plug 'liuchengxu/vim-which-key'
 " FZF
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+" Vim Rooter
 Plug 'airblade/vim-rooter'
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 " Better Comments
 Plug 'tpope/vim-commentary'
 " Ranger File Manager
