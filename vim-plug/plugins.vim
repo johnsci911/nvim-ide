@@ -19,6 +19,7 @@ Plug 'liuchengxu/vim-which-key'
 " FZF
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+Plug 'junegunn/fzf.vim'
 " Vim Rooter
 Plug 'airblade/vim-rooter'
 " Better Comments
