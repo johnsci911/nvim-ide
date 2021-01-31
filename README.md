@@ -21,4 +21,4 @@
 ## Todo
 
 - syntax highlighting (Treesitter)
-- vs-code keybindings
+- improve vs-code keybindings
