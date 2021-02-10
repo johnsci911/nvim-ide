@@ -8,89 +8,100 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-" Auto pairs for '(' '[' '{'
-Plug 'jiangmiao/auto-pairs'
-" Quick Scopes
-Plug 'unblevable/quick-scope'
-" Floating Terminal
-Plug 'voldikss/vim-floaterm'
-" Which key
-Plug 'liuchengxu/vim-which-key'
-" FZF
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-Plug 'junegunn/fzf.vim'
-" Vim Rooter
-Plug 'airblade/vim-rooter'
-" Better Comments
-Plug 'tpope/vim-commentary'
-" Ranger File Manager
-Plug 'kevinhwang91/rnvimr'
-" Intellisense
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Vim Dev Icons
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'ryanoasis/vim-devicons'
-" Status Line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" Plug 'glepnir/galaxyline.nvim'
-" Follow Project Root Directory
-Plug 'airblade/vim-rooter'
-" Git
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'junegunn/gv.vim'
-Plug 'rhysd/git-messenger.vim'
-Plug 'stsewd/fzf-checkout.vim'
-" Swap Windows
-Plug 'wesQ3/vim-windowswap'
-" Start Screen
-Plug 'mhinz/vim-startify'
-" Close buffer without closing nvim
-Plug 'moll/vim-bbye'
-" Markdown Preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
-" Surround
-Plug 'tpope/vim-surround'
-" highlight all matches under cursor
-Plug 'RRethy/vim-illuminate'
-" Better whitespace
-Plug 'ntpeters/vim-better-whitespace'
-" Auto change html tags
-Plug 'AndrewRadev/tagalong.vim'
-" Json comments
-Plug 'neoclide/jsonc.vim'
-" Better align
-Plug 'junegunn/vim-easy-align'
-" Laravel Blade
-Plug 'jwalton512/vim-blade'
+if exists('g:vscode')
+  " Easy motion for VSCode
+  " Plug 'asvetliakov/vim-easymotion'
+  Plug 'ChristianChiarulli/vscode-easymotion'
+  Plug 'machakann/vim-highlightedyank'
+else
 
-" Better Syntax highlighting
-" Plug 'nvim-treesitter/nvim-treesitter'
-" Plug 'sheerun/vim-polyglot'
+  " Auto pairs for '(' '[' '{'
+  Plug 'jiangmiao/auto-pairs'
+  " Quick Scopes
+  Plug 'unblevable/quick-scope'
+  " Floating Terminal
+  Plug 'voldikss/vim-floaterm'
+  " Which key
+  Plug 'liuchengxu/vim-which-key'
+  " FZF
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+  Plug 'junegunn/fzf.vim'
+  " Vim Rooter
+  Plug 'airblade/vim-rooter'
+  " Better Comments
+  Plug 'tpope/vim-commentary'
+  " Ranger File Manager
+  Plug 'kevinhwang91/rnvimr'
+  " Intellisense
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Vim Dev Icons
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ryanoasis/vim-devicons'
+  " Status Line
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'glepnir/galaxyline.nvim'
+  " Follow Project Root Directory
+  Plug 'airblade/vim-rooter'
+  " Better tabline
+  Plug 'romgrk/barbar.nvim'
+  " Git
+  Plug 'mhinz/vim-signify'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rhubarb'
+  Plug 'junegunn/gv.vim'
+  Plug 'rhysd/git-messenger.vim'
+  Plug 'stsewd/fzf-checkout.vim'
+  " Swap Windows
+  Plug 'wesQ3/vim-windowswap'
+  " Start Screen
+  Plug 'mhinz/vim-startify'
+  " Close buffer without closing nvim
+  Plug 'moll/vim-bbye'
+  " Markdown Preview
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+  " Surround
+  Plug 'tpope/vim-surround'
+  " highlight all matches under cursor
+  Plug 'RRethy/vim-illuminate'
+  " Better whitespace
+  Plug 'ntpeters/vim-better-whitespace'
+  " Auto change html tags
+  Plug 'AndrewRadev/tagalong.vim'
+  " Json comments
+  Plug 'neoclide/jsonc.vim'
+  " Better align
+  Plug 'junegunn/vim-easy-align'
+  " Laravel Blade
+  Plug 'jwalton512/vim-blade'
 
-" Easily Create Gists
-Plug 'mattn/vim-gist'
-Plug 'mattn/webapi-vim'
+  " Better Syntax highlighting
+  " Plug 'nvim-treesitter/nvim-treesitter'
+  " Plug 'sheerun/vim-polyglot'
 
-" Auto Indent
-Plug 'tpope/vim-sleuth'
+  " Easily Create Gists
+  Plug 'mattn/vim-gist'
+  Plug 'mattn/webapi-vim'
 
-" Themes
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'sainnhe/sonokai'
+  " Auto Indent
+  Plug 'tpope/vim-sleuth'
 
-" Colorizer
-Plug 'norcalli/nvim-colorizer.lua'
-" Bracket Colorizer
-Plug 'junegunn/rainbow_parentheses.vim'
+  " Themes
+  Plug 'drewtempelmeyer/palenight.vim'
+  Plug 'sainnhe/sonokai'
+
+  " Colorizer
+  Plug 'norcalli/nvim-colorizer.lua'
+  " Bracket Colorizer
+  Plug 'junegunn/rainbow_parentheses.vim'
+
+endif
 
 call plug#end()
 
 " Automatically install missing plugins on startup
 autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif

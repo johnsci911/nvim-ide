@@ -4,6 +4,8 @@ source $HOME/.config/nvim/keys/keybindings.vim
 
 if exists('g:vscode')
   source $HOME/.config/nvim/vscode/settings.vim
+  source $HOME/.config/nvim/plug-config/easymotion.vim
+  source $HOME/.config/nvim/plug-config/highlightyank.vim
 else
 
   source $HOME/.config/nvim/general/settings.vim
@@ -46,7 +48,7 @@ else
   " Lua Plugin Configurations
   " luafile $HOME/.config/nvim/lua/treesitter.lua
   luafile $HOME/.config/nvim/lua/plug-colorizer.lua
-  " luafile $HOME/.config/nvim/lua/galaxy.lua
+  luafile $HOME/.config/nvim/lua/galaxy.lua
 
   " Transparency
     " highlight Normal guibg=none
