@@ -50,14 +50,13 @@ let g:which_key_map.a = {
 
 " b = buffer
 let g:which_key_map.b = {
-    \ 'name' : '+buffer' ,
-    \ 'd' : [':Bdelete'  , 'delete-buffer'],
-    \ 'D' : [':BufOnly'  , 'delete all but current'],
-    \ 'f' : ['bfirst'    , 'first-buffer'],
-    \ 'h' : ['Startify'  , 'home-buffer'],
-    \ 'l' : ['blast'     , 'last-buffer'],
-    \ 'n' : ['bnext'     , 'next-buffer'],
-    \ 'p' : ['bprevious' , 'previous-buffer'],
+    \ 'name' : '+buffer'  ,
+    \ 'd'    : [':Bdelete'            , 'delete-buffer'],
+    \ 'D'    : [':BufOnly'            , 'delete all but current'],
+    \ 's'    : ['Startify'            , 'Startify'],
+    \ 'p'    : [':BufferPick'         , 'Pick Buffer'],
+    \ 'h'    : [':BufferMovePrevious' , 'Move left'],
+    \ 'l'    : [':BufferMoveNext'     , 'Move right'],
     \ }
 
 " s = Search
