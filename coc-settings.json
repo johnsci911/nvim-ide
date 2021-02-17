@@ -23,15 +23,15 @@
 
   // autoformat
   "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "markdown",
+    /* "css", */
+    /* "markdown", */
     /* "javascript", */
-    "graphql",
-    "html",
-    "yaml",
-    "json",
-    "python",
-    "java"
+    /* "graphql", */
+    /* "html", */
+    /* "yaml", */
+    /* "json", */
+    /* "python", */
+    /* "java" */
   ],
   "coc.preferences.hoverTarget": "float",
 
