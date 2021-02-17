@@ -14,6 +14,16 @@ nnoremap <M-k>    :resize +2<CR>
 nnoremap <M-h>    :vertical resize -2<CR>
 nnoremap <M-l>    :vertical resize +2<CR>
 
+let g:elite_mode=1 " Disable arrows"
+
+" Disable arrow movement, resize splits instead.
+if get(g:, 'elite_mode')
+  nnoremap <C-Up>    :resize -2<CR>
+  nnoremap <C-Down>  :resize +2<CR>
+  nnoremap <C-Left>  :vertical resize -2<CR>
+  nnoremap <C-Right> :vertical resize +2<CR>
+endif
+
 " Vim Escape
 inoremap jk <Esc>
 inoremap kj <Esc>
@@ -55,3 +65,11 @@ inoremap <expr> <c-k> ("\<C-p>")
 " Better indenting/tabbing
 vnoremap < <gv
 vnoremap > >gv
+
+if exists('g:vscode')
+
+  " Simulate same TAB behavior in VSCode
+  nmap <Tab> :Tabnext<CR>
+  nmap <S-Tab> :Tabprev<CR>
+
+endif
