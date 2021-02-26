@@ -39,8 +39,8 @@ else
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
   " Status Line
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  " Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline-themes'
   Plug 'glepnir/galaxyline.nvim'
   " Follow Project Root Directory
   Plug 'airblade/vim-rooter'
@@ -77,7 +77,8 @@ else
   Plug 'jwalton512/vim-blade'
 
   " Better Syntax highlighting
-  " Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/playground'
   " Plug 'sheerun/vim-polyglot'
 
   " Easily Create Gists

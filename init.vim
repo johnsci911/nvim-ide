@@ -33,11 +33,11 @@ else
 
   " Themes
   source $HOME/.config/nvim/themes/termguicolors.vim
-  source $HOME/.config/nvim/themes/airline.vim
-  " source $HOME/.config/nvim/themes/palenight.vim
+  " source $HOME/.config/nvim/themes/airline.vim
+  source $HOME/.config/nvim/themes/palenight.vim
 
   " Custom Theme -- Comment if you're not using custom theme
-  source $HOME/.config/nvim/themes/gruvbox-custom.vim
+  " source $HOME/.config/nvim/themes/gruvbox-custom.vim
 
   " Lua Plugin Configurations
   " source $HOME/.config/nvim/themes/termguicolors.vim
@@ -47,7 +47,7 @@ else
   " source $HOME/.config/nvim/themes/gruvbox-custom.vim
 
   " Lua Plugin Configurations
-  " luafile $HOME/.config/nvim/lua/treesitter.lua
+  luafile $HOME/.config/nvim/lua/treesitter.lua
   luafile $HOME/.config/nvim/lua/plug-colorizer.lua
   luafile $HOME/.config/nvim/lua/galaxy.lua
 
