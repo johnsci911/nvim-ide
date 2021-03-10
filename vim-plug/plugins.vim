@@ -73,7 +73,8 @@ else
   Plug 'neoclide/jsonc.vim'
   " Better align
   Plug 'junegunn/vim-easy-align'
-  " Laravel Blade
+
+  " Laravel
   Plug 'jwalton512/vim-blade'
 
   " Better Syntax highlighting

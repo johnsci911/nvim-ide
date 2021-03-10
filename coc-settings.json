@@ -1,11 +1,34 @@
 {
   // suggestions
   // "suggest.echodocSupport": true,
-  // TODO add more labels and give them cool glyphs
+
+  // Glyphs
   "suggest.completionItemKindLabels": {
-    "text":     "t",
-    "method":   "m",
-    "function": ""
+    "method": "  ",
+    "function": "  ",
+    "variable": "[]",
+    "field": "  ",
+    "typeParameter": "<>",
+    "constant": "  ",
+    "class": " פּ ",
+    "interface": " 蘒",
+    "struct": "  ",
+    "event": "  ",
+    "operator": "  ",
+    "module": "  ",
+    "property": "  ",
+    "enum": " 練",
+    "reference": "  ",
+    "keyword": "  ",
+    "file": "  ",
+    "folder": " ﱮ ",
+    "color": "  ",
+    "unit": " 塞 ",
+    "snippet": "  ",
+    "text": "  ",
+    "constructor": "  ",
+    "value": "  ",
+    "enumMember": "  "
   },
 
   // diagnostics
