@@ -11,7 +11,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 if exists('g:vscode')
   " Easy motion for VSCode
   " Plug 'asvetliakov/vim-easymotion'
-  Plug 'ChristianChiarulli/vscode-easymotion'
+  " Plug 'ChristianChiarulli/vscode-easymotion'
   Plug 'machakann/vim-highlightedyank'
 else
 
@@ -79,7 +79,7 @@ else
 
   " Better Syntax highlighting
   Plug 'nvim-treesitter/nvim-treesitter'
-  Plug 'nvim-treesitter/playground'
+  " Plug 'nvim-treesitter/playground'
   " Plug 'sheerun/vim-polyglot'
 
   " Easily Create Gists
