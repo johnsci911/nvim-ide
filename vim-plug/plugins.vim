@@ -49,6 +49,7 @@ else
   " Git
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
+  Plug 'APZelos/blamer.nvim'
   Plug 'tpope/vim-rhubarb'
   Plug 'junegunn/gv.vim'
   Plug 'rhysd/git-messenger.vim'
@@ -78,9 +79,8 @@ else
   Plug 'jwalton512/vim-blade'
 
   " Better Syntax highlighting
-  Plug 'nvim-treesitter/nvim-treesitter'
+  " Plug 'nvim-treesitter/nvim-treesitter'
   " Plug 'nvim-treesitter/playground'
-  " Plug 'sheerun/vim-polyglot'
 
   " Easily Create Gists
   Plug 'mattn/vim-gist'

@@ -30,6 +30,7 @@ else
   source $HOME/.config/nvim/plug-config/tagalong.vim
   source $HOME/.config/nvim/plug-config/easy-align.vim
   source $HOME/.config/nvim/plug-config/barbar.vim
+  source $HOME/.config/nvim/plug-config/blamer.vim
 
   " Themes
   source $HOME/.config/nvim/themes/termguicolors.vim
@@ -47,7 +48,7 @@ else
   " source $HOME/.config/nvim/themes/gruvbox-custom.vim
 
   " Lua Plugin Configurations
-  luafile $HOME/.config/nvim/lua/treesitter.lua
+  " luafile $HOME/.config/nvim/lua/treesitter.lua
   luafile $HOME/.config/nvim/lua/plug-colorizer.lua
   luafile $HOME/.config/nvim/lua/galaxy.lua
 
