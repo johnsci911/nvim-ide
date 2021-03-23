@@ -1,5 +1,6 @@
   let g:coc_global_extensions = [
     \ 'coc-snippets',
+    \ 'coc-blade-formatter',
     \ 'coc-actions',
     \ 'coc-sh',
     \ 'coc-java-debug',
@@ -26,10 +27,7 @@
     \ 'coc-json',
     \ 'coc-marketplace',
     \ 'coc-phpls',
-    \ 'coc-vetur',
     \ ]
-    " \ 'coc-tabnine',
-    " \ 'coc-highlight',
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
