@@ -7,18 +7,11 @@
     \$$$$$$  |$$ | \$$\         \$  /   $$$$$$\ $$ | \_/ $$ |
      \______/ \__|  \__|         \_/    \______|\__|     \__|
 
-## Install Neovim
-
-- Ubuntu
-
-  ```
-  sudo apt install neovim
-  ```
+--Goodbye VScode?--
 
   **Note**
   Neovim 0.5 is needed
 
 ## Todo
 
-- syntax highlighting (Treesitter)
-- improve vs-code keybindings
+- Markdown Preview
