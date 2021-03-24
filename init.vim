@@ -48,9 +48,10 @@ else
   " source $HOME/.config/nvim/themes/gruvbox-custom.vim
 
   " Lua Plugin Configurations
-  " luafile $HOME/.config/nvim/lua/treesitter.lua
+  luafile $HOME/.config/nvim/lua/treesitter.lua
   luafile $HOME/.config/nvim/lua/plug-colorizer.lua
   luafile $HOME/.config/nvim/lua/galaxy.lua
+  luafile $HOME/.config/nvim/lua/vim-telescope.lua
 
   " Transparency
     " highlight Normal guibg=none

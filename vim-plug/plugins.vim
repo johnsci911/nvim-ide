@@ -76,8 +76,8 @@ else
   Plug 'jwalton512/vim-blade'
 
   " Better Syntax highlighting
-  " Plug 'nvim-treesitter/nvim-treesitter'
-  " Plug 'nvim-treesitter/playground'
+  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/playground'
 
   " Easily Create Gists
   Plug 'mattn/vim-gist'
@@ -94,7 +94,12 @@ else
   Plug 'norcalli/nvim-colorizer.lua'
   " Bracket Colorizer
   Plug 'junegunn/rainbow_parentheses.vim'
-
+  " Telescope
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-media-files.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
 endif
 
 call plug#end()

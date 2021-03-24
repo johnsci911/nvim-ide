@@ -34,7 +34,7 @@ let g:which_key_map['v'] = [ '<C-W>v'                             , 'split right
 let g:which_key_map['W'] = [ 'w'                                  , 'write' ]
 let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
 let g:which_key_map['m'] = [ ':call WindowSwap#EasyWindowSwap()'  , 'move window' ]
-let g:which_key_map['p'] = [ ':Files'                             , 'search files' ]
+let g:which_key_map['p'] = [ ':Telescope find_files'              , 'search files' ]
 let g:which_key_map['q'] = [ 'q'                                  , 'quit' ]
 
 " a = actions
