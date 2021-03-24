@@ -102,7 +102,7 @@ let g:which_key_map.g = {
     \ 'name' : '+git' ,
     \ 'a' : [':Git add .'                        , 'add all'],
     \ 'A' : [':Git add %'                        , 'add current'],
-    \ 'b' : [':Git blame'                        , 'blame'],
+    \ 'b' : [':GBranches'                        , 'blame'],
     \ 'B' : [':GBrowse'                          , 'browse'],
     \ 'c' : [':Git commit'                       , 'commit'],
     \ 'C' : [':GCheckout'                        , 'checkout'],
