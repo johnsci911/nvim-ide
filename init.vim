@@ -30,7 +30,7 @@ else
   source $HOME/.config/nvim/plug-config/tagalong.vim
   source $HOME/.config/nvim/plug-config/easy-align.vim
   source $HOME/.config/nvim/plug-config/barbar.vim
-  source $HOME/.config/nvim/plug-config/blamer.vim
+  source $HOME/.config/nvim/plug-config/git-blame.vim
 
   " Themes
   source $HOME/.config/nvim/themes/termguicolors.vim

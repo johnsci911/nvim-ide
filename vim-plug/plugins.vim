@@ -9,9 +9,6 @@ endif
 call plug#begin('~/.config/nvim/autoload/plugged')
 
 if exists('g:vscode')
-  " Easy motion for VSCode
-  " Plug 'asvetliakov/vim-easymotion'
-  " Plug 'ChristianChiarulli/vscode-easymotion'
   Plug 'machakann/vim-highlightedyank'
 else
 
@@ -49,11 +46,11 @@ else
   " Git
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-fugitive'
-  Plug 'APZelos/blamer.nvim'
   Plug 'tpope/vim-rhubarb'
   Plug 'junegunn/gv.vim'
   Plug 'rhysd/git-messenger.vim'
   Plug 'stsewd/fzf-checkout.vim'
+  Plug 'f-person/git-blame.nvim'
   " Swap Windows
   Plug 'wesQ3/vim-windowswap'
   " Start Screen
