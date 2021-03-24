@@ -185,6 +185,7 @@ let g:which_key_map.t = {
     \ 'name' : '+terminal' ,
     \ ';' : [':FloatermNew --wintype=popup --height=6'        , 'terminal'],
     \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
+    \ 'g' : [':FloatermNew lazygit'                           , 'lazygit'],
     \ 't' : [':FloatermToggle'                                , 'toggle'],
     \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
     \ }

@@ -94,12 +94,15 @@ else
   Plug 'norcalli/nvim-colorizer.lua'
   " Bracket Colorizer
   Plug 'junegunn/rainbow_parentheses.vim'
+
   " Telescope
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-media-files.nvim'
   Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+  Plug 'kdheepak/lazygit.nvim'
 endif
 
 call plug#end()
