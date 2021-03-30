@@ -23,19 +23,19 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 " Single key bindings
-let g:which_key_map['/'] = [ ':call Comment()'                    , 'comment' ]
-let g:which_key_map['.'] = [ ':e $MYVIMRC'                        , 'open init' ]
-let g:which_key_map[';'] = [ ':Commands'                          , 'commands' ]
-let g:which_key_map['='] = [ '<C-W>='                             , 'balance windows' ]
-let g:which_key_map['e'] = [ ':CocCommand explorer'               , 'explorer' ]
-let g:which_key_map['d'] = [ ':Bdelete'                           , 'delete buffer']
-let g:which_key_map['h'] = [ '<C-W>s'                             , 'split below']
-let g:which_key_map['v'] = [ '<C-W>v'                             , 'split right']
-let g:which_key_map['W'] = [ 'w'                                  , 'write' ]
-let g:which_key_map['r'] = [ ':RnvimrToggle'                      , 'ranger' ]
-let g:which_key_map['m'] = [ ':call WindowSwap#EasyWindowSwap()'  , 'move window' ]
-let g:which_key_map['p'] = [ ':Telescope find_files'              , 'search files' ]
-let g:which_key_map['q'] = [ 'q'                                  , 'quit' ]
+let g:which_key_map['/'] = [ ':call Comment()'                                                 , 'comment']
+let g:which_key_map['.'] = [ ':e $MYVIMRC'                                                     , 'open init']
+let g:which_key_map[';'] = [ ':Commands'                                                       , 'commands']
+let g:which_key_map['='] = [ '<C-W>='                                                          , 'balance windows']
+let g:which_key_map['e'] = [ ':CocCommand explorer'                                            , 'explorer']
+let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
+let g:which_key_map['h'] = [ '<C-W>s'                                                          , 'split below']
+let g:which_key_map['v'] = [ '<C-W>v'                                                          , 'split right']
+let g:which_key_map['W'] = [ 'w'                                                               , 'write' ]
+let g:which_key_map['r'] = [ ':RnvimrToggle'                                                   , 'ranger']
+let g:which_key_map['m'] = [ ':call WindowSwap#EasyWindowSwap()'                               , 'move window']
+let g:which_key_map['p'] = [ ':Telescope find_files find_command=rg,--ignore,--hidden,--files' , 'search files']
+let g:which_key_map['q'] = [ 'q'                                                               , 'quit']
 
 " a = actions
 let g:which_key_map.a = {
