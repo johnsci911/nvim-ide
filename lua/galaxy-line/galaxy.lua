@@ -182,7 +182,23 @@ gls.right[2] = {
     separator_highlight = { colors.bg, colors.section_bg },
   },
 }
+
 gls.right[3] = {
+    ShowLspClient = {
+        provider = 'GetLspClient',
+        condition = function()
+            local tbl = {['dashboard'] = true, [' '] = true}
+            if tbl[vim.bo.filetype] then return false end
+            return true
+        end,
+        highlight = {colors.blue,colors.section_bg},
+		separator = ' ',
+		separator_highlight = { colors.section_bg, colors.bg },
+    }
+}
+
+
+gls.right[4] = {
   Heart = {
     provider = function() return ' ' end,
     highlight = { colors.red, colors.section_bg },
