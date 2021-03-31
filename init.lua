@@ -21,7 +21,9 @@ require('vim-startify')
 
 -- LSP
 require('lsp')
-require('lsp.intelephense')
+require('lsp.php-ls')
+require('lsp.vuels')
+require('lsp.vimls')
 
 -- Which Key
 vim.cmd('source ~/.config/nvim/vimscript/vim-whichkey.vim')
