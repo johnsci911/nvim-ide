@@ -1,3 +1,4 @@
 autoload/
 plugin/
 autoload/plugged/*
+session/
