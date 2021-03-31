@@ -17,3 +17,10 @@ lazygit
 
 * **Install node**
 `yay -S nodejs npm yarn`
+
+### TODO
+
+- `rg` - to find files
+- `intelephense` - for php completion
+- Figure out how `nvim-lsp` works
+
