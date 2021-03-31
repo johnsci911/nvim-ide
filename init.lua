@@ -1,0 +1,27 @@
+require('plugins')
+require('globals')
+require('settings')
+require('keymap')
+require('galaxy-line.galaxy')
+require('colorscheme')
+require('vim-compe')
+require('vim-colorizer')
+require('vim-autopairs')
+require('vim-barbar')
+require('vim-emmet')
+require('vim-quickscope')
+require('vim-gitsigns')
+require('vim-root')
+require('vim-matchup')
+require('vim-gitblame')
+require('vim-comment')
+require('vim-telescope')
+require('vim-floaterm')
+require('vim-startify')
+
+-- LSP
+require('lsp')
+require('lsp.intelephense')
+
+-- Which Key
+vim.cmd('source ~/.config/nvim/vimscript/vim-whichkey.vim')
