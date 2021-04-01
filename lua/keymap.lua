@@ -65,6 +65,6 @@ vim.cmd("nnoremap <silent> <C-c> <Esc>")
 
 -- LSPSaga scroll
 vim.cmd([[
-  nnoremap <silent> <C-j> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-  nnoremap <silent> <C-k> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+  nnoremap <silent> <C-Down> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+  nnoremap <silent> <C-Up> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
 ]])

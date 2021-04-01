@@ -20,6 +20,7 @@ require('vim-floaterm')
 require('vim-startify')
 require('vim-lspkind')
 require('vim-windowswap')
+require('vim-treesitter')
 
 -- LSP
 require('lsp')
