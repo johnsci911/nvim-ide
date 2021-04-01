@@ -1,5 +1,5 @@
-autoload/*
-plugin/*
+autoload
+plugin
 autoload/plugged/*
 session/*
 intelephense.lua
