@@ -2,3 +2,6 @@ autoload/
 plugin/
 autoload/plugged/*
 session/
+intelephense.lua
+package-lock.json
+package.json

@@ -62,3 +62,9 @@ vim.cmd("nnoremap <silent> <C-s> :w<CR>")
 vim.cmd("nnoremap <silent> <C-Q> :wq!<CR>")
 -- Use control-c instead of escape
 vim.cmd("nnoremap <silent> <C-c> <Esc>")
+
+-- LSPSaga scroll
+vim.cmd([[
+  nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+  nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+]])

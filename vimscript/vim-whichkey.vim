@@ -42,11 +42,7 @@ let g:which_key_map['q'] = [ 'q'                                                
 let g:which_key_map.a = {
     \ 'name' : '+actions' ,
     \ 'c' : [':ColorizerToggle'         , 'colorizer'],
-    \ 'e' : [':CocCommand explorer'     , 'explorer'],
     \ 's' : [':let @/ = ""'             , 'remove search highlight'],
-    \ 'w' : [':StripWhitespace'         , 'strip whitespace'],
-    \ 'm' : [':MarkdownPreview'         , 'markdown preview'],
-    \ 'h' : [':SemanticHighlightToggle' , 'markdown preview'],
     \ }
 
 " b = buffer
@@ -63,29 +59,7 @@ let g:which_key_map.b = {
 " s = Search
 let g:which_key_map.s = {
     \ 'name' : '+search' ,
-    \ '/' : [':History/'         , 'history'],
-    \ 'a' : [':Ag'               , 'text Ag'],
-    \ 'b' : [':BLines'           , 'current buffer'],
-    \ 'B' : [':Buffers'          , 'open buffers'],
-    \ 'c' : [':Commits'          , 'commits'],
-    \ 'C' : [':BCommits'         , 'buffer commits'],
-    \ 'f' : [':Files'            , 'files'],
-    \ 'g' : [':GFiles'           , 'git files'],
-    \ 'G' : [':GFiles?'          , 'modified git files'],
-    \ 'h' : [':History'          , 'file history'],
-    \ 'H' : [':History:'         , 'command history'],
-    \ 'l' : [':Lines'            , 'lines'] ,
-    \ 'm' : [':Marks'            , 'marks'] ,
-    \ 'M' : [':Maps'             , 'normal maps'] ,
-    \ 'p' : [':Helptags'         , 'help tags'] ,
-    \ 'P' : [':Tags'             , 'project tags'],
-    \ 's' : [':CocList snippets' , 'snippets'],
-    \ 'S' : [':Colors'           , 'color schemes'],
-    \ 't' : [':Rg'               , 'text Rg'],
-    \ 'T' : [':BTags'            , 'buffer tags'],
-    \ 'w' : [':Windows'          , 'search windows'],
-    \ 'y' : [':Filetypes'        , 'file types'],
-    \ 'z' : [':FZF'              , 'FZF'],
+    \ 't' : [':Telescope grep_string', 'Find text'],
     \ }
 
 " S = Session
@@ -103,44 +77,14 @@ let g:which_key_map.g = {
     \ 'name' : '+git' ,
     \ 'a' : [':Git add .'                        , 'add all'],
     \ 'A' : [':Git add %'                        , 'add current'],
-    \ 'b' : [':GBranches'                        , 'blame'],
-    \ 'B' : [':GBrowse'                          , 'browse'],
     \ 'c' : [':Git commit'                       , 'commit'],
-    \ 'C' : [':GCheckout'                        , 'checkout'],
     \ 'd' : [':Git diff'                         , 'diff'],
     \ 'D' : [':Gdiffsplit'                       , 'diff split'],
-    \ 'g' : [':GGrep'                            , 'git grep'],
     \ 'G' : [':Gstatus'                          , 'status'],
-    \ 'h' : [':GitGutterLineHighlightsToggle'    , 'highlight hunks'],
-    \ 'H' : ['<Plug>(GitGutterPreviewHunk)'      , 'preview hunk'],
-    \ 'i' : [':Gist -b'                          , 'post gist'],
-    \ 'j' : ['<Plug>(GitGutterNextHunk)'         , 'next hunk'],
-    \ 'k' : ['<Plug>(GitGutterPrevHunk)'         , 'prev hunk'],
     \ 'l' : [':Git log'                          , 'log'],
-    \ 'm' : ['<Plug>(git-messenger)'             , 'message'],
     \ 'p' : [':Git push'                         , 'push'],
     \ 'P' : [':Git pull'                         , 'pull'],
     \ 'r' : [':GRemove'                          , 'remove'],
-    \ 's' : ['<Plug>(GitGutterStageHunk)'        , 'stage hunk'],
-    \ 'S' : [':!git status'                      , 'status'],
-    \ 't' : [':GitGutterSignsToggle'             , 'toggle signs'],
-    \ 'u' : ['<Plug>(GitGutterUndoHunk)'         , 'undo hunk'],
-    \ 'v' : [':GV'                               , 'view commits'],
-    \ 'V' : [':GV!'                              , 'view buffer commits'],
-    \ }
-
-" G = Gist
-let g:which_key_map.G = {
-    \ 'name' : '+gist' ,
-    \ 'a' : [':Gist -a'                          , 'post gist anon'],
-    \ 'b' : [':Gist -b'                          , 'post gist browser'],
-    \ 'd' : [':Gist -d'                          , 'delete gist'],
-    \ 'e' : [':Gist -e'                          , 'edit gist'],
-    \ 'l' : [':Gist -l'                          , 'list public gists'],
-    \ 's' : [':Gist -ls'                         , 'list starred gists'],
-    \ 'm' : [':Gist -m'                          , 'post gist all buffers'],
-    \ 'p' : [':Gist -P'                          , 'post public gist '],
-    \ 'P' : [':Gist -p'                          , 'post private gist '],
     \ }
 
 " l is for language server protocol
@@ -167,8 +111,7 @@ let g:which_key_map.l = {
 " t = Terminal
 let g:which_key_map.t = {
     \ 'name' : '+terminal' ,
-    \ ';' : [':FloatermNew --wintype=popup --height=6'        , 'terminal'],
-    \ 'f' : [':FloatermNew fzf'                               , 'fzf'],
+    \ ';' : [':FloatermNew --wintype=popup --height=6'        , 'small terminal'],
     \ 'g' : [':FloatermNew lazygit'                           , 'lazygit'],
     \ 't' : [':FloatermToggle'                                , 'toggle'],
     \ 'y' : [':FloatermNew ytop'                              , 'ytop'],

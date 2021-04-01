@@ -18,14 +18,17 @@ require('vim-comment')
 require('vim-telescope')
 require('vim-floaterm')
 require('vim-startify')
+require('vim-lspkind')
 
 -- LSP
 require('lsp')
 require('lsp.php-ls')
+require('lsp.phpactor')
 require('lsp.vls')
 require('lsp.vuels')
 require('lsp.vimls')
 require('lsp.lua-ls')
+require('lsp.virtual_text')
 
 -- Which Key
 vim.cmd('source ~/.config/nvim/vimscript/vim-whichkey.vim')

@@ -1,11 +1,9 @@
 require'lspconfig'.intelephense.setup {
-	cmd = { DATA_PATH .. "/lspinstall/php/node_modules/.bin/intelephense", "--stdio" }, 
-    on_attach = require'lsp'.common_on_attach,
-
-	-- This doesn't work
-	defaule_config = {
+	cmd = { DATA_PATH .. "/lspinstall/php/node_modules/.bin/intelephense", "--stdio" },
+	default_config = {
 		init_options = {
-			licenceKey = "intelephense"
+			licenceKey = require('intelephense')
 		}
-	}
+	},
+    on_attach = require'lsp'.common_on_attach
 }
