@@ -19,6 +19,7 @@ require('vim-telescope')
 require('vim-floaterm')
 require('vim-startify')
 require('vim-lspkind')
+require('vim-windowswap')
 
 -- LSP
 require('lsp')

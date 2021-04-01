@@ -75,6 +75,9 @@ return require('packer').startup(function(use)
     -- Which key
     use 'liuchengxu/vim-which-key'
 
+	-- Swap windows
+	use 'wesQ3/vim-windowswap'
+
     -- Project Rooter
     use 'airblade/vim-rooter'
 
