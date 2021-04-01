@@ -1,7 +1,7 @@
-autoload/
-plugin/
+autoload/*
+plugin/*
 autoload/plugged/*
-session/
+session/*
 intelephense.lua
 package-lock.json
 package.json
