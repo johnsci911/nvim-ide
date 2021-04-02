@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/6580895/113461501-6dc6bb80-944f-11eb-92ab-a3f9a3557c70.png)
+
 ### Required Programs
 ```
 ranger
@@ -5,6 +7,7 @@ ueberzug
 ripgrep
 fzf
 lazygit
+intelephense - licence to make php code action work
 ```
 
 ### Install
@@ -18,9 +21,14 @@ lazygit
 * **Install node**
 `yay -S nodejs npm yarn`
 
+* **Intelephense Licence**
+Add your licence to your `$YOUR_HOME/intelephense/licence.txt`
+
 ### TODO
 
-- `rg` - to find files
-- `intelephense` - for php completion
-- Figure out how `nvim-lsp` works
+- Git gutter sometimes doesn't update
+- Bufferline exclusive buffers in window mode - maybe
+- Remove unused whichkey keymappings
 
+### Problems
+- LSPSAGA window sometimes feels not right
