@@ -59,7 +59,10 @@ let g:which_key_map.b = {
 " s = Search
 let g:which_key_map.s = {
     \ 'name' : '+search' ,
-    \ 't' : [':Telescope grep_string', 'Find text'],
+    \ 't' : [':Telescope live_grep'                                              , 'Find text in Project'],
+    \ 's' : [':Telescope grep_string'                                            , 'Find text in Project'],
+    \ 'b' : [':Telescope buffers'                                                , 'Find text in Project'],
+    \ 'f' : [':Telescope find_files find_command=rg,--ignore,--hidden,--files'   , 'search files'],
     \ }
 
 " S = Session

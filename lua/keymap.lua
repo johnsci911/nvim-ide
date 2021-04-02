@@ -53,8 +53,8 @@ vim.api.nvim_set_keymap('x', 'K', ':move \'<-2<CR>gv-gv', {noremap = true, silen
 vim.api.nvim_set_keymap('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silent = true})
 
 -- Better nav for omnicomplete
-vim.cmd('inoremap <expr> <c-j> (\"\\<C-n>\")')
-vim.cmd('inoremap <expr> <c-k> (\"\\<C-p>\")')
+-- vim.cmd('inoremap <expr> <c-j> (\"\\<C-n>\")')
+-- vim.cmd('inoremap <expr> <c-k> (\"\\<C-p>\")')
 
 -- Alternate way to save
 vim.cmd("nnoremap <silent> <C-s> :w<CR>")
@@ -62,9 +62,3 @@ vim.cmd("nnoremap <silent> <C-s> :w<CR>")
 vim.cmd("nnoremap <silent> <C-Q> :wq!<CR>")
 -- Use control-c instead of escape
 vim.cmd("nnoremap <silent> <C-c> <Esc>")
-
--- LSPSaga scroll
-vim.cmd([[
-  nnoremap <silent> <C-Down> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-  nnoremap <silent> <C-Up> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-]])
