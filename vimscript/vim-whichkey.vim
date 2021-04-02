@@ -29,7 +29,7 @@ let g:which_key_map[';'] = [ ':Dashboard'                                       
 let g:which_key_map['='] = [ '<C-W>='                                                          , 'balance windows']
 let g:which_key_map['e'] = [ ':NvimTreeToggle'                                                 , 'explorer']
 let g:which_key_map['?'] = [ ':NvimTreeFindFile'                                               , 'show current file']
-let g:which_key_map['d'] = [ ':BufferClose'                                                    , 'delete buffer']
+let g:which_key_map['d'] = [ ':Bdelete'                                                             , 'delete buffer']
 let g:which_key_map['h'] = [ '<C-W>s'                                                          , 'split below']
 let g:which_key_map['v'] = [ '<C-W>v'                                                          , 'split right']
 let g:which_key_map['W'] = [ 'w'                                                               , 'write' ]
@@ -48,12 +48,12 @@ let g:which_key_map.a = {
 " b = buffer
 let g:which_key_map.b = {
     \ 'name' : '+buffer'  ,
-    \ 'd'    : [':BufferClose'              , 'delete-buffer'],
-    \ 'D'    : [':BufferCloseAllButCurrent' , 'delete all but current'],
-    \ 's'    : ['Startify'                  , 'Startify'],
-    \ 'p'    : [':BufferPick'         		, 'Pick Buffer'],
-    \ 'h'    : [':BufferMovePrevious' 		, 'Move left'],
-    \ 'l'    : [':BufferMoveNext'     		, 'Move right'],
+    \ 'd'    : [':Bdelete'             , 'delete-buffer'],
+    \ 'D'    : [':BufOnly' 		       , 'delete all but current'],
+    \ 's'    : ['Startify'             , 'Startify'],
+    \ 'p'    : [':BufferLinePick'      , 'Pick Buffer'],
+    \ 'h'    : [':BufferLineMovePrev'  , 'Move left'],
+    \ 'l'    : [':BufferLineMoveNext'  , 'Move right'],
     \ }
 
 " s = Search

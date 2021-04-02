@@ -39,12 +39,14 @@ return require('packer').startup(function(use)
     use 'windwp/nvim-ts-autotag'
 
     -- Icons
-    use 'kyazdani42/nvim-web-devicons'
+    use 'kyazdani42/nvim-web-devicons' -- coloured icons
     use 'ryanoasis/vim-devicons'
 
     -- Status Line and Bufferline
     use 'glepnir/galaxyline.nvim'
-    use 'romgrk/barbar.nvim'
+    use 'akinsho/nvim-bufferline.lua'
+	use 'numtostr/BufOnly.nvim'
+	use 'moll/vim-bbye'
 
     -- Telescope
     use 'nvim-lua/popup.nvim'

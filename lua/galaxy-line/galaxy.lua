@@ -44,7 +44,7 @@ end
 -- Left side
 gls.left[1] = {
   FirstElement = {
-    provider = function() return '▋' end,
+    provider = function() return ' ' end,
     highlight = { colors.cyan, colors.section_bg }
   },
 }
@@ -64,8 +64,8 @@ gls.left[2] = {
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
-    separator = "  ",
-    separator_highlight = {colors.bg, colors.section_bg},
+    separator = " ",
+    separator_highlight = {colors.section_bg, colors.bg},
   },
 }
 gls.left[3] ={
@@ -77,7 +77,7 @@ gls.left[3] ={
 }
 gls.left[4] = {
   FileName = {
-    provider = { 'FileName', 'FileSize' },
+    provider = 'FileName',
     condition = buffer_not_empty,
     highlight = { colors.fg, colors.section_bg },
     separator = " ",
@@ -93,7 +93,14 @@ gls.left[5] = {
 }
 gls.left[6] = {
   GitBranch = {
-    provider = 'GitBranch',
+    provider = function()
+      local vcs = require('galaxyline.provider_vcs')
+      local branch_name = vcs.get_git_branch()
+      if (string.len(branch_name) > 28) then
+        return string.sub(branch_name, 1, 25).."..."
+      end
+      return branch_name .. " "
+    end,
     condition = buffer_not_empty,
     highlight = {colors.fg,colors.bg},
   }
@@ -119,7 +126,7 @@ gls.left[9] = {
     provider = 'DiffRemove',
     condition = checkwidth,
     icon = ' ',
-    highlight = { colors.red,colors.bg },
+    highlight = { colors.red,colors.bg }
   }
 }
 gls.left[10] = {
@@ -132,7 +139,7 @@ gls.left[10] = {
 gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
-    icon = '  ',
+    icon = '   ',
     highlight = {colors.red,colors.section_bg}
   }
 }
@@ -192,15 +199,15 @@ gls.right[3] = {
             return true
         end,
         highlight = {colors.blue,colors.section_bg},
-		separator = ' ',
-		separator_highlight = { colors.section_bg, colors.bg },
+		separator = ' | ',
+		separator_highlight = { colors.bg, colors.section_bg },
     }
 }
 
 
 gls.right[4] = {
   Heart = {
-    provider = function() return ' ' end,
+    provider = function() return '  ' end,
     highlight = { colors.red, colors.section_bg },
     separator = ' | ',
     separator_highlight = { colors.bg, colors.section_bg },
