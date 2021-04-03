@@ -17,7 +17,7 @@ vim.api.nvim_exec(
 )
 
 vim.api.nvim_exec(
-    'let startify_bookmarks = [{ \'w\': \'~/Documents/www\' },{ \'c\': \'~/.config/nvim/init.lua\' },{ \'z\': \'~/.zshrc\' },{ \'r\': \'~/.config/nvim/README.md\' }]',
+    'let startify_bookmarks = [{ \'w\': \'~/Documents/www/\' },{ \'c\': \'~/.config/nvim/init.lua\' },{ \'z\': \'~/.zshrc\' },{ \'r\': \'~/.config/nvim/README.md\' }]',
     true
 )
 

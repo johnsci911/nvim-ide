@@ -29,7 +29,7 @@ let g:which_key_map[';'] = [ ':Dashboard'                                       
 let g:which_key_map['='] = [ '<C-W>='                                                          , 'balance windows']
 let g:which_key_map['e'] = [ ':NvimTreeToggle'                                                 , 'explorer']
 let g:which_key_map['?'] = [ ':NvimTreeFindFile'                                               , 'show current file']
-let g:which_key_map['d'] = [ ':Bdelete'                                                             , 'delete buffer']
+let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
 let g:which_key_map['h'] = [ '<C-W>s'                                                          , 'split below']
 let g:which_key_map['v'] = [ '<C-W>v'                                                          , 'split right']
 let g:which_key_map['W'] = [ 'w'                                                               , 'write' ]
