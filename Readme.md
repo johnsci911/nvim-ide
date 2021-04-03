@@ -21,8 +21,8 @@ intelephense - licence to make php code action work
 * **Install node**
 `yay -S nodejs npm yarn`
 
-* **Intelephense Licence**
-Add your licence to your `$YOUR_HOME/intelephense/licence.txt`
+* **Intelephense**
+If you have premium add your licence to your `$YOUR_HOME/intelephense/licence.txt`
 
 ### TODO
 
