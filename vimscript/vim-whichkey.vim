@@ -41,8 +41,9 @@ let g:which_key_map['q'] = [ 'q'                                                
 " a = actions
 let g:which_key_map.a = {
     \ 'name' : '+actions' ,
-    \ 'c' : [':ColorizerToggle'         , 'colorizer'],
-    \ 's' : [':let @/ = ""'             , 'remove search highlight'],
+    \ 'c' : [':ColorizerToggle'       , 'colorizer'],
+    \ 's' : [':let @/ = ""'           , 'remove search highlight'],
+    \ 'm' : [':MarkdownPreviewToggle' , 'markdown preview'],
     \ }
 
 " b = buffer
