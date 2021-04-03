@@ -10,10 +10,12 @@ require'bufferline'.setup{
 		right_trunc_marker = '',
 		max_name_length = 18,
 		diagnostics = "nvim_lsp",
+		show_close_icon = false,
 		diagnostics_indicator = function(count, level)
 		    local icon = level:match("error") and " " or " "
 		    return " " .. icon .. count
 		end,
-		separator_style = "thin"
+		separator_style = "thin",
+		sort_by = 'relative_directory'
 	}
 }
