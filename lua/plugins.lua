@@ -9,8 +9,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
     execute 'packadd packer.nvim'
 end
 
-local my = function(file) require(file) end
-
 -- Autocompile when there's changes
 vim.cmd 'autocmd BufwritePost plugins.lua PackerCompile'
 
@@ -34,7 +32,7 @@ return require('packer').startup(function(use)
     use 'hrsh7th/nvim-compe'
     use 'mattn/emmet-vim'
     use 'andymass/vim-matchup'
-    
+
     -- Treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'p00f/nvim-ts-rainbow'
@@ -56,7 +54,7 @@ return require('packer').startup(function(use)
     use 'kyazdani42/nvim-tree.lua'
 
     -- Keymappings
-    use 'liuchengxu/vim-which-key' 
+    use 'liuchengxu/vim-which-key'
 
     -- Git
     use 'f-person/git-blame.nvim'
@@ -101,7 +99,7 @@ return require('packer').startup(function(use)
 
     -- Markdown Preview
     use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'}
-    
+
     -- Floating Terminal
     use 'voldikss/vim-floaterm'
 
@@ -109,5 +107,5 @@ return require('packer').startup(function(use)
     use 'terrortylor/nvim-comment'
 
     -- Project Rooter
-    use 'airblade/vim-rooter'
+    -- use 'airblade/vim-rooter'
 end)
