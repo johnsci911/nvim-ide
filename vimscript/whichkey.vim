@@ -25,6 +25,7 @@ let g:which_key_map['/'] = [ 'comment toggle'                                   
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                                                     , 'open init']
 let g:which_key_map[';'] = [ ':Commands'                                                       , 'commands']
 let g:which_key_map['='] = [ '<C-W>='                                                          , 'balance windows']
+let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
 let g:which_key_map['?'] = [ ':NvimTreeFindFile'                                               , 'find current file' ]
 let g:which_key_map['e'] = [ ':NvimTreeToggle'                                                 , 'explorer' ]
 let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
@@ -79,8 +80,8 @@ let g:which_key_map.b = {
     \ 'b'    : [':BufferLineSortByDirectory' , 'Sort buffers by directory'] ,
     \ }
 
-" d is for debug
-let g:which_key_map.d = {
+" D is for debug
+let g:which_key_map.D = {
     \ 'name' : '+debug' ,
     \ 'b' : ['DebugToggleBreakpoint '        , 'toggle breakpoint'],
     \ 'c' : ['DebugContinue'                 , 'continue'],

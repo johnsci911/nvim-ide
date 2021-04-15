@@ -12,4 +12,4 @@ virtual_text.toggle = function()
     )
 end
 
-return virtual_tex
+return virtual_text

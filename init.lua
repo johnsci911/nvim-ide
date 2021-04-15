@@ -29,6 +29,7 @@ require('config.nvim-hop')
 require('config.nvim-gitblame')
 require('config.nvim-lightbulb')
 require('config.nvim-indentline')
+require('config.nvim-neoscroll')
 
 -- LSP
 require('lsp')
@@ -46,3 +47,4 @@ require('lsp.tailwind')
 
 vim.cmd('source ~/.config/nvim/vimscript/startify.vim')
 vim.cmd('source ~/.config/nvim/vimscript/whichkey.vim')
+vim.cmd('source ~/.config/nvim/vimscript/easy-align.vim')
