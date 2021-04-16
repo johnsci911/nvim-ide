@@ -73,7 +73,7 @@ let g:which_key_map.b = {
     \ 'name' : '+buffer'  ,
     \ 'd'    : [':BufferClose'            , 'delete-buffer'],
     \ 'D'    : [':BufOnly'                , 'close all but current'],
-    \ 's'    : ['Startify'                , 'Startify'],
+    \ 's'    : [':Dashboard'              , 'Dashboard'],
     \ 'p'    : [':BufferPick'             , 'Pick Buffer'],
     \ 'h'    : [':BufferMovePrevious'     , 'Move left'],
     \ 'l'    : [':BufferMoveNext'         , 'Move right'],
@@ -128,11 +128,11 @@ let g:which_key_map.s = {
 " S = Session
 let g:which_key_map.S = {
     \ 'name' : '+Session',
-    \ 'c' : [':SClose'   , 'Close Session'],
-    \ 'd' : [':SDelete'  , 'Delete Session'],
-    \ 'l' : [':SLoad'    , 'Load Session'],
-    \ 's' : [':Startify' , 'Start Page'],
-    \ 'S' : [':SSave'    , 'Save Session'],
+    \ 'c' : [':SClose'    , 'Close Session'],
+    \ 'd' : [':SDelete'   , 'Delete Session'],
+    \ 'l' : [':SLoad'     , 'Load Session'],
+    \ 's' : [':Dashboard' , 'Dashboard'],
+    \ 'S' : [':SSave'     , 'Save Session'],
     \ }
 
 " g is for git

@@ -89,7 +89,7 @@ return require('packer').startup(function(use)
     use 'junegunn/vim-easy-align'
 
     -- Start Screen
-    use 'mhinz/vim-startify'
+	use 'glepnir/dashboard-nvim'
 
     -- Close buffer
     use 'moll/vim-bbye'

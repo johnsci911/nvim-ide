@@ -1,19 +1,14 @@
 require('plugins')
 require('globals')
 require('keymaps')
-require('config.nvim-galaxyline')
 require('settings')
-
--- Load Theme
-vim.cmd('source ~/.config/nvim/vimscript/theme.vim')
+require('theme')
 
 -- Plugins
 require('config.compe')
 require('config.colorizer')
 require('config.nvim-tree')
 require('config.nvim-treesitter')
--- require('config.nvim-bufferline')
-require('config.nvim-barbar')
 require('config.nvim-emmet')
 require('config.nvim-quickscope')
 require('config.nvim-gitsigns')
@@ -29,6 +24,9 @@ require('config.nvim-gitblame')
 require('config.nvim-lightbulb')
 require('config.nvim-indentline')
 require('config.nvim-neoscroll')
+require('config.nvim-dashboard')
+require('config.nvim-galaxyline')
+require('config.nvim-barbar')
 
 -- LSP
 require('lsp')
@@ -46,7 +44,7 @@ require('lsp.tailwind')
 require('lsp.vls')
 require('lsp.vue')
 
-vim.cmd('source ~/.config/nvim/vimscript/startify.vim')
+-- Vim scripts
 vim.cmd('source ~/.config/nvim/vimscript/whichkey.vim')
 vim.cmd('source ~/.config/nvim/vimscript/easy-align.vim')
 vim.cmd('source ~/.config/nvim/vimscript/BufOnly.vim')
