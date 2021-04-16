@@ -71,13 +71,13 @@ let g:which_key_map.a = {
 " b = buffer
 let g:which_key_map.b = {
     \ 'name' : '+buffer'  ,
-    \ 'd'    : [':BufferClose'               , 'delete-buffer'],
-    \ 'D'    : [':BufferCloseAllButCurrent'  , 'close all but current'],
-    \ 's'    : ['Startify'                   , 'Startify'],
-    \ 'p'    : [':BufferPick'                , 'Pick Buffer'],
-    \ 'h'    : [':BufferMovePrevious'        , 'Move left'],
-    \ 'l'    : [':BufferMoveNext'            , 'Move right'],
-    \ 'b'    : [':BufferOrderByDirectory'    , 'Order buffers by directory'],
+    \ 'd'    : [':BufferClose'            , 'delete-buffer'],
+    \ 'D'    : [':BufOnly'                , 'close all but current'],
+    \ 's'    : ['Startify'                , 'Startify'],
+    \ 'p'    : [':BufferPick'             , 'Pick Buffer'],
+    \ 'h'    : [':BufferMovePrevious'     , 'Move left'],
+    \ 'l'    : [':BufferMoveNext'         , 'Move right'],
+    \ 'b'    : [':BufferOrderByDirectory' , 'Order buffers by directory'],
     \ }
 
 " D is for debug
