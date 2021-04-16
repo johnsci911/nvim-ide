@@ -20,3 +20,4 @@
 #### TODO
 * Auto install LSPs
 * Improve Keybindings along the way
+* nvimtree is adding empty buffer when opening

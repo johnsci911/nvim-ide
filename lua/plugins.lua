@@ -30,6 +30,7 @@ return require('packer').startup(function(use)
 
     -- Autocomplete
     use 'hrsh7th/nvim-compe'
+	use 'hrsh7th/vim-vsnip'
     use 'mattn/emmet-vim'
     use 'andymass/vim-matchup'
 
@@ -47,11 +48,8 @@ return require('packer').startup(function(use)
     use 'ryanoasis/vim-devicons'
 
     -- Status Line and Bufferline
-    use { 'glepnir/galaxyline.nvim' }
-    use 'akinsho/nvim-bufferline.lua'
-
-    -- Explorer
-    use 'kyazdani42/nvim-tree.lua'
+    use 'glepnir/galaxyline.nvim'
+	use 'romgrk/barbar.nvim'
 
     -- Keymappings
     use 'liuchengxu/vim-which-key'
@@ -86,8 +84,8 @@ return require('packer').startup(function(use)
     -- Navigation
     use 'unblevable/quick-scope' -- hop may replace you
     use 'phaazon/hop.nvim'
-    use 'kevinhwang91/rnvimr'
     use 'nacro90/numb.nvim'
+    use 'kyazdani42/nvim-tree.lua' -- This will become a file navigation
 
     -- Better Align
     use 'junegunn/vim-easy-align'
@@ -108,5 +106,5 @@ return require('packer').startup(function(use)
     use 'terrortylor/nvim-comment'
 
     -- Project Rooter
-    -- use 'airblade/vim-rooter'
+    use 'airblade/vim-rooter'
 end)
