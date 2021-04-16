@@ -75,8 +75,6 @@ return require('packer').startup(function(use)
 
     -- Themes
     use 'drewtempelmeyer/palenight.vim'
-    use 'sainnhe/sonokai'
-	use 'sainnhe/gruvbox-material'
 
     -- Easy Scroll
     use 'karb94/neoscroll.nvim'
