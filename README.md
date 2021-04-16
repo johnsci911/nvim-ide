@@ -22,3 +22,4 @@
 * Auto install LSPs
 * Improve Keybindings along the way
 * nvimtree is adding empty buffer when opening
+* Session loading because **Dashboard** is still WIP
