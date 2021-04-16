@@ -31,8 +31,8 @@ function! StartifyEntryFormat()
     endfunction
 
 let g:startify_bookmarks = [
-    \ { 'c': '~/.config/nvim' },
-    \ { 'i': '~/.config/nvim/init.vim' },
-    \ { 'z': '~/.zshrc' },
-    \ { 'w': '~/Documents/www' },
+    \ { 'c': 'nvim ~/.config/nvim' },
+    \ { 'i': 'nvim ~/.config/nvim/init.vim' },
+    \ { 'z': 'nvim ~/.zshrc' },
+    \ { 'w': 'nvim ~/Documents/www' },
     \ ]

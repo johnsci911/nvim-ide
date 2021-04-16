@@ -15,7 +15,8 @@
 * tailwind
 * vim
 * yaml
-* ~~vue~~
+* vue
+* vls
 
 #### TODO
 * Auto install LSPs
