@@ -30,6 +30,7 @@ let g:which_key_map['?'] = [ ':NvimTreeFindFile'                                
 let g:which_key_map['e'] = [ ':NvimTreeToggle'                                                 , 'Explorer' ]
 let g:which_key_map['E'] = [ ':NvimTreeRefresh'                                                , 'Refresh explorer' ]
 let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
+let g:which_key_map['r'] = [ ':Telescope file_browser'                                         , 'File Browser']
 let g:which_key_map['h'] = [ '<C-W>s'                                                          , 'split below']
 let g:which_key_map['v'] = [ '<C-W>v'                                                          , 'split right']
 let g:which_key_map['W'] = [ 'w'                                                               , 'write' ]
@@ -121,7 +122,7 @@ let g:which_key_map.s = {
     \ 'o' : [':Telescope vim_options'               , 'vim_options'],
     \ 't' : [':Telescope live_grep'                 , 'text'],
     \ 'r' : [':Telescope registers'                 , 'registers'],
-    \ 'w' : [':Telescope file_browser'              , 'buf_fuz_find'],
+    \ 'w' : [':Telescope file_browser'              , 'File Browser'],
     \ 'u' : [':Telescope colorscheme'               , 'colorschemes'],
     \ }
 
