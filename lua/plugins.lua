@@ -75,6 +75,7 @@ return require('packer').startup(function(use)
 
     -- Themes
     use 'drewtempelmeyer/palenight.vim'
+	use 'folke/tokyonight.nvim'
 
     -- Easy Scroll
     use 'karb94/neoscroll.nvim'
