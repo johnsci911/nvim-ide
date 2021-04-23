@@ -28,6 +28,7 @@ require('config.nvim-dashboard')
 require('config.nvim-galaxyline')
 require('config.nvim-barbar')
 require('config.nvim-lsp-trouble')
+require('config.nvim-reloader')
 
 -- LSP
 require('lsp')

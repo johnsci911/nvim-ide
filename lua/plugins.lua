@@ -107,4 +107,7 @@ return require('packer').startup(function(use)
 
     -- Project Rooter
     use 'airblade/vim-rooter'
+
+	-- Config Reloader
+	use 'famiu/nvim-reload'
 end)
