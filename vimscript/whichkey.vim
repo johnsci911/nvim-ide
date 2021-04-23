@@ -43,23 +43,23 @@ let g:which_key_map['q'] = [ 'q'                                                
 
 " . is for emmet
 let g:which_key_map['.'] = {
-      \ 'name' : '+emmet' ,
-      \ ',' : ['<Plug>(emmet-expand-abbr)'         , 'expand abbr'],
-      \ ';' : ['<plug>(emmet-expand-word)'         , 'expand word'],
-      \ 'u' : ['<plug>(emmet-update-tag)'          , 'update tag'],
-      \ 'd' : ['<plug>(emmet-balance-tag-inward)'  , 'balance tag in'],
-      \ 'D' : ['<plug>(emmet-balance-tag-outward)' , 'balance tag out'],
-      \ 'n' : ['<plug>(emmet-move-next)'           , 'move next'],
-      \ 'N' : ['<plug>(emmet-move-prev)'           , 'move prev'],
-      \ 'i' : ['<plug>(emmet-image-size)'          , 'image size'],
-      \ '/' : ['<plug>(emmet-toggle-comment)'      , 'toggle comment'],
-      \ 'j' : ['<plug>(emmet-split-join-tag)'      , 'split join tag'],
-      \ 'k' : ['<plug>(emmet-remove-tag)'          , 'remove tag'],
-      \ 'a' : ['<plug>(emmet-anchorize-url)'       , 'anchorize url'],
-      \ 'A' : ['<plug>(emmet-anchorize-summary)'   , 'anchorize summary'],
-      \ 'm' : ['<plug>(emmet-merge-lines)'         , 'merge lines'],
-      \ 'c' : ['<plug>(emmet-code-pretty)'         , 'code pretty'],
-      \ }
+    \ 'name' : '+emmet' ,
+    \ ',' : ['<Plug>(emmet-expand-abbr)'         , 'expand abbr'],
+    \ ';' : ['<plug>(emmet-expand-word)'         , 'expand word'],
+    \ 'u' : ['<plug>(emmet-update-tag)'          , 'update tag'],
+    \ 'd' : ['<plug>(emmet-balance-tag-inward)'  , 'balance tag in'],
+    \ 'D' : ['<plug>(emmet-balance-tag-outward)' , 'balance tag out'],
+    \ 'n' : ['<plug>(emmet-move-next)'           , 'move next'],
+    \ 'N' : ['<plug>(emmet-move-prev)'           , 'move prev'],
+    \ 'i' : ['<plug>(emmet-image-size)'          , 'image size'],
+    \ '/' : ['<plug>(emmet-toggle-comment)'      , 'toggle comment'],
+    \ 'j' : ['<plug>(emmet-split-join-tag)'      , 'split join tag'],
+    \ 'k' : ['<plug>(emmet-remove-tag)'          , 'remove tag'],
+    \ 'a' : ['<plug>(emmet-anchorize-url)'       , 'anchorize url'],
+    \ 'A' : ['<plug>(emmet-anchorize-summary)'   , 'anchorize summary'],
+    \ 'm' : ['<plug>(emmet-merge-lines)'         , 'merge lines'],
+    \ 'c' : ['<plug>(emmet-code-pretty)'         , 'code pretty'],
+    \ }
 
 " a = actions
 let g:which_key_map.a = {
@@ -140,54 +140,54 @@ let g:which_key_map.S = {
 
 " g is for git
 let g:which_key_map.g = {
-      \ 'name' : '+git' ,
-      \ 'b' : [':GitBlameToggle' , 'blame'],
-      \ 'B' : [':GBrowse'        , 'browse'],
-      \ 'd' : [':Git diff'       , 'diff'],
-      \ 'j' : [':NextHunk'       , 'next hunk'],
-      \ 'k' : [':PrevHunk'       , 'prev hunk'],
-      \ 'l' : [':Git log'        , 'log'],
-      \ 'p' : [':PreviewHunk'    , 'preview hunk'],
-      \ 'r' : [':ResetHunk'      , 'reset hunk'],
-      \ 'R' : [':ResetBuffer'    , 'reset buffer'],
-      \ 's' : [':StageHunk'      , 'stage hunk'],
-      \ 'S' : [':Gstatus'        , 'status'],
-      \ 'u' : [':UndoStageHunk'  , 'undo stage hunk'],
-      \ }
+    \ 'name' : '+git' ,
+    \ 'b' : [':GitBlameToggle' , 'blame'],
+    \ 'B' : [':GBrowse'        , 'browse'],
+    \ 'd' : [':Git diff'       , 'diff'],
+    \ 'j' : [':NextHunk'       , 'next hunk'],
+    \ 'k' : [':PrevHunk'       , 'prev hunk'],
+    \ 'l' : [':Git log'        , 'log'],
+    \ 'p' : [':PreviewHunk'    , 'preview hunk'],
+    \ 'r' : [':ResetHunk'      , 'reset hunk'],
+    \ 'R' : [':ResetBuffer'    , 'reset buffer'],
+    \ 's' : [':StageHunk'      , 'stage hunk'],
+    \ 'S' : [':Gstatus'        , 'status'],
+    \ 'u' : [':UndoStageHunk'  , 'undo stage hunk'],
+    \ }
 
 " G is for gist
 let g:which_key_map.G = {
-      \ 'name' : '+gist' ,
-      \ 'b' : [':Gist -b'  , 'post gist browser'],
-      \ 'd' : [':Gist -d'  , 'delete gist'],
-      \ 'e' : [':Gist -e'  , 'edit gist'],
-      \ 'l' : [':Gist -l'  , 'list public gists'],
-      \ 's' : [':Gist -ls' , 'list starred gists'],
-      \ 'm' : [':Gist -m'  , 'post gist all buffers'],
-      \ 'p' : [':Gist -P'  , 'post public gist '],
-      \ 'P' : [':Gist -p'  , 'post private gist '],
-      \ }
+    \ 'name' : '+gist' ,
+    \ 'b' : [':Gist -b'  , 'post gist browser'],
+    \ 'd' : [':Gist -d'  , 'delete gist'],
+    \ 'e' : [':Gist -e'  , 'edit gist'],
+    \ 'l' : [':Gist -l'  , 'list public gists'],
+    \ 's' : [':Gist -ls' , 'list starred gists'],
+    \ 'm' : [':Gist -m'  , 'post gist all buffers'],
+    \ 'p' : [':Gist -P'  , 'post public gist '],
+    \ 'P' : [':Gist -p'  , 'post private gist '],
+    \ }
 
 " l is for language server protocol
 let g:which_key_map.l = {
-      \ 'name' : '+lsp' ,
-      \ 'a' : [':Lspsaga code_action'                 , 'code action'],
-      \ 'A' : [':Lspsaga range_code_action'           , 'selected action'],
-      \ 'd' : [':Telescope lsp_document_diagnostics'  , 'document diagnostics'],
-      \ 'D' : [':Telescope lsp_workspace_diagnostics' , 'workspace diagnostics'],
-      \ 'f' : [':LspFormatting'                       , 'format'],
-      \ 'I' : [':LspInfo'                             , 'lsp info'],
-      \ 'v' : [':LspVirtualTextToggle'                , 'lsp toggle virtual text'],
-      \ 'l' : [':Lspsaga lsp_finder'                  , 'lsp finder'],
-      \ 'L' : [':Lspsaga show_line_diagnostics'       , 'line_diagnostics'],
-      \ 'p' : [':Lspsaga preview_definition'          , 'preview definition'],
-      \ 'q' : [':Telescope quickfix'                  , 'quickfix'],
-      \ 'r' : [':Lspsaga rename'                      , 'rename'],
-      \ 'T' : [':LspTypeDefinition'                   , 'type defintion'],
-      \ 'x' : [':cclose'                              , 'close quickfix'],
-      \ 's' : [':Telescope lsp_document_symbols'      , 'document symbols'],
-      \ 'S' : [':Telescope lsp_workspace_symbols'     , 'workspace symbols'],
-      \ }
+    \ 'name' : '+lsp' ,
+    \ 'a' : [':Lspsaga code_action'                 , 'code action'],
+    \ 'A' : [':Lspsaga range_code_action'           , 'selected action'],
+    \ 'd' : [':Telescope lsp_document_diagnostics'  , 'document diagnostics'],
+    \ 'D' : [':Telescope lsp_workspace_diagnostics' , 'workspace diagnostics'],
+    \ 'f' : [':LspFormatting'                       , 'format'],
+    \ 'I' : [':LspInfo'                             , 'lsp info'],
+    \ 'v' : [':LspVirtualTextToggle'                , 'lsp toggle virtual text'],
+    \ 'L' : [':Lspsaga show_line_diagnostics'       , 'line_diagnostics'],
+    \ 'p' : [':Lspsaga preview_definition'          , 'preview definition'],
+    \ 'q' : [':Telescope quickfix'                  , 'quickfix'],
+    \ 'r' : [':Lspsaga rename'                      , 'rename'],
+    \ 'T' : [':LspTypeDefinition'                   , 'type defintion'],
+    \ 'x' : [':cclose'                              , 'close quickfix'],
+    \ 's' : [':Telescope lsp_document_symbols'      , 'document symbols'],
+    \ 'S' : [':Telescope lsp_workspace_symbols'     , 'workspace symbols'],
+	\ 'l' : [':LspTroubleToggle'                    , 'Lsp Trouble toggle'],
+    \ }
 
 " t = Terminal
 let g:which_key_map.t = {

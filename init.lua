@@ -27,6 +27,7 @@ require('config.nvim-neoscroll')
 require('config.nvim-dashboard')
 require('config.nvim-galaxyline')
 require('config.nvim-barbar')
+require('config.nvim-lsp-trouble')
 
 -- LSP
 require('lsp')
