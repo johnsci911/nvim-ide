@@ -37,10 +37,10 @@ vim.cmd([[
 -- TODO fix this
 -- resize with arrows
 vim.cmd([[
-  nnoremap <silent> <M-k>    :resize -2<CR>
-  nnoremap <silent> <M-j>  :resize +2<CR>
-  nnoremap <silent> <M-h>  :vertical resize -2<CR>
-  nnoremap <silent> <M-l> :vertical resize +2<CR>
+  nnoremap <silent> <M-k> : resize -2<CR>
+  nnoremap <silent> <M-j> : resize +2<CR>
+  nnoremap <silent> <M-h> : vertical resize -2<CR>
+  nnoremap <silent> <M-l> : vertical resize +2<CR>
 ]])
 
 -- better indenting
