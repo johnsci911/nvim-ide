@@ -108,6 +108,9 @@ return require('packer').startup(function(use)
     -- Project Rooter
     use 'airblade/vim-rooter'
 
+	-- Laravel Blade
+	use 'jwalton512/vim-blade'
+
 	-- Config Reloader
 	use 'famiu/nvim-reload'
 end)

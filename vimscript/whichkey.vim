@@ -21,15 +21,14 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
-let g:which_key_map['/'] = [ 'comment toggle'                                                  , 'comment']
+let g:which_key_map['/'] = [ ':CommentToggle'                                                  , 'comment']
 let g:which_key_map['.'] = [ ':e $MYVIMRC'                                                     , 'open init']
 let g:which_key_map[';'] = [ ':Commands'                                                       , 'commands']
 let g:which_key_map['='] = [ '<C-W>='                                                          , 'balance windows']
-let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
+let g:which_key_map['d'] = [ ':BufferClose'                                                    , 'delete buffer']
 let g:which_key_map['?'] = [ ':NvimTreeFindFile'                                               , 'find current file' ]
 let g:which_key_map['e'] = [ ':NvimTreeToggle'                                                 , 'Explorer' ]
 let g:which_key_map['E'] = [ ':NvimTreeRefresh'                                                , 'Refresh explorer' ]
-let g:which_key_map['d'] = [ ':Bdelete'                                                        , 'delete buffer']
 let g:which_key_map['r'] = [ ':Telescope file_browser'                                         , 'File Browser']
 let g:which_key_map['R'] = [ ':Telescope file_browser theme=get_dropdown'                      , 'File Browser']
 let g:which_key_map['h'] = [ '<C-W>s'                                                          , 'split below']
@@ -75,13 +74,15 @@ let g:which_key_map.a = {
 " b = buffer
 let g:which_key_map.b = {
     \ 'name' : '+buffer'  ,
-    \ 'd'    : [':BufferClose'            , 'delete-buffer'],
-    \ 'D'    : [':BufOnly'                , 'close all but current'],
-    \ 's'    : [':Dashboard'              , 'Dashboard'],
-    \ 'p'    : [':BufferPick'             , 'Pick Buffer'],
-    \ 'h'    : [':BufferMovePrevious'     , 'Move left'],
-    \ 'l'    : [':BufferMoveNext'         , 'Move right'],
-    \ 'b'    : [':BufferOrderByDirectory' , 'Order buffers by directory'],
+    \ 'd'    : [':BufferClose'              , 'delete-buffer'],
+    \ 'D'    : [':BufferCloseAllButCurrent' , 'close all but current'],
+    \ 's'    : [':Dashboard'                , 'Dashboard'],
+    \ 'p'    : [':BufferPick'               , 'Pick Buffer'],
+    \ 'h'    : [':BufferMovePrevious'       , 'Move left'],
+    \ 'l'    : [':BufferMoveNext'           , 'Move right'],
+    \ 'b'    : [':BufferOrderByDirectory'   , 'Order buffers by directory'],
+    \ 'L'    : [':BufferCloseBuffersRight'  , 'Close all buffer on right'],
+    \ 'H'    : [':BufferCloseBuffersLeft'   , 'Close all buffer on left'],
     \ }
 
 " D is for debug
@@ -133,11 +134,9 @@ let g:which_key_map.s = {
 " S = Session
 let g:which_key_map.S = {
     \ 'name' : '+Session',
-    \ 'c' : [':SClose'    , 'Close Session'],
-    \ 'd' : [':SDelete'   , 'Delete Session'],
-    \ 'l' : [':SLoad'     , 'Load Session'],
-    \ 's' : [':Dashboard' , 'Dashboard'],
-    \ 'S' : [':SSave'     , 'Save Session'],
+    \ 's' : [':Dashboard'   , 'Dashboard'],
+    \ 'S' : [':SessionSave' , 'Save Session'],
+	\ 'L' : [':SessionLoad' , 'Session Load'],
     \ }
 
 " g is for git
@@ -172,7 +171,7 @@ let g:which_key_map.G = {
 
 " l is for language server protocol
 let g:which_key_map.l = {
-    \ 'name' : '+lsp' ,
+    \ 'name' : '+lsp',
     \ 'a' : [':Lspsaga code_action'                 , 'code action'],
     \ 'A' : [':Lspsaga range_code_action'           , 'selected action'],
     \ 'd' : [':Telescope lsp_document_diagnostics'  , 'document diagnostics'],

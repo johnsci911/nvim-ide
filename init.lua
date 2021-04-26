@@ -29,6 +29,7 @@ require('config.nvim-galaxyline')
 require('config.nvim-barbar')
 require('config.nvim-lsp-trouble')
 require('config.nvim-reloader')
+require('config.nvim-easyalign')
 
 -- LSP
 require('lsp')
@@ -48,5 +49,3 @@ require('lsp.vue')
 
 -- Vim scripts
 vim.cmd('source ~/.config/nvim/vimscript/whichkey.vim')
-vim.cmd('source ~/.config/nvim/vimscript/easy-align.vim')
-vim.cmd('source ~/.config/nvim/vimscript/BufOnly.vim')
