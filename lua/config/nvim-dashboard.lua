@@ -17,5 +17,5 @@ vim.g.dashboard_custom_section = {
     -- e = {description = {'  Marks              '}, command = 'Telescope marks'}
 }
 
-vim.g.dashboard_session_directory = '~/.cache/nvim/session'
+-- vim.g.dashboard_session_directory = '~/.cache/nvim/session'
 vim.g.dashboard_custom_footer = {'Neovim Lua'}
