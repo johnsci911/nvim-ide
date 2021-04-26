@@ -134,9 +134,7 @@ let g:which_key_map.s = {
 " S = Session
 let g:which_key_map.S = {
     \ 'name' : '+Session',
-    \ 's' : [':Dashboard'   , 'Dashboard'],
-    \ 'S' : [':SessionSave' , 'Save Session'],
-	\ 'L' : [':SessionLoad' , 'Session Load'],
+    \ 's' : [':Dashboard'   , 'Dashboard'], 
     \ }
 
 " g is for git
