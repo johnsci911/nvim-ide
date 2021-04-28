@@ -39,7 +39,7 @@ let g:which_key_map['p'] = [ ':Telescope find_files find_command=rg,--ignore,--h
 let g:which_key_map['q'] = [ 'q'                                                               , 'quit']
 let g:which_key_map['o'] = [ ':Reload'                                                         , 'Reload Config']
 let g:which_key_map['O'] = [ ':Restart'                                                        , 'Restart config']
-let g:which_key_map['T'] = [ ':retab'                                                          , 'Convert tab to space']
+let g:which_key_map['T'] = [ ':set expandtab | :retab'                                         , 'Convert tab to space']
 
 " Group mappings
 
