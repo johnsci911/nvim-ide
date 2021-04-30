@@ -126,7 +126,6 @@ let g:which_key_map.s = {
     \ 'M' : [':Telescope man_pages'                 , 'man_pages'],
     \ 'o' : [':Telescope vim_options'               , 'vim_options'],
     \ 't' : [':Telescope live_grep'                 , 'text'],
-    \ 'r' : [':Telescope registers'                 , 'registers'],
     \ 'w' : [':Telescope file_browser'              , 'File Browser'],
     \ 'u' : [':Telescope colorscheme'               , 'colorschemes'],
     \ }
@@ -141,30 +140,6 @@ let g:which_key_map.S = {
 let g:which_key_map.g = {
     \ 'name' : '+git' ,
     \ 'b' : [':GitBlameToggle' , 'blame'],
-    \ 'B' : [':GBrowse'        , 'browse'],
-    \ 'd' : [':Git diff'       , 'diff'],
-    \ 'j' : [':NextHunk'       , 'next hunk'],
-    \ 'k' : [':PrevHunk'       , 'prev hunk'],
-    \ 'l' : [':Git log'        , 'log'],
-    \ 'p' : [':PreviewHunk'    , 'preview hunk'],
-    \ 'r' : [':ResetHunk'      , 'reset hunk'],
-    \ 'R' : [':ResetBuffer'    , 'reset buffer'],
-    \ 's' : [':StageHunk'      , 'stage hunk'],
-    \ 'S' : [':Gstatus'        , 'status'],
-    \ 'u' : [':UndoStageHunk'  , 'undo stage hunk'],
-    \ }
-
-" G is for gist
-let g:which_key_map.G = {
-    \ 'name' : '+gist' ,
-    \ 'b' : [':Gist -b'  , 'post gist browser'],
-    \ 'd' : [':Gist -d'  , 'delete gist'],
-    \ 'e' : [':Gist -e'  , 'edit gist'],
-    \ 'l' : [':Gist -l'  , 'list public gists'],
-    \ 's' : [':Gist -ls' , 'list starred gists'],
-    \ 'm' : [':Gist -m'  , 'post gist all buffers'],
-    \ 'p' : [':Gist -P'  , 'post public gist '],
-    \ 'P' : [':Gist -p'  , 'post private gist '],
     \ }
 
 " l is for language server protocol
@@ -185,7 +160,7 @@ let g:which_key_map.l = {
     \ 'x' : [':cclose'                              , 'close quickfix'],
     \ 's' : [':Telescope lsp_document_symbols'      , 'document symbols'],
     \ 'S' : [':Telescope lsp_workspace_symbols'     , 'workspace symbols'],
-	\ 'l' : [':LspTroubleToggle'                    , 'Lsp Trouble toggle'],
+    \ 'l' : [':LspTroubleToggle'                    , 'Lsp Trouble toggle'],
     \ }
 
 " t = Terminal
