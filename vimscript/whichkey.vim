@@ -61,6 +61,8 @@ let g:which_key_map['.'] = {
     \ 'A' : ['<plug>(emmet-anchorize-summary)'   , 'anchorize summary'],
     \ 'm' : ['<plug>(emmet-merge-lines)'         , 'merge lines'],
     \ 'c' : ['<plug>(emmet-code-pretty)'         , 'code pretty'],
+    \ 't' : [':TSBufDisable'                     , 'Treesitter disable current buffer'],
+    \ 'T' : [':TSBufEnable'                      , 'Treesitter enable current buffer']
     \ }
 
 " a = actions

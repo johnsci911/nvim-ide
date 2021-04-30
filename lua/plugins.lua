@@ -24,14 +24,14 @@ return require('packer').startup(function(use)
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
     use 'kabouzeid/nvim-lspinstall'
-	  use 'folke/lsp-trouble.nvim'
+    use 'folke/lsp-trouble.nvim'
 
     -- Debug
     use 'mfussenegger/nvim-dap'
 
     -- Autocomplete
     use 'hrsh7th/nvim-compe'
-	  use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip'
     use 'mattn/emmet-vim'
     use 'andymass/vim-matchup'
 
@@ -50,7 +50,7 @@ return require('packer').startup(function(use)
 
     -- Status Line and Bufferline
     use 'glepnir/galaxyline.nvim'
-	  use 'romgrk/barbar.nvim'
+    use 'romgrk/barbar.nvim'
 
     -- Keymappings
     use 'liuchengxu/vim-which-key'
@@ -76,7 +76,7 @@ return require('packer').startup(function(use)
 
     -- Themes
     use 'drewtempelmeyer/palenight.vim'
-	  use 'folke/tokyonight.nvim'
+    use 'folke/tokyonight.nvim'
 
     -- Easy Scroll
     use 'karb94/neoscroll.nvim'
@@ -91,7 +91,7 @@ return require('packer').startup(function(use)
     use 'junegunn/vim-easy-align'
 
     -- Start Screen
-	  use 'glepnir/dashboard-nvim'
+    use 'glepnir/dashboard-nvim'
 
     -- Close buffer
     use 'moll/vim-bbye'
@@ -108,6 +108,9 @@ return require('packer').startup(function(use)
     -- Project Rooter
     use 'airblade/vim-rooter'
 
-	-- Config Reloader
-	use 'famiu/nvim-reload'
+    -- Config Reloader
+    use 'famiu/nvim-reload'
+
+    -- Laravel
+    use 'jwalton512/vim-blade'
 end)
