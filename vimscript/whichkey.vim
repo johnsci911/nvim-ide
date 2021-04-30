@@ -116,8 +116,7 @@ let g:which_key_map.F = {
 let g:which_key_map.s = {
     \ 'name' : '+search' ,
     \ '.' : [':Telescope filetypes'                 , 'filetypes'],
-    \ 'B' : [':Telescope git_branches'              , 'git branches'],
-    \ 'b' : [':Telescope buffers'                   , 'git branches'],
+    \ 'b' : [':Telescope buffers'                   , 'Buffers'],
     \ 'd' : [':Telescope lsp_document_diagnostics'  , 'document_diagnostics'],
     \ 'D' : [':Telescope lsp_workspace_diagnostics' , 'workspace_diagnostics'],
     \ 'f' : [':Telescope find_files'                , 'files'],
