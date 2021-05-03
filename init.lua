@@ -43,7 +43,6 @@ require('lsp.virtual-text')
 require('lsp.yaml')
 require('lsp.html')
 require('lsp.css')
-require('lsp.tailwind')
 require('lsp.vls')
 require('lsp.vue')
 

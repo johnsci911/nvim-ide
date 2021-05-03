@@ -142,6 +142,8 @@ let g:which_key_map.S = {
 let g:which_key_map.g = {
     \ 'name' : '+git' ,
     \ 'b' : [':GitBlameToggle' , 'blame'],
+    \ 'd' : [':DiffviewOpen'   , 'Diff view'],
+    \ 'D' : [':DiffviewClose'  , 'Diff view close']
     \ }
 
 " l is for language server protocol

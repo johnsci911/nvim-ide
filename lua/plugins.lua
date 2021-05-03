@@ -59,6 +59,7 @@ return require('packer').startup(function(use)
     use 'f-person/git-blame.nvim'
     use 'lewis6991/gitsigns.nvim'
     use 'kdheepak/lazygit.nvim'
+    use 'sindrets/diffview.nvim'
 
     -- Swap windows
     use 'wesQ3/vim-windowswap'
