@@ -154,7 +154,6 @@ let g:which_key_map.l = {
     \ 'd' : [':Telescope lsp_document_diagnostics'  , 'document diagnostics'],
     \ 'D' : [':Telescope lsp_workspace_diagnostics' , 'workspace diagnostics'],
     \ 'f' : [':LspFormatting'                       , 'format'],
-    \ 'I' : [':LspInfo'                             , 'lsp info'],
     \ 'v' : [':LspVirtualTextToggle'                , 'lsp toggle virtual text'],
     \ 'L' : [':Lspsaga show_line_diagnostics'       , 'line_diagnostics'],
     \ 'p' : [':Lspsaga preview_definition'          , 'preview definition'],
