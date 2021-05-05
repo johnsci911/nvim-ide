@@ -117,11 +117,12 @@ let g:which_key_map.F = {
 " s is for search powered by telescope
 let g:which_key_map.s = {
     \ 'name' : '+search' ,
-    \ '.' : [':Telescope filetypes'                 , 'filetypes'],
     \ 'b' : [':Telescope buffers'                   , 'Buffers'],
+    \ '.' : [':Telescope filetypes'                 , 'filetypes'],
     \ 'd' : [':Telescope lsp_document_diagnostics'  , 'document_diagnostics'],
     \ 'D' : [':Telescope lsp_workspace_diagnostics' , 'workspace_diagnostics'],
     \ 'f' : [':Telescope find_files'                , 'files'],
+    \ 'F' : [':Telescope current_buffer_fuzzy_find' , 'files'],
     \ 'h' : [':Telescope command_history'           , 'history'],
     \ 'i' : [':Telescope media_files'               , 'media files'],
     \ 'm' : [':Telescope marks'                     , 'marks'],
