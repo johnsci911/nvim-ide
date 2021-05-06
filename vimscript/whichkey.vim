@@ -36,6 +36,7 @@ let g:which_key_map['v'] = [ '<C-W>v'                                           
 let g:which_key_map['W'] = [ 'w'                                                               , 'write' ]
 let g:which_key_map['m'] = [ ':call WindowSwap#EasyWindowSwap()'                               , 'move window']
 let g:which_key_map['p'] = [ ':Telescope find_files find_command=rg,--ignore,--hidden,--files' , 'search files']
+let g:which_key_map['P'] = [ ':Telescope project'                                              , 'search files']
 let g:which_key_map['q'] = [ 'q'                                                               , 'quit']
 let g:which_key_map['o'] = [ ':Reload'                                                         , 'Reload Config']
 let g:which_key_map['O'] = [ ':Restart'                                                        , 'Restart config']
