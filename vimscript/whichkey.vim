@@ -31,6 +31,7 @@ let g:which_key_map['e'] = [ ':NvimTreeToggle'                                  
 let g:which_key_map['E'] = [ ':NvimTreeRefresh'                                                , 'Refresh explorer' ]
 let g:which_key_map['r'] = [ ':Telescope file_browser'                                         , 'File Browser']
 let g:which_key_map['R'] = [ ':Telescope file_browser theme=get_dropdown'                      , 'File Browser']
+let g:which_key_map['f'] = [ ':Telescope current_buffer_fuzzy_find'                            , 'Fuzzy find current buffer']
 let g:which_key_map['h'] = [ '<C-W>s'                                                          , 'split below']
 let g:which_key_map['v'] = [ '<C-W>v'                                                          , 'split right']
 let g:which_key_map['W'] = [ 'w'                                                               , 'write' ]
