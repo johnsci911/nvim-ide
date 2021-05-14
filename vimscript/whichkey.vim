@@ -130,7 +130,8 @@ let g:which_key_map.s = {
     \ 'm' : [':Telescope marks'                     , 'marks'],
     \ 'M' : [':Telescope man_pages'                 , 'man_pages'],
     \ 'o' : [':Telescope vim_options'               , 'vim_options'],
-    \ 't' : [':Telescope live_grep'                 , 'text'],
+    \ 't' : [':Telescope live_grep'                 , 'Project wide search'],
+    \ 'T' : [':Telescope grep_string'               , 'Current buffer search'],
     \ 'w' : [':Telescope file_browser'              , 'File Browser'],
     \ 'u' : [':Telescope colorscheme'               , 'colorschemes'],
     \ }
