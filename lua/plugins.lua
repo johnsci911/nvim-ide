@@ -114,5 +114,8 @@ return require('packer').startup(function(use)
     use 'famiu/nvim-reload'
 
     -- Laravel
-    use 'jwalton512/vim-blade'
+	use 'jwalton512/vim-blade'
+
+	-- Search and Explore
+	use 'dyng/ctrlsf.vim'
 end)

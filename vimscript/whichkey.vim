@@ -116,7 +116,7 @@ let g:which_key_map.F = {
     \ '6' : [':set foldlevel=6'  , 'level6']
     \ }
 
-" s is for search powered by telescope
+" s i powered by telescope
 let g:which_key_map.s = {
     \ 'name' : '+search' ,
     \ 'b' : [':Telescope buffers'                   , 'Buffers'],
@@ -134,6 +134,9 @@ let g:which_key_map.s = {
     \ 'T' : [':Telescope grep_string'               , 'Current buffer search'],
     \ 'w' : [':Telescope file_browser'              , 'File Browser'],
     \ 'u' : [':Telescope colorscheme'               , 'colorschemes'],
+	\ 's' : [':call SearchString()'                 , 'Search a string'],
+    \ 'S' : [':CtrlSFToggle'                        , 'Search a string toggle'],
+	\ 'R' : [':help ctrlsf-options'                 , 'Show CtrlSF options'],
     \ }
 
 " S = Session
@@ -180,3 +183,10 @@ let g:which_key_map.t = {
     \ }
 
 call which_key#register('<Space>', "g:which_key_map")
+
+function! SearchString()
+    call inputsave()
+    let replacement = input('Enter a string:')
+    call inputrestore()
+    execute 'CtrlSF '.replacement
+endfunction
