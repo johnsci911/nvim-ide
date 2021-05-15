@@ -30,6 +30,7 @@ require('config.nvim-barbar')
 require('config.nvim-lsp-trouble')
 require('config.nvim-reloader')
 require('config.nvim-easyalign')
+require('config.nvim-ctrlsf')
 
 -- LSP
 require('lsp')
