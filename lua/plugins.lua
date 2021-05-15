@@ -84,10 +84,9 @@ return require('packer').startup(function(use)
     use 'karb94/neoscroll.nvim'
 
     -- Navigation
-    use 'unblevable/quick-scope' -- hop may replace you
     use 'phaazon/hop.nvim'
     use 'nacro90/numb.nvim'
-    use 'kyazdani42/nvim-tree.lua' -- This will become a file navigation
+    use 'kyazdani42/nvim-tree.lua'
 
     -- Better Align
     use 'junegunn/vim-easy-align'
@@ -118,5 +117,5 @@ return require('packer').startup(function(use)
 
 	-- Search and Explore
 	use 'dyng/ctrlsf.vim'
-	use 'terryma/vim-multiple-cursors'
+	use 'mg979/vim-visual-multi'
 end)
