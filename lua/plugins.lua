@@ -118,4 +118,5 @@ return require('packer').startup(function(use)
 
 	-- Search and Explore
 	use 'dyng/ctrlsf.vim'
+	use 'terryma/vim-multiple-cursors'
 end)
