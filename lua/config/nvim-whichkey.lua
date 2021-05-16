@@ -31,25 +31,25 @@ local keymap = {
     ['o'] = {'<Cmd>Reload<CR>'                                                         , 'Reload Config'},
     ['O'] = {'<Cmd>Restart<CR>'                                                        , 'Restart Config'},
     ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>retab<CR>'                                 , 'Convert tab to space'},
-	[','] = {
-		[';'] = {'<Cmd><plug>(emmet-expand-word)<CR>'         , 'expand word'},
-		[','] = {'<Cmd><Plug>(emmet-expand-abbr)<CR>'         , 'expand abbr'},
-		['/'] = {'<Cmd><plug>(emmet-toggle-comment)<CR>'      , 'toggle comment'},
-		u     = {'<Cmd><plug>(emmet-update-tag)<CR>'          , 'update tag'},
-		d     = {'<Cmd><plug>(emmet-balance-tag-inward)<CR>'  , 'balance tag in'},
-		D     = {'<Cmd><plug>(emmet-balance-tag-outward)<CR>' , 'balance tag out'},
-		n     = {'<Cmd><plug>(emmet-move-next)<CR>'           , 'move next'},
-		N     = {'<Cmd><plug>(emmet-move-prev)<CR>'           , 'move prev'},
-		i     = {'<Cmd><plug>(emmet-image-size)<CR>'          , 'image size'},
-		j     = {'<Cmd><plug>(emmet-split-join-tag)'          , 'split join tag'},
-		k     = {'<Cmd><plug>(emmet-remove-tag)'              , 'remove tag'},
-		a     = {'<Cmd><plug>(emmet-anchorize-url)'           , 'anchorize url'},
-		A     = {'<Cmd><plug>(emmet-anchorize-summary)'       , 'anchorize summary'},
-		m     = {'<Cmd><plug>(emmet-merge-lines)'             , 'merge lines'},
-		c     = {'<Cmd><plug>(emmet-code-pretty)'             , 'code pretty'},
-		t     = {'<Cmd>TSBufDisable'                          , 'Treesitter disable current buffer'},
-		T     = {'<Cmd>TSBufEnable'                           , 'Treesitter enable current buffer'}
-	},
+    [','] = {
+        [';'] = {'<Cmd><plug>(emmet-expand-word)<CR>'         , 'expand word'},
+        [','] = {'<Cmd><Plug>(emmet-expand-abbr)<CR>'         , 'expand abbr'},
+        ['/'] = {'<Cmd><plug>(emmet-toggle-comment)<CR>'      , 'toggle comment'},
+        u     = {'<Cmd><plug>(emmet-update-tag)<CR>'          , 'update tag'},
+        d     = {'<Cmd><plug>(emmet-balance-tag-inward)<CR>'  , 'balance tag in'},
+        D     = {'<Cmd><plug>(emmet-balance-tag-outward)<CR>' , 'balance tag out'},
+        n     = {'<Cmd><plug>(emmet-move-next)<CR>'           , 'move next'},
+        N     = {'<Cmd><plug>(emmet-move-prev)<CR>'           , 'move prev'},
+        i     = {'<Cmd><plug>(emmet-image-size)<CR>'          , 'image size'},
+        j     = {'<Cmd><plug>(emmet-split-join-tag)'          , 'split join tag'},
+        k     = {'<Cmd><plug>(emmet-remove-tag)'              , 'remove tag'},
+        a     = {'<Cmd><plug>(emmet-anchorize-url)'           , 'anchorize url'},
+        A     = {'<Cmd><plug>(emmet-anchorize-summary)'       , 'anchorize summary'},
+        m     = {'<Cmd><plug>(emmet-merge-lines)'             , 'merge lines'},
+        c     = {'<Cmd><plug>(emmet-code-pretty)'             , 'code pretty'},
+        t     = {'<Cmd>TSBufDisable'                          , 'Treesitter disable current buffer'},
+        T     = {'<Cmd>TSBufEnable'                           , 'Treesitter enable current buffer'}
+    },
     a = {
         name = '+actions',
         c = {'<Cmd>ColorizerToggle<CR>'       , 'Bracket Colorizer'},
@@ -128,3 +128,13 @@ local keymap = {
 }
 
 wk.register_keymap('leader', keymap)
+
+-- VimScript
+vim.cmd([[
+    function! SearchString()
+        call inputsave()
+        let replacement = input('Enter a string:')
+        call inputrestore()
+        execute 'CtrlSF '.replacement
+    endfunction
+]])
