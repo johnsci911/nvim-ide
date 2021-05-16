@@ -31,6 +31,7 @@ require('config.nvim-lsp-trouble')
 require('config.nvim-reloader')
 require('config.nvim-easyalign')
 require('config.nvim-ctrlsf')
+require('config.nvim-whichkey')
 
 -- LSP
 require('lsp')
@@ -49,4 +50,4 @@ require('lsp.vue')
 require('lsp.tsserver')
 
 -- Vim scripts
-vim.cmd('source ~/.config/nvim/vimscript/whichkey.vim')
+-- vim.cmd('source ~/.config/nvim/vimscript/whichkey.vim')
