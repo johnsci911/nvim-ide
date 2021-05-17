@@ -156,7 +156,7 @@ wk.register_keymap('leader', keymap)
 vim.cmd([[
     function! SearchString()
         call inputsave()
-        let replacement = input('Enter a string:')
+        let replacement = input('Enter a string: ')
         call inputrestore()
         execute 'CtrlSF '.replacement
     endfunction
