@@ -32,6 +32,7 @@ require('config.nvim-reloader')
 require('config.nvim-easyalign')
 require('config.nvim-ctrlsf')
 require('config.nvim-whichkey')
+require('config.nvim-multi-cursor')
 
 -- LSP
 require('lsp')
