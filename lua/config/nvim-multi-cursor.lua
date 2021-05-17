@@ -1,3 +1,5 @@
-vim.cmd([[
-let g:VM_leader = {'default': ',', 'visual': ',', 'buffer': ','}
-]])
+vim.g.VM_leader = {
+    default = ',',
+    visual  = ',',
+    buffer  = ','
+}
