@@ -48,6 +48,3 @@ require('lsp.css')
 require('lsp.vls')
 require('lsp.vue')
 require('lsp.tsserver')
-
--- Vim scripts
--- vim.cmd('source ~/.config/nvim/vimscript/whichkey.vim')
