@@ -14,6 +14,9 @@
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 
+#### Packages Required
+- ripgrep
+
 #### LSPs included
 * bash
 * css
