@@ -13,6 +13,7 @@
 - **nvim-telescope** - to preview files while searching
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
+- **vim-blade** - Laravel blade syntax highlighting
 
 #### What's new
 - Laravel blade syntax and emmet
@@ -21,7 +22,7 @@
 #### Packages Required
 - ripgrep
 
-#### LSPs included
+#### LSP to install
 * bash
 * css
 * html
@@ -38,7 +39,7 @@
 #### TODO
 * Auto install LSPs
 * Improve Keybindings along the way
-* ~~Check out some of **r/folke** plugins~~
 * Improve configs for php (Laravel Development)
 * Try Django emmet to work
 * Formatters for various web frameworks
+* Java LSP?
