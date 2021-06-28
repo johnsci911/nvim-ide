@@ -4,7 +4,7 @@ require'nvim-treesitter.configs'.setup {
     -- ignore_install = '',
     highlight = {
         enable = true, -- false will disable the whole extension
-        disable = { "" }
+        disable = { "blade" }
     },
     -- indent = {enable = true, disable = {"python", "html", "javascript"}},
     indent = {enable = {"javascriptreact"}},
