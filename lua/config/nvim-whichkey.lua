@@ -48,8 +48,8 @@ local keymap = {
         A     = {':call emmet#anchorizeURL(1)<cr>'  ,'anchorize summary'},
         m     = {':call emmet#mergeLines()<cr>'     , 'merge lines'},
         c     = {':call emmet#codePretty()<cr>'     , 'code pretty'},
-        t     = {'<Cmd>TSBufDisable'                , 'Treesitter disable current buffer'},
-        T     = {'<Cmd>TSBufEnable'                 , 'Treesitter enable current buffer'}
+        t     = {'<Cmd>TSBufDisable<CR>'            , 'Treesitter disable current buffer'},
+        T     = {'<Cmd>TSBufEnable<CR>'             , 'Treesitter enable current buffer'}
     },
     a = {
         name = '+actions'                        ,
