@@ -14,6 +14,9 @@
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 
+#### What's new
+- Laravel blade syntax and emmet
+
 #### Packages Required
 - ripgrep
 
@@ -36,3 +39,5 @@
 * Improve Keybindings along the way
 * Check out some of **r/folke** plugins
 * Maybe remove telescope live_grep since I use **ctrlsf** to find strings project wide
+* Improve configs for php (Laravel Development)
+* Try Django emmet to work
