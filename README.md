@@ -16,6 +16,7 @@
 
 #### What's new
 - Laravel blade syntax and emmet
+- MultiCursor support
 
 #### Packages Required
 - ripgrep
@@ -37,7 +38,7 @@
 #### TODO
 * Auto install LSPs
 * Improve Keybindings along the way
-* Check out some of **r/folke** plugins
-* Maybe remove telescope live_grep since I use **ctrlsf** to find strings project wide
+* ~~Check out some of **r/folke** plugins~~
 * Improve configs for php (Laravel Development)
 * Try Django emmet to work
+* Formatters for various web frameworks
