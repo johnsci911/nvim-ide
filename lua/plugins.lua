@@ -40,8 +40,8 @@ return require('packer').startup(function(use)
     use {'lukas-reineke/indent-blankline.nvim', branch = 'lua'}
     use 'nvim-treesitter/playground'
     use 'JoosepAlviste/nvim-ts-context-commentstring'
-    -- use 'windwp/nvim-ts-autotag'
     use 'windwp/nvim-autopairs'
+	use 'posva/vim-vue'
 
     -- Icons
     use 'kyazdani42/nvim-web-devicons'
