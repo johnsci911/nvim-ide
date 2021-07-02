@@ -4,7 +4,7 @@
 #####  --- A neovim configuration base in LUA ---
 
 #### Important
-- Use `neovim-nightly-bin` if you are using **Arch** base distros
+- Use latest `neovim` >= 0.5 stable version !yey!
 
 #### Awesome Plugins that are used
 - **lsp-trouble** - to jumping between lsp warnings
