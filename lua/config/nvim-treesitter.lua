@@ -13,8 +13,8 @@ require'nvim-treesitter.configs'.setup {
     indent = {
         enable = true,
 		disable = {
-            'blade',
-            'vue'
+            -- 'blade',
+            -- 'vue'
         }
     },
     playground = {
