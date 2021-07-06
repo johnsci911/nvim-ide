@@ -147,6 +147,12 @@ local keymap = {
         g     = {'<Cmd>FloatermNew lazygit<CR>'                    , 'lazygit'},
         t     = {'<Cmd>FloatermToggle<CR>'                         , 'toggle'},
         y     = {'<Cmd>FloatermNew ytop<CR>'                       , 'ytop'},
+    },
+    z = {
+        name  = '+TrueZen',
+        a = {'<Cmd>TZAtaraxis<CR>'   , 'TrueZen Ataraxis'},
+        f = {'<Cmd>TZFocus<CR>'      , 'TrueZen Focus'},
+        m = {'<Cmd>TZMinimalist<CR>' , 'Minimal'},
     }
 }
 

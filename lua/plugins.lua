@@ -118,4 +118,7 @@ return require('packer').startup(function(use)
 	-- Search and Explore
 	use 'dyng/ctrlsf.vim'
 	use 'mg979/vim-visual-multi'
+
+	-- Desctruction Free mode
+	use "Pocco81/TrueZen.nvim"
 end)
