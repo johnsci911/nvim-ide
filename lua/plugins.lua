@@ -14,7 +14,17 @@ vim.cmd 'autocmd BufwritePost plugins.lua PackerCompile'
 
 require('packer').init({display = {auto_clean = false}})
 
-return require('packer').startup(function(use)
+local packer = require('packer');
+
+packer.init {
+    display = {
+        open_fn = function()
+            return require("packer.util").float { border = "single" }
+        end,
+    },
+}
+
+return packer.startup(function(use)
     -- Packer itself
     use 'wbthomason/packer.nvim'
 
@@ -41,7 +51,7 @@ return require('packer').startup(function(use)
     use 'nvim-treesitter/playground'
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use 'windwp/nvim-autopairs'
-	use 'posva/vim-vue'
+    use 'posva/vim-vue'
 
     -- Icons
     use 'kyazdani42/nvim-web-devicons'
@@ -53,7 +63,7 @@ return require('packer').startup(function(use)
 
     -- Keymappings
     use 'liuchengxu/vim-which-key'
-	use {'AckslD/nvim-whichkey-setup.lua', requires = {'liuchengxu/vim-which-key'}}
+    use {'AckslD/nvim-whichkey-setup.lua', requires = {'liuchengxu/vim-which-key'}}
 
     -- Git
     use 'f-person/git-blame.nvim'
@@ -113,12 +123,12 @@ return require('packer').startup(function(use)
     use 'famiu/nvim-reload'
 
     -- Laravel
-	use 'jwalton512/vim-blade'
+    use 'jwalton512/vim-blade'
 
-	-- Search and Explore
-	use 'dyng/ctrlsf.vim'
-	use 'mg979/vim-visual-multi'
+    -- Search and Explore
+    use 'dyng/ctrlsf.vim'
+    use 'mg979/vim-visual-multi'
 
-	-- Desctruction Free mode
-	use "Pocco81/TrueZen.nvim"
+    -- Desctruction Free mode
+    use "Pocco81/TrueZen.nvim"
 end)
