@@ -19,7 +19,7 @@ vim.g.tokyonight_italic_comments = true
 vim.g.tokyonight_italic_keywords = true
 
 -- Functions are not italicized by default
-vim.g.tokyonight_italic_functions = false
+vim.g.tokyonight_italic_functions = true
 
 -- Enable this to disable setting the background color
 vim.g.tokyonight_transparent = false

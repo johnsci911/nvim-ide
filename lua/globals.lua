@@ -4,7 +4,7 @@ O = {
         ignore_install   = {},
         highlight        = {enabled = true},
         playground       = {enabled = true},
-        rainbow          = {enabled = false}
+        rainbow          = {enabled = true}
     }
 }
 
