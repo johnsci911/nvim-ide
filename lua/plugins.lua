@@ -47,7 +47,6 @@ return packer.startup(function(use)
 
     -- Treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use {'lukas-reineke/indent-blankline.nvim', branch = 'master'}
     use 'nvim-treesitter/playground'
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use 'windwp/nvim-autopairs'
