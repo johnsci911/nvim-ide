@@ -3,7 +3,6 @@ require('globals')
 require('keymaps')
 require('settings')
 require('theme.tokyonight')
-require('theme.nord')
 
 -- Plugins
 require('config.compe')
