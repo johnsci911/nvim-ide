@@ -158,7 +158,7 @@ wk.register({
         t     = {'<Cmd>Telescope live_grep<CR>'                 , 'Project wide search'},
         T     = {'<Cmd>Telescope grep_string<CR>'               , 'Current buffer search'},
         w     = {'<Cmd>Telescope file_browser<CR>'              , 'File Browser'},
-        u     = {'<Cmd>Telescope colorscheme<CR>'               , 'colorschemes'},
+        u     = {'<Cmd>Telescope colorscheme<CR>'               , 'Switch colorschemes'},
         s     = {'<Cmd>call SearchString()<CR>'                 , 'Search a string'},
         S     = {'<Cmd>CtrlSFToggle<CR>'                        , 'Search a string toggle'},
         R     = {'<Cmd>help ctrlsf-options<CR>'                 , 'Show CtrlSF options'},

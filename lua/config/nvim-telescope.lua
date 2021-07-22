@@ -32,7 +32,7 @@ require('telescope').setup {
         file_sorter = require'telescope.sorters'.get_fzy_sorter,
         file_ignore_patterns = {},
         path_display = {
-			'shorten_path',
+			'shorten',
 			'absolute'
 		},
         winblend = 0,
@@ -70,15 +70,11 @@ require('telescope').setup {
                 ["<C-k>"] = actions.move_selection_previous
                 -- ["<C-i>"] = my_cool_custom_action,
             }
-        }
-    },
-    require'telescope'.setup {
+        },
         extensions = {
             media_files = {
-                -- filetypes whitelist
-                -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-                filetypes = {"png", "webp", "jpg", "jpeg"},
-                find_cmd = "rg" -- find command (defaults to `fd`)
+                filetypes = {"png", "webp", "jpg", "jpeg", "mp4", "pdf"},
+                find_cmd = "rg"
             },
             fzy_native = {
                 override_generic_sorter = false,
