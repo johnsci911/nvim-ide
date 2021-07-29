@@ -207,12 +207,20 @@ gls.right[3] = {
     }
 }
 
-
 gls.right[4] = {
-  Heart = {
-    provider = function() return '  ' end,
-    highlight = { colors.red, colors.section_bg },
-    separator = ' | ',
+  Percent = {
+    provider = 'LinePercent',
+    highlight = { colors.fg, colors.section_bg },
+    separator = '|',
+    separator_highlight = { colors.bg, colors.section_bg },
+  }
+}
+
+gls.right[5] = {
+  ScrollBar = {
+    provider = 'ScrollBar',
+    highlight = { colors.blue, colors.section_bg },
+    separator = '| ',
     separator_highlight = { colors.bg, colors.section_bg },
   }
 }
