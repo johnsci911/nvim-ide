@@ -1,4 +1,5 @@
-![image](https://user-images.githubusercontent.com/6580895/118361004-fc386c00-b5bb-11eb-98d0-130e19e495dc.png)
+![image](https://user-images.githubusercontent.com/6580895/127464739-c18a4649-92a4-4cac-9bde-32ca392644c5.png)
+
 
 ## Neovim IDE
 #####  --- A neovim configuration base in LUA ---
