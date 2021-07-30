@@ -2,7 +2,14 @@ local gl = require('galaxyline')
 local utils = require('config.galaxyline-utils')
 
 local gls = gl.section
-gl.short_line_list = { 'defx', 'packager', 'vista', 'NvimTree' }
+gl.short_line_list = {
+	'defx',
+	'packager',
+	'vista',
+	'NvimTree',
+	'DiffviewFiles',
+	'ctrlsf'
+}
 
 -- Colors
 local colors = {
@@ -212,7 +219,15 @@ gls.right[4] = {
     }
 }
 
-gls.right[5] = {
+gls.left[5] = {
+  firstLeftElement = {
+    provider = function() return ' ' end,
+    condition = buffer_not_empty,
+    highlight = { colors.cyan, colors.section_bg },
+  },
+}
+
+gls.right[6] = {
   Percent = {
     provider = 'LinePercent',
     highlight = { colors.fg, colors.bg },
@@ -221,7 +236,7 @@ gls.right[5] = {
   }
 }
 
-gls.right[6] = {
+gls.right[7] = {
   ScrollBar = {
     provider = 'ScrollBar',
     highlight = { colors.blue, colors.section_bg },
@@ -229,7 +244,7 @@ gls.right[6] = {
   }
 }
 
-gls.right[7] = {
+gls.right[8] = {
   lastElement = {
     provider = function() return ' ' end,
     highlight = { colors.cyan, colors.bg }

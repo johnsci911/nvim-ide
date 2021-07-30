@@ -38,7 +38,6 @@
 * vls
 
 #### TODO
-* High prio - Remove unnecessary details on galaxyline
 * Auto install LSPs
 * Improve Keybindings along the way
 * Improve configs for php (Laravel Development)
