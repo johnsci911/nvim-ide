@@ -65,39 +65,25 @@ gls.left[2] = {
     end,
     highlight = { colors.bg, colors.bg },
     separator = " ",
+    condition = buffer_not_empty,
     separator_highlight = {colors.section_bg, colors.bg},
   },
 }
 gls.left[3] = {
   firstLeftElement = {
     provider = function() return ' ' end,
+    condition = buffer_not_empty,
     highlight = { colors.cyan, colors.section_bg },
   },
 }
 gls.left[4] ={
-  FileIcon = {
-    provider = 'FileIcon',
-    condition = buffer_not_empty,
-    highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color, colors.section_bg },
-  },
-}
-gls.left[5] = {
-  FileName = {
-    provider = 'FileName',
-    condition = buffer_not_empty,
-    highlight = { colors.fg, colors.section_bg },
-    separator = " ",
-    separator_highlight = {colors.section_bg, colors.bg},
-  }
-}
-gls.left[6] = {
   GitIcon = {
     provider = function() return '  ' end,
     condition = buffer_not_empty,
-    highlight = {colors.red,colors.bg},
-  }
+    highlight = { colors.red, colors.section_bg },
+  },
 }
-gls.left[7] = {
+gls.left[5] = {
   GitBranch = {
     provider = function()
       local vcs = require('galaxyline.provider_vcs')
@@ -113,73 +99,77 @@ gls.left[7] = {
 	  return "Editing..."
     end,
     condition = buffer_not_empty,
-    highlight = {colors.fg,colors.bg},
+    highlight = { colors.fg, colors.section_bg },
   }
 }
-gls.left[8] = {
+gls.left[6] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = checkwidth,
     icon = ' ',
-    highlight = { colors.green, colors.bg },
+    highlight = {colors.green,colors.section_bg},
   }
 }
-gls.left[9] = {
+gls.left[7] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = checkwidth,
     icon = ' ',
-    highlight = { colors.orange, colors.bg },
+    highlight = { colors.orange, colors.section_bg },
   }
 }
-gls.left[10] = {
+gls.left[8] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = checkwidth,
     icon = ' ',
-    highlight = { colors.red,colors.bg }
+    highlight = { colors.red,colors.section_bg }
   }
 }
-gls.left[11] = {
+gls.left[9] = {
   LeftEnd = {
-    provider = function() return ' ' end,
+    provider = function() return ' ' end,
     condition = buffer_not_empty,
     highlight = {colors.section_bg,colors.bg}
   }
 }
-gls.left[12] = {
+gls.left[10] = {
+  Space = {
+    provider = function () return ' ' end,
+    highlight = {colors.section_bg,colors.bg},
+  }
+}
+gls.left[11] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
     icon = '   ',
-    highlight = {colors.red,colors.section_bg}
+    highlight = {colors.red,colors.bg}
+  }
+}
+gls.left[12] = {
+  Space = {
+    provider = function () return ' ' end,
+    highlight = {colors.section_bg,colors.bg},
   }
 }
 gls.left[13] = {
-  Space = {
-    provider = function () return ' ' end,
-    highlight = {colors.section_bg,colors.section_bg},
-  }
-}
-gls.left[14] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
-    highlight = {colors.orange,colors.section_bg},
+    highlight = {colors.orange,colors.bg},
+  }
+}
+gls.left[14] = {
+  Space = {
+    provider = function () return ' ' end,
+    highlight = {colors.section_bg,colors.bg},
   }
 }
 gls.left[15] = {
-  Space = {
-    provider = function () return ' ' end,
-    highlight = {colors.section_bg,colors.section_bg},
-  }
-}
-gls.left[16] = {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
     icon = '  ',
-    highlight = {colors.blue,colors.section_bg},
-    separator = ' ',
-    separator_highlight = { colors.section_bg, colors.bg },
+    highlight = {colors.blue,colors.bg},
   }
 }
 
@@ -278,5 +268,6 @@ gls.short_line_right[2] = {
     highlight = { colors.section_bg, colors.section_bg },
   }
 }
+
 -- Force manual load so that nvim boots with a status line
 gl.load_galaxyline()
