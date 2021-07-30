@@ -219,8 +219,8 @@ gls.right[4] = {
     }
 }
 
-gls.left[5] = {
-  firstLeftElement = {
+gls.right[5] = {
+  SpaceBeforeLinePercent = {
     provider = function() return ' ' end,
     condition = buffer_not_empty,
     highlight = { colors.cyan, colors.section_bg },
