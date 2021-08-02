@@ -212,6 +212,6 @@ vim.cmd([[
         call inputsave()
         let replacement = input('Enter a string: ')
         call inputrestore()
-        execute 'CtrlSF '.replacement
+        execute "CtrlSF '" . replacement . "'"
     endfunction
 ]])
