@@ -77,8 +77,6 @@ wk.register({
     ['v'] = {'<C-W>v'                                                                  , 'Split Horizontal'},
     ['W'] = {'w'                                                                       , 'Write'},
     ['m'] = {'<Cmd>call WindowSwap#EasyWindowSwap()<CR>'                               , 'Swap Window'},
-    ['P'] = {'<Cmd>Telescope project<CR>'                                              , 'Search Project'},
-    ['p'] = {'<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>' , 'search files'},
     ['q'] = {'<Cmd>q<CR>'                                                              , 'quit'},
     ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>retab<CR>'                                 , 'Convert tab to space'},
     [','] = {
@@ -142,6 +140,12 @@ wk.register({
         ['5'] = {'<Cmd>set foldlevel=5<CR>'  , 'level5'},
         ['6'] = {'<Cmd>set foldlevel=6<CR>'  , 'level6'}
     },
+	['p'] = {
+		name = 'Project wide search',
+		['P'] = {'<Cmd>Telescope project<CR>'                                              , 'Search Project'},
+		['p'] = {'<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>' , 'search files'},
+
+	},
     s = {
         name  = '+search',
         b     = {'<Cmd>Telescope buffers<CR>'                   , 'Buffers'},
@@ -155,8 +159,8 @@ wk.register({
         m     = {'<Cmd>Telescope marks<CR>'                     , 'marks'},
         M     = {'<Cmd>Telescope man_pages<CR>'                 , 'man_pages'},
         o     = {'<Cmd>Telescope vim_options<CR>'               , 'vim_options'},
-        t     = {'<Cmd>Telescope live_grep<CR>'                 , 'Project wide search'},
-        T     = {'<Cmd>Telescope grep_string<CR>'               , 'Current buffer search'},
+        T     = {'<Cmd>Telescope live_grep<CR>'                 , 'Project wide search'},
+        t     = {'<Cmd>Telescope grep_string<CR>'               , 'Current buffer search'},
         w     = {'<Cmd>Telescope file_browser<CR>'              , 'File Browser'},
         u     = {'<Cmd>Telescope colorscheme<CR>'               , 'Switch colorschemes'},
         s     = {'<Cmd>call SearchString()<CR>'                 , 'Search a string'},
