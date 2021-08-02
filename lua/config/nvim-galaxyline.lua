@@ -3,12 +3,12 @@ local utils = require('config.galaxyline-utils')
 
 local gls = gl.section
 gl.short_line_list = {
-	'defx',
-	'packager',
-	'vista',
-	'NvimTree',
-	'DiffviewFiles',
-	'ctrlsf'
+    'defx',
+    'packager',
+    'vista',
+    'NvimTree',
+    'DiffviewFiles',
+    'ctrlsf'
 }
 
 -- Colors
@@ -95,15 +95,15 @@ gls.left[5] = {
     provider = function()
       local vcs = require('galaxyline.provider_vcs')
       local branch_name = vcs.get_git_branch()
-	  if (branch_name) then
-		if (string.len(branch_name) > 28) then
+      if (branch_name) then
+        if (string.len(branch_name) > 28) then
           return string.sub(branch_name, 1, 25).."..."
-		end
+        end
         return branch_name.." "
-	  else
-	    return "Not a Repo"
-	  end
-	  return "Editing..."
+      else
+        return "Not a Repo"
+      end
+      return "Editing..."
     end,
     condition = buffer_not_empty,
     highlight = { colors.fg, colors.section_bg },
@@ -190,13 +190,24 @@ gls.right[1] = {
   },
 }
 
-gls.right[2]= {
+gls.right[2] = {
+  FileEncode = {
+    provider = 'FileEncode',
+    highlight = { colors.fg, colors.section_bg },
+  },
+}
+
+gls.right[3]= {
   FileFormat = {
     provider = function() return vim.bo.filetype end,
     highlight = { colors.fg,colors.section_bg },
+    separator = ' | ',
+    separator_highlight = { colors.bg, colors.section_bg },
+    condition = checkwidth,
   }
 }
-gls.right[3] = {
+
+gls.right[4] = {
   LineInfo = {
     provider = 'LineColumn',
     highlight = { colors.fg, colors.section_bg },
@@ -205,21 +216,21 @@ gls.right[3] = {
   },
 }
 
-gls.right[4] = {
-    ShowLspClient = {
-        provider = 'GetLspClient',
-        condition = function()
-            local tbl = {['dashboard'] = true, [' '] = true}
-            if tbl[vim.bo.filetype] then return false end
-            return true
-        end,
-        highlight = {colors.blue,colors.section_bg},
-		separator = '| ',
-		separator_highlight = { colors.bg, colors.section_bg },
-    }
+gls.right[5] = {
+  ShowLspClient = {
+    provider = 'GetLspClient',
+    condition = function()
+        local tbl = {['dashboard'] = true, [' '] = true}
+        if tbl[vim.bo.filetype] then return false end
+        return true
+    end and checkwidth,
+    highlight = {colors.blue,colors.section_bg},
+    separator = ' | ',
+    separator_highlight = { colors.bg, colors.section_bg },
+  }
 }
 
-gls.right[5] = {
+gls.right[6] = {
   SpaceBeforeLinePercent = {
     provider = function() return ' ' end,
     condition = buffer_not_empty,
@@ -227,7 +238,7 @@ gls.right[5] = {
   },
 }
 
-gls.right[6] = {
+gls.right[7] = {
   Percent = {
     provider = 'LinePercent',
     highlight = { colors.fg, colors.bg },
@@ -236,7 +247,7 @@ gls.right[6] = {
   }
 }
 
-gls.right[7] = {
+gls.right[8] = {
   ScrollBar = {
     provider = 'ScrollBar',
     highlight = { colors.blue, colors.section_bg },
@@ -244,7 +255,7 @@ gls.right[7] = {
   }
 }
 
-gls.right[8] = {
+gls.right[9] = {
   lastElement = {
     provider = function() return ' ' end,
     highlight = { colors.cyan, colors.bg }
