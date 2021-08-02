@@ -8,7 +8,8 @@ gl.short_line_list = {
     'vista',
     'NvimTree',
     'DiffviewFiles',
-    'ctrlsf'
+    'ctrlsf',
+	'dashboard'
 }
 
 -- Colors
