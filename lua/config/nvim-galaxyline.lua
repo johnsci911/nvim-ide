@@ -283,16 +283,7 @@ gls.short_line_left[2] = {
 gls.short_line_right[1] = {
   BufferIcon = {
     provider= 'BufferIcon',
-    highlight = { colors.yellow, colors.section_bg },
-    separator = ' ',
-    separator_highlight = { colors.section_bg, colors.bg },
-  }
-}
-
-gls.short_line_right[2] = {
-  shortLastElement = {
-    provider = function() return ' ' end,
-    highlight = { colors.section_bg, colors.section_bg },
+    highlight = { colors.yellow, colors.bg },
   }
 }
 
