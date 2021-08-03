@@ -32,6 +32,7 @@ require('config.nvim-ctrlsf')
 require('config.nvim-whichkey')
 require('config.nvim-multi-cursor')
 require('config.nvim-windowswap')
+require('config.nvim-stripwhitespace')
 
 -- LSP
 require('lsp')

@@ -132,4 +132,7 @@ return packer.startup(function(use)
 
     -- Desctruction Free mode
     use "Pocco81/TrueZen.nvim"
+
+	-- Strip WhiteSpace
+	use "ntpeters/vim-better-whitespace"
 end)
