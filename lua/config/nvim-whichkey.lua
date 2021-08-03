@@ -159,7 +159,6 @@ wk.register({
         m     = {'<Cmd>Telescope marks<CR>'                     , 'marks'},
         M     = {'<Cmd>Telescope man_pages<CR>'                 , 'man_pages'},
         o     = {'<Cmd>Telescope vim_options<CR>'               , 'vim_options'},
-        T     = {'<Cmd>Telescope live_grep<CR>'                 , 'Project wide search'},
         t     = {'<Cmd>Telescope grep_string<CR>'               , 'Current buffer search'},
         w     = {'<Cmd>Telescope file_browser<CR>'              , 'File Browser'},
         u     = {'<Cmd>Telescope colorscheme<CR>'               , 'Switch colorschemes'},
