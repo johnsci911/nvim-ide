@@ -79,6 +79,8 @@ wk.register({
     ['m'] = {'<Cmd>call WindowSwap#EasyWindowSwap()<CR>'                               , 'Swap Window'},
     ['q'] = {'<Cmd>q<CR>'                                                              , 'quit'},
     ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>retab<CR>'                                 , 'Convert tab to space'},
+    ['P'] = {'<Cmd>Telescope project<CR>'                                              , 'Search Project'},
+    ['p'] = {'<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>' , 'search files'},
     [','] = {
         name  = '+emmet',
         [';'] = {':call emmet#expandAbbr(1,"")<cr>' , 'expand word'},
@@ -98,8 +100,6 @@ wk.register({
         c     = {':call emmet#codePretty()<cr>'     , 'code pretty'},
         t     = {'<Cmd>TSBufDisable<CR>'            , 'Treesitter disable current buffer'},
         T     = {'<Cmd>TSBufEnable<CR>'             , 'Treesitter enable current buffer'},
-		P     = {'<Cmd>Telescope project<CR>'                                              , 'Search Project'},
-		p     = {'<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>' , 'search files'},
     },
     a = {
         name = '+actions'                        ,
@@ -130,7 +130,7 @@ wk.register({
         s    = {'<Cmd>DebugStart<CR>'            , 'start'},
     },
     F = {
-    name = '+fold',
+        name = '+fold',
         ['O'] = {'<Cmd>set foldlevel=20<CR>' , 'open all'},
         ['C'] = {'<Cmd>set foldlevel=0<CR>'  , 'close all'},
         ['c'] = {'<Cmd>foldclose<CR>'        , 'close'},
