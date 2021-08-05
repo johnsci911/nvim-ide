@@ -97,7 +97,9 @@ wk.register({
         m     = {':call emmet#mergeLines()<cr>'     , 'merge lines'},
         c     = {':call emmet#codePretty()<cr>'     , 'code pretty'},
         t     = {'<Cmd>TSBufDisable<CR>'            , 'Treesitter disable current buffer'},
-        T     = {'<Cmd>TSBufEnable<CR>'             , 'Treesitter enable current buffer'}
+        T     = {'<Cmd>TSBufEnable<CR>'             , 'Treesitter enable current buffer'},
+		P     = {'<Cmd>Telescope project<CR>'                                              , 'Search Project'},
+		p     = {'<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>' , 'search files'},
     },
     a = {
         name = '+actions'                        ,
@@ -140,12 +142,6 @@ wk.register({
         ['5'] = {'<Cmd>set foldlevel=5<CR>'  , 'level5'},
         ['6'] = {'<Cmd>set foldlevel=6<CR>'  , 'level6'}
     },
-	['p'] = {
-		name = 'Project wide search',
-		['P'] = {'<Cmd>Telescope project<CR>'                                              , 'Search Project'},
-		['p'] = {'<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>' , 'search files'},
-
-	},
     s = {
         name  = '+search',
         b     = {'<Cmd>Telescope buffers<CR>'                   , 'Buffers'},
