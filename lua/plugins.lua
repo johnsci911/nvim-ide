@@ -61,9 +61,6 @@ return packer.startup(function(use)
     use 'romgrk/barbar.nvim'
 
     -- Keymappings
-	--     use {'AckslD/nvim-whichkey-setup.lua', requires = {
-	-- 	'liuchengxu/vim-which-key'
-	-- }}
     use 'folke/which-key.nvim'
 
     -- Git
@@ -118,7 +115,7 @@ return packer.startup(function(use)
     use 'terrortylor/nvim-comment'
 
     -- Project Rooter
-    use 'airblade/vim-rooter'
+	use "ahmedkhalf/project.nvim"
 
     -- Config Reloader
     use 'famiu/nvim-reload'
