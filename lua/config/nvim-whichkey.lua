@@ -111,9 +111,11 @@ wk.register({
     b = {
         name = '+buffers',
         d    = {'<Cmd>BufferClose<CR>'              , 'Close Buffer'},
+        w    = {'<Cmd>BufferWipeout<CR>'            , 'Wipeout Buffer'},
         D    = {'<Cmd>BufferCloseAllButCurrent<CR>' , 'Close all but current'},
         s    = {'<Cmd>Dashboard<CR>'                , 'Dashboard'},
         p    = {'<Cmd>BufferPick<CR>'               , 'Pick buffer'},
+        P    = {'<Cmd>BufferPin<CR>'                , 'Pin buffer'},
         h    = {'<Cmd>BufferMovePrevious<CR>'       , 'Buffer move left'},
         l    = {'<Cmd>BufferMoveNext<CR>'           , 'Buffer move right'},
         b    = {'<Cmd>BufferOrderByDirectory<CR>'   , 'Buffer order by directory'},
