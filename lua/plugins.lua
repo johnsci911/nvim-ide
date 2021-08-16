@@ -115,7 +115,7 @@ return packer.startup(function(use)
     use 'terrortylor/nvim-comment'
 
     -- Project Rooter
-	use "ahmedkhalf/project.nvim"
+	use "airblade/vim-rooter"
 
     -- Config Reloader
     use 'famiu/nvim-reload'
