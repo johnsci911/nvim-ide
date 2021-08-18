@@ -194,10 +194,10 @@ wk.register({
     },
     t = {
         name  = '+terminal',
-        [';'] = {'<Cmd>FloatermNew --wintype=popup --height=6<CR>' , 'terminal'},
-        g     = {'<Cmd>FloatermNew lazygit<CR>'                    , 'lazygit'},
-        t     = {'<Cmd>FloatermToggle<CR>'                         , 'toggle'},
-        y     = {'<Cmd>FloatermNew ytop<CR>'                       , 'ytop'},
+        s = {'<Cmd>FloatermNew --wintype=split --height=10<CR>' , 'terminal'},
+        g = {'<Cmd>FloatermNew lazygit<CR>'                     , 'lazygit'},
+        t = {'<Cmd>FloatermToggle<CR>'                          , 'toggle'},
+        y = {'<Cmd>FloatermNew ytop<CR>'                        , 'ytop'},
     },
     z = {
         name  = '+TrueZen',
