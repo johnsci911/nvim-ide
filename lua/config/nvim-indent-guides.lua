@@ -7,6 +7,12 @@ require('indent_guides').setup({
     indent_tab_guides = true;
     indent_soft_pattern = '\\s';
     exclude_filetypes = {'help','dashboard','NvimTree'};
-    odd_colors = { fg ='#1F2335',bg='#24283B' };
-    even_colors = {fg='#2a3834',bg='#1F2335'};
+    odd_colors = {
+        fg ='#C0CAF5',
+        bg='#24283B'
+    };
+    even_colors = {
+        fg='#C0CAF5',
+        bg='#1F2335'
+    };
 })
