@@ -75,6 +75,7 @@ return packer.startup(function(use)
     -- Colors
     use 'norcalli/nvim-colorizer.lua'
     use 'junegunn/rainbow_parentheses.vim'
+	use 'glepnir/indent-guides.nvim'
 
     -- Telescope
     use 'nvim-lua/popup.nvim'
