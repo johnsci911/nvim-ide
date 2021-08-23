@@ -211,8 +211,8 @@ wk.register({
 vim.cmd([[
     function! SearchString()
         call inputsave()
-        let replacement = input('Enter a string: ')
+        let replacement = input('Search Options: -R = Regex Pattern | -I = Case Insensitive | -S = Case Sensitive | -W = Excact Words => ')
         call inputrestore()
-        execute "CtrlSF '" . replacement . "'"
+        execute "CtrlSF " . replacement
     endfunction
 ]])
