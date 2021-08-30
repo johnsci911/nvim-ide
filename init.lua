@@ -34,6 +34,7 @@ require('config.nvim-multi-cursor')
 require('config.nvim-windowswap')
 require('config.nvim-stripwhitespace')
 require('config.nvim-indent-guides')
+require('config.nvim-fzf-lua')
 
 -- LSP
 require('lsp')

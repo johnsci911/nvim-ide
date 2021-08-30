@@ -163,6 +163,7 @@ wk.register({
         s     = {'<Cmd>call SearchString()<CR>'                 , 'Search a string'},
         S     = {'<Cmd>CtrlSFToggle<CR>'                        , 'Search a string toggle'},
         R     = {'<Cmd>help ctrlsf-options<CR>'                 , 'Show CtrlSF options'},
+		F     = {'<Cmd>FzfLua<CR>'                              , 'Fzf Commands'},
     },
     S = {
         name = '+Session',

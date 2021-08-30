@@ -85,6 +85,14 @@ return packer.startup(function(use)
     use 'nvim-telescope/telescope-fzy-native.nvim'
     use 'nvim-telescope/telescope-project.nvim'
 
+	-- FZF
+	use {
+		'ibhagwan/fzf-lua',
+		requires = {
+			'vijaymarupudi/nvim-fzf',
+		}
+	}
+
     -- Themes
     use 'drewtempelmeyer/palenight.vim'
     use 'folke/tokyonight.nvim'
