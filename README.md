@@ -40,7 +40,5 @@
 #### TODO
 * Auto install LSPs
 * Improve Keybindings along the way
-* Improve configs for php (Laravel Development)
-* Try Django emmet to work
 * Formatters for various web frameworks
-* Java LSP?
+* Make status bar, indent guides and other plugins match theme colors

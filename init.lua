@@ -2,7 +2,7 @@ require('plugins')
 require('globals')
 require('keymaps')
 require('settings')
-require('theme.palenight')
+require('theme.tokyonight')
 
 -- Plugins
 require('config.compe')
