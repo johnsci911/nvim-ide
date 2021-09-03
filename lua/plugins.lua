@@ -34,7 +34,6 @@ return packer.startup(function(use)
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
     use 'kabouzeid/nvim-lspinstall'
-    use 'folke/lsp-trouble.nvim'
 
     -- Debug
     use 'mfussenegger/nvim-dap'

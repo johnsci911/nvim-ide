@@ -20,7 +20,6 @@ vim.cmd([[
     nnoremap <silent> <C-c> <Esc>
 ]])
 
--- TODO fix this
 -- Terminal window navigation
 vim.cmd([[
   tnoremap <C-h> <C-\><C-N><C-w>h
@@ -34,7 +33,6 @@ vim.cmd([[
   tnoremap <Esc> <C-\><C-n>
 ]])
 
--- TODO fix this
 -- resize with arrows
 vim.cmd([[
   nnoremap <silent> <M-k> : resize -2<CR>
@@ -63,17 +61,6 @@ vim.api.nvim_set_keymap('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silen
 -- Better nav for omnicomplete
 vim.cmd('inoremap <expr> <c-j> (\"\\<C-n>\")')
 vim.cmd('inoremap <expr> <c-k> (\"\\<C-p>\")')
--- vim.cmd('inoremap <expr> <TAB> (\"\\<C-n>\")')
--- vim.cmd('inoremap <expr> <S-TAB> (\"\\<C-p>\")')
-
--- vim.api.nvim_set_keymap('i', '<C-TAB>', 'compe#complete()', {noremap = true, silent = true, expr = true})
-
--- vim.cmd([[
--- map p <Plug>(miniyank-autoput)
--- map P <Plug>(miniyank-autoPut)
--- map <leader>n <Plug>(miniyank-cycle)
--- map <leader>N <Plug>(miniyank-cycleback)
--- ]])
 
 -- LSP keymaps
 vim.cmd('nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>')
