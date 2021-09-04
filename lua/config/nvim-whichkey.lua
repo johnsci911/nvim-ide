@@ -146,19 +146,20 @@ wk.register({
     },
     s = {
         name  = '+search',
-        b     = {'<Cmd>FzfLua buffers<CR>'            , 'Buffers'},
-        p     = {'<Cmd>FzfLua files<CR>'              , 'files'},
-        f     = {'<Cmd>FzfLua grep_curbuf<CR>'        , 'files'},
-        h     = {'<Cmd>FzfLua command_history<CR>' , 'history'},
-        i     = {'<Cmd>Telescope media_files<CR>'     , 'media files'},
-        M     = {'<Cmd>FzfLua man_pages<CR>'       , 'man_pages'},
-        o     = {'<Cmd>Telescope vim_options<CR>'     , 'vim_options'},
-        w     = {'<Cmd>Telescope file_browser<CR>'    , 'File Browser'},
-        u     = {'<Cmd>FzfLua colorscheme<CR>'     , 'Switch colorschemes'},
-        s     = {'<Cmd>FzfLua live_grep<CR>'          , 'Search a string'},
-        S     = {'<Cmd>FzfLua grep<CR>'               , 'Search a string toggle'},
-        R     = {'<Cmd>help ctrlsf-options<CR>'       , 'Show CtrlSF options'},
-        F     = {'<Cmd>FzfLua<CR>'                    , 'Fzf Commands'},
+        p  = {'<cmd>fzflua files<cr>'           , 'files'},
+        b  = {'<cmd>fzfLua buffers<CR>'         , 'Buffers'},
+        f  = {'<Cmd>FzfLua grep_curbuf<CR>'     , 'files'},
+        h  = {'<Cmd>FzfLua command_history<CR>' , 'history'},
+        i  = {'<Cmd>Telescope media_files<CR>'  , 'media files'},
+        M  = {'<Cmd>FzfLua man_pages<CR>'       , 'man_pages'},
+        o  = {'<Cmd>Telescope vim_options<CR>'  , 'vim_options'},
+        w  = {'<Cmd>Telescope file_browser<CR>' , 'File Browser'},
+        u  = {'<Cmd>FzfLua colorscheme<CR>'     , 'Switch colorschemes'},
+        s  = {'<Cmd>FzfLua live_grep<CR>'       , 'Search a string'},
+        S  = {'<Cmd>FzfLua grep<CR>'            , 'Search a string toggle'},
+        R  = {'<Cmd>help ctrlsf-options<CR>'    , 'Show CtrlSF options'},
+        F  = {'<Cmd>FzfLua<CR>'                 , 'Fzf Commands'},
+		T  = {'<Cmd>Telescope<CR>'              , 'Telescope Commands'},
     },
     S = {
         name = '+Session',
@@ -172,14 +173,14 @@ wk.register({
     },
     l = {
         name = '+lsp',
-        a    = {'<Cmd>Lspsaga code_action<CR>'                 , 'code action'},
-        A    = {'<Cmd>Lspsaga range_code_action<CR>'           , 'selected action'},
+        a    = {'<Cmd>Lspsaga code_action<CR>'              , 'code action'},
+        A    = {'<Cmd>Lspsaga range_code_action<CR>'        , 'selected action'},
         d    = {'<Cmd>FzfLua lsp_document_diagnostics<CR>'  , 'document diagnostics'},
         D    = {'<Cmd>FzfLua lsp_workspace_diagnostics<CR>' , 'workspace diagnostics'},
-        L    = {'<Cmd>Lspsaga show_line_diagnostics<CR>'       , 'line_diagnostics'},
-        p    = {'<Cmd>Lspsaga preview_definition<CR>'          , 'preview definition'},
-        q    = {'<Cmd>FzfLua quickfix<CR>'                     , 'quickfix'},
-        r    = {'<Cmd>Lspsaga rename<CR>'                      , 'rename'},
+        L    = {'<Cmd>Lspsaga show_line_diagnostics<CR>'    , 'line_diagnostics'},
+        p    = {'<Cmd>Lspsaga preview_definition<CR>'       , 'preview definition'},
+        q    = {'<Cmd>FzfLua quickfix<CR>'                  , 'quickfix'},
+        r    = {'<Cmd>Lspsaga rename<CR>'                   , 'rename'},
         s    = {'<Cmd>FzfLua lsp_document_symbols<CR>'      , 'document symbols'},
         S    = {'<Cmd>FzfLua lsp_workspace_symbols<CR>'     , 'workspace symbols'},
     },
@@ -198,12 +199,3 @@ wk.register({
     }
 }, { prefix = "<Leader>" })
 
--- VimScript
-vim.cmd([[
-    function! SearchString()
-        call inputsave()
-        let replacement = input('Search Options: -R = Regex Pattern | -I = Case Insensitive | -S = Case Sensitive | -W = Excact Words => ')
-        call inputrestore()
-        execute "CtrlSF " . replacement
-    endfunction
-]])
