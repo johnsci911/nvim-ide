@@ -131,8 +131,7 @@ return packer.startup(function(use)
     -- Laravel
     use 'jwalton512/vim-blade'
 
-    -- Search and Explore
-    use 'dyng/ctrlsf.vim'
+	-- Multi cursor support
     use 'mg979/vim-visual-multi'
 
     -- Desctruction Free mode
