@@ -27,7 +27,7 @@ require'nvim-lightbulb'.update_lightbulb {
         win_opts = {},
     },
     virtual_text = {
-        enabled = false,
+        enabled = true,
         -- Text to show at virtual text
         text = "💡",
     }
