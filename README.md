@@ -19,6 +19,7 @@
 #### What's new
 - Laravel blade syntax and emmet
 - MultiCursor support
+- Mighty FZF (WIP config)
 
 #### Packages Required
 - ripgrep
@@ -42,3 +43,5 @@
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Make status bar, indent guides and other plugins match theme colors
+* Remove Active LSP on Galaxyline it doesn't make sense
+* Add FZF symbols, diagnostics, etcx9999999, in keybinds
