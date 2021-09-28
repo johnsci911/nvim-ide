@@ -184,6 +184,8 @@ wk.register({
         r    = {'<Cmd>Lspsaga rename<CR>'                   , 'rename'},
         s    = {'<Cmd>FzfLua lsp_document_symbols<CR>'      , 'document symbols'},
         S    = {'<Cmd>FzfLua lsp_workspace_symbols<CR>'     , 'workspace symbols'},
+        t    = {'<Cmd>Trouble<CR>'                          , 'Lsp trouble'},
+        T    = {'<Cmd>TSPlaygroundToggle<CR>'               , 'Treesitter Playground'},
     },
     t = {
         name  = '+terminal',

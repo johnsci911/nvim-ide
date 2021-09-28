@@ -34,6 +34,7 @@ return packer.startup(function(use)
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
     use 'kabouzeid/nvim-lspinstall'
+	use 'folke/trouble.nvim'
 
     -- Debug
     use 'mfussenegger/nvim-dap'
@@ -139,4 +140,7 @@ return packer.startup(function(use)
 
 	-- Strip WhiteSpace
 	use "ntpeters/vim-better-whitespace"
+
+	-- EWW language support
+	use "elkowar/yuck.vim"
 end)
