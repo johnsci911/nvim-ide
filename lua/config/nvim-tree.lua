@@ -1,8 +1,4 @@
-local M = {}
-
-function M.nvim_tree_callback(callback_name)
-    return string.format(":lua require'nvim-tree'.on_keypress('%s')<CR>", callback_name)
-end
+local tree_cb = require'nvim-tree.view'.nvim_tree_callback
 
 -- following options are the default
 require'nvim-tree'.setup {
@@ -56,36 +52,36 @@ require'nvim-tree'.setup {
             custom_only = false,
             -- list of mappings to set on the tree manually
             list = {
-                { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = M.nvim_tree_callback("edit") },
-                { key = {"<CR>"}, cb = M.nvim_tree_callback("edit") },
-                { key = {"o"}, cb = M.nvim_tree_callback("edit") },
-                { key = {"l"}, cb = M.nvim_tree_callback("edit") },
-                { key = {"<2-LeftMouse>"}, cb  = M.nvim_tree_callback("edit") },
-                { key = {"<2-RightMouse>"}, cb = M.nvim_tree_callback("cd") },
-                { key = {"<C-]>"}, cb = M.nvim_tree_callback("cd") },
-                { key = {"<C-v>"}, cb = M.nvim_tree_callback("vsplit") },
-                { key = {"<C-x>"}, cb = M.nvim_tree_callback("split") },
-                { key = {"<C-t>"}, cb = M.nvim_tree_callback("tabnew") },
-                { key = {"<"}, cb = M.nvim_tree_callback("prev_sibling") },
-                { key = {">"}, cb = M.nvim_tree_callback("next_sibling") },
-                { key = {"<BS>"}, cb = M.nvim_tree_callback("close_node") },
-                { key = {"h"}, cb = M.nvim_tree_callback("close_node") },
-                { key = {"<S-CR>"}, cb = M.nvim_tree_callback("close_node") },
-                { key = {"<Tab>"}, cb = M.nvim_tree_callback("preview") },
-                { key = {"I"}, cb = M.nvim_tree_callback("toggle_ignored") },
-                { key = {"H"}, cb = M.nvim_tree_callback("toggle_dotfiles") },
-                { key = {"R"}, cb = M.nvim_tree_callback("refresh") },
-                { key = {"a"}, cb = M.nvim_tree_callback("create") },
-                { key = {"d"}, cb = M.nvim_tree_callback("remove") },
-                { key = {"r"}, cb = M.nvim_tree_callback("rename") },
-                { key = {"<C-r>"}, cb = M.nvim_tree_callback("full_rename") },
-                { key = {"x"}, cb = M.nvim_tree_callback("cut") },
-                { key = {"c"}, cb = M.nvim_tree_callback("copy") },
-                { key = {"p"}, cb = M.nvim_tree_callback("paste") },
-                { key = {"[c"}, cb = M.nvim_tree_callback("prev_git_item") },
-                { key = {"]c"}, cb = M.nvim_tree_callback("next_git_item") },
-                { key = {"-"}, cb = M.nvim_tree_callback("dir_up") },
-                { key = {"q"}, cb = M.nvim_tree_callback("close") },
+                { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
+                { key = {"<CR>"}, cb = tree_cb("edit") },
+                { key = {"o"}, cb = tree_cb("edit") },
+                { key = {"l"}, cb = tree_cb("edit") },
+                { key = {"<2-LeftMouse>"}, cb  = tree_cb("edit") },
+                { key = {"<2-RightMouse>"}, cb = tree_cb("cd") },
+                { key = {"<C-]>"}, cb = tree_cb("cd") },
+                { key = {"<C-v>"}, cb = tree_cb("vsplit") },
+                { key = {"<C-x>"}, cb = tree_cb("split") },
+                { key = {"<C-t>"}, cb = tree_cb("tabnew") },
+                { key = {"<"}, cb = tree_cb("prev_sibling") },
+                { key = {">"}, cb = tree_cb("next_sibling") },
+                { key = {"<BS>"}, cb = tree_cb("close_node") },
+                { key = {"h"}, cb = tree_cb("close_node") },
+                { key = {"<S-CR>"}, cb = tree_cb("close_node") },
+                { key = {"<Tab>"}, cb = tree_cb("preview") },
+                { key = {"I"}, cb = tree_cb("toggle_ignored") },
+                { key = {"H"}, cb = tree_cb("toggle_dotfiles") },
+                { key = {"R"}, cb = tree_cb("refresh") },
+                { key = {"a"}, cb = tree_cb("create") },
+                { key = {"d"}, cb = tree_cb("remove") },
+                { key = {"r"}, cb = tree_cb("rename") },
+                { key = {"<C-r>"}, cb = tree_cb("full_rename") },
+                { key = {"x"}, cb = tree_cb("cut") },
+                { key = {"c"}, cb = tree_cb("copy") },
+                { key = {"p"}, cb = tree_cb("paste") },
+                { key = {"[c"}, cb = tree_cb("prev_git_item") },
+                { key = {"]c"}, cb = tree_cb("next_git_item") },
+                { key = {"-"}, cb = tree_cb("dir_up") },
+                { key = {"q"}, cb = tree_cb("close") },
             }
         }
     }
