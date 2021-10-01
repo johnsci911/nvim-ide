@@ -209,29 +209,6 @@ gls.right[3]= {
   }
 }
 
-gls.right[4] = {
-  LineInfo = {
-    provider = 'LineColumn',
-    highlight = { colors.fg, colors.section_bg },
-    separator = ' | ',
-    separator_highlight = { colors.bg, colors.section_bg },
-  },
-}
-
-gls.right[5] = {
-  ShowLspClient = {
-    provider = 'GetLspClient',
-    condition = function()
-        local tbl = {['dashboard'] = true, [' '] = true}
-        if tbl[vim.bo.filetype] then return false end
-        return true
-    end and checkwidth,
-    highlight = {colors.blue,colors.section_bg},
-    separator = ' | ',
-    separator_highlight = { colors.bg, colors.section_bg },
-  }
-}
-
 gls.right[6] = {
   SpaceBeforeLinePercent = {
     provider = function() return ' ' end,
