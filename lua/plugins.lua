@@ -31,11 +31,11 @@ return packer.startup(function(use)
     -- LSP
     use 'neovim/nvim-lspconfig'
     -- use 'glepnir/lspsaga.nvim'
-	use 'rinx/lspsaga.nvim'
+    use 'rinx/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
     use 'kabouzeid/nvim-lspinstall'
-	use 'folke/trouble.nvim'
+    use 'folke/trouble.nvim'
 
     -- Debug
     use 'mfussenegger/nvim-dap'
@@ -76,27 +76,27 @@ return packer.startup(function(use)
     -- Colors
     use 'norcalli/nvim-colorizer.lua'
     use 'junegunn/rainbow_parentheses.vim'
-	use 'glepnir/indent-guides.nvim'
 
     -- Telescope
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-media-files.nvim'
-	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-project.nvim'
 
-	-- FZF
-	use {
-		'ibhagwan/fzf-lua',
-		requires = {
-			'vijaymarupudi/nvim-fzf',
-		}
-	}
+    -- FZF
+    use {
+        'ibhagwan/fzf-lua',
+        requires = {
+            'vijaymarupudi/nvim-fzf',
+        }
+    }
 
     -- Themes
     use 'drewtempelmeyer/palenight.vim'
     use 'folke/tokyonight.nvim'
+    use 'ayu-theme/ayu-vim'
 
     -- Easy Scroll
     use 'karb94/neoscroll.nvim'
@@ -125,7 +125,7 @@ return packer.startup(function(use)
     use 'terrortylor/nvim-comment'
 
     -- Project Rooter
-	use "airblade/vim-rooter"
+    use "airblade/vim-rooter"
 
     -- Config Reloader
     use 'famiu/nvim-reload'
@@ -133,15 +133,15 @@ return packer.startup(function(use)
     -- Laravel
     use 'jwalton512/vim-blade'
 
-	-- Multi cursor support
+    -- Multi cursor support
     use 'mg979/vim-visual-multi'
 
     -- Desctruction Free mode
     use "Pocco81/TrueZen.nvim"
 
-	-- Strip WhiteSpace
-	use "ntpeters/vim-better-whitespace"
+    -- Strip WhiteSpace
+    use "ntpeters/vim-better-whitespace"
 
-	-- EWW language support
-	use "elkowar/yuck.vim"
+    -- EWW language support
+    use "elkowar/yuck.vim"
 end)
