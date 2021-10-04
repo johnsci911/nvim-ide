@@ -14,7 +14,8 @@ require'fzf-lua'.setup {
   -- fzf_bin             = 'sk',        -- use skim instead of fzf?
   fzf_layout          = 'reverse',      -- fzf '--layout='
   fzf_args            = '',             -- adv: fzf extra args, empty unless adv
-  fzf_binds           = {               -- fzf '--bind=' options
+  keymap              = {
+    fzf = {               -- fzf '--bind=' options
       'f2:toggle-preview',
       'f3:toggle-preview-wrap',
       'shift-down:preview-page-down',
@@ -25,6 +26,15 @@ require'fzf-lua'.setup {
       'ctrl-b:page-up',
       'ctrl-a:toggle-all',
       'ctrl-l:clear-query',
+    },
+    builtin = {
+      toggle_full   = '<F2>',       -- toggle full screen
+      toggle_wrap   = '<F3>',       -- toggle line wrap
+      toggle_hide   = '<F4>',       -- toggle on/off (not yet in use)
+      page_up       = '<C-up>',     -- preview scroll up
+      page_down     = '<C-down>',   -- preview scroll down
+      page_reset    = '<S-h>',      -- reset scroll to orig pos
+    },
   },
   preview_border      = 'border',       -- border|noborder
   preview_wrap        = 'wrap',       -- wrap|nowrap
@@ -64,19 +74,10 @@ require'fzf-lua'.setup {
       title           = true,         -- preview title?
       scrollbar       = true,         -- scrollbar?
       scrollchar      = '█',          -- scrollbar character
-      wrap            = false,        -- wrap lines?
       syntax          = true,         -- preview syntax highlight?
       fullscreen      = false,        -- preview max size?
       hl_cursor       = 'Cursor',     -- cursor highlight
       hl_range        = 'IncSearch',  -- ranger highlight (not yet in use)
-      keymap = {
-        toggle_full   = '<F2>',       -- toggle full screen
-        toggle_wrap   = '<F3>',       -- toggle line wrap
-        toggle_hide   = '<F4>',       -- toggle on/off (not yet in use)
-        page_up       = '<C-up>',     -- preview scroll up
-        page_down     = '<C-down>',   -- preview scroll down
-        page_reset    = '<S-h>',      -- reset scroll to orig pos
-      },
     },
   },
   -- provider setup
