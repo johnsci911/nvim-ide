@@ -2,7 +2,7 @@ require('plugins')
 require('globals')
 require('keymaps')
 require('settings')
-require('theme.ayu')
+require('theme.palenight')
 
 -- Plugins
 require('config.colorizer')
