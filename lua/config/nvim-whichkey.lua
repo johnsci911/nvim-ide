@@ -161,7 +161,8 @@ wk.register({
         R  = {'<Cmd>help ctrlsf-options<CR>'    , 'Show CtrlSF options'},
         F  = {'<Cmd>FzfLua<CR>'                 , 'Fzf Commands'},
 		T  = {'<Cmd>Telescope<CR>'              , 'Telescope Commands'},
-		c  = {'<Cmd>CtrlSF<CR>'                 , 'Find and replace'},
+		c  = {'<Cmd>call SearchString()<CR>'    , 'Find and replace'},
+		C  = {'<Cmd>CtrlSFToggle<CR>'           , 'Find and replace'},
     },
     S = {
         name = '+Session',
@@ -202,4 +203,14 @@ wk.register({
         m = {'<Cmd>TZMinimalist<CR>' , 'Minimal'},
     }
 }, { prefix = "<Leader>" })
+
+vim.cmd([[
+    function! SearchString()
+        call inputsave()
+        let replacement = input('Enter a string: ')
+        let option = input('Search Options: -R = Regex Pattern | -I = Case Insensitive | -S = Case Sensitive | -W = Excact Words => ')
+        call inputrestore()
+        execute "CtrlSF " . replacement . " " . option
+    endfunction
+]])
 
