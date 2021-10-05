@@ -161,6 +161,7 @@ wk.register({
         R  = {'<Cmd>help ctrlsf-options<CR>'    , 'Show CtrlSF options'},
         F  = {'<Cmd>FzfLua<CR>'                 , 'Fzf Commands'},
 		T  = {'<Cmd>Telescope<CR>'              , 'Telescope Commands'},
+		c  = {'<Cmd>CtrlSF<CR>'                 , 'Find and replace'},
     },
     S = {
         name = '+Session',

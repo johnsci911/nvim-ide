@@ -85,13 +85,14 @@ return packer.startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-project.nvim'
 
-    -- FZF
+    -- Fuzy find
     use {
         'ibhagwan/fzf-lua',
         requires = {
             'vijaymarupudi/nvim-fzf',
         }
     }
+	use 'dyng/ctrlsf.vim'
 
     -- Themes
     use 'drewtempelmeyer/palenight.vim'
