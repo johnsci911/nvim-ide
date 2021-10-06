@@ -95,7 +95,6 @@ return packer.startup(function(use)
 	use 'dyng/ctrlsf.vim'
 
     -- Themes
-    use 'drewtempelmeyer/palenight.vim'
     use 'folke/tokyonight.nvim'
     use 'ayu-theme/ayu-vim'
 
