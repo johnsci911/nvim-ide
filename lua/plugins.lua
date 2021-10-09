@@ -36,6 +36,7 @@ return packer.startup(function(use)
     use 'kosayoda/nvim-lightbulb'
     use 'kabouzeid/nvim-lspinstall'
     use 'folke/trouble.nvim'
+    use "lukas-reineke/indent-blankline.nvim"
 
     -- Debug
     use 'mfussenegger/nvim-dap'

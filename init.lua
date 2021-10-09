@@ -35,6 +35,7 @@ require('config.nvim-treesitter')
 require('config.nvim-truezen')
 require('config.nvim-whichkey')
 require('config.nvim-windowswap')
+require('config.nvim-indent')
 
 -- LSP
 require('lsp')
