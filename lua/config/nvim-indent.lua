@@ -1,6 +1,16 @@
 vim.opt.termguicolors = true
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
+vim.g.indentLine_bufNameExclude = {
+	'defx',
+	'packager',
+	'vista',
+	'NvimTree',
+	'DiffviewFiles',
+	'ctrlsf',
+	'dashboard',
+	'floaterm',
+}
 
 vim.cmd [[highlight IndentBlanklineIndent1 guibg=#1F2335 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent2 guibg=#24283B gui=nocombine]]

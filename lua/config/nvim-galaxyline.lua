@@ -9,8 +9,8 @@ gl.short_line_list = {
     'NvimTree',
     'DiffviewFiles',
     'ctrlsf',
-	'dashboard',
-	'floaterm',
+    'dashboard',
+    'floaterm',
 }
 
 -- Colors
