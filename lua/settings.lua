@@ -6,7 +6,7 @@ vim.o.title = true
 TERMINAL = vim.fn.expand('$TERMINAL')
 vim.cmd('let &titleold="'..TERMINAL..'"')
 vim.o.titlestring="%<%F%=%l/%L - nvim"
-vim.wo.wrap = false -- Display long lines as just one line
+vim.wo.wrap = true -- Display long lines as just one line
 vim.cmd('set whichwrap+=<,>,[,],h,l') -- move to next line with theses keys
 vim.cmd('syntax on') -- move to next line with theses keys
 vim.o.pumheight = 10 -- Makes popup menu smaller
@@ -18,8 +18,8 @@ vim.o.splitbelow = true -- Horizontal splits will automatically be below
 vim.o.termguicolors = true -- set term giu colors most terminals support this
 vim.o.splitright = true -- Vertical splits will automatically be to the right
 vim.o.conceallevel = 0 -- So that I can see `` in markdown files
-vim.cmd('set ts=4') -- Insert 2 spaces for a tab
-vim.cmd('set sw=4') -- Change the number of space characters inserted for indentation
+vim.cmd('set ts=2') -- Insert 2 spaces for a tab
+vim.cmd('set sw=2') -- Change the number of space characters inserted for indentation
 vim.bo.expandtab = true -- Converts tabs to spaces
 vim.o.smarttab = true -- Smart tab
 vim.wo.number = true -- set numbered lines
