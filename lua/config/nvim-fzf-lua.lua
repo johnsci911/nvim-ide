@@ -1,7 +1,13 @@
 local actions = require "fzf-lua.actions"
 require'fzf-lua'.setup {
   winopts = {
-    -- split         = "new",           -- open in a split instead?
+    -- split         = "belowright new",-- open in a split instead?
+                                        -- "belowright new"  : split below
+                                        -- "aboveleft new"   : split above
+                                        -- "belowright vnew" : split right
+                                        -- "aboveleft vnew   : split left
+    -- Only valid when using a float window
+    -- (i.e. when 'split' is not defined)
     win_height       = 0.85,            -- window height
     win_width        = 0.80,            -- window width
     win_row          = 0.30,            -- window row position (0=top, 1=bottom)
@@ -9,49 +15,88 @@ require'fzf-lua'.setup {
     -- win_border    = false,           -- window border? or borderchars?
     win_border       = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
     hl_normal        = 'Normal',        -- window normal color
-    hl_border        = 'FloatBorder',   -- window border color
+    hl_border        = 'Normal',        -- change to 'FloatBorder' if exists
+    fullscreen       = false,           -- start fullscreen?
+    window_on_create = function()
+      -- called once upon creation of the fzf main window
+      -- can be used to add custom fzf-lua mappings, e.g:
+      --   vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", "<Down>",
+      --     { silent = true, noremap = true })
+    end,
   },
-  -- fzf_bin             = 'sk',        -- use skim instead of fzf?
-  fzf_layout          = 'reverse',      -- fzf '--layout='
-  fzf_args            = '',             -- adv: fzf extra args, empty unless adv
-  keymap              = {
-    fzf = {               -- fzf '--bind=' options
-      'f2:toggle-preview',
-      'f3:toggle-preview-wrap',
-      'shift-down:preview-page-down',
-      'shift-up:preview-page-up',
-      'ctrl-d:half-page-down',
-      'ctrl-u:half-page-up',
-      'ctrl-f:page-down',
-      'ctrl-b:page-up',
-      'ctrl-a:toggle-all',
-      'ctrl-l:clear-query',
-    },
+  keymap = {
+    -- These override the default tables completely
+    -- no need to set to `false` to disable a bind
+    -- delete or modify is sufficient
     builtin = {
-      toggle_full   = '<F2>',       -- toggle full screen
-      toggle_wrap   = '<F3>',       -- toggle line wrap
-      toggle_hide   = '<F4>',       -- toggle on/off (not yet in use)
-      page_up       = '<C-up>',     -- preview scroll up
-      page_down     = '<C-down>',   -- preview scroll down
-      page_reset    = '<S-h>',      -- reset scroll to orig pos
+      -- neovim `:tmap` mappings for the fzf win
+      ["<F2>"]        = "toggle-fullscreen",
+      -- Only valid with the 'builtin' previewer
+      ["<F3>"]        = "toggle-preview-wrap",
+      ["<F4>"]        = "toggle-preview",
+      -- Rotate preview clockwise/counter-clockwise
+      ["<F5>"]        = "toggle-preview-ccw",
+      ["<F6>"]        = "toggle-preview-cw",
+      ["<S-down>"]    = "preview-page-down",
+      ["<S-up>"]      = "preview-page-up",
+      ["<S-left>"]    = "preview-page-reset",
+    },
+    fzf = {
+      -- fzf '--bind=' options
+      ["ctrl-z"]      = "abort",
+      ["ctrl-u"]      = "unix-line-discard",
+      ["ctrl-f"]      = "half-page-down",
+      ["ctrl-b"]      = "half-page-up",
+      ["ctrl-a"]      = "beginning-of-line",
+      ["ctrl-e"]      = "end-of-line",
+      ["alt-a"]       = "toggle-all",
+      -- Only valid with fzf previewers (bat/cat/git/etc)
+      ["f3"]          = "toggle-preview-wrap",
+      ["f4"]          = "toggle-preview",
+      ["shift-down"]  = "preview-page-down",
+      ["shift-up"]    = "preview-page-up",
     },
   },
+  -- use skim instead of fzf?
+  -- https://github.com/lotabout/skim
+  -- fzf_bin          = 'sk',
+  fzf_opts = {
+    -- options are sent as `<left>=<right>`
+    -- set to `false` to remove a flag
+    -- set to '' for a non-value flag
+    -- for raw args use `fzf_args` instead
+    ['--ansi']        = '',
+    ['--prompt']      = ' >',
+    ['--info']        = 'inline',
+    ['--height']      = '100%',
+    ['--layout']      = 'reverse',
+  },
+  -- fzf '--color=' options (optional)
+  --[[ fzf_colors = {
+      ["fg"] = { "fg", "CursorLine" },
+      ["bg"] = { "bg", "Normal" },
+      ["hl"] = { "fg", "Comment" },
+      ["fg+"] = { "fg", "Normal" },
+      ["bg+"] = { "bg", "CursorLine" },
+      ["hl+"] = { "fg", "Statement" },
+      ["info"] = { "fg", "PreProc" },
+      ["prompt"] = { "fg", "Conditional" },
+      ["pointer"] = { "fg", "Exception" },
+      ["marker"] = { "fg", "Keyword" },
+      ["spinner"] = { "fg", "Label" },
+      ["header"] = { "fg", "Comment" },
+      ["gutter"] = { "bg", "Normal" },
+  }, ]]
   preview_border      = 'border',       -- border|noborder
-  preview_wrap        = 'wrap',       -- wrap|nowrap
+  preview_wrap        = 'nowrap',       -- wrap|nowrap
   preview_opts        = 'nohidden',     -- hidden|nohidden
   preview_vertical    = 'down:45%',     -- up|down:size
   preview_horizontal  = 'right:60%',    -- right|left:size
   preview_layout      = 'flex',         -- horizontal|vertical|flex
-  flip_columns        = 120,            -- #cols to switch to horizontal on flex
+  flip_colums        = 120,            -- #cols to switch to horizontal on flex
   -- default_previewer   = "bat",       -- override the default previewer?
                                         -- by default uses the builtin previewer
   previewers = {
-    cmd = {
-      -- custom previewer, will execute:
-      -- `<cmd> <args> <filename>`
-      cmd             = "echo",
-      args            = "",
-    },
     cat = {
       cmd             = "cat",
       args            = "--number",
@@ -71,13 +116,16 @@ require'fzf-lua'.setup {
       args            = "--color",
     },
     builtin = {
+      delay           = 100,          -- delay(ms) displaying the preview
+                                      -- prevents lag on fast scrolling
       title           = true,         -- preview title?
       scrollbar       = true,         -- scrollbar?
       scrollchar      = '█',          -- scrollbar character
       syntax          = true,         -- preview syntax highlight?
-      fullscreen      = false,        -- preview max size?
+      syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
+      syntax_limit_b  = 1024*1024,    -- syntax limit (bytes), 0=nolimit
       hl_cursor       = 'Cursor',     -- cursor highlight
-      hl_range        = 'IncSearch',  -- ranger highlight (not yet in use)
+      hl_cursorline   = 'CursorLine', -- cursor line highlight
     },
   },
   -- provider setup
@@ -89,12 +137,14 @@ require'fzf-lua'.setup {
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
     actions = {
+      -- set bind to 'false' to disable
       ["default"]     = actions.file_edit,
       ["ctrl-s"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
       ["ctrl-t"]      = actions.file_tabedit,
-      ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-y"]      = function(selected) print(selected[2]) end,
+      ["alt-q"]       = actions.file_sel_to_qf,
+      -- custom actions are available too
+      ["ctrl-y"]      = function(selected) print(selected[1]) end,
     }
   },
   git = {
@@ -118,15 +168,18 @@ require'fzf-lua'.setup {
       cmd             = "git log --pretty=oneline --abbrev-commit --color",
       preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1}",
       actions = {
-        ["default"] = nil,
+        ["default"] = actions.git_checkout,
       },
     },
     bcommits = {
       prompt          = 'BCommits❯ ',
-      cmd             = "git log --pretty=oneline --abbrev-commit --color --",
+      cmd             = "git log --pretty=oneline --abbrev-commit --color",
       preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1}",
       actions = {
-        ["default"] = nil,
+        ["default"] = actions.git_buf_edit,
+        ["ctrl-s"]  = actions.git_buf_split,
+        ["ctrl-v"]  = actions.git_buf_vsplit,
+        ["ctrl-t"]  = actions.git_buf_tabedit,
       },
     },
     branches = {
@@ -156,13 +209,19 @@ require'fzf-lua'.setup {
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
+    -- 'true' enables file and git icons in 'live_grep'
+    -- degrades performance in large datasets, YMMV
+    experimental      = false,
+    -- live_grep_glob options
+    glob_flag         = "--iglob",  -- for case sensitive globs use '--glob'
+    glob_separator    = "%s%-%-"    -- query separator pattern (lua): ' --'
+  },
+  args = {
+    prompt            = 'Args❯ ',
+    files_only        = true,
     actions = {
-      ["default"]     = actions.file_edit,
-      ["ctrl-s"]      = actions.file_split,
-      ["ctrl-v"]      = actions.file_vsplit,
-      ["ctrl-t"]      = actions.file_tabedit,
-      ["ctrl-q"]      = actions.file_sel_to_qf,
-      ["ctrl-y"]      = function(selected) print(selected[2]) end,
+      -- added on top of regular file actions
+      ["ctrl-x"]      = actions.arg_del,
     }
   },
   oldfiles = {
@@ -170,6 +229,7 @@ require'fzf-lua'.setup {
     cwd_only          = false,
   },
   buffers = {
+    -- previewer      = false,        -- disable the builtin previewer?
     prompt            = 'Buffers❯ ',
     file_icons        = true,         -- show file icons?
     color_icons       = true,         -- colorize file|git icons
@@ -182,12 +242,22 @@ require'fzf-lua'.setup {
       ["ctrl-x"]      = actions.buf_del,
     }
   },
+  blines = {
+    previewer         = "builtin",    -- set to 'false' to disable
+    prompt            = 'BLines❯ ',
+    actions = {
+      ["default"]     = actions.buf_edit,
+      ["ctrl-s"]      = actions.buf_split,
+      ["ctrl-v"]      = actions.buf_vsplit,
+      ["ctrl-t"]      = actions.buf_tabedit,
+    }
+  },
   colorschemes = {
     prompt            = 'Colorschemes❯ ',
     live_preview      = true,       -- apply the colorscheme on preview?
     actions = {
       ["default"]     = actions.colorscheme,
-      ["ctrl-y"]      = function(selected) print(selected[2]) end,
+      ["ctrl-y"]      = function(selected) print(selected[1]) end,
     },
     winopts = {
       win_height        = 0.55,
@@ -220,14 +290,24 @@ require'fzf-lua'.setup {
       ["Hint"]        = { icon = "", color = "magenta" },   -- hint
     },
   },
-  -- placeholders for additional user customizations
-  loclist = {},
-  helptags = {},
-  manpages = {},
+  -- uncomment to disable the previewer
+  -- nvim = { marks    = { previewer = { _ctor = false } } },
+  -- helptags = { previewer = { _ctor = false } },
+  -- manpages = { previewer = { _ctor = false } },
+  -- uncomment to set dummy win location (help|man bar)
+  -- "topleft"  : up
+  -- "botright" : down
+  -- helptags = { previewer = { split = "topleft" } },
+  -- manpages = { previewer = { split = "topleft" } },
+  -- uncomment to use `man` command as native fzf previewer
+  -- manpages = { previewer = { _ctor = require'fzf-lua.previewer'.fzf.man_pages } },
   -- optional override of file extension icon colors
   -- available colors (terminal):
   --    clear, bold, black, red, green, yellow
   --    blue, magenta, cyan, grey, dark_grey, white
+  -- padding can help kitty term users with
+  -- double-width icon rendering
+  file_icon_padding = '',
   file_icon_colors = {
     ["lua"]   = "blue",
   },
