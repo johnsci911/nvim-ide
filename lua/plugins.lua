@@ -42,10 +42,14 @@ return packer.startup(function(use)
     use 'mfussenegger/nvim-dap'
 
     -- Autocomplete
-    use 'hrsh7th/nvim-compe'
-    use 'hrsh7th/vim-vsnip'
+    -- use 'hrsh7th/nvim-compe'
     use 'mattn/emmet-vim'
     use 'andymass/vim-matchup'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/cmp-vsnip'
 
     -- Treesitter
     use {'nvim-treesitter/nvim-treesitter', branch = '0.5-compat', run = ':TSUpdate'}
@@ -93,11 +97,10 @@ return packer.startup(function(use)
             'vijaymarupudi/nvim-fzf',
         }
     }
-	use 'dyng/ctrlsf.vim'
+  use 'dyng/ctrlsf.vim'
 
     -- Themes
     use 'folke/tokyonight.nvim'
-    use 'ayu-theme/ayu-vim'
 
     -- Easy Scroll
     use 'karb94/neoscroll.nvim'
