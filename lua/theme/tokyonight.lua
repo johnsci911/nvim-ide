@@ -1,7 +1,7 @@
 -- Tokyonight
 
 -- The theme comes in two styles, "storm" and a darker variant "night".
-vim.g.tokyonight_style = "night"
+vim.g.tokyonight_style = "storm"
 
 -- Comments are italicized by default
 vim.g.tokyonight_italic_comments = true
