@@ -1,16 +1,16 @@
 vim.cmd([[
-	if (has("termguicolors"))
-	  set termguicolors
-	endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 
-	set background=dark
-	colorscheme tokyonight
+  set background=dark
+  colorscheme tokyonight
 ]])
 
 -- Tokyonight
 
 -- The theme comes in two styles, "storm" and a darker variant "night".
-vim.g.tokyonight_style = "storm"
+vim.g.tokyonight_style = "night"
 
 -- Comments are italicized by default
 vim.g.tokyonight_italic_comments = true
