@@ -1,12 +1,3 @@
-vim.cmd([[
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-
-  set background=dark
-  colorscheme tokyonight
-]])
-
 -- Tokyonight
 
 -- The theme comes in two styles, "storm" and a darker variant "night".
@@ -28,3 +19,8 @@ vim.g.tokyonight_transparent = false
 -- replace them with a thin border instead. Should work with
 -- the standard `StatusLine` and `LuaLine`.
 vim.g.tokyonight_hide_inactive_statusline = true
+
+vim.g.tokyonight_dark_sidebar = true
+vim.g.tokyonight_sidebars = { 'NvimTree' }
+
+vim.cmd[[colorscheme tokyonight]]
