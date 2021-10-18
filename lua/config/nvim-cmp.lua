@@ -43,6 +43,7 @@ cmp.setup {
         -- { name = 'ultisnips' },
 
         { name = 'buffer' },
+		{ name = 'path'},
     },
     completion = {
         autoComplete = false
