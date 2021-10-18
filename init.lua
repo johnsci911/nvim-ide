@@ -35,6 +35,7 @@ require('config.nvim-whichkey')
 require('config.nvim-windowswap')
 require('config.nvim-indent')
 require('config.nvim-cmp')
+require('config.nvim-cmp-tabnine')
 
 -- LSP
 require('lsp')
