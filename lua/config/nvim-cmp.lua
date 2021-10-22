@@ -5,16 +5,14 @@ local lspkind = require'lspkind'
 
 cmp.setup {
     snippet = {
-      expand = function(args)
-        -- For `vsnip` user.
-        vim.fn["vsnip#anonymous"](args.body)
-
-        -- For `luasnip` user.
-        -- require('luasnip').lsp_expand(args.body)
-
-        -- For `ultisnips` user.
-        -- vim.fn["UltiSnips#Anon"](args.body)
-      end,
+        expand = function(args)
+            -- For `vsnip` user.
+            vim.fn["vsnip#anonymous"](args.body)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+        end,
     },
     mapping = {
         ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -30,22 +28,20 @@ cmp.setup {
             select = true,
         })
     },
-    sources = {
-        { name = 'nvim_lsp' },
-
-        -- For vsnip user.
-        { name = 'vsnip' },
-
-        -- For luasnip user.
-        -- { name = 'luasnip' },
-
-        -- For ultisnips user.
-        -- { name = 'ultisnips' },
-
-        { name = 'buffer' },
-		{ name = 'path'},
-		{ name = 'cmp_tabnine'},
-    },
+    sources = cmp.config.sources(
+		{
+			{ name = 'nvim_lsp' },
+			{ name = 'vsnip' }, -- For vsnip users.
+			-- { name = 'luasnip' }, -- For luasnip users.
+			-- { name = 'ultisnips' }, -- For ultisnips users.
+			-- { name = 'snippy' }, -- For snippy users.
+			{ name = 'path'},
+			{ name = 'cmp_tabnine'},
+    	},
+		{
+    		{ name = 'buffer' },
+    	}
+	),
     completion = {
         autoComplete = false
     },
