@@ -7,6 +7,7 @@ require'lspconfig'.html.setup {
 	filetypes = {
 		"html",
 		"blade",
+		"php",
 	},
     on_attach = require'lsp'.common_on_attach,
     capabilities = capabilities

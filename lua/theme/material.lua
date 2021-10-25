@@ -28,9 +28,9 @@ require('material').setup({
 	},
 
 	disable = {
-		background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
-		term_colors = false, -- Prevent the theme from setting terminal colors
-		eob_lines = false -- Hide the end-of-buffer lines
+		background = true, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
+		term_colors = true, -- Prevent the theme from setting terminal colors
+		eob_lines = true -- Hide the end-of-buffer lines
 	},
 
 	custom_highlights = {} -- Overwrite highlights with your own
