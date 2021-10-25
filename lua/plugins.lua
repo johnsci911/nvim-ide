@@ -103,6 +103,7 @@ return packer.startup(function(use)
     -- Themes
     use 'folke/tokyonight.nvim'
     use 'marko-cerovac/material.nvim'
+    use 'shaunsingh/nord.nvim'
 
     -- Easy Scroll
     use 'karb94/neoscroll.nvim'
