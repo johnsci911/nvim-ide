@@ -2,7 +2,7 @@ require('plugins')
 require('globals')
 require('keymaps')
 require('settings')
-require('theme.tokyonight')
+require('theme.material')
 
 -- Plugins
 require('config.nvim-colorizer')
