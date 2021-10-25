@@ -33,7 +33,7 @@ require('config.nvim-treesitter')
 require('config.nvim-truezen')
 require('config.nvim-whichkey')
 require('config.nvim-windowswap')
-require('config.nvim-indent')
+require('config.nvim-indent-blankline')
 require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
 
