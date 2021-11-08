@@ -7,7 +7,6 @@ cmp.setup {
     snippet = {
         expand = function(args)
             -- For `vsnip` user.
-            vim.fn["vsnip#anonymous"](args.body)
             vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -23,10 +22,10 @@ cmp.setup {
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-space>'] = cmp.mapping.complete(),
         ['<C-c>'] = cmp.mapping.close(),
-        -- ['<CR>'] = cmp.mapping.confirm({
-        --     behavior = cmp.ConfirmBehavior.Replace,
-        --     select = true,
-        -- })
+        ['<CR>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        })
     },
     sources = cmp.config.sources(
 		{
