@@ -41,5 +41,5 @@
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Make status bar, indent guides and other plugins match theme colors
-* Remove Active LSP on Galaxyline it doesn't make sense
+* Find Galaxyline replacement (statusline)
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
