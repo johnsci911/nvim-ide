@@ -148,8 +148,8 @@ wk.register({
     },
     s = {
         name  = '+search',
-        p  = {'<cmd>fzflua files<cr>'                                       , 'files'},
-        b  = {'<cmd>fzfLua buffers<CR>'                                     , 'Buffers'},
+        p  = {'<cmd>FzfLua files<cr>'                                       , 'files'},
+        b  = {'<cmd>FzfLua buffers<CR>'                                     , 'Buffers'},
         f  = {'<Cmd>FzfLua grep_curbuf<CR>'                                 , 'files'},
         h  = {'<Cmd>FzfLua command_history<CR>'                             , 'history'},
         i  = {'<Cmd>Telescope media_files<CR>'                              , 'media files'},
