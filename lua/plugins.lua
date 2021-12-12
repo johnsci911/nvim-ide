@@ -64,7 +64,7 @@ return packer.startup(function(use)
     use 'ryanoasis/vim-devicons'
 
     -- Status Line and Bufferline
-    use 'glepnir/galaxyline.nvim'
+	-- Find galagxyline replacement
     use 'romgrk/barbar.nvim'
 
     -- Keymappings
