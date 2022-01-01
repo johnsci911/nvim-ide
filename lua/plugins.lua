@@ -50,7 +50,7 @@ return packer.startup(function(use)
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/cmp-vsnip'
-	use {'tzachar/cmp-tabnine', run='./install.sh'}
+    use {'tzachar/cmp-tabnine', run='./install.sh'}
 
     -- Treesitter
     use {'nvim-treesitter/nvim-treesitter', branch = '0.5-compat', run = ':TSUpdate'}
@@ -64,7 +64,7 @@ return packer.startup(function(use)
     use 'ryanoasis/vim-devicons'
 
     -- Status Line and Bufferline
-	-- Find galagxyline replacement
+    -- Find galagxyline replacement
     use 'romgrk/barbar.nvim'
 
     -- Keymappings
@@ -98,7 +98,7 @@ return packer.startup(function(use)
             'vijaymarupudi/nvim-fzf',
         }
     }
-  use 'dyng/ctrlsf.vim'
+    use 'dyng/ctrlsf.vim'
 
     -- Themes
     use 'folke/tokyonight.nvim'
