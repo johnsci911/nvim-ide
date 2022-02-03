@@ -20,8 +20,8 @@ require'nvim-tree'.setup {
     update_cwd          = true,
     -- show lsp diagnostics in the signcolumn
     diagnostics = {
-		enable = true,
-	},
+        enable = true,
+    },
     -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
     update_focused_file = {
         -- enables the feature
@@ -40,7 +40,11 @@ require'nvim-tree'.setup {
         -- the command arguments as a list
         args = {}
     },
-
+    git = {
+        enable  = true,
+        ignore  = true,
+        timeout = 500,
+    },
     view = {
         -- width of the window, can be either a number (columns) or a string in `%`
         width = 30,
