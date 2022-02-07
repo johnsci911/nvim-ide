@@ -1,4 +1,4 @@
-local tree_cb = require'nvim-tree.view'.nvim_tree_callback
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 
 -- following options are the default
 require'nvim-tree'.setup {
