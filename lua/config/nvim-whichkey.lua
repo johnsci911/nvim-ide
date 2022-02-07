@@ -1,8 +1,7 @@
 local wk = require("which-key")
 
 wk.setup {
-    plugins = {
-        marks = true, -- shows a list of your marks on ' and `
+    plugins = {        marks = true, -- shows a list of your marks on ' and `
         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
@@ -78,7 +77,7 @@ wk.register({
     ['W'] = {'w'                                                  , 'Write'},
     ['m'] = {'<Cmd>call WindowSwap#EasyWindowSwap()<CR>'          , 'Swap Window'},
     ['q'] = {'<Cmd>q<CR>'                                         , 'quit'},
-    ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>retab<CR>'            , 'Convert tab to space'},
+    ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>%retab!<CR>'          , 'Convert tab to space'},
     ['P'] = {'<Cmd>Telescope project<CR>'                         , 'Search Project'},
     ['p'] = {'<Cmd>FzfLua files<CR>'                              , 'search files'},
     ['`'] = {'<Cmd>:e<CR>'                                        , 'Fix highlights'},
