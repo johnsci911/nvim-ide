@@ -42,9 +42,7 @@ return packer.startup(function(use)
     use 'mfussenegger/nvim-dap'
 
     -- Autocomplete
-    -- use 'hrsh7th/nvim-compe'
     use 'mattn/emmet-vim'
-    use 'andymass/vim-matchup'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/nvim-cmp'
