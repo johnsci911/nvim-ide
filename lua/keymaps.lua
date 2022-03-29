@@ -15,9 +15,9 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {silent = true})
 
 -- Alternatives
 vim.cmd([[
-    nnoremap <silent> <C-s> :w<CR>
-    nnoremap <silent> <C-Q> :wq!<CR>
-    nnoremap <silent> <C-c> <Esc>
+  nnoremap <silent> <C-s> :w<CR>
+  nnoremap <silent> <C-Q> :wq!<CR>
+  nnoremap <silent> <C-c> <Esc>
 ]])
 
 -- Terminal window navigation
