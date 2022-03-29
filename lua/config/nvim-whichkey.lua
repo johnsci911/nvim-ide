@@ -96,7 +96,7 @@ wk.register({
         j     = {':call emmet#splitJoinTag()<cr>'   , 'split join tag'},
         k     = {':call emmet#removeTag()<cr>'      , 'remove tag'},
         a     = {':call emmet#anchorizeURL(0)<cr>'  , 'anchorize url'},
-        A     = {':call emmet#anchorizeURL(1)<cr>'  ,'anchorize summary'},
+        A     = {':call emmet#anchorizeURL(1)<cr>'  , 'anchorize summary'},
         m     = {':call emmet#mergeLines()<cr>'     , 'merge lines'},
         c     = {':call emmet#codePretty()<cr>'     , 'code pretty'},
         t     = {'<Cmd>TSBufDisable<CR>'            , 'Treesitter disable current buffer'},
