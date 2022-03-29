@@ -105,7 +105,7 @@ wk.register({
     a = {
         name = '+actions'                        ,
         c    = {'<Cmd>ColorizerToggle<CR>'       , 'Bracket Colorizer'},
-        s    = {'<Cmd>noh<CR>'           , 'Remove search highlight'},
+        s    = {'<Cmd>noh<CR>'                   , 'Remove search highlight'},
         w    = {'<Cmd>StripWhitespace<CR>'       , 'Strip whitespace'},
         m    = {'<Cmd>MarkdownPreviewToggle<CR>' , 'Markdown preview'},
     },
