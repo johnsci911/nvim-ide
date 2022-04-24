@@ -161,14 +161,8 @@ wk.register({
         S    = {'<Cmd>FzfLua grep<CR>'                                        , 'Search a string toggle'},
         R    = {'<Cmd>help ctrlsf-options<CR>'                                , 'Show CtrlSF options'},
         F    = {'<Cmd>FzfLua<CR>'                                             , 'Fzf Commands'},
-				t    = {
-						name = 'Switch tab length',
-						a    = {'<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>' , 'Width = 2'},
-						b    = {'<Cmd>set ts=4<CR> | <Cmd>set sw=4<CR>' , 'Width = 4'},
-				},
-		T  = {'<Cmd>Telescope<CR>'           , 'Telescope Commands'},
-		c  = {'<Cmd>call SearchString()<CR>' , 'Find and replace'},
-		C  = {'<Cmd>CtrlSFToggle<CR>'        , 'Find and replace'},
+        c  = {'<Cmd>call SearchString()<CR>' , 'Find and replace'},
+        C  = {'<Cmd>CtrlSFToggle<CR>'        , 'Find and replace'},
     },
     S = {
         name = '+Session',
@@ -196,11 +190,16 @@ wk.register({
         T    = {'<Cmd>TSPlaygroundToggle<CR>'               , 'Treesitter Playground'},
     },
     t = {
-        name  = '+terminal',
+        name  = '+tab length and terminal',
         s = {'<Cmd>FloatermNew --wintype=split --height=10<CR>' , 'terminal'},
         g = {'<Cmd>FloatermNew lazygit<CR>'                     , 'lazygit'},
         t = {'<Cmd>FloatermToggle<CR>'                          , 'toggle'},
         y = {'<Cmd>FloatermNew ytop<CR>'                        , 'ytop'},
+        T = {
+            name = 'Switch tab length',
+            a    = {'<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>' , 'Width = 2'},
+            b    = {'<Cmd>set ts=4<CR> | <Cmd>set sw=4<CR>' , 'Width = 4'},
+        }
     },
     z = {
         name  = '+TrueZen',
@@ -214,7 +213,7 @@ vim.cmd([[
     function! SearchString()
         call inputsave()
         let searchSctring = input('Enter a string: ')
-        let option = input('Search Options: -R = Regex Pattern | -I = Case Insensitive | -S = Case Sensitive | -W = Excact Words')
+        let option = input('Search Options: -R = Regex Pattern | -I = Case Insensitive | -S = Case Sensitive | -W = Excact Words ==> ')
         call inputrestore()
         execute "CtrlSF " . option . " " . searchSctring
     endfunction
