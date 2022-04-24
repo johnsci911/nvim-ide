@@ -1,11 +1,11 @@
 O = {
-    treesitter = {
-        ensure_installed = "all",
-        ignore_install   = {},
-        highlight        = {enabled = true},
-        playground       = {enabled = true},
-        rainbow          = {enabled = true}
-    }
+  treesitter = {
+    ensure_installed = "all",
+    ignore_install   = {},
+    highlight        = {enabled = true},
+    playground       = {enabled = true},
+    rainbow          = {enabled = true}
+  }
 }
 
 DATA_PATH   = vim.fn.stdpath('data')
