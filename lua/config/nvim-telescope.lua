@@ -48,8 +48,8 @@ require('telescope').setup {
         buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
         mappings = {
             i = {
-                ["<C-j>"] = actions.move_selection_next,
-                ["<C-k>"] = actions.move_selection_previous,
+                -- ["<C-j>"] = actions.move_selection_next,
+                -- ["<C-k>"] = actions.move_selection_previous,
                 -- To disable a keymap, put [map] = false
                 -- So, to not map "<C-n>", just put
                 -- ["<c-x>"] = false,
@@ -65,8 +65,8 @@ require('telescope').setup {
                 -- ["<CR>"] = actions.select_default + actions.center + my_cool_custom_action,
             },
             n = {
-                ["<C-j>"] = actions.move_selection_next,
-                ["<C-k>"] = actions.move_selection_previous
+                -- ["<C-j>"] = actions.move_selection_next,
+                -- ["<C-k>"] = actions.move_selection_previous
                 -- ["<C-i>"] = my_cool_custom_action,
             }
         },
