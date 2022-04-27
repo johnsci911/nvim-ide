@@ -33,7 +33,7 @@ return packer.startup(function(use)
     use 'rinx/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
-    use 'kabouzeid/nvim-lspinstall'
+    use 'williamboman/nvim-lsp-installer'
     use 'folke/trouble.nvim'
     use "lukas-reineke/indent-blankline.nvim"
 
