@@ -161,8 +161,8 @@ wk.register({
         S    = {'<Cmd>FzfLua grep<CR>'                                        , 'Search a string toggle'},
         R    = {'<Cmd>help ctrlsf-options<CR>'                                , 'Show CtrlSF options'},
         F    = {'<Cmd>FzfLua<CR>'                                             , 'Fzf Commands'},
-        c  = {'<Cmd>call SearchString()<CR>' , 'Find and replace'},
-        C  = {'<Cmd>CtrlSFToggle<CR>'        , 'Find and replace'},
+        c    = {'<Cmd>call SearchString()<CR>'                                , 'Find and replace'},
+        C    = {'<Cmd>CtrlSFToggle<CR>'                                       , 'Find and replace'},
     },
     S = {
         name = '+Session',
