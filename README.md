@@ -23,18 +23,17 @@
 - fzf
 
 #### LSP to install
-* bash
-* css
-* html
-* json
-* lua
-* php
-* python
-* tailwind
-* vim
-* yaml
-* vue
-* vls
+* bash - TODO
+* css - TODO
+* html - TODO
+* json - Done
+* lua - Done
+* php - Done
+* python - TODO
+* tailwind - TODO
+* vim - TODO
+* yaml - TODO
+* vue - Done
 
 #### TODO
 * Auto install LSPs
