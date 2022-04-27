@@ -1,8 +1,8 @@
 -- npm install -g vscode-css-languageserver-bin
 require'lspconfig'.cssls.setup {
     cmd = {
-        "node", DATA_PATH .. "/lspinstall/css/vscode-css/css-language-features/server/dist/node/cssServerMain.js",
+        DATA_PATH .. "/lsp_servers/cssls/node_modules/.bin/vscode-css-language-server",
         "--stdio"
     },
-    on_attach = require'lsp'.common_on_attach
+    -- on_attach = require'lsp'.common_on_attach
 }
