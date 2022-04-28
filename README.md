@@ -8,35 +8,36 @@
 - **nvim-treesitter** - for accurate syntax highlighting
 - **vim-windowswap** - to swap windows
 - **nvim-telescope** - to preview files while searching
-- ~~**ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support~~
+- **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 - **vim-blade** - Laravel blade syntax highlighting
 
 #### What's new
 - Laravel blade syntax and emmet
 - MultiCursor support
-- Mighty FZF (WIP config)
+- Mighty FZF
 
 #### Packages Required
+- Neovim 0.7+ (required)
 - ripgrep
-- fd and ueberzug - for some reason required by Telescope media_files
+- fd and ueberzug - for some reason required by Telescope media files
 - fzf
 
-#### LSP to install
-* bash - TODO
-* css - TODO
-* html - TODO
+#### LSP Auto-install
+* bash - Done
+* css - Done
+* html - Done
 * json - Done
 * lua - Done
 * php - Done
-* python - TODO
-* tailwind - TODO
-* vim - TODO
-* yaml - TODO
+* python - Done
+* tailwind - Done
+* vim - Done
+* yaml - Done
 * vue - Done
+* emmet ls - Done
 
 #### TODO
-* Auto install LSPs
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Make status bar, indent guides and other plugins match theme colors
