@@ -43,3 +43,4 @@
 * Make status bar, indent guides and other plugins match theme colors
 * Find Galaxyline replacement (statusline)
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
+* Add TailwindCSS
