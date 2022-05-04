@@ -30,7 +30,7 @@ return packer.startup(function(use)
 
     -- LSP
     use 'neovim/nvim-lspconfig'
-    use 'rinx/lspsaga.nvim'
+    use 'tami5/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
     use 'williamboman/nvim-lsp-installer'
