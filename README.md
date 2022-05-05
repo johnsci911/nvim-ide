@@ -38,7 +38,6 @@
 * emmet ls - Done
 
 #### TODO
-* Find LSPsaga replacement
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Make status bar, indent guides and other plugins match theme colors
