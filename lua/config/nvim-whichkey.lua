@@ -176,17 +176,12 @@ wk.register({
     },
     l = {
         name = '+lsp',
-        a    = {'<Cmd>Lspsaga code_action<CR>'              , 'code action'},
-        A    = {'<Cmd>Lspsaga range_code_action<CR>'        , 'selected action'},
         d    = {'<Cmd>FzfLua lsp_document_diagnostics<CR>'  , 'document diagnostics'},
         D    = {'<Cmd>FzfLua lsp_workspace_diagnostics<CR>' , 'workspace diagnostics'},
-        L    = {'<Cmd>Lspsaga show_line_diagnostics<CR>'    , 'line_diagnostics'},
-        p    = {'<Cmd>Lspsaga preview_definition<CR>'       , 'preview definition'},
         q    = {'<Cmd>FzfLua quickfix<CR>'                  , 'quickfix'},
-        r    = {'<Cmd>Lspsaga rename<CR>'                   , 'rename'},
         s    = {'<Cmd>FzfLua lsp_document_symbols<CR>'      , 'document symbols'},
         S    = {'<Cmd>FzfLua lsp_workspace_symbols<CR>'     , 'workspace symbols'},
-        t    = {'<Cmd>Trouble<CR>'                          , 'Lsp trouble'},
+        t    = {'<Cmd>TroubleToggle<CR>'                    , 'Lsp trouble'},
         T    = {'<Cmd>TSPlaygroundToggle<CR>'               , 'Treesitter Playground'},
     },
     t = {
