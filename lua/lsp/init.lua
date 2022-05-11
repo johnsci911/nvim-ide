@@ -38,7 +38,8 @@ local servers = {
 	'jsonls',
 	'html',
 	'emmet_ls',
-	'yamlls'
+	'yamlls',
+	'dockerls'
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
