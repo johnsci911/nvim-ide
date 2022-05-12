@@ -151,4 +151,7 @@ return packer.startup(function(use)
 
     -- EWW language support
     use "elkowar/yuck.vim"
+
+    -- Dockerfile syntax highlighting
+    use "ekalinin/Dockerfile.vim"
 end)
