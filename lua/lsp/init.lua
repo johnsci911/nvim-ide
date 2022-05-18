@@ -39,7 +39,8 @@ local servers = {
 	'html',
 	'emmet_ls',
 	'yamlls',
-	'dockerls'
+	'dockerls',
+	'tailwindcss'
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
