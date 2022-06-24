@@ -154,4 +154,7 @@ return packer.startup(function(use)
 
     -- Dockerfile syntax highlighting
     use "ekalinin/Dockerfile.vim"
+
+    -- Lualine
+	use 'nvim-lualine/lualine.nvim'
 end)
