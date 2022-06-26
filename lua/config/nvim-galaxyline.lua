@@ -195,6 +195,7 @@ gls.right[2] = {
   FileEncode = {
     provider = 'FileEncode',
     highlight = { colors.fg, colors.section_bg },
+    condition = checkwidth,
   },
 }
 
@@ -212,7 +213,6 @@ gls.right[4] = {
   LineInfo = {
     provider = 'LineColumn',
     highlight = { colors.fg, colors.section_bg },
-    separator = ' | ',
     separator_highlight = { colors.bg, colors.section_bg },
   },
 }
