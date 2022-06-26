@@ -210,6 +210,14 @@ gls.right[3]= {
 }
 
 gls.right[4] = {
+  SpaceBeforeLineColumn = {
+    provider = function() return '  | ' end,
+    condition = checkwidth,
+    highlight = { colors.bg, colors.section_bg },
+  },
+}
+
+gls.right[5] = {
   LineInfo = {
     provider = 'LineColumn',
     highlight = { colors.fg, colors.section_bg },
@@ -217,29 +225,29 @@ gls.right[4] = {
   },
 }
 
-gls.right[5] = {
+gls.right[6] = {
   ShowLspClient = {
     provider = 'GetLspClient',
     condition = function()
-        local tbl = {['dashboard'] = true, [' '] = true}
+        local tbl = {['dashboard'] = true}
         if tbl[vim.bo.filetype] then return false end
         return true
     end and checkwidth,
     highlight = {colors.blue,colors.section_bg},
-    separator = ' | ',
+    separator = '| ',
     separator_highlight = { colors.bg, colors.section_bg },
   }
 }
 
-gls.right[6] = {
+gls.right[7] = {
   SpaceBeforeLinePercent = {
     provider = function() return ' ' end,
-    condition = buffer_not_empty,
+    condition = buffer_not_empty and checkwidth,
     highlight = { colors.cyan, colors.section_bg },
   },
 }
 
-gls.right[7] = {
+gls.right[8] = {
   Percent = {
     provider = 'LinePercent',
     highlight = { colors.fg, colors.bg },
@@ -248,7 +256,7 @@ gls.right[7] = {
   }
 }
 
-gls.right[8] = {
+gls.right[9] = {
   ScrollBar = {
     provider = 'ScrollBar',
     highlight = { colors.blue, colors.section_bg },
@@ -256,7 +264,7 @@ gls.right[8] = {
   }
 }
 
-gls.right[9] = {
+gls.right[10] = {
   lastElement = {
     provider = function() return ' ' end,
     highlight = { colors.cyan, colors.bg }
