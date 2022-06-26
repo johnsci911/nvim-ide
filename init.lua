@@ -36,7 +36,7 @@ require('config.nvim-indent-blankline')
 require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
 require('config.nvim-trouble')
-require('config.nvim-lualine')
+require('config.nvim-galaxyline')
 
 -- LSP
 require('lsp')

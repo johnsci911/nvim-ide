@@ -82,10 +82,10 @@ return packer.startup(function(use)
     -- Telescope
     use 'nvim-lua/popup.nvim'
     use {
-    	'nvim-telescope/telescope.nvim',
-    	requires = {
-			use 'nvim-lua/plenary.nvim'
-    	}
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            use 'nvim-lua/plenary.nvim'
+        }
     }
     use 'nvim-telescope/telescope-media-files.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -155,6 +155,6 @@ return packer.startup(function(use)
     -- Dockerfile syntax highlighting
     use "ekalinin/Dockerfile.vim"
 
-    -- Lualine
-	use 'nvim-lualine/lualine.nvim'
+    -- Galaxyline
+    use 'glepnir/galaxyline.nvim'
 end)
