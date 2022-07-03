@@ -4,18 +4,10 @@ require'nvim-treesitter.configs'.setup {
     -- ignore_install = '',
     highlight = {
         enable = true, -- false will disable the whole extension
-        disable = {
-            -- "blade",
-            "vue"
-        }
     },
     -- indent = {enable = true, disable = {"python", "html", "javascript"}},
     indent = {
         enable = true,
-		disable = {
-            -- 'blade',
-            -- 'vue'
-        }
     },
     playground = {
         enable = true,
@@ -25,6 +17,13 @@ require'nvim-treesitter.configs'.setup {
     },
     autotag = {enable = true},
     rainbow = {enable = true},
-    context_commentstring = {enable = true, config = {javascriptreact = {style_element = '{/*%s*/}'}}}
-    -- refactor = {highlight_definitions = {enable = true}}
+    context_commentstring = {
+    	enable = true,
+    	config = {
+    		javascriptreact = {
+    			style_element = '{/*%s*/}'
+    		}
+    	}
+    },
+    refactor = {highlight_definitions = {enable = true}}
 }
