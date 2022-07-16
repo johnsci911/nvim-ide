@@ -1,22 +1,25 @@
-vim.g.dashboard_custom_header = {
+local db = require('dashboard')
+
+db.custom_header = {
     ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
     ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
     ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
     ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
     ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
     ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+    '                                                       ',
 }
 
-vim.g.dashboard_default_executive = 'telescope'
+db.default_executive = 'telescope'
 
-vim.g.dashboard_custom_section = {
-    a = {description = {'  Find File           '}, command = 'FzfLua files'},
-    b = {description = {'  Recently Used Files '}, command = 'FzfLua oldfiles'},
-    p = {description = {'  Projects            '}, command = 'Telescope project'},
-    e = {description = {'  Config              '}, command = ':cd ~/.config/nvim | :FzfLua files'},
-    w = {description = {'  Web Projects        '}, command = ':cd ~/Documents/www | :FzfLua files'},
+db.custom_center = {
+    {icon = ' ', shortcut = 'a', desc = 'Find File           ',  action = 'FzfLua files'},
+    {icon = ' ', shortcut = 'b', desc = 'Recently Used Files ',  action = 'FzfLua oldfiles'},
+    {icon = ' ', shortcut = 'p', desc = 'Projects            ',  action = 'Telescope project'},
+    {icon = ' ', shortcut = 'e', desc = 'Config              ',  action = ':cd ~/.config/nvim | :FzfLua files'},
+    {icon = ' ', shortcut = 'w', desc = 'Web Projects        ',  action = ':cd ~/Documents/www | :FzfLua files'},
     -- e = {description = {'  Marks              '}, command = 'Telescope marks'}
 }
 
--- vim.g.dashboard_session_directory = '~/.cache/nvim/session'
-vim.g.dashboard_custom_footer = {'Neovim Lua'}
+db.session_directory = '~/.cache/nvim/session'
+db.custom_footer = {'Neovim Lua'}
