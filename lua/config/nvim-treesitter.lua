@@ -18,12 +18,12 @@ require'nvim-treesitter.configs'.setup {
     autotag = {enable = true},
     rainbow = {enable = true},
     context_commentstring = {
-    	enable = true,
-    	config = {
-    		javascriptreact = {
-    			style_element = '{/*%s*/}'
-    		}
-    	}
+        enable = true,
+        config = {
+            javascriptreact = {
+                style_element = '{/*%s*/}'
+            }
+        }
     },
     refactor = {highlight_definitions = {enable = true}}
 }
