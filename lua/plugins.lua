@@ -49,7 +49,8 @@ return packer.startup(function(use)
     use {'tzachar/cmp-tabnine', run='./install.sh'}
 
     -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', branch = '0.5-compat', run = ':TSUpdate'}
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use 'p00f/nvim-ts-rainbow'
     use 'nvim-treesitter/playground'
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use 'windwp/nvim-autopairs'
