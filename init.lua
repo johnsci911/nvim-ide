@@ -5,7 +5,6 @@ require('settings')
 require('theme.tokyonight')
 
 -- Plugins
-require('config.nvim-colorizer')
 require('config.nvim-autopairs')
 require('config.nvim-barbar')
 require('config.nvim-comment')

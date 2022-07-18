@@ -75,10 +75,6 @@ return packer.startup(function(use)
     -- Swap windows
     use 'wesQ3/vim-windowswap'
 
-    -- Colors
-    use 'norcalli/nvim-colorizer.lua'
-    use 'junegunn/rainbow_parentheses.vim'
-
     -- Telescope
     use 'nvim-lua/popup.nvim'
     use {
