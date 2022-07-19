@@ -72,7 +72,7 @@ gls.left[2] = {
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
-    separator = " ",
+    separator = "",
     condition = buffer_not_empty,
     separator_highlight = {colors.section_bg, colors.bg},
   },
@@ -186,7 +186,7 @@ gls.right[1] = {
   firstRightElement = {
     provider = function() return ' ' end,
     highlight = { colors.cyan, colors.section_bg },
-    separator = ' ',
+    separator = '',
     separator_highlight = { colors.section_bg,colors.bg },
   },
 }
@@ -251,7 +251,7 @@ gls.right[8] = {
   Percent = {
     provider = 'LinePercent',
     highlight = { colors.fg, colors.bg },
-    separator = ' ',
+    separator = '',
     separator_highlight = { colors.section_bg, colors.bg },
   }
 }

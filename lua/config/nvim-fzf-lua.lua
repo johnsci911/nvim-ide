@@ -309,6 +309,6 @@ require'fzf-lua'.setup {
   -- double-width icon rendering
   file_icon_padding = '',
   file_icon_colors = {
-    ["lua"]   = "blue",
+    -- ["lua"]   = "blue",
   },
 }
