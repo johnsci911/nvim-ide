@@ -136,7 +136,7 @@ gls.left[8] = {
 }
 gls.left[9] = {
   LeftEnd = {
-    provider = function() return ' ' end,
+    provider = function() return '' end,
     condition = buffer_not_empty,
     highlight = {colors.section_bg,colors.bg}
   }
@@ -283,7 +283,7 @@ gls.short_line_left[2] = {
   BufferType = {
     provider = 'FileTypeName',
     highlight = { colors.fg, colors.section_bg },
-    separator = ' ',
+    separator = '',
     separator_highlight = { colors.section_bg, colors.bg },
   }
 }
