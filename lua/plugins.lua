@@ -140,9 +140,6 @@ return packer.startup(function(use)
     -- Multi cursor support
     use 'mg979/vim-visual-multi'
 
-    -- Desctruction Free mode
-    use "Pocco81/TrueZen.nvim"
-
     -- Strip WhiteSpace
     use "ntpeters/vim-better-whitespace"
 
