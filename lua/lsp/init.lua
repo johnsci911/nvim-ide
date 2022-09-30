@@ -41,7 +41,8 @@ local servers = {
     'yamlls',
     'dockerls',
     'tailwindcss',
-    'stylelint_lsp'
+    'stylelint_lsp',
+    'omnisharp'
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
