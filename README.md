@@ -16,6 +16,8 @@
 - Laravel blade syntax and emmet
 - MultiCursor support
 - Mighty FZF
+- C# (Omnisharp WIP)
+- Re-add Galaxyline status line
 
 #### Packages Required
 - Neovim 0.7+ (required)
@@ -24,23 +26,21 @@
 - fzf
 
 #### LSP Auto-install
-* bash - Done
-* css - Done
-* html - Done
-* json - Done
-* lua - Done
-* php - Done
-* python - Done
-* tailwind - Done
-* vim - Done
-* yaml - Done
-* vue - Done
-* emmet ls - Done
+* bash
+* css
+* html
+* json
+* lua
+* php
+* python
+* vim
+* yaml
+* vue
+* emmet ls
+* c sharp
+* TailwindCSS
 
 #### TODO
 * Improve Keybindings along the way
 * Formatters for various web frameworks
-* Make status bar, indent guides and other plugins match theme colors
-* Find Galaxyline replacement (statusline)
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
-* Add TailwindCSS
