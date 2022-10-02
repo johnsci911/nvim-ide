@@ -185,10 +185,10 @@ wk.register({
     },
     t = {
         name  = '+tab length and terminal',
-        s = {'<Cmd>FloatermNew --wintype=split --height=10<CR>' , 'terminal'},
-        g = {'<Cmd>FloatermNew lazygit<CR>'                     , 'lazygit'},
-        t = {'<Cmd>FloatermToggle<CR>'                          , 'toggle'},
-        y = {'<Cmd>FloatermNew btop<CR>'                        , 'ytop'},
+        s = {'<Cmd>FloatermNew --wintype=split --height=0.4<CR>'                           , 'terminal'},
+        g = {'<Cmd>FloatermNew --wintype=float --position=center --height=0.8 lazygit<CR>' , 'lazygit'},
+        t = {'<Cmd>FloatermToggle<CR>'                                                     , 'toggle'},
+        y = {'<Cmd>FloatermNew btop<CR>'                                                   , 'ytop'},
         T = {
             name = 'Switch tab length',
             a    = {'<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>' , 'Width = 2'},
