@@ -3,10 +3,6 @@
 ## Neovim IDE
 #####  --- A neovim configuration base in LUA ---
 
-## Compatible OS
-- Mac and Linux
-- Windows - You have to use your own docker container or equivalent (Future plan)
-
 #### Awesome Plugins that are used
 - **lsp-trouble** - to jumping between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
@@ -28,6 +24,10 @@
 - ripgrep
 - fd and ueberzug - for some reason required by Telescope media files
 - fzf
+
+##### Compatible OS
+- Mac and Linux
+- Windows - You have to use your own docker container or equivalent (Future plan)
 
 #### LSP Auto-install
 * bash
