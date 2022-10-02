@@ -12,6 +12,17 @@ end
 -- Autocompile when there's changes
 vim.cmd 'autocmd BufwritePost plugins.lua PackerCompile'
 
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    pattern = '*',
+    callback = function()
+        if vim.bo.filetype == '' then
+            return
+        end
+
+        vim.wo.winbar = "%{%v:lua.require'config.modules.winbar'.statusline()%}"
+    end
+})
+
 require('packer').init({display = {auto_clean = false}})
 
 local packer = require('packer');
@@ -62,7 +73,6 @@ return packer.startup(function(use)
     use 'ryanoasis/vim-devicons'
 
     -- Status Line and Bufferline
-    -- Find galagxyline replacement
     use 'romgrk/barbar.nvim'
 
     -- Keymappings
