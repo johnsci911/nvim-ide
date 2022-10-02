@@ -1,7 +1,8 @@
 local wk = require("which-key")
 
 wk.setup {
-    plugins = {        marks = true, -- shows a list of your marks on ' and `
+    plugins = {
+    	marks = true, -- shows a list of your marks on ' and `
         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
@@ -63,13 +64,11 @@ wk.setup {
 wk.register({
     ['/'] = {'<Cmd>CommentToggle<CR>'                             , 'comment line'},
     ['.'] = {'<Cmd>e $MYVIMRC<CR>'                                , 'My VIMRC'},
-    [';'] = {'<Cmd>Commands<CR>'                                  , 'Show commands'},
     ['='] = {'<C-W>='                                             , 'Balance windows'},
     ['d'] = {'<Cmd>BufferClose<CR>'                               , 'Close buffer'},
     ['?'] = {'<Cmd>NvimTreeFindFile<CR>'                          , 'Reveal current file'},
     ['e'] = {'<Cmd>NvimTreeToggle<CR>'                            , 'Toggle Explorer'},
     ['E'] = {'<Cmd>NvimTreeRefresh<CR>'                           , 'Refresh Explorer'},
-    ['r'] = {'<Cmd>Telescope find_files<CR>'                      , 'File Browser'},
     ['R'] = {'<Cmd>Telescope find_files theme=get_dropdown<CR>'   , 'Small File Browser'},
     ['f'] = {'<Cmd>FzfLua grep_curbuf<CR>'                        , 'Fuzzy find current buffer'},
     ['h'] = {'<C-W>s'                                             , 'Split Vertical'},
@@ -80,7 +79,7 @@ wk.register({
     ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>%retab!<CR>'          , 'Convert tab to space'},
     ['P'] = {'<Cmd>Telescope project<CR>'                         , 'Search Project'},
     ['p'] = {'<Cmd>FzfLua files<CR>'                              , 'search files'},
-    ['`'] = {'<Cmd>:e<CR>'                                        , 'Fix highlights'},
+    ['`'] = {'<Cmd>:e<CR>'                                        , 'Reload'},
     ['@'] = {'<Cmd>FzfLua lsp_document_symbols<CR>'               , 'Search for symbols'},
     [','] = {
         name  = '+emmet',
@@ -154,7 +153,7 @@ wk.register({
         i    = {'<Cmd>Telescope media_files<CR>'                              , 'media files'},
         M    = {'<Cmd>FzfLua man_pages<CR>'                                   , 'man_pages'},
         o    = {'<Cmd>Telescope vim_options<CR>'                              , 'vim_options'},
-        w    = {'<Cmd>Telescope file_browser<CR>'                             , 'File Browser'},
+        w    = {'<Cmd>Telescope find_files<CR>'                               , 'File Browser'},
         u    = {'<Cmd>FzfLua colorscheme<CR>'                                 , 'Switch colorschemes'},
         U    = {'<Cmd>lua require(\'material.functions\').toggle_style()<CR>' , 'Toggle material styile'},
         s    = {'<Cmd>FzfLua live_grep<CR>'                                   , 'Search a string'},
@@ -189,19 +188,13 @@ wk.register({
         s = {'<Cmd>FloatermNew --wintype=split --height=10<CR>' , 'terminal'},
         g = {'<Cmd>FloatermNew lazygit<CR>'                     , 'lazygit'},
         t = {'<Cmd>FloatermToggle<CR>'                          , 'toggle'},
-        y = {'<Cmd>FloatermNew ytop<CR>'                        , 'ytop'},
+        y = {'<Cmd>FloatermNew btop<CR>'                        , 'ytop'},
         T = {
             name = 'Switch tab length',
             a    = {'<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>' , 'Width = 2'},
             b    = {'<Cmd>set ts=4<CR> | <Cmd>set sw=4<CR>' , 'Width = 4'},
         }
     },
-    z = {
-        name  = '+TrueZen',
-        a = {'<Cmd>TZAtaraxis<CR>'   , 'TrueZen Ataraxis'},
-        f = {'<Cmd>TZFocus<CR>'      , 'TrueZen Focus'},
-        m = {'<Cmd>TZMinimalist<CR>' , 'Minimal'},
-    }
 }, { prefix = "<Leader>" })
 
 vim.cmd([[
