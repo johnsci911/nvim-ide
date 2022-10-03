@@ -18,6 +18,7 @@
 - Mighty FZF
 - C# (Omnisharp WIP)
 - Re-add Galaxyline status line
+- Winbar - LSP breadcumbs
 
 #### Packages Required
 - Neovim 0.7+ (required)
@@ -48,4 +49,3 @@
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
-* Add Winbar (Breadcrumbs)
