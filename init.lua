@@ -4,6 +4,9 @@ require('keymaps')
 require('settings')
 require('theme.tokyonight')
 
+-- Modules
+require('modules.winbar')
+
 -- Plugins
 require('config.nvim-autopairs')
 require('config.nvim-barbar')

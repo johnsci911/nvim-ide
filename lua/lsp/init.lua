@@ -1,4 +1,5 @@
 local lsp_installer = require "nvim-lsp-installer"
+local navic = require("nvim-navic")
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
@@ -7,6 +8,10 @@ local on_attach = function(client, bufnr)
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
+
+	if client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
+	end
 
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
