@@ -7,7 +7,6 @@ require'lspconfig'.html.setup {
 	filetypes = {
 		"html",
 		"blade",
-		"php",
 	},
     capabilities = capabilities
 }
