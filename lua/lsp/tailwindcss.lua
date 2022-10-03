@@ -30,7 +30,6 @@ require'lspconfig'.tailwindcss.setup {
         "mustache",
         "njk",
         "nunjucks",
-        "php",
         "razor",
         "slim",
         "twig",

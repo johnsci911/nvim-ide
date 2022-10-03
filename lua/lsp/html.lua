@@ -6,7 +6,6 @@ require'lspconfig'.html.setup {
     cmd = {DATA_PATH .. "/lsp_servers/html/node_modules/.bin/vscode-html-language-server", "--stdio"},
 	filetypes = {
 		"html",
-		"blade",
 	},
     capabilities = capabilities
 }
