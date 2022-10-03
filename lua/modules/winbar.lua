@@ -55,6 +55,7 @@ local winbar_filetype_exclude = {
     "Trouble",
     "Outline",
     "floaterm",
+    "qf"
 }
 
 vim.api.nvim_set_hl(0, 'WinBarPath', { bg = '#24283B', fg = '#B8C1EC' })
@@ -66,7 +67,7 @@ function M.exec()
         return ""
     end
 
-    local file_path = '▎ ' ..  vim.api.nvim_eval_statusline('%t', {}).str .. ' '
+    local file_path = '▎' ..  vim.api.nvim_eval_statusline('%t', {}).str .. ' '
     local lsp_navic = navic.get_location()
 
     return
