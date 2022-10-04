@@ -86,14 +86,8 @@ require('telescope').setup {
             },
             glyph = {
                 action = function(glyph)
-                    -- argument glyph is a table.
-                    -- {name="", value="", category="", description=""}
-
                     vim.fn.setreg("*", glyph.value)
-                    print([[Press p or "*p to paste this glyph]] .. glyph.value)
-
-                    -- insert glyph when picked
-                    vim.api.nvim_put({ glyph.value }, 'c', false, true)
+                    print([[Press "*P to paste this glyph ]] .. glyph.value)
                 end,
             },
         }

@@ -18,8 +18,9 @@ db.custom_center = {
     {icon = ' ', shortcut = 'SPC P', desc = 'Projects        ',  action = 'Telescope project'},
     {icon = ' ', shortcut = 'e', desc = 'Config              ',  action = ':cd ~/.config/nvim | :FzfLua files'},
     {icon = ' ', shortcut = 'm', desc = 'Marks               ',  action = 'Telescope marks'},
-    {icon = 'S ', shortcut = 'SPC S s', desc = 'Sessions      ',  action = 'SearchSession'},
+    {icon = ' ', shortcut = 'SPC S s', desc = 'Sessions      ',  action = 'SearchSession'},
 }
 
 db.session_directory = '~/.cache/nvim/session'
 db.custom_footer = {'Neovim Lua'}
+
