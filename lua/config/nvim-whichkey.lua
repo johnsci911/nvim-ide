@@ -167,8 +167,9 @@ wk.register({
     },
     S = {
         name = '+Session',
-        d    = {'<Cmd>Dashboard<CR>'    , 'Dashboard'},
-        s    = {'<Cmd>Save session<CR>' , 'SaveSession'},
+        d    = {'<Cmd>Dashboard<CR>'     , 'Dashboard'},
+        s    = {'<Cmd>SearchSession<CR>' , 'Search Session'},
+        S    = {'<Cmd>SaveSession<CR>'   , 'SaveSession'},
     },
     g = {
         name = '+git' ,
