@@ -5,6 +5,8 @@ local actions = require('telescope.actions')
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('project')
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('session-lens')
+require('telescope').load_extension('glyph')
 require('telescope').setup {
     defaults = {
         vimgrep_arguments = {
@@ -23,17 +25,17 @@ require('telescope').setup {
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         layout_config = {
-			prompt_position = "top",
-			horizontal = {mirror = false}, vertical = {mirror = false},
-			width = 0.75,
-			preview_cutoff = 120,
-		},
+            prompt_position = "top",
+            horizontal = {mirror = false}, vertical = {mirror = false},
+            width = 0.75,
+            preview_cutoff = 120,
+        },
         file_sorter = require'telescope.sorters'.get_fzy_sorter,
         file_ignore_patterns = {},
         path_display = {
-			'shorten',
-			'absolute'
-		},
+            'shorten',
+            'absolute'
+        },
         winblend = 0,
         border = {},
         borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
@@ -75,13 +77,34 @@ require('telescope').setup {
                 filetypes = {"png", "webp", "jpg", "jpeg", "mp4", "pdf"},
                 find_cmd = "rg"
             },
-			fzf = {
-				fuzzy = true,                    -- false will only do exact matching
-				override_generic_sorter = false, -- override the generic sorter
-				override_file_sorter = true,     -- override the file sorter
-				case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-											     -- the default case_mode is "smart_case"
-			},
-		}
+            fzf = {
+                fuzzy = true,                    -- false will only do exact matching
+                override_generic_sorter = false, -- override the generic sorter
+                override_file_sorter = true,     -- override the file sorter
+                case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                                 -- the default case_mode is "smart_case"
+            },
+            glyph = {
+                action = function(glyph)
+                    -- argument glyph is a table.
+                    -- {name="", value="", category="", description=""}
+
+                    vim.fn.setreg("*", glyph.value)
+                    print([[Press p or "*p to paste this glyph]] .. glyph.value)
+
+                    -- insert glyph when picked
+                    vim.api.nvim_put({ glyph.value }, 'c', false, true)
+                end,
+            },
+        }
     }
+}
+
+require('session-lens').setup {
+    path_display = {'shorten'},
+    theme_conf = {
+        border = true
+    },
+    previewer = true,
+    prompt_title = "Search Sessions"
 }

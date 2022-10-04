@@ -89,7 +89,11 @@ return packer.startup(function(use)
     use 'nvim-telescope/telescope-media-files.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-project.nvim'
-
+	use {
+		'rmagatti/session-lens',
+		requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+	}
+	use 'ghassan0/telescope-glyph.nvim'
     -- Fuzy find
     use {
         'ibhagwan/fzf-lua',

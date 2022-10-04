@@ -81,6 +81,7 @@ wk.register({
     ['p'] = {'<Cmd>FzfLua files<CR>'                              , 'search files'},
     ['`'] = {'<Cmd>:e<CR>'                                        , 'Reload'},
     ['@'] = {'<Cmd>FzfLua lsp_document_symbols<CR>'               , 'Search for symbols'},
+    ['G'] = {'<Cmd>Telescope glyphs<CR>'                          , 'Search glyphs'},
     [','] = {
         name  = '+emmet',
         [';'] = {':call emmet#expandAbbr(1,"")<cr>' , 'expand word'},
@@ -162,10 +163,12 @@ wk.register({
         F    = {'<Cmd>FzfLua<CR>'                                             , 'Fzf Commands'},
         c    = {'<Cmd>call SearchString()<CR>'                                , 'Find and replace'},
         C    = {'<Cmd>CtrlSFToggle<CR>'                                       , 'Find and replace'},
+        g    = {'<Cmd>Telescope glyph<CR>'                                    , 'Find Glyphs'},
     },
     S = {
         name = '+Session',
-        s    = {'<Cmd>Dashboard<CR>' , 'Dashboard'},
+        d    = {'<Cmd>Dashboard<CR>'    , 'Dashboard'},
+        s    = {'<Cmd>Save session<CR>' , 'SaveSession'},
     },
     g = {
         name = '+git' ,

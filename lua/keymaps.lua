@@ -71,7 +71,3 @@ vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
 -- scroll up hover doc
 vim.cmd('command! -nargs=0 LspVirtualTextToggle lua require("lsp/virtual_text").toggle()')
 
-vim.cmd([[
-	noremap x "_x"
-	noremap X "_x"
-]])
