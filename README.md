@@ -49,3 +49,4 @@
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
+* Add Notification :)
