@@ -1,4 +1,6 @@
-vim.api.nvim_create_autocmd('BufWinEnter', {
+vim.api.nvim_create_autocmd({
+    "BufWinEnter",
+}, {
     pattern = '*',
     callback = function()
         if vim.bo.filetype == '' then
@@ -64,7 +66,8 @@ vim.api.nvim_set_hl(0, 'NavicText', { bg = '#24283B', fg = '#A98CE1' })
 function M.exec()
 
     if vim.tbl_contains(winbar_filetype_exclude, vim.bo.filetype) then
-        return ""
+        vim.opt_local.winbar = nil
+        return
     end
 
     local file_path = '▎' ..  vim.api.nvim_eval_statusline('%t', {}).str .. ' '
