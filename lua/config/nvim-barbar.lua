@@ -1,25 +1,25 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
--- Move barbar to right side of File tree
-local nvim_tree_events = require('nvim-tree.events')
-local bufferline_api = require('bufferline.api')
-
-local function get_tree_size()
-  return require'nvim-tree.view'.View.width + 1
-end
-
-nvim_tree_events.subscribe('TreeOpen', function()
-  bufferline_api.set_offset(get_tree_size())
-end)
-
-nvim_tree_events.subscribe('Resize', function()
-  bufferline_api.set_offset(get_tree_size())
-end)
-
-nvim_tree_events.subscribe('TreeClose', function()
-  bufferline_api.set_offset(0)
-end)
+-- Move barbar to right side of File tree (WIP because when tree is closed barbar wont go back to left)
+-- local nvim_tree_events = require('nvim-tree.events')
+-- local bufferline_api = require('bufferline.api')
+--
+-- local function get_tree_size()
+--   return require'nvim-tree.view'.View.width + 1
+-- end
+--
+-- nvim_tree_events.subscribe('TreeOpen', function()
+--   bufferline_api.set_offset(get_tree_size())
+-- end)
+--
+-- nvim_tree_events.subscribe('Resize', function()
+--   bufferline_api.set_offset(get_tree_size())
+-- end)
+--
+-- nvim_tree_events.subscribe('TreeClose', function()
+--   bufferline_api.set_offset(0)
+-- end)
 --
 
 map('n', '<TAB>', ':BufferNext<CR>', opts)
