@@ -81,7 +81,7 @@ wk.register({
     ['p'] = {'<Cmd>FzfLua files<CR>'                              , 'search files'},
     ['`'] = {'<Cmd>:e<CR>'                                        , 'Reload'},
     ['@'] = {'<Cmd>FzfLua lsp_document_symbols<CR>'               , 'Search for symbols'},
-    ['G'] = {'<Cmd>Telescope glyph<CR>'                          , 'Search glyphs'},
+    ['G'] = {'<Cmd>Telescope glyph<CR>'                           , 'Search glyphs'},
     [','] = {
         name  = '+emmet',
         [';'] = {':call emmet#expandAbbr(1,"")<cr>' , 'expand word'},
