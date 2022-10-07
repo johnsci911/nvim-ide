@@ -1,5 +1,6 @@
 vim.notify = require("notify")
 
+
 -- Utility functions shared between progress reports for LSP and DAP
 
 local client_notifs = {}
@@ -46,7 +47,6 @@ local function format_message(message, percentage)
  return (percentage and percentage .. "%\t" or "") .. (message or "")
 end
 
-
 -- LSP integration
 -- Make sure to also have the snippet with the common helper functions in your config!
 
@@ -88,4 +88,15 @@ vim.lsp.handlers["$/progress"] = function(_, result, ctx)
 
    notif_data.spinner = nil
  end
+end
+
+-- table from lsp severity to vim severity.
+local severity = {
+  "error",
+  "warn",
+  "info",
+  "info", -- map both hint and info to info?
+}
+vim.lsp.handlers["window/showMessage"] = function(err, method, params, client_id)
+  vim.notify(method.message, severity[params.type])
 end
