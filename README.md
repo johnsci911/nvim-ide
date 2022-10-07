@@ -19,6 +19,7 @@
 - C# (Omnisharp WIP)
 - Re-add Galaxyline status line
 - Winbar - LSP breadcumbs
+- Notifications
 
 #### Packages Required
 - Neovim 0.7+ (required)
@@ -42,7 +43,7 @@
 * yaml
 * vue
 * emmet ls
-* c sharp
+* c-sharp
 * TailwindCSS
 
 #### TODO
@@ -50,3 +51,4 @@
 * Formatters for various web frameworks
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
 * Add Notification :)
+* Work on Nvim-notification plugin

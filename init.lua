@@ -37,6 +37,7 @@ require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
 require('config.nvim-trouble')
 require('config.nvim-galaxyline')
+require('config.nvim-notify')
 
 -- LSP
 require('lsp')

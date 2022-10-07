@@ -154,4 +154,7 @@ return packer.startup(function(use)
 
     -- Galaxyline
     use 'glepnir/galaxyline.nvim'
+
+    -- Notifications
+    use 'rcarriga/nvim-notify'
 end)
