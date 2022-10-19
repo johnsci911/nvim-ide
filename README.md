@@ -45,6 +45,7 @@
 * emmet ls
 * c-sharp
 * TailwindCSS
+* GraphQL
 
 #### TODO
 * Improve Keybindings along the way
