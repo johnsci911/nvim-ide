@@ -47,7 +47,8 @@ local servers = {
     'dockerls',
     'tailwindcss',
     'stylelint_lsp',
-    'omnisharp'
+    'omnisharp',
+    'graphql',
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
