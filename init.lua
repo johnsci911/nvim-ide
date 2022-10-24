@@ -38,6 +38,7 @@ require('config.nvim-cmp-tabnine')
 require('config.nvim-trouble')
 require('config.nvim-galaxyline')
 require('config.nvim-notify')
+require('config.nvim-lint')
 
 -- LSP
 require('lsp')
@@ -55,3 +56,4 @@ require('lsp.tsserver')
 require('lsp.tailwindcss')
 require('lsp.omnisharp')
 require('lsp.graphql')
+require('lsp.eslint')

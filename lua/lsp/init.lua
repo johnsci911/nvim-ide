@@ -9,9 +9,9 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
 
-	if client.server_capabilities.documentSymbolProvider then
-		navic.attach(client, bufnr)
-	end
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
 
     buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -49,6 +49,7 @@ local servers = {
     'stylelint_lsp',
     'omnisharp',
     'graphql',
+    'eslint',
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

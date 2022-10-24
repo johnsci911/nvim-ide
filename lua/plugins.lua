@@ -39,8 +39,9 @@ return packer.startup(function(use)
     use 'folke/trouble.nvim'
     use "lukas-reineke/indent-blankline.nvim"
 
-    -- Debug
+    -- Debug Lint
     use 'mfussenegger/nvim-dap'
+    use 'mfussenegger/nvim-lint'
 
     -- Autocomplete
     use 'mattn/emmet-vim'
