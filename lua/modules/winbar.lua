@@ -1,15 +1,17 @@
-vim.api.nvim_create_autocmd({
-    "BufWinEnter",
-}, {
-    pattern = '*',
-    callback = function()
-        if vim.bo.filetype == '' then
-            return
-        end
+vim.api.nvim_create_autocmd(
+    {
+        "BufWinEnter",
+    }, {
+        pattern = '*',
+        callback = function()
+            if vim.bo.filetype == '' then
+                return
+            end
 
-        vim.wo.winbar = "%{%v:lua.require'modules.winbar'.exec()%}"
-    end
-})
+            vim.wo.winbar = "%{%v:lua.require'modules.winbar'.exec()%}"
+        end
+    }
+)
 
 local M = {}
 local navic = require("nvim-navic")

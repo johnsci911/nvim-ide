@@ -22,7 +22,7 @@ packer.init {
         end,
     },
 }
---
+-- //
 
 return packer.startup(function(use)
     -- Packer itself
@@ -158,4 +158,7 @@ return packer.startup(function(use)
 
     -- Notifications
     use 'rcarriga/nvim-notify'
+
+    -- Auto tab width
+    use 'tpope/vim-sleuth'
 end)
