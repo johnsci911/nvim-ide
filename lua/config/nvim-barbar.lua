@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
 
 map('n', '<TAB>', ':BufferNext<CR>', opts)
 map('n', '<S-TAB>', ':BufferPrevious<CR>', opts)
-map('n', '<S-x>', ':BufferPick<CR>', opts)
+map('n', '<C-p>', ':BufferPick<CR>', opts)
 
 vim.g.bufferline = {
    -- Enable/disable animations
