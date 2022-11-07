@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
 
 map('n', '<TAB>', ':BufferNext<CR>', opts)
 map('n', '<S-TAB>', ':BufferPrevious<CR>', opts)
-map('n', '<S-x>', ':BufferClose<CR>', opts)
+map('n', '<S-x>', ':BufferPick<CR>', opts)
 
 vim.g.bufferline = {
    -- Enable/disable animations
@@ -107,5 +107,5 @@ vim.g.bufferline = {
 
   -- Sets the name of unnamed buffers. By default format is "[Buffer X]"
   -- where X is the buffer number. But only a static string is accepted here.
-  no_name_title = 'Untitled',
+  no_name_title = 'nil',
 }
