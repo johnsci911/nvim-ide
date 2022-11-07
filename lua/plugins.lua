@@ -22,7 +22,10 @@ packer.init {
         end,
     },
 }
--- //
+
+vim.cmd([[
+    let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
+]])
 
 return packer.startup(function(use)
     -- Packer itself
@@ -91,8 +94,8 @@ return packer.startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-project.nvim'
 	use {
-		'rmagatti/session-lens',
-		requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+            'rmagatti/session-lens',
+            requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
 	}
 	use 'ghassan0/telescope-glyph.nvim'
     -- Fuzy find
