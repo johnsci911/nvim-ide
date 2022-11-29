@@ -1,5 +1,5 @@
 require('lspconfig').eslint.setup{
-  cmd = { "vscode-eslint-language-server", "--stdio" },
+  cmd = { DATA_PATH .. "/lsp_servers/vscode-eslint/node_modules/.bin/vscode-eslint-language-server", "--stdio" },
   filetypes = {
     "javascript",
     "javascriptreact",
