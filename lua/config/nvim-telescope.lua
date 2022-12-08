@@ -7,6 +7,7 @@ require('telescope').load_extension('project')
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('session-lens')
 require('telescope').load_extension('glyph')
+
 require('telescope').setup {
     defaults = {
         vimgrep_arguments = {
