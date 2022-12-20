@@ -141,9 +141,6 @@ return packer.startup(function(use)
     -- Project Rooter
     use "airblade/vim-rooter"
 
-    -- Laravel
-    use 'jwalton512/vim-blade'
-
     -- Multi cursor support
     use 'mg979/vim-visual-multi'
 
