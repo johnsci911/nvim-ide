@@ -119,7 +119,7 @@ wk.register({
         l    = {'<Cmd>BufferMoveNext<CR>'           , 'Buffer move right'},
         b    = {'<Cmd>BufferOrderByDirectory<CR>'   , 'Buffer order by directory'},
         L    = {'<Cmd>BufferCloseBuffersRight<CR>'  , 'Close buffers on right'},
-        H    = {'<Cmd>BufferCloseBuffersRight<CR>'  , 'Close buffers on left'},
+        H    = {'<Cmd>BufferCloseBuffersLeft<CR>'   , 'Close buffers on left'},
     },
     D = {
         name = '+debug' ,
