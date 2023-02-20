@@ -70,3 +70,17 @@ vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
 -- vim.cmd('nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- scroll up hover doc
 vim.cmd('command! -nargs=0 LspVirtualTextToggle lua require("lsp/virtual_text").toggle()')
+
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts) --> jumps to the definition of the symbol under the cursor
+vim.keymap.set("n", "<space>k", ":lua vim.lsp.buf.hover()<CR>", opts) --> information about the symbol under the cursos in a floating window
+vim.keymap.set("n", "gi", ":lua vim.lsp.buf.implementation()<CR>", opts) --> lists all the implementations for the symbol under the cursor in the quickfix window
+vim.keymap.set("n", "<space>rn", ":lua vim.lsp.buf.rename()<CR>", opts) --> renaname old_fname to new_fname
+vim.keymap.set("n", "<space>ca", ":lua vim.lsp.buf.code_action()<CR>", opts) --> selects a code action available at the current cursor position
+vim.keymap.set("n", "gr", ":lua vim.lsp.buf.references()<CR>", opts) --> lists all the references to the symbl under the cursor in the quickfix window
+vim.keymap.set("n", "<space>ld", ":lua vim.diagnostic.open_float()<CR>", opts)
+vim.keymap.set("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", opts)
+vim.keymap.set("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", opts)
+vim.keymap.set("n", "<space>lq", ":lua vim.diagnostic.setloclist()<CR>", opts)
+vim.keymap.set("n", "<space>lf", ":lua vim.lsp.buf.formatting()<CR>", opts) --> formats the current buffer
