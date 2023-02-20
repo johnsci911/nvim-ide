@@ -4,7 +4,7 @@ require("mason-lspconfig").setup({
       'bashls',
       'pyright',
       'intelephense,',
-      'sumneko_lua',
+      'lua_ls',
       'cssls',
       'jsonls',
       'vimls',
