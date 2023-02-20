@@ -35,10 +35,13 @@ return packer.startup(function(use)
     use "SmiteshP/nvim-navic"
 
     -- LSP
-    use 'neovim/nvim-lspconfig'
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    }
     use 'onsails/lspkind-nvim'
     use 'kosayoda/nvim-lightbulb'
-    use 'williamboman/nvim-lsp-installer'
     use 'folke/trouble.nvim'
     use "lukas-reineke/indent-blankline.nvim"
 
