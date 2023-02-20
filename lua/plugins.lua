@@ -124,7 +124,7 @@ return packer.startup(function(use)
     use 'junegunn/vim-easy-align'
 
     -- Start Screen
-    use 'glepnir/dashboard-nvim'
+    -- Dashboard not working properly
 
     -- Close buffer
     use 'moll/vim-bbye'

@@ -113,7 +113,6 @@ wk.register({
         name = '+buffers',
         w    = {'<Cmd>BufferWipeout<CR>'            , 'Wipeout Buffer'},
         D    = {'<Cmd>BufferCloseAllButCurrent<CR>' , 'Close all but current'},
-        s    = {'<Cmd>Dashboard<CR>'                , 'Dashboard'},
         P    = {'<Cmd>BufferPin<CR>'                , 'Pin buffer'},
         h    = {'<Cmd>BufferMovePrevious<CR>'       , 'Buffer move left'},
         l    = {'<Cmd>BufferMoveNext<CR>'           , 'Buffer move right'},
@@ -165,7 +164,6 @@ wk.register({
     },
     S = {
         name = '+Session',
-        d    = {'<Cmd>Dashboard<CR>'     , 'Dashboard'},
         s    = {'<Cmd>SearchSession<CR>' , 'Search Session'},
         S    = {'<Cmd>SaveSession<CR>'   , 'SaveSession'},
     },
