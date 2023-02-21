@@ -4,7 +4,6 @@ require("mason-lspconfig").setup({
       'bashls',
       'pyright',
       'intelephense,',
-      'lua_ls',
       'cssls',
       'jsonls',
       'vimls',
@@ -20,6 +19,7 @@ require("mason-lspconfig").setup({
       'omnisharp',
       'graphql',
       'eslint',
+      'lua_ls'
     },
     automatic_installation = true,
 })

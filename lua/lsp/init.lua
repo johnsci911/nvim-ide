@@ -48,7 +48,7 @@ local servers = {
   'bashls',
   'pyright',
   'intelephense,',
-  'sumneko_lua', --
+  'lua_ls', --
   'cssls',
   'jsonls',
   'vimls',
@@ -66,14 +66,17 @@ local servers = {
   'eslint',
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
 for _, name in pairs(servers) do
   print(_, name)
-  require('lspconfig')['emmet_ls'].setup{
+  require'lspconfig'[name].setup{
     on_attach = on_attach,
-    capabilities = capabilities,
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = {'vim'}
+        }
+      }
+    }
   }
 end
 
