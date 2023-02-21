@@ -44,6 +44,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>lf", ":lua vim.lsp.buf.formatting()<CR>", opts) --> formats the current buffer
 end
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 local servers = {
   'bashls',
   'pyright',
@@ -67,9 +70,10 @@ local servers = {
 }
 
 for _, name in pairs(servers) do
-  print(_, name)
-  require'lspconfig'[name].setup{
+  require('lspconfig')[name].setup{
     on_attach = on_attach,
+    capabilities = capabilities,
+    autostart = true,
     settings = {
       Lua = {
         diagnostics = {
