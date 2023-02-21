@@ -1,6 +1,6 @@
 -- npm install -g vls
 require'lspconfig'.vuels.setup{
-  cmd = { DATA_PATH .. "/lsp_servers/vuels/node_modules/.bin/vls" },
+  cmd = { DATA_PATH .. "/mason/packages/vetur-vls/node_modules/.bin/vls" },
   filetypes = { 'vue' },
   config = {
     css = {},

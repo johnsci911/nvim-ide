@@ -1,6 +1,6 @@
 require'lspconfig'.tailwindcss.setup {
   cmd = {
-    DATA_PATH .. "/lsp_servers/tailwindcss_npm/node_modules/.bin/tailwindcss-language-server",
+    DATA_PATH .. "/mason/packages/tailwindcss-language-server/node_modules/.bin/tailwindcss-language-server",
     "--stdio"
   },
   filetypes = {

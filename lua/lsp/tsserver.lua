@@ -1,5 +1,5 @@
 require'lspconfig'.tsserver.setup {
-  cmd = {DATA_PATH .. "/lsp_servers/tsserver/node_modules/.bin/typescript-language-server", "--stdio"},
+  cmd = {DATA_PATH .. "/mason/packages/typescript-language-server/node_modules/.bin/typescript-language-server", "--stdio"},
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   root_dir = require('lspconfig/util').root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
   settings = {documentFormatting = false},
