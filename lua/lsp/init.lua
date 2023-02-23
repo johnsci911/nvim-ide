@@ -48,6 +48,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local servers = {
+  'volar',
   'bashls',
   'pyright',
   'intelephense,',
@@ -61,11 +62,8 @@ local servers = {
   'yamlls',
   'dockerls',
   'tailwindcss',
-  'stylelint_lsp',
   'omnisharp',
   'graphql',
-  'eslint',
-  'volar',
 }
 
 for _, name in pairs(servers) do

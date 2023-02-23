@@ -14,12 +14,11 @@ require("mason-lspconfig").setup({
       'yamlls',
       'dockerls',
       'tailwindcss',
-      'stylelint_lsp',
       'omnisharp',
       'graphql',
-      'eslint',
       'lua_ls',
       'volar',
+      -- 'eslint',
     },
     automatic_installation = true,
 })
