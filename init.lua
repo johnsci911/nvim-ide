@@ -41,7 +41,6 @@ require('config.nvim-lint')
 require('config.nvim-mason')
 
 -- LSP
-require('lsp')
 require('lsp.bash')
 require('lsp.php')
 require('lsp.lua')
@@ -57,3 +56,4 @@ require('lsp.tailwindcss')
 require('lsp.omnisharp')
 require('lsp.graphql')
 require('lsp.eslint')
+require('lsp')

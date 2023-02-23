@@ -32,7 +32,7 @@ require'lspconfig'.vuels.setup{
       },
       useWorkspaceDependencies = false,
       validation = {
-        script = true,
+        script = false,
         style = true,
         template = true
       }
