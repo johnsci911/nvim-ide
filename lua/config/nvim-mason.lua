@@ -18,7 +18,6 @@ require("mason-lspconfig").setup({
       'graphql',
       'lua_ls',
       'volar',
-      -- 'eslint',
     },
     automatic_installation = true,
 })
