@@ -56,7 +56,6 @@ local servers = {
   'jsonls',
   'vimls',
   'tsserver',
-  'jsonls',
   'html',
   'emmet_ls',
   'yamlls',
