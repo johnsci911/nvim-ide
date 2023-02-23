@@ -55,7 +55,6 @@ local servers = {
   'cssls',
   'jsonls',
   'vimls',
-  'vuels',
   'tsserver',
   'jsonls',
   'html',
@@ -67,6 +66,7 @@ local servers = {
   'omnisharp',
   'graphql',
   'eslint',
+  'volar',
 }
 
 for _, name in pairs(servers) do

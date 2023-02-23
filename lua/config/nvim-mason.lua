@@ -7,7 +7,6 @@ require("mason-lspconfig").setup({
       'cssls',
       'jsonls',
       'vimls',
-      'vuels',
       'tsserver',
       'jsonls',
       'html',
@@ -19,7 +18,8 @@ require("mason-lspconfig").setup({
       'omnisharp',
       'graphql',
       'eslint',
-      'lua_ls'
+      'lua_ls',
+      'volar',
     },
     automatic_installation = true,
 })
