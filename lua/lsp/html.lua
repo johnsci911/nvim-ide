@@ -6,6 +6,13 @@ require'lspconfig'.html.setup {
   cmd = {DATA_PATH .. "/mason/packages/html-lsp/node_modules/.bin/vscode-html-language-server", "--stdio"},
   filetypes = {
     "html",
+    "php",
   },
-  capabilities = capabilities
+  capabilities = capabilities,
+  configurationSection = { "html", "css", "javascript" },
+  embeddedLanguages = {
+    css = true,
+    javascript = true
+  },
+  provideFormatter = true
 }
