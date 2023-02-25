@@ -152,7 +152,7 @@ wk.register({
         M    = {'<Cmd>FzfLua man_pages<CR>'                                   , 'man_pages'},
         o    = {'<Cmd>Telescope vim_options<CR>'                              , 'vim_options'},
         w    = {'<Cmd>Telescope find_files<CR>'                               , 'File Browser'},
-        u    = {'<Cmd>FzfLua colorscheme<CR>'                                 , 'Switch colorschemes'},
+        u    = {'<Cmd>FzfLua colorschemes<CR>'                                 , 'Switch colorschemes'},
         U    = {'<Cmd>lua require(\'material.functions\').toggle_style()<CR>' , 'Toggle material styile'},
         s    = {'<Cmd>FzfLua live_grep<CR>'                                   , 'Search a string'},
         S    = {'<Cmd>FzfLua grep<CR>'                                        , 'Search a string toggle'},
