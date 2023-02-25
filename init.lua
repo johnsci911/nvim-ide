@@ -39,6 +39,7 @@ require('config.nvim-galaxyline')
 require('config.nvim-notify')
 require('config.nvim-lint')
 require('config.nvim-mason')
+require('config.nvim-neoclip')
 
 -- LSP
 require('lsp.bash')

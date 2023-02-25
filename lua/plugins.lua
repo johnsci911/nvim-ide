@@ -52,7 +52,7 @@ require("lazy").setup({
     },
 
     -- Treesitter
-    {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
+    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
     'p00f/nvim-ts-rainbow',
     'nvim-treesitter/playground',
     'JoosepAlviste/nvim-ts-context-commentstring',
@@ -85,12 +85,23 @@ require("lazy").setup({
         -- or                              , branch = '0.1.1',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
+    {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    },
 
     'nvim-telescope/telescope-media-files.nvim',
     'nvim-telescope/telescope-project.nvim',
+    {
+        'dhruvmanila/telescope-bookmarks.nvim',
+        dependencies = {
+            'kkharji/sqlite.lua',
+        }
+    },
+    "AckslD/nvim-neoclip.lua",
+
     'rmagatti/session-lens',
     'rmagatti/auto-session',
-    'nvim-telescope/telescope.nvim',
 
     'ghassan0/telescope-glyph.nvim',
     'ibhagwan/fzf-lua',
@@ -119,7 +130,7 @@ require("lazy").setup({
     'moll/vim-bbye',
 
     -- Markdown Preview
-    {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'},
+    {'iamcco/markdown-preview.nvim', build = 'cd app && npm install'},
 
     -- Floating Terminal
     'voldikss/vim-floaterm',

@@ -104,7 +104,7 @@ wk.register({
         T     = {'<Cmd>TSBufEnable<CR>'             , 'Treesitter enable current buffer'},
     },
     a = {
-        name = '+actions'                        ,
+        name = '+actions',
         c    = {'<Cmd>ColorizerToggle<CR>'       , 'Bracket Colorizer'},
         s    = {'<Cmd>noh<CR>'                   , 'Remove search highlight'},
         w    = {'<Cmd>StripWhitespace<CR>'       , 'Strip whitespace'},
@@ -153,7 +153,9 @@ wk.register({
         M    = {'<Cmd>FzfLua man_pages<CR>'                                   , 'man_pages'},
         o    = {'<Cmd>Telescope vim_options<CR>'                              , 'vim_options'},
         w    = {'<Cmd>Telescope find_files<CR>'                               , 'File Browser'},
-        u    = {'<Cmd>FzfLua colorschemes<CR>'                                 , 'Switch colorschemes'},
+        B    = {'<Cmd>Telescope bookmarks<CR>'                                , 'Browser Bookmarks'},
+        P    = {'<Cmd>Telescope neoclip<CR>'                                  , 'Clipboard'},
+        u    = {'<Cmd>FzfLua colorschemes<CR>'                                , 'Switch colorschemes'},
         U    = {'<Cmd>lua require(\'material.functions\').toggle_style()<CR>' , 'Toggle material styile'},
         s    = {'<Cmd>FzfLua live_grep<CR>'                                   , 'Search a string'},
         S    = {'<Cmd>FzfLua grep<CR>'                                        , 'Search a string toggle'},
@@ -163,6 +165,7 @@ wk.register({
         C    = {'<Cmd>CtrlSFToggle<CR>'                                       , 'Find and replace'},
         g    = {'<Cmd>Telescope glyph<CR>'                                    , 'Find Glyphs'},
     },
+
     S = {
         name = '+Session',
         s    = {'<Cmd>SearchSession<CR>' , 'Search Session'},
