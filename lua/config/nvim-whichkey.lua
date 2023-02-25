@@ -82,6 +82,7 @@ wk.register({
     ['`'] = {'<Cmd>:e<CR>'                                      , 'Reload'},
     ['@'] = {'<Cmd>FzfLua lsp_document_symbols<CR>'             , 'Search for symbols'},
     ['G'] = {'<Cmd>Telescope glyph<CR>'                         , 'Search glyphs'},
+    ['u'] = {'<Cmd>Lazy<CR>'                                    , 'Check Packages'},
     [','] = {
         name  = '+emmet',
         [';'] = {':call emmet#expandAbbr(1,"")<cr>' , 'expand word'},
