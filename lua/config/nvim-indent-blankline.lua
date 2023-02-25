@@ -2,14 +2,14 @@ vim.opt.termguicolors = true
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 vim.g.indentLine_bufNameExclude = {
-	'defx',
-	'packager',
-	'vista',
-	'NvimTree',
-	'DiffviewFiles',
-	'ctrlsf',
-	'dashboard',
-	'floaterm',
+    'defx',
+    'packager',
+    'vista',
+    'NvimTree',
+    'DiffviewFiles',
+    'ctrlsf',
+    'dashboard',
+    'floaterm',
 }
 
 vim.opt.list = true

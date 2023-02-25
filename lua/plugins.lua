@@ -1,167 +1,156 @@
--- Packer
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-    execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-    execute 'packadd packer.nvim'
-end
-
--- Autocompile when there's changes
-vim.cmd 'autocmd BufwritePost plugins.lua PackerCompile'
-require('packer').init({display = {auto_clean = false}})
-
-local packer = require('packer');
-
-packer.init {
-    display = {
-        open_fn = function()
-            return require("packer.util").float { border = "single" }
-        end,
-    },
-}
-
 vim.cmd([[
     let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
 ]])
 
-return packer.startup(function(use)
+vim.g.mapleader = " "
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    -- Lazyvim
+    'folke/lazy.nvim',
+
     -- Packer itself
-    use 'wbthomason/packer.nvim'
+    'wbthomason/packer.nvim',
 
     -- Winbar
-    use "SmiteshP/nvim-navic"
+    "SmiteshP/nvim-navic",
 
     -- LSP
-    use {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
-    }
-    use 'onsails/lspkind-nvim'
-    use 'kosayoda/nvim-lightbulb'
-    use 'folke/trouble.nvim'
-    use "lukas-reineke/indent-blankline.nvim"
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+
+    'onsails/lspkind-nvim',
+    'kosayoda/nvim-lightbulb',
+    'folke/trouble.nvim',
+    "lukas-reineke/indent-blankline.nvim",
 
     -- Debug Lint
-    use 'mfussenegger/nvim-dap'
-    use 'mfussenegger/nvim-lint'
+    'mfussenegger/nvim-dap',
+    'mfussenegger/nvim-lint',
 
     -- Autocomplete
-    use 'mattn/emmet-vim'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/cmp-vsnip'
-    use {'tzachar/cmp-tabnine', run='./install.sh'}
+    'mattn/emmet-vim',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/vim-vsnip',
+    'hrsh7th/cmp-vsnip',
+    {
+        'tzachar/cmp-tabnine',
+        build = './install.sh',
+        dependencies = 'hrsh7th/nvim-cmp',
+    },
 
     -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use 'p00f/nvim-ts-rainbow'
-    use 'nvim-treesitter/playground'
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-    use 'windwp/nvim-autopairs'
-    use 'posva/vim-vue'
+    {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'},
+    'p00f/nvim-ts-rainbow',
+    'nvim-treesitter/playground',
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    'windwp/nvim-autopairs',
+    'posva/vim-vue',
 
     -- Icons
-    use 'kyazdani42/nvim-web-devicons'
-    use 'ryanoasis/vim-devicons'
+    'kyazdani42/nvim-web-devicons',
+    'ryanoasis/vim-devicons',
 
     -- Status Line and Bufferline
-    use 'romgrk/barbar.nvim'
+    'romgrk/barbar.nvim',
 
     -- Keymappings
-    use 'folke/which-key.nvim'
+    'folke/which-key.nvim',
 
     -- Git
-    use 'f-person/git-blame.nvim'
-    use 'lewis6991/gitsigns.nvim'
-    use 'kdheepak/lazygit.nvim'
-    use 'sindrets/diffview.nvim'
+    'f-person/git-blame.nvim',
+    'lewis6991/gitsigns.nvim',
+    'kdheepak/lazygit.nvim',
+    'sindrets/diffview.nvim',
 
     -- Swap windows
-    use 'wesQ3/vim-windowswap'
+    'wesQ3/vim-windowswap',
 
     -- Telescope
-    use 'nvim-lua/popup.nvim'
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-            use 'nvim-lua/plenary.nvim'
-        }
-    }
-    use 'nvim-telescope/telescope-media-files.nvim'
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use 'nvim-telescope/telescope-project.nvim'
-	use {
-            'rmagatti/session-lens',
-            requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
-	}
-	use 'ghassan0/telescope-glyph.nvim'
-    -- Fuzy find
-    use {
-        'ibhagwan/fzf-lua',
-        requires = {
-            'vijaymarupudi/nvim-fzf',
-        }
-    }
-    use 'dyng/ctrlsf.vim'
+    'nvim-lua/popup.nvim',
+    {
+        'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        -- or                              , branch = '0.1.1',
+        dependencies = { 'nvim-lua/plenary.nvim' }
+    },
+
+    'nvim-telescope/telescope-media-files.nvim',
+    'nvim-telescope/telescope-project.nvim',
+    'rmagatti/session-lens',
+    'rmagatti/auto-session',
+    'nvim-telescope/telescope.nvim',
+
+    'ghassan0/telescope-glyph.nvim',
+    'ibhagwan/fzf-lua',
+    'dyng/ctrlsf.vim',
 
     -- Themes
-    use 'folke/tokyonight.nvim'
-    use 'marko-cerovac/material.nvim'
-    use 'shaunsingh/nord.nvim'
+    'folke/tokyonight.nvim',
+    'marko-cerovac/material.nvim',
+    'shaunsingh/nord.nvim',
 
     -- Easy Scroll
-    use 'karb94/neoscroll.nvim'
+    'karb94/neoscroll.nvim',
 
     -- Navigation
-    use 'phaazon/hop.nvim'
-    use 'nacro90/numb.nvim'
-    use 'kyazdani42/nvim-tree.lua'
+    'phaazon/hop.nvim',
+    'nacro90/numb.nvim',
+    'kyazdani42/nvim-tree.lua',
 
     -- Better Align
-    use 'junegunn/vim-easy-align'
+    'junegunn/vim-easy-align',
 
     -- Start Screen
     -- Dashboard not working properly
 
     -- Close buffer
-    use 'moll/vim-bbye'
+    'moll/vim-bbye',
 
     -- Markdown Preview
-    use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'}
+    {'iamcco/markdown-preview.nvim', run = 'cd app && npm install'},
 
     -- Floating Terminal
-    use 'voldikss/vim-floaterm'
+    'voldikss/vim-floaterm',
 
     -- Comment
-    use 'terrortylor/nvim-comment'
+    'terrortylor/nvim-comment',
 
     -- Project Rooter
-    use "airblade/vim-rooter"
+    "airblade/vim-rooter",
 
     -- Multi cursor support
-    use 'mg979/vim-visual-multi'
+    'mg979/vim-visual-multi',
 
     -- Strip WhiteSpace
-    use "ntpeters/vim-better-whitespace"
+    "ntpeters/vim-better-whitespace",
 
     -- EWW language support
-    use "elkowar/yuck.vim"
+    "elkowar/yuck.vim",
 
     -- Dockerfile syntax highlighting
-    use "ekalinin/Dockerfile.vim"
+    "ekalinin/Dockerfile.vim",
 
     -- Galaxyline
-    use 'glepnir/galaxyline.nvim'
+    'glepnir/galaxyline.nvim',
 
     -- Notifications
-    use 'rcarriga/nvim-notify'
+    'rcarriga/nvim-notify',
 
     -- Auto tab width
-    use 'tpope/vim-sleuth'
-end)
+    'tpope/vim-sleuth',
+})

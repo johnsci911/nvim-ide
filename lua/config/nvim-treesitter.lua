@@ -7,6 +7,11 @@ require'nvim-treesitter.configs'.setup {
     -- indent = {enable = true, disable = {"python", "html", "javascript"}},
     indent = {
         enable = true,
+        disable = {
+            "python",
+            "html",
+            "javascript"
+        }
     },
     playground = {
         enable = true,
