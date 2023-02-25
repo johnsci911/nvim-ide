@@ -21,9 +21,6 @@ require("lazy").setup({
     -- Lazyvim
     'folke/lazy.nvim',
 
-    -- Packer itself
-    'wbthomason/packer.nvim',
-
     -- Winbar
     "SmiteshP/nvim-navic",
 
