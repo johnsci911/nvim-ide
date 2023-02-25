@@ -45,32 +45,51 @@ cmp.setup {
         autoComplete = false
     },
     formatting = {
-        format = require('tailwindcss-colorizer-cmp').formatter, -- How to make this work with lspkind?
-        -- format = lspkind.cmp_format({
-        --     with_text = true,
-        --     menu = {
-        --         Text = '  ',
-        --         Method = '  ',
-        --         Function = '  ',
-        --         Constructor = '  ',
-        --         Variable = '[]',
-        --         Class = '  ',
-        --         Interface = ' 蘒',
-        --         Module = '  ',
-        --         Property = '  ',
-        --         Unit = ' 塞 ',
-        --         Value = '  ',
-        --         Enum = ' 練',
-        --         Keyword = '  ',
-        --         Snippet = '  ',
-        --         Color = '',
-        --         File = '',
-        --         Folder = ' ﱮ ',
-        --         EnumMember = '  ',
-        --         Constant = '  ',
-        --         Struct = '  '
-        --     },
-        -- })
+        format = function(_, item)
+            local icons = {
+                Array = " ",
+                Boolean = " ",
+                Class = " ",
+                Color = " ",
+                Constant = " ",
+                Constructor = " ",
+                Copilot = " ",
+                Enum = " ",
+                EnumMember = " ",
+                Event = " ",
+                Field = " ",
+                File = " ",
+                Folder = " ",
+                Function = " ",
+                Interface = " ",
+                Key = " ",
+                Keyword = " ",
+                Method = " ",
+                Module = " ",
+                Namespace = " ",
+                Null = "ﳠ ",
+                Number = " ",
+                Object = " ",
+                Operator = " ",
+                Package = " ",
+                Property = " ",
+                Reference = " ",
+                Snippet = " ",
+                String = " ",
+                Struct = " ",
+                Text = " ",
+                TypeParameter = " ",
+                Unit = " ",
+                Value = " ",
+                Variable = " ",
+            }
+
+            if icons[item.kind] then
+                item.kind = icons[item.kind] .. item.kind
+            end
+
+            return require("tailwindcss-colorizer-cmp").formatter(_, item)
+        end,
     }
 }
 
