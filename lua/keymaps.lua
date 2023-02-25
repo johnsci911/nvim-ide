@@ -84,3 +84,15 @@ vim.keymap.set("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", opts)
 vim.keymap.set("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", opts)
 vim.keymap.set("n", "<space>lq", ":lua vim.diagnostic.setloclist()<CR>", opts)
 vim.keymap.set("n", "<space>lf", ":lua vim.lsp.buf.formatting()<CR>", opts) --> formats the current buffer
+
+-- Floaterm
+vim.cmd([[
+  nnoremap <silent> <F4> :FloatermNew<CR>
+  tnoremap <silent> <F4> <C-\><C-n>:FloatermNew<CR>
+  nnoremap <silent> <F2> :FloatermPrev<CR>
+  tnoremap <silent> <F2> <C-\><C-n>:FloatermPrev<CR>
+  nnoremap <silent> <F3> :FloatermNext<CR>
+  tnoremap <silent> <F3> <C-\><C-n>:FloatermNext<CR>
+  nnoremap <silent> <F1> :FloatermToggle<CR>
+  tnoremap <silent> <F1> <C-\><C-n>:FloatermToggle<CR>
+]])
