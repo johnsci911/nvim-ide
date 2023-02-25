@@ -1,6 +1,6 @@
 ![image](https://user-images.githubusercontent.com/6580895/199143031-c8975cd8-b71a-415b-9727-3f0fa7753282.png)
 
-## Neovim IDE
+## Neovim PDE - Personalized Development Environment
 #####  --- A neovim configuration base from the vim community ---
 
 #### Awesome Plugins that are used
