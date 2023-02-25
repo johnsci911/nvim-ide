@@ -1,7 +1,7 @@
 vim.o.completeopt = "menuone,noselect"
 
 local cmp = require'cmp'
-local lspkind = require'lspkind'
+-- local lspkind = require'lspkind' -- Undeclared - I have seeing warnings :)
 
 cmp.setup {
     snippet = {
@@ -28,47 +28,49 @@ cmp.setup {
         })
     },
     sources = cmp.config.sources(
-		{
-			{ name = 'nvim_lsp' },
-			{ name = 'vsnip' }, -- For vsnip users.
-			-- { name = 'luasnip' }, -- For luasnip users.
-			-- { name = 'ultisnips' }, -- For ultisnips users.
-			-- { name = 'snippy' }, -- For snippy users.
-			{ name = 'path'},
-			{ name = 'cmp_tabnine'},
-    	},
-		{
-    		{ name = 'buffer' },
-    	}
-	),
+        {
+            { name = 'nvim_lsp' },
+            { name = 'vsnip' }, -- For vsnip users.
+            -- { name = 'luasnip' }, -- For luasnip users.
+            -- { name = 'ultisnips' }, -- For ultisnips users.
+            -- { name = 'snippy' }, -- For snippy users.
+            { name = 'path'},
+            { name = 'cmp_tabnine'},
+        },
+        {
+            { name = 'buffer' },
+        }
+    ),
     completion = {
         autoComplete = false
     },
     formatting = {
-        format = lspkind.cmp_format({
-            with_text = true,
-            menu = {
-                Text = '  ',
-                Method = '  ',
-                Function = '  ',
-                Constructor = '  ',
-                Variable = '[]',
-                Class = '  ',
-                Interface = ' 蘒',
-                Module = '  ',
-                Property = '  ',
-                Unit = ' 塞 ',
-                Value = '  ',
-                Enum = ' 練',
-                Keyword = '  ',
-                Snippet = '  ',
-                Color = '',
-                File = '',
-                Folder = ' ﱮ ',
-                EnumMember = '  ',
-                Constant = '  ',
-                Struct = '  '
-            },
-        })
+        format = require('tailwindcss-colorizer-cmp').formatter, -- How to make this work with lspkind?
+        -- format = lspkind.cmp_format({
+        --     with_text = true,
+        --     menu = {
+        --         Text = '  ',
+        --         Method = '  ',
+        --         Function = '  ',
+        --         Constructor = '  ',
+        --         Variable = '[]',
+        --         Class = '  ',
+        --         Interface = ' 蘒',
+        --         Module = '  ',
+        --         Property = '  ',
+        --         Unit = ' 塞 ',
+        --         Value = '  ',
+        --         Enum = ' 練',
+        --         Keyword = '  ',
+        --         Snippet = '  ',
+        --         Color = '',
+        --         File = '',
+        --         Folder = ' ﱮ ',
+        --         EnumMember = '  ',
+        --         Constant = '  ',
+        --         Struct = '  '
+        --     },
+        -- })
     }
 }
+
