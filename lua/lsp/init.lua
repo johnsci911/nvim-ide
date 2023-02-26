@@ -48,15 +48,14 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local servers = {
-  'volar',
   'bashls',
   'pyright',
   'intelephense,',
-  'lua_ls', --
   'cssls',
   'jsonls',
   'vimls',
   'tsserver',
+  'jsonls',
   'html',
   'emmet_ls',
   'yamlls',
@@ -64,7 +63,16 @@ local servers = {
   'tailwindcss',
   'omnisharp',
   'graphql',
+  'lua_ls',
+  'volar',
+  'vale',
 }
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = servers,
+    automatic_installation = true,
+})
 
 for _, name in pairs(servers) do
   require('lspconfig')[name].setup{
