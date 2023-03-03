@@ -65,7 +65,6 @@ local servers = {
   'graphql',
   'lua_ls',
   'volar',
-  'vale',
 }
 
 require("mason").setup()
