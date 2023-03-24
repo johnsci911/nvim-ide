@@ -46,10 +46,10 @@ require("lazy").setup({
     "roobert/tailwindcss-colorizer-cmp.nvim",
     'hrsh7th/vim-vsnip',
     'hrsh7th/cmp-vsnip',
-    {
-        'tzachar/cmp-tabnine',
-        build = './install.sh',
-    },
+    -- {
+    --     'tzachar/cmp-tabnine',
+    --     build = './install.sh',
+    -- },
 
     -- Treesitter
     {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},

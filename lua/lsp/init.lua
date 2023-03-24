@@ -61,7 +61,6 @@ local servers = {
   'yamlls',
   'dockerls',
   'tailwindcss',
-  'omnisharp',
   'graphql',
   'lua_ls',
   'volar',
