@@ -50,7 +50,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 local servers = {
   'bashls',
   'pyright',
-  'intelephense,',
+  -- 'intelephense,',
   'cssls',
   'jsonls',
   'vimls',

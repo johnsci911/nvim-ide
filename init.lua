@@ -42,6 +42,7 @@ require('config.nvim-cmp')
 -- require('config.nvim-cmp-tabnine')
 
 -- LSP
+require('lsp')
 require('lsp.bash')
 require('lsp.php')
 require('lsp.lua')
@@ -56,4 +57,3 @@ require('lsp.tailwindcss')
 require('lsp.omnisharp')
 require('lsp.graphql')
 require('lsp.volar')
-require('lsp')
