@@ -13,18 +13,12 @@ vim.lsp.handlers['textDocument/hover'] = function(_, result, ctx, config)
   return vim.lsp.util.open_floating_preview(markdown_lines, 'markdown', config)
 end
 
-local navic = require("nvim-navic")
-
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
   local function buf_set_option(...)
       vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
-  if client.server_capabilities.documentSymbolProvider then
-      navic.attach(client, bufnr)
   end
 
   local opts = { noremap = true, silent = true }

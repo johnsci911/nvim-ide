@@ -21,9 +21,6 @@ require("lazy").setup({
     -- Lazyvim
     'folke/lazy.nvim',
 
-    -- Winbar
-    "SmiteshP/nvim-navic",
-
     -- LSP
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -49,6 +46,7 @@ require("lazy").setup({
     {
         'tzachar/cmp-tabnine',
         build = './install.sh',
+        dependencies = 'hrsh7th/nvim-cmp',
     },
 
     -- Treesitter
