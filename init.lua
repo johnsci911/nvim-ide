@@ -39,7 +39,7 @@ require('config.nvim-lint')
 require('config.nvim-neoclip')
 require('config.nvim-colorizer')
 require('config.nvim-cmp')
--- require('config.nvim-cmp-tabnine')
+require('config.nvim-cmp-tabnine')
 
 -- LSP
 require('lsp')

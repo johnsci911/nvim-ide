@@ -51,11 +51,5 @@ require('neoclip').setup({
         custom = {},
       },
     },
-    fzf = {
-      select = 'default',
-      paste = 'ctrl-p',
-      paste_behind = 'ctrl-k',
-      custom = {},
-    },
   },
 })

@@ -50,7 +50,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 local servers = {
   'bashls',
   'pyright',
-  -- 'intelephense,',
+  'intelephense,',
   'cssls',
   'jsonls',
   'vimls',
@@ -68,7 +68,7 @@ local servers = {
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = servers,
+    -- ensure_installed = servers,
     automatic_installation = true,
 })
 

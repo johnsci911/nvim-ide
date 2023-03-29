@@ -1,5 +1,5 @@
 require'lspconfig'.lua_ls.setup {
-  cmd = {DATA_PATH .. "/mason/packages/lua-language-server/bin/lua-language-server"},
+  cmd = {DATA_PATH .. "/mason/packages/lua-language-server/lua-language-server"},
   settings = {
     Lua = {
       runtime = {
