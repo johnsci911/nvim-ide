@@ -14,9 +14,16 @@ gl.short_line_list = {
 
 -- Colors
 local colors = {
-  bg = '#24283B',
-  fg = '#f8f8f2',
-  section_bg = '#3B4261',
+  -- Tokyonight
+  -- bg         = '#24283B',
+  -- fg         = '#f8f8f2',
+  -- section_bg = '#3B4261',
+
+  -- Nord
+  bg         = '#2E3440',
+  fg         = '#f8f8f2',
+  section_bg = '#3B4252',
+
   yellow = '#f1fa8c',
   cyan = '#8be9fd',
   green = '#50fa7b',
@@ -72,7 +79,7 @@ gls.left[2] = {
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
-    separator = "",
+    separator = " ",
     condition = buffer_not_empty,
     separator_highlight = {colors.section_bg, colors.bg},
   },
@@ -136,7 +143,7 @@ gls.left[8] = {
 }
 gls.left[9] = {
   LeftEnd = {
-    provider = function() return '' end,
+    provider = function() return ' ' end,
     condition = buffer_not_empty,
     highlight = {colors.section_bg,colors.bg}
   }
@@ -186,7 +193,7 @@ gls.right[1] = {
   firstRightElement = {
     provider = function() return ' ' end,
     highlight = { colors.cyan, colors.section_bg },
-    separator = '',
+    separator = ' ' ,
     separator_highlight = { colors.section_bg,colors.bg },
   },
 }
@@ -251,7 +258,7 @@ gls.right[8] = {
   Percent = {
     provider = 'LinePercent',
     highlight = { colors.fg, colors.bg },
-    separator = '',
+    separator = ' ',
     separator_highlight = { colors.section_bg, colors.bg },
   }
 }
