@@ -15,14 +15,14 @@ gl.short_line_list = {
 -- Colors
 local colors = {
   -- Tokyonight
-  -- bg         = '#24283B',
-  -- fg         = '#f8f8f2',
-  -- section_bg = '#3B4261',
+  bg         = '#24283B',
+  fg         = '#f8f8f2',
+  section_bg = '#3B4261',
 
   -- Nord
-  bg         = '#2E3440',
-  fg         = '#f8f8f2',
-  section_bg = '#3B4252',
+  -- bg         = '#2E3440',
+  -- fg         = '#f8f8f2',
+  -- section_bg = '#3B4252',
 
   yellow = '#f1fa8c',
   cyan = '#8be9fd',
