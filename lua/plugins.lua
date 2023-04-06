@@ -51,7 +51,7 @@ require("lazy").setup({
 
     -- Treesitter
     {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
-    'p00f/nvim-ts-rainbow',
+    'HiPhish/nvim-ts-rainbow2',
     'nvim-treesitter/playground',
     'JoosepAlviste/nvim-ts-context-commentstring',
     'windwp/nvim-autopairs',
@@ -111,8 +111,7 @@ require("lazy").setup({
     -- Themes
     'folke/tokyonight.nvim',
     'marko-cerovac/material.nvim',
-    'shaunsingh/nord.nvim',
-
+    { "catppuccin/nvim", name = "catppuccin" },
     -- Easy Scroll
     'karb94/neoscroll.nvim',
 
