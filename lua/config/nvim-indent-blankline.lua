@@ -3,8 +3,8 @@ vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineIndent1 guibg=#1E1E2E gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent2 guibg=#2A2B3C gui=nocombine]]
 
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#1E1E2E gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guifg=#2A2B3C gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#696D7F gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent2 guifg=#696D7F gui=nocombine]]
 
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
