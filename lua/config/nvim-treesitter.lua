@@ -7,10 +7,10 @@ require'nvim-treesitter.configs'.setup {
     indent = {
         enable = true,
         disable = {
-            "python",
-            "html",
-            "javascript",
-            "php",
+            -- "python",
+            -- "html",
+            -- "javascript",
+            -- "php",
         }
     },
     playground = {

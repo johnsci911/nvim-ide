@@ -6,7 +6,7 @@ require'lspconfig'.html.setup {
   cmd = { "vscode-html-language-server", "--stdio" },
   filetypes = {
     "html",
-    "php",
+    -- "php",
   },
   capabilities = capabilities,
   configurationSection = { "html", "css", "javascript" },

@@ -48,7 +48,7 @@ require'lspconfig'.tailwindcss.setup {
     "typescriptreact",
     "vue",
     "svelte",
-    "php",
+    -- "php",
   },
   root_pattern = {
     'tailwind.config.js',
