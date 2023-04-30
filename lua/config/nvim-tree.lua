@@ -1,20 +1,3 @@
---
--- This function has been generated from your
---   view.mappings.list
---   view.mappings.custom_only
---   remove_keymaps
---
--- You should add this function to your configuration and set on_attach = on_attach in the nvim-tree setup call.
---
--- Although care was taken to ensure correctness and completeness, your review is required.
---
--- Please check for the following issues in auto generated content:
---   "Mappings removed" is as you expect
---   "Mappings migrated" are correct
---
--- Please see https://github.com/nvim-tree/nvim-tree.lua/wiki/Migrating-To-on_attach for assistance in migrating.
---
-
 local function on_attach(bufnr)
   local api = require('nvim-tree.api')
 
@@ -22,19 +5,14 @@ local function on_attach(bufnr)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
-
-  -- Default mappings. Feel free to modify or remove as you wish.
-  --
-  -- BEGIN_DEFAULT_ON_ATTACH
   vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node,          opts('CD'))
   vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer,     opts('Open: In Place'))
   vim.keymap.set('n', '<C-k>', api.node.show_info_popup,              opts('Info'))
   vim.keymap.set('n', '<C-r>', api.fs.rename_sub,                     opts('Rename: Omit Filename'))
   vim.keymap.set('n', '<C-t>', api.node.open.tab,                     opts('Open: New Tab'))
   vim.keymap.set('n', '<C-v>', api.node.open.vertical,                opts('Open: Vertical Split'))
-  vim.keymap.set('n', '<C-x>', api.node.open.horizontal,              opts('Open: Horizontal Split'))
+  vim.keymap.set('n', '<C-h>', api.node.open.horizontal,              opts('Open: Horizontal Split'))
   vim.keymap.set('n', '<BS>',  api.node.navigate.parent_close,        opts('Close Directory'))
-  vim.keymap.set('n', '<h>',  api.node.navigate.parent_close,        opts('Close Directory'))
   vim.keymap.set('n', '<CR>',  api.node.open.edit,                    opts('Open'))
   vim.keymap.set('n', '<Tab>', api.node.open.preview,                 opts('Open Preview'))
   vim.keymap.set('n', '>',     api.node.navigate.sibling.next,        opts('Next Sibling'))
@@ -80,8 +58,6 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'Y',     api.fs.copy.relative_path,             opts('Copy Relative Path'))
   vim.keymap.set('n', '<2-LeftMouse>',  api.node.open.edit,           opts('Open'))
   vim.keymap.set('n', '<2-RightMouse>', api.tree.change_root_to_node, opts('CD'))
-  -- END_DEFAULT_ON_ATTACH
-
 
   -- Mappings removed via:
   --   remove_keymaps
@@ -113,9 +89,18 @@ local function on_attach(bufnr)
   end, opts('Print Node Path'))
 
   vim.keymap.set('n', 'Z', api.node.run.system, opts('Run System'))
-
 end
 
 require("nvim-tree").setup({
-    on_attach = on_attach,
+  on_attach = on_attach,
+  filters = {
+    dotfiles = false,
+  },
+  git = {
+    enable = true,
+    ignore = false,
+    show_on_dirs = true,
+    show_on_open_dirs = true,
+    timeout = 400,
+  },
 })
