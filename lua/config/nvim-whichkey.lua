@@ -165,14 +165,14 @@ wk.register({
         C    = {'<Cmd>CtrlSFToggle<CR>'                                       , 'Find and replace'},
         g    = {'<Cmd>Telescope glyph<CR>'                                    , 'Find Glyphs'},
     },
-
     S = {
-        name = '+Session',
-        s    = {'<Cmd>SearchSession<CR>' , 'Search Session'},
-        S    = {'<Cmd>SaveSession<CR>'   , 'SaveSession'},
+        name = 'Sessions', -- Plugin: persistence
+    },
+    w = {
+        name = 'Window Swap',
     },
     g = {
-        name = '+git' ,
+        name = '+git',
         b    = {'<Cmd>GitBlameToggle<CR>' , 'blame'},
         d    = {'<Cmd>DiffviewOpen<CR>'   , 'Diff view'},
         D    = {'<Cmd>DiffviewClose<CR>'  , 'Diff view close'},

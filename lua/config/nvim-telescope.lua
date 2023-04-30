@@ -4,7 +4,7 @@ local actions = require('telescope.actions')
 -- '--color=never',
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('project')
-require('telescope').load_extension('session-lens')
+-- require('telescope').load_extension('session-lens')
 require('telescope').load_extension('glyph')
 require('telescope').load_extension('notify')
 require('telescope').load_extension('bookmarks')
@@ -94,11 +94,3 @@ require('telescope').setup {
     }
 }
 
-require('session-lens').setup {
-    path_display = {'shorten'},
-    theme_conf = {
-        border = true
-    },
-    previewer = true,
-    prompt_title = "Search Sessions"
-}

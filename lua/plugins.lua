@@ -86,6 +86,7 @@ require("lazy").setup({
         -- or                              , branch = '0.1.1',
         dependencies = { 'nvim-lua/plenary.nvim' }
     },
+
     {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
@@ -101,8 +102,17 @@ require("lazy").setup({
     },
     "AckslD/nvim-neoclip.lua",
 
-    'rmagatti/session-lens',
-    'rmagatti/auto-session',
+    {
+      "folke/persistence.nvim",
+      event = "BufReadPre",
+      opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
+      -- stylua: ignore
+      keys = {
+        { "<leader>Ss", function() require("persistence").load() end, desc = "Restore Session" },
+        { "<leader>Sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+        { "<leader>Sd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+      },
+    },
 
     'ghassan0/telescope-glyph.nvim',
     'ibhagwan/fzf-lua',
