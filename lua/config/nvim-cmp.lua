@@ -1,12 +1,20 @@
 vim.o.completeopt = "menuone,noselect"
 
 local cmp = require'cmp'
--- local lspkind = require'lspkind' -- Undeclared - I have seeing warnings :)
+
+local lspkind = require('lspkind')
+
+local source_mapping = {
+    buffer = "[Buffer]",
+    nvim_lsp = "[LSP]",
+    nvim_lua = "[Lua]",
+    cmp_tabnine = "[Tabnine]",
+    path = "[Path]",
+}
 
 cmp.setup {
     snippet = {
         expand = function(args)
-            -- For `vsnip` user.
             vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -27,6 +35,10 @@ cmp.setup {
             select = true,
         })
     },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
     sources = cmp.config.sources(
         {
             { name = 'nvim_lsp' },
@@ -45,51 +57,32 @@ cmp.setup {
         autoComplete = false
     },
     formatting = {
-        format = function(_, item)
-            local icons = {
-                Array = " ",
-                Boolean = " ",
-                Class = " ",
-                Color = " ",
-                Constant = " ",
-                Constructor = " ",
-                Copilot = " ",
-                Enum = " ",
-                EnumMember = " ",
-                Event = " ",
-                Field = " ",
-                File = " ",
-                Folder = " ",
-                Function = " ",
-                Interface = " ",
-                Key = " ",
-                Keyword = " ",
-                Method = " ",
-                Module = " ",
-                Namespace = " ",
-                Null = "ﳠ ",
-                Number = " ",
-                Object = " ",
-                Operator = " ",
-                Package = " ",
-                Property = " ",
-                Reference = " ",
-                Snippet = " ",
-                String = " ",
-                Struct = " ",
-                Text = " ",
-                TypeParameter = " ",
-                Unit = " ",
-                Value = " ",
-                Variable = " ",
-            }
+        format = function(entry, vim_item)
+            -- if you have lspkind installed, you can use it like
+            -- in the following line:
+            vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+            vim_item.menu = source_mapping[entry.source.name]
 
-            if icons[item.kind] then
-                item.kind = icons[item.kind] .. item.kind
+            if entry.source.name == "cmp_tabnine" then
+                local detail = (entry.completion_item.labelDetails or {}).detail
+
+                vim_item.kind = ""
+
+                if detail and detail:find('.*%%.*') then
+                    vim_item.kind = vim_item.kind .. ' ' .. detail
+                end
+
+                if (entry.completion_item.data or {}).multiline then
+                    vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+                end
             end
 
-            return require("tailwindcss-colorizer-cmp").formatter(_, item)
+            local maxwidth = 80
+
+            vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+
+            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
         end,
-    }
+    },
 }
 
