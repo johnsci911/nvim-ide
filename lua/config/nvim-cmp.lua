@@ -35,7 +35,7 @@ cmp.setup {
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path'},
-            -- { name = 'cmp_tabnine'},
+            { name = 'cmp_tabnine'},
         },
         {
             { name = 'buffer' },
