@@ -5,6 +5,7 @@
 <h5 align="center">A neovim configuration base from the vim community</h5>
 
 #### Awesome Plugins that are used
+- **Tabnine** - AI base autocompletion (Pro users supported)
 - **lsp-trouble** - to jumping between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
 - **vim-windowswap** - to swap windows
@@ -22,6 +23,8 @@
 - Notifications
 - Clipboards!
 - Migrated to Mason (LSP install manager) and Lazy.nvim (Faster loading package manager)
+- Tabnine autocompletion support
+- Laravel nvim (I think still beta but useful, I am happy someone made this)
 
 #### Packages Required
 - Neovim 0.9+ (required)
@@ -31,7 +34,7 @@
 
 ##### Compatible OS
 - Mac and Linux
-- Windows - You have to use your own docker container or equivalent - **I don't know about this...**
+- Windows - You have to use your own docker container or equivalent - **I don't have time for windows :p**
 
 #### LSP Auto-install
 * bash
@@ -39,7 +42,7 @@
 * html
 * json
 * lua
-* php
+* intelephense - (Phpactor if not using paid intelephense)
 * python
 * vim
 * yaml
@@ -53,4 +56,4 @@
 * Improve Keybindings along the way
 * Formatters for various web frameworks
 * Add FZF symbols, diagnostics, etcx9999999, in keybinds
-* Work on Nvim-notification plugin
+* ~~Work on Nvim-notification plugin~~
