@@ -44,13 +44,14 @@ end
 
 local mode_color = function()
   local mode_colors = {
-    n = colors.cyan,
-    i = colors.green,
-    c = colors.orange,
-    V = colors.magenta,
+    n      = colors.cyan,
+    i      = colors.green,
+    c      = colors.orange,
+    V      = colors.magenta,
     [''] = colors.magenta,
-    v = colors.magenta,
-    R = colors.red,
+    v      = colors.magenta,
+    R      = colors.red,
+    t      = colors.green,
   }
 
   return mode_colors[vim.fn.mode()]
@@ -67,13 +68,14 @@ gls.left[2] = {
   ViMode = {
     provider = function()
       local alias = {
-        n = 'NORMAL',
-        i = 'INSERT',
-        c = 'COMMAND',
-        V = 'VISUAL',
+        n      = 'NORMAL',
+        i      = 'INSERT',
+        c      = 'COMMAND',
+        V      = 'VISUAL',
         [''] = 'VISUAL',
-        v = 'VISUAL',
-        R = 'REPLACE',
+        v      = 'VISUAL',
+        R      = 'REPLACE',
+        t      = 'TERMINAL',
       }
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color())
       return alias[vim.fn.mode()]..' '
