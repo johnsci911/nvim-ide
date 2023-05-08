@@ -10,7 +10,6 @@ gl.short_line_list = {
     'DiffviewFiles',
     'ctrlsf',
     'floaterm',
-    'laravel'
 }
 
 -- Colors
@@ -45,18 +44,14 @@ end
 
 local mode_color = function()
   local mode_colors = {
-      n         = colors.green,
-      i         = colors.blue,v=colors.magenta,[''] = colors.blue,V=colors.blue,
-      c         = colors.red,no = colors.magenta,s = colors.orange,S=colors.orange,
-      ['']    = colors.orange,ic = colors.yellow,R = colors.purple,Rv = colors.purple,
-      cv        = colors.red,ce=colors.red, r = colors.cyan,rm = colors.cyan, ['r?'] = colors.cyan,
-      ['!']     = colors.green,t = colors.green,
-      c         = colors.purple,
-      ['r?']    = colors.red,
-      ['r']     = colors.red,
-      rm        = colors.red,
-      R         = colors.yellow,
-      Rv        = colors.magenta,
+    n      = colors.cyan,
+    i      = colors.green,
+    c      = colors.orange,
+    V      = colors.magenta,
+    [''] = colors.magenta,
+    v      = colors.magenta,
+    R      = colors.red,
+    t      = colors.green,
   }
 
   return mode_colors[vim.fn.mode()]
@@ -73,24 +68,18 @@ gls.left[2] = {
   ViMode = {
     provider = function()
       local alias = {
-          n      = 'NORMAL',
-          i      = 'INSERT',
-          V      = 'VISUAL',
-          [''] = 'VISUAL',
-          v      = 'VISUAL',
-          c      = 'COMMAND-LINE',
-          ['r?'] = ':CONFIRM',
-          rm     = '--MORE',
-          R      = 'REPLACE',
-          Rv     = 'VIRTUAL',
-          s      = 'SELECT',
-          S      = 'SELECT',
-          ['r']  = 'HIT-ENTER',
-          [''] = 'SELECT',
-          t      = 'TERMINAL',
-          ['!']  = 'SHELL',
+        n      = 'NORMAL',
+        i      = 'INSERT',
+        c      = 'COMMAND',
+        V      = 'VISUAL',
+        [''] = 'VISUAL',
+        v      = 'VISUAL',
+        R      = 'REPLACE',
+        t      = 'TERMINAL',
       }
-      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color())
+
+      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color())
+
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
