@@ -175,6 +175,7 @@ require("lazy").setup({
     -- Laravel
     {
         "adalessa/laravel.nvim",
+        commit = '65c3f07',
         dependencies = {
             "nvim-telescope/telescope.nvim",
             "tpope/vim-dotenv",
