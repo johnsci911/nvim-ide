@@ -1,8 +1,5 @@
 vim.opt.termguicolors = true
 
--- Tokyonight
-vim.cmd [[highlight IndentBlanklineIndent1 guibg=#24283B gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#3B4459 gui=nocombine]]
 
 vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
@@ -21,6 +18,10 @@ vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
 
+-- Catpuccin
+vim.cmd [[highlight IndentBlanklineIndent1 guibg=macchiato.overlay0 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=macchiato.overlay1 gui=nocombine]]
+
 require("indent_blankline").setup {
     enabled = true,
     char_highlight_list = {
@@ -29,7 +30,6 @@ require("indent_blankline").setup {
     space_char_highlight_list = {
         "IndentBlanklineIndent1",
     },
-
     space_char_blankline = " ",
     show_current_context = true,
     show_current_context_start = true,

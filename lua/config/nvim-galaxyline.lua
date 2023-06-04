@@ -1,23 +1,25 @@
 local gl = require('galaxyline')
 local utils = require('config.galaxyline-utils')
 
+local macchiato = require("catppuccin.palettes").get_palette "macchiato"
+
 local gls = gl.section
 gl.short_line_list = {
-    'defx',
-    'packager',
-    'vista',
-    'NvimTree',
-    'DiffviewFiles',
-    'ctrlsf',
-    'floaterm',
+  'defx',
+  'packager',
+  'vista',
+  'NvimTree',
+  'DiffviewFiles',
+  'ctrlsf',
+  'floaterm',
 }
 
 -- Colors
 local colors = {
-  -- Tokyonight
-  bg         = '#24283B',
-  fg         = '#f8f8f2',
-  section_bg = '#3B4261',
+  -- Macchiato
+  bg         = macchiato.base0,
+  fg         = macchiato.text,
+  section_bg = macchiato.surface1,
 
   -- Nord
   -- bg         = '#2E3440',
@@ -77,9 +79,7 @@ gls.left[2] = {
         R      = 'REPLACE',
         t      = 'TERMINAL',
       }
-
       vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color())
-
       return alias[vim.fn.mode()]..' '
     end,
     highlight = { colors.bg, colors.bg },
