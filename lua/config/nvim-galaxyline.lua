@@ -63,7 +63,7 @@ end
 gls.left[1] = {
   FirstElement = {
     provider = function() return ' ' end,
-    highlight = { colors.cyan, colors.bg }
+    highlight = { colors.bg, colors.bg }
   },
 }
 gls.left[2] = {
