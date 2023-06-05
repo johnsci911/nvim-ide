@@ -33,7 +33,7 @@ require("catppuccin").setup({
     integrations = {
         cmp = true,
         gitsigns = true,
-        nvimtree = true,
+        nvimtree = false,
         telescope = true,
         notify = true,
         indent_blankline = {
