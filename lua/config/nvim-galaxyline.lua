@@ -17,7 +17,7 @@ gl.short_line_list = {
 -- Colors
 local colors = {
   -- Macchiato
-  bg         = macchiato.base0,
+  bg         = macchiato.surface0,
   fg         = macchiato.text,
   section_bg = macchiato.surface1,
 
