@@ -13,18 +13,17 @@
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
+- **Laravel** - Laravel Artisan plugin
 
 #### What's new
-- MultiCursor support
-- Mighty FZF
 - C# (Omnisharp WIP)
 - Re-add Galaxyline status line
-- Winbar - LSP breadcumbs
 - Notifications
 - Clipboards!
 - Migrated to Mason (LSP install manager) and Lazy.nvim (Faster loading package manager)
 - Tabnine autocompletion support
 - Laravel nvim (I think still beta but useful, I am happy someone made this)
+- Update Icon to fix nerd fonts incompatibility
 
 #### Packages Required
 - Neovim 0.9+ (required)
@@ -37,6 +36,7 @@
 - Windows - You have to use your own docker container or equivalent - **I don't have time for windows :p**
 
 #### LSP Auto-install
+* C++ (clang)
 * bash
 * css
 * html
@@ -55,5 +55,4 @@
 #### TODO
 * Improve Keybindings along the way
 * Formatters for various web frameworks
-* Add FZF symbols, diagnostics, etcx9999999, in keybinds
-* ~~Work on Nvim-notification plugin~~
+* Laravel artisan support
