@@ -262,24 +262,9 @@ gls.right[8] = {
   Percent = {
     provider = 'LinePercent',
     highlight = { colors.fg, colors.bg },
-    separator = ' ',
+    separator = '',
     separator_highlight = { colors.section_bg, colors.bg },
   }
-}
-
-gls.right[9] = {
-  ScrollBar = {
-    provider = 'ScrollBar',
-    highlight = { colors.blue, colors.section_bg },
-    separator_highlight = { colors.section_bg, colors.bg },
-  }
-}
-
-gls.right[10] = {
-  lastElement = {
-    provider = function() return ' ' end,
-    highlight = { colors.cyan, colors.bg }
-  },
 }
 
 -- Short status line
