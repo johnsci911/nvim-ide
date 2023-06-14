@@ -237,6 +237,15 @@ gls.right[5] = {
 }
 
 gls.right[6] = {
+  Percent = {
+    provider = 'LinePercent',
+    highlight = { colors.fg, colors.section_bg },
+    separator = '|',
+    separator_highlight = { colors.bg, colors.section_bg },
+  }
+}
+
+gls.right[7] = {
   ShowLspClient = {
     provider = 'GetLspClient',
     condition = function()
@@ -244,27 +253,18 @@ gls.right[6] = {
         if tbl[vim.bo.filetype] then return false end
         return true
     end and checkwidth,
-    highlight = {colors.blue,colors.section_bg},
-    separator = '| ',
-    separator_highlight = { colors.bg, colors.section_bg },
+    highlight = {colors.blue,colors.bg},
+    separator = ' ',
+    separator_highlight = { colors.section_bg, colors.bg },
   }
-}
-
-gls.right[7] = {
-  SpaceBeforeLinePercent = {
-    provider = function() return ' ' end,
-    condition = buffer_not_empty and checkwidth,
-    highlight = { colors.cyan, colors.section_bg },
-  },
 }
 
 gls.right[8] = {
-  Percent = {
-    provider = 'LinePercent',
+  SpaceAfterLSPClient = {
+    provider = function() return ' ' end,
+    condition = buffer_not_empty and checkwidth,
     highlight = { colors.fg, colors.bg },
-    separator = '',
-    separator_highlight = { colors.section_bg, colors.bg },
-  }
+  },
 }
 
 -- Short status line
