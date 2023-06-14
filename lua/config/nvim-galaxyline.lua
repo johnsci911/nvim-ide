@@ -115,7 +115,6 @@ gls.left[5] = {
       else
         return "Not a Repo"
       end
-      return "Editing..."
     end,
     condition = buffer_not_empty,
     highlight = { colors.fg, colors.section_bg },
