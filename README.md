@@ -13,7 +13,7 @@
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
-- **Laravel** - Laravel Artisan plugin
+- **~Laravel~** - Laravel Artisan plugin
 
 #### What's new
 - C# (Omnisharp WIP)
@@ -22,7 +22,6 @@
 - Clipboards!
 - Migrated to Mason (LSP install manager) and Lazy.nvim (Faster loading package manager)
 - Tabnine autocompletion support
-- Laravel nvim (I think still beta but useful, I am happy someone made this)
 - Update Icon to fix nerd fonts incompatibility
 
 #### Packages Required
@@ -55,4 +54,4 @@
 #### TODO
 * Improve Keybindings along the way
 * Formatters for various web frameworks
-* Laravel artisan support
+

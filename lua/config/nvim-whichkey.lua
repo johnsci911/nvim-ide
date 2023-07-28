@@ -199,9 +199,6 @@ wk.register({
             b    = {'<Cmd>set ts=4<CR> | <Cmd>set sw=4<CR>' , 'Width = 4'},
         }
     },
-    L = {
-        name = '+Laravel',
-    },
 }, { prefix = "<Leader>" })
 
 vim.cmd([[
