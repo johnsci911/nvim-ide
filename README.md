@@ -23,6 +23,7 @@
 - Migrated to Mason (LSP install manager) and Lazy.nvim (Faster loading package manager)
 - Tabnine autocompletion support
 - Update Icon to fix nerd fonts incompatibility
+- Laravel blade syntax highlighting (Beta) 🔥
 
 #### Packages Required
 - Neovim 0.9+ (required)
