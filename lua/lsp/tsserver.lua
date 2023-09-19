@@ -14,7 +14,6 @@ require'lspconfig'.tsserver.setup {
       signs = true,
       underline = true,
       update_in_insert = true
-
     })
   }
 }
