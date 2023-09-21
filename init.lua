@@ -31,12 +31,12 @@ require('config.nvim-windowswap')
 require('config.nvim-indent-blankline')
 require('config.nvim-trouble')
 require('config.nvim-galaxyline')
-require('config.nvim-notify')
 require('config.nvim-lint')
 require('config.nvim-neoclip')
 require('config.nvim-colorizer')
 require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
+require('config.nvim-noice')
 
 -- LSP
 require('lsp')
