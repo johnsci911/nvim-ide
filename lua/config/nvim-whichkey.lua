@@ -73,7 +73,6 @@ wk.register({
     ['f'] = {'<Cmd>FzfLua grep_curbuf<CR>'                      , 'Fuzzy find current buffer'},
     ['h'] = {'<C-W>s'                                           , 'Split Vertical'},
     ['v'] = {'<C-W>v'                                           , 'Split Horizontal'},
-    ['W'] = {'w'                                                , 'Write'},
     ['m'] = {'<Cmd>call WindowSwap#EasyWindowSwap()<CR>'        , 'Swap Window'},
     ['q'] = {'<Cmd>q<CR>'                                       , 'quit'},
     ['T'] = {'<Cmd>set expandtab<CR> | <Cmd>%retab!<CR>'        , 'Convert tab to space'},

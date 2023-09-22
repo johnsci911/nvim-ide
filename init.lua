@@ -5,6 +5,7 @@ require('settings')
 require('theme.catpuccin')
 
 -- Plugins
+require('config.nvim-noice')
 require('config.nvim-autopairs')
 require('config.nvim-barbar')
 require('config.nvim-comment')
@@ -36,7 +37,6 @@ require('config.nvim-neoclip')
 require('config.nvim-colorizer')
 require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
-require('config.nvim-noice')
 
 -- LSP
 require('lsp')
