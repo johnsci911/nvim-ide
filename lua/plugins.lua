@@ -29,7 +29,11 @@ require("lazy").setup({
     'onsails/lspkind-nvim',
     'kosayoda/nvim-lightbulb',
     'folke/trouble.nvim',
-    "lukas-reineke/indent-blankline.nvim",
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {}
+    },
 
     -- Debug Lint
     'mfussenegger/nvim-dap',
@@ -103,15 +107,15 @@ require("lazy").setup({
     "AckslD/nvim-neoclip.lua",
 
     {
-      "folke/persistence.nvim",
-      event = "BufReadPre",
-      opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
-      -- stylua: ignore
-      keys = {
-        { "<leader>Ss", function() require("persistence").load() end, desc = "Restore Session" },
-        { "<leader>Sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-        { "<leader>Sd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
-      },
+        "folke/persistence.nvim",
+        event = "BufReadPre",
+        opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
+        -- stylua: ignore
+        keys = {
+            { "<leader>Ss", function() require("persistence").load() end, desc = "Restore Session" },
+            { "<leader>Sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+            { "<leader>Sd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+        },
     },
 
     'ghassan0/telescope-glyph.nvim',
@@ -121,7 +125,10 @@ require("lazy").setup({
     -- Themes
     'folke/tokyonight.nvim',
     'marko-cerovac/material.nvim',
-    { "catppuccin/nvim", name = "catppuccin" },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin"
+    },
     -- Easy Scroll
     'karb94/neoscroll.nvim',
 
