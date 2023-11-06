@@ -108,6 +108,7 @@ wk.register({
         s    = {'<Cmd>noh<CR>'                   , 'Remove search highlight'},
         w    = {'<Cmd>StripWhitespace<CR>'       , 'Strip whitespace'},
         m    = {'<Cmd>MarkdownPreviewToggle<CR>' , 'Markdown preview'},
+        t    = {'<cmd>AerialToggle!<CR>'         , 'AerialToggle'},
     },
     b = {
         name = '+buffers',

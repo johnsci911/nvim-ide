@@ -20,6 +20,15 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- Lazyvim
     'folke/lazy.nvim',
+    {
+        'stevearc/aerial.nvim',
+        opts = {},
+        -- Optional dependencies
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+    },
 
     -- LSP
     "williamboman/mason.nvim",
