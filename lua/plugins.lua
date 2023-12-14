@@ -68,7 +68,6 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter-context',
     'HiPhish/nvim-ts-rainbow2',
     'nvim-treesitter/playground',
-    'JoosepAlviste/nvim-ts-context-commentstring',
     'windwp/nvim-autopairs',
     'posva/vim-vue',
 
