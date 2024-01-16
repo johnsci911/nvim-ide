@@ -157,8 +157,12 @@ require("lazy").setup({
     'moll/vim-bbye',
 
     -- Markdown Preview
-    {'iamcco/markdown-preview.nvim', build = 'cd app && npm install'},
-
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+    },
     -- Floating Terminal
     'voldikss/vim-floaterm',
 
