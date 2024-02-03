@@ -1,6 +1,7 @@
 <h2 align="center">Neovim PDE - Personalized Development Environment</h2>
 
-![image](https://user-images.githubusercontent.com/6580895/199143031-c8975cd8-b71a-415b-9727-3f0fa7753282.png)
+![Neovim](https://github.com/johnsci911/nvim-ide/assets/6580895/c663b535-d5de-4f37-afdf-231c9bf4a698)
+
 
 <h5 align="center">A neovim configuration base from the vim community</h5>
 
