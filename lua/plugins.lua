@@ -139,8 +139,6 @@ require("lazy").setup({
         "catppuccin/nvim",
         name = "catppuccin"
     },
-    -- Easy Scroll
-    'karb94/neoscroll.nvim',
 
     -- Navigation
     'phaazon/hop.nvim',
