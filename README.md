@@ -14,7 +14,8 @@
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
-- **~Laravel~** - Laravel Artisan plugin
+- **Neorg** - ORG Mode for organization (Similar to Emacs) ('NEW!')
+- **~~Laravel~~** - Laravel Artisan plugin
 
 #### What's new
 - C# (Omnisharp WIP)
@@ -31,9 +32,11 @@
 - ripgrep
 - fd and Chafa - for some reason required by Telescope media files
 - fzf
+- Tabnine (Optional)
+- Neorg (GCC 14+)
 
 ##### Compatible OS
-- Mac and Linux
+- Mac and Linux (Prefer LINUX)
 - Windows - You have to use your own docker container or equivalent - **I don't have time for windows :p**
 
 #### LSP Auto-install
