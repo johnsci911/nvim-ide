@@ -41,6 +41,14 @@ vim.cmd([[
   nnoremap <silent> <M-l> : vertical resize +2<CR>
 ]])
 
+-- Mac OS - map keymaps for alt equivalent values
+vim.cmd([[
+  nnoremap <silent> ˚ : resize -2<CR>
+  nnoremap <silent> ∆ : resize +2<CR>
+  nnoremap <silent> ˙ : vertical resize -2<CR>
+  nnoremap <silent> ¬ : vertical resize +2<CR>
+]])
+
 -- better indenting
 vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true, silent = true})
