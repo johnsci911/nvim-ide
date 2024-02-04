@@ -1,5 +1,9 @@
 require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all', -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    modules = {},
+    sync_install = true,
+    auto_install = true,
+    ignore_install = {},
     highlight = {
         enable = true, -- false will disable the whole extension
         disable = {
@@ -59,8 +63,10 @@ parser_config.blade = {
     },
     filetype = "blade"
 }
+
 vim.filetype.add({
     pattern = {
         ['.*%.blade%.php'] = 'blade',
     }
 })
+
