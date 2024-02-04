@@ -56,6 +56,10 @@
 * TailwindCSS
 * GraphQL
 
+#### Custom Syntax Highlighting
+* Blade
+* Norg - Neo ORG
+
 #### TODO
 * Improve Keybindings along the way
 * Formatters for various web frameworks
