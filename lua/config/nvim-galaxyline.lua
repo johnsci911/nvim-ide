@@ -17,9 +17,9 @@ gl.short_line_list = {
 -- Colors
 local colors = {
   -- Macchiato
-  bg         = macchiato.base,
+  bg         = macchiato.surface0,
   fg         = macchiato.text,
-  section_bg = macchiato.surface0,
+  section_bg = macchiato.base,
 
   -- Nord
   -- bg         = '#2E3440',
