@@ -37,6 +37,7 @@ require('config.nvim-colorizer')
 require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
 require('config.nvim-treesitter-context')
+require('config.nvim-neorg')
 
 -- LSP
 require('lsp')

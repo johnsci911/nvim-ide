@@ -1,17 +1,21 @@
-require('neorg').setup {
-  load = {
-    ["core.defaults"] = {},
-    ["core.intergrations.treesitter"] = {
-      configure_parsers = true,
+require("neorg").setup {
+    load = {
+        ["core.defaults"] = {},
+        ["core.concealer"] = {
+            config = {
+                icon_preset = "basic",
+                icons = {},
+            },
+        },
+        ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+                workspaces = {
+                    home = "~/notes/home", -- $HOME/notes
+                    work = "~/notes/work", -- $HOME/notes
+                },
+                default_workspace = "home"
+            },
+        },
     },
-    ["core.dirman"] = {
-      config = {
-        workspaces = {
-          work = "~/notes/work",
-          home = "~/notes/home",
-        }
-      }
-    }
-  },
 }
 

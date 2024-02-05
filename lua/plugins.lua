@@ -132,28 +132,6 @@ require("lazy").setup({
         "nvim-neorg/neorg",
         build = ":Neorg sync-parsers",
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("neorg").setup {
-                load = {
-                    ["core.defaults"] = {},
-                    ["core.concealer"] = {
-                        config = {
-                            icon_preset = "basic",
-                            icons = {},
-                        },
-                    },
-                    ["core.dirman"] = { -- Manages Neorg workspaces
-                        config = {
-                            workspaces = {
-                                notes = "~/notes", -- $HOME/notes
-                            },
-                        },
-                    },
-                },
-            }
-
-            vim.wo.conceallevel = 3
-        end,
     },
 
     'ghassan0/telescope-glyph.nvim',
