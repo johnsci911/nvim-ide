@@ -50,7 +50,16 @@ require'nvim-treesitter.configs'.setup {
         query = 'rainbow-parens',
         -- Highlight the entire buffer all at once
         strategy = require('ts-rainbow').strategy.global,
-    }
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<Leader>,s",
+            node_incremental = "<Leader>,i",
+            scope_incremental = "<Leader>,c",
+            node_decremental = "<Leader>,d",
+        }
+    },
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
