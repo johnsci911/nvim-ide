@@ -1,4 +1,4 @@
-require'lspconfig'.lua_ls.setup {
+require 'lspconfig'.lua_ls.setup {
   cmd = {
     DATA_PATH .. "/mason/packages/lua-language-server/lua-language-server"
   },
@@ -10,7 +10,7 @@ require'lspconfig'.lua_ls.setup {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files

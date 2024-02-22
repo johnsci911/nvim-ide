@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
   pattern = '*',
   callback = function()
     if vim.bo.filetype == 'NvimTree' then
-      require'bufferline.api'.set_offset(31, 'FileTree')
+      require 'bufferline.api'.set_offset(31, 'FileTree')
     end
   end
 })
@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd('BufWinLeave', {
   pattern = '*',
   callback = function()
     if vim.fn.expand('<afile>'):match('NvimTree') then
-      require'bufferline.api'.set_offset(0)
+      require 'bufferline.api'.set_offset(0)
     end
   end
 })
@@ -45,7 +45,7 @@ map('n', '<S-TAB>', ':BufferPrevious<CR>', opts)
 map('n', '<C-p>', ':BufferPick<CR>', opts)
 
 vim.g.bufferline = {
-   -- Enable/disable animations
+  -- Enable/disable animations
   animation = true,
 
   -- Enable/disable auto-hiding the tab bar when there is a single buffer

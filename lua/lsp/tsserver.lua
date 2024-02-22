@@ -1,4 +1,4 @@
-require'lspconfig'.tsserver.setup {
+require 'lspconfig'.tsserver.setup {
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
     "javascript",

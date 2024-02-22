@@ -1,4 +1,4 @@
-require'lspconfig'.marksman.setup{
+require 'lspconfig'.marksman.setup {
   cmd = {
     "marksman", "server"
   },

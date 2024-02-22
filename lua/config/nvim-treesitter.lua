@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
     ensure_installed = 'all', -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     modules = {},
     sync_install = true,
@@ -22,7 +22,7 @@ require'nvim-treesitter.configs'.setup {
     playground = {
         enable = true,
         disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        updatetime = 25,        -- Debounced time for highlighting nodes in the playground from source code
         persist_queries = false -- Whether the query persists across vim sessions
     },
     autotag = {
@@ -40,7 +40,7 @@ require'nvim-treesitter.configs'.setup {
         }
     },
     refactor = {
-        highlight_definitions = {enable = true}
+        highlight_definitions = { enable = true }
     },
     rainbow = {
         enable = true,
@@ -67,7 +67,7 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.blade = {
     install_info = {
         url = "https://github.com/EmranMR/tree-sitter-blade",
-        files = {"src/parser.c"},
+        files = { "src/parser.c" },
         branch = "main",
     },
     filetype = "blade"
@@ -79,8 +79,7 @@ vim.filetype.add({
     }
 })
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  pattern = {"*.norg"},
-  command = "set conceallevel=3"
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+    pattern = { "*.norg" },
+    command = "set conceallevel=3"
 })
-

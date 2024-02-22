@@ -1,4 +1,4 @@
-require'lspconfig'.graphql.setup{
+require 'lspconfig'.graphql.setup {
   cmd = {
     "graphql-lsp",
     "server",

@@ -1,4 +1,4 @@
-require'lspconfig'.tailwindcss.setup {
+require 'lspconfig'.tailwindcss.setup {
   cmd = {
     "tailwindcss-language-server",
     "--stdio"
@@ -60,8 +60,8 @@ require'lspconfig'.tailwindcss.setup {
     '.git'
   },
   settings = {
-  tailwindCSS = {
-    classAttributes = { "class", "className", "classList", "ngClass" },
+    tailwindCSS = {
+      classAttributes = { "class", "className", "classList", "ngClass" },
       lint = {
         cssConflict = "warning",
         invalidApply = "error",

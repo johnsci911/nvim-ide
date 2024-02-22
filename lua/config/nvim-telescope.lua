@@ -29,11 +29,11 @@ require('telescope').setup {
         layout_strategy = "horizontal",
         layout_config = {
             prompt_position = "top",
-            horizontal = {mirror = false}, vertical = {mirror = false},
+            horizontal = { mirror = false }, vertical = { mirror = false },
             width = 0.75,
             preview_cutoff = 120,
         },
-        file_sorter = require'telescope.sorters'.get_fzy_sorter,
+        file_sorter = require 'telescope.sorters'.get_fzy_sorter,
         file_ignore_patterns = {},
         path_display = {
             'shorten',
@@ -41,16 +41,16 @@ require('telescope').setup {
         },
         winblend = 0,
         border = {},
-        borderchars = {'─', '│', '─', '│', '╭', '╮', '╯', '╰'},
+        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         color_devicons = true,
         use_less = true,
-        set_env = {['COLORTERM'] = 'truecolor'}, -- default = nil,
-        file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-        grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-        qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+        set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+        file_previewer = require 'telescope.previewers'.vim_buffer_cat.new,
+        grep_previewer = require 'telescope.previewers'.vim_buffer_vimgrep.new,
+        qflist_previewer = require 'telescope.previewers'.vim_buffer_qflist.new,
 
         -- Developer configurations: Not meant for general override
-        buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
+        buffer_previewer_maker = require 'telescope.previewers'.buffer_previewer_maker,
         mappings = {
             i = {
                 -- ["<C-j>"] = actions.move_selection_next,
@@ -77,7 +77,7 @@ require('telescope').setup {
         },
         extensions = {
             media_files = {
-                filetypes = {"png", "webp", "jpg", "jpeg", "mp4", "pdf"},
+                filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
                 find_cmd = "rg"
             },
             glyph = {

@@ -1,6 +1,6 @@
 require('neoscroll').setup({
     -- All these keys will be mapped. Pass an empty table ({}) for no mappings
-    mappings = {'<C-u>', '<C-d>', 'zt', 'zz', 'zb'},
+    mappings             = { '<C-u>', '<C-d>', 'zt', 'zz', 'zb' },
     hide_cursor          = true,  -- Hide cursor while scrolling
     stop_eof             = false, -- Stop at <EOF> when scrolling downwards
     respect_scrolloff    = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file

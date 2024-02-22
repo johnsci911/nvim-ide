@@ -1,4 +1,4 @@
-require'lspconfig'.omnisharp.setup {
+require 'lspconfig'.omnisharp.setup {
   cmd = { "dotnet", DATA_PATH .. "/lsp_servers/omnisharp/omnisharp/OmniSharp.dll" },
 
   -- Enables support for reading code style, naming convention and analyzer

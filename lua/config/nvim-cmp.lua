@@ -1,6 +1,6 @@
 vim.o.completeopt = "menuone,noselect"
 
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 local lspkind = require('lspkind')
 
@@ -46,8 +46,8 @@ cmp.setup {
             -- { name = 'luasnip' }, -- For luasnip users.
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
-            { name = 'path'},
-            { name = 'cmp_tabnine'},
+            { name = 'path' },
+            { name = 'cmp_tabnine' },
         },
         {
             { name = 'buffer' },
@@ -60,7 +60,7 @@ cmp.setup {
         format = function(entry, vim_item)
             -- if you have lspkind installed, you can use it like
             -- in the following line:
-            vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+            vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
             vim_item.menu = source_mapping[entry.source.name]
 
             if entry.source.name == "cmp_tabnine" then
@@ -85,4 +85,3 @@ cmp.setup {
         end,
     },
 }
-

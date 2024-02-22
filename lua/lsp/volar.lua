@@ -1,5 +1,5 @@
-require'lspconfig'.volar.setup{
-  cmd = { "vue-language-server", "--stdio"},
+require 'lspconfig'.volar.setup {
+  cmd = { "vue-language-server", "--stdio" },
   filetypes = {
     'typescript',
     'javascript',

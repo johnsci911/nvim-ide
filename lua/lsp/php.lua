@@ -1,5 +1,5 @@
-require'lspconfig'.intelephense.setup {
+require 'lspconfig'.intelephense.setup {
   cmd = { "intelephense", "--stdio" },
   filetypes = { "php" },
-  root_pattern = {'composer.json', '.git'},
+  root_pattern = { 'composer.json', '.git' },
 }

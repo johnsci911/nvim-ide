@@ -1,4 +1,4 @@
-require'lspconfig'.eslint.setup{
+require 'lspconfig'.eslint.setup {
   cmd = { "vscode-eslint-language-server", "--stdio" },
   filetypes = {
     "javascript",

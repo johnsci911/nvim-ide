@@ -1,5 +1,5 @@
 -- Showing defaults
-require'nvim-lightbulb'.update_lightbulb {
+require 'nvim-lightbulb'.update_lightbulb {
     sign = {
         enabled = true,
         -- Priority of the gutter sign

@@ -15,10 +15,10 @@ end
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
-      vim.api.nvim_buf_set_keymap(bufnr, ...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
   local function buf_set_option(...)
-      vim.api.nvim_buf_set_option(bufnr, ...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
   local opts = { noremap = true, silent = true }
@@ -49,9 +49,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<space>lf', function()
       vim.lsp.buf.format { async = true }
-    end, opts)
+    end, { desc = 'LSP format file' })
   end,
 })
 
@@ -81,22 +81,21 @@ local servers = {
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = servers,
-    automatic_installation = true,
+  ensure_installed = servers,
+  automatic_installation = true,
 })
 
 for _, name in pairs(servers) do
-  require('lspconfig')[name].setup{
+  require('lspconfig')[name].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     autostart = true,
     settings = {
       Lua = {
         diagnostics = {
-          globals = {'vim'}
+          globals = { 'vim' }
         }
       }
     }
   }
 end
-
