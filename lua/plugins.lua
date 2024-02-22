@@ -31,7 +31,23 @@ require("lazy").setup({
     },
 
     -- LSP
-    "williamboman/mason.nvim",
+    {
+        "mhartington/formatter.nvim",
+        event = "VeryLazy",
+        opts = function()
+            return require "config.nvim-formatter"
+        end
+    },
+    {
+        "williamboman/mason.nvim",
+        opts = {
+            ensure_installed = {
+                'eslint-lsp',
+                'prettier',
+                'typescript-language-server',
+            }
+        }
+    },
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
 
