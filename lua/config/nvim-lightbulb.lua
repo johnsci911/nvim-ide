@@ -23,7 +23,7 @@ require 'nvim-lightbulb'.update_lightbulb {
         -- - offset_x   x-axis offset of the floating window
         -- - offset_y   y-axis offset of the floating window
         -- - anchor     corner of float to place at the cursor (NW, NE, SW, SE)
-        -- - winblend   transparency of the window (0-100)
+        winblend = 60,
         win_opts = {},
     },
     virtual_text = {

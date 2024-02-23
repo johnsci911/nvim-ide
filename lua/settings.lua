@@ -7,7 +7,7 @@ vim.o.hidden = true -- Required to keep multiple buffers open multiple buffers
 vim.o.title = true
 TERMINAL = vim.fn.expand('$TERMINAL')
 vim.cmd('let &titleold="'..TERMINAL..'"')
-vim.o.titlestring="%<%F%=%l/%L - nvim"
+vim.o.titlestring="Neovim"
 vim.wo.wrap = false -- Display long lines as just one line
 vim.cmd('set whichwrap+=<,>,[,],h,l') -- move to next line with theses keys
 vim.cmd('syntax on') -- move to next line with theses keys
@@ -33,5 +33,17 @@ vim.wo.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shif
 vim.o.updatetime = 300 -- Faster completion
 vim.o.timeoutlen = 100 -- By default timeoutlen is 1000 ms
 vim.api.nvim_set_option("clipboard", "unnamed") -- Copy paste between vim and everything else
-vim.o.guifont = "FantasqueSansMono Nerd Font Mono:h10"
+
+if vim.g.neovide then
+  vim.o.guifont = "FantasqueSansM Nerd Font:h12"
+
+  -- Blur floating window
+  vim.g.neovide_floating_shadow = true
+  vim.g.neovide_floating_z_height = 5
+  vim.g.neovide_light_angle_degrees = 45
+  vim.g.neovide_light_radius = 5
+  vim.g.neovide_window_blurred = true
+  vim.g.neovide_floating_blur_amount_x = 1.0
+  vim.g.neovide_floating_blur_amount_y = 1.0
+end
 
