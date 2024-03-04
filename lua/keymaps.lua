@@ -51,7 +51,7 @@ vim.cmd([[
 ]])
 
 -- Code Snapshot
-vim.api.nvim_set_keymap('v', '<leader>cp', ":'<,'>Silicon<CR>", {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('v', '<leader>cp', ":'<,'>Silicon<CR>", {noremap = true, silent = true})
 
 -- better indenting
 vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true, silent = true})
