@@ -120,6 +120,13 @@ require("lazy").setup({
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     },
 
+    -- Code preview
+    {
+        'michaelrommel/nvim-silicon',
+        lazy = true,
+        cmd = "Silicon",
+    },
+
     'nvim-telescope/telescope-media-files.nvim',
     'nvim-telescope/telescope-project.nvim',
     {

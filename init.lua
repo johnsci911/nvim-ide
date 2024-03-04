@@ -38,6 +38,7 @@ require('config.nvim-cmp')
 require('config.nvim-cmp-tabnine')
 require('config.nvim-treesitter-context')
 require('config.nvim-neorg')
+require('config.nvim-silicon')
 
 -- LSP
 require('lsp')
