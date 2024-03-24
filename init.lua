@@ -5,7 +5,7 @@ require('settings')
 require('theme.catppuccin')
 
 -- Plugins
-require('config.nvim-noice')
+-- require('config.nvim-noice')
 require('config.nvim-autopairs')
 require('config.nvim-barbar')
 require('config.nvim-comment')
@@ -57,4 +57,3 @@ require('lsp.tailwindcss')
 require('lsp.omnisharp')
 require('lsp.graphql')
 require('lsp.volar')
-

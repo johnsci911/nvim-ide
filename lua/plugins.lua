@@ -6,14 +6,14 @@ vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -79,7 +79,7 @@ require("lazy").setup({
     },
 
     -- Treesitter
-    {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     'windwp/nvim-ts-autotag',
     'nvim-treesitter/nvim-treesitter-context',
     'HiPhish/nvim-ts-rainbow2',
@@ -102,12 +102,12 @@ require("lazy").setup({
 
     -- Git
     {
-      "NeogitOrg/neogit",
-      dependencies = {
-        "nvim-lua/plenary.nvim",         -- required
-        "sindrets/diffview.nvim",        -- optional - Diff integration
-      },
-      config = true
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- required
+            "sindrets/diffview.nvim", -- optional - Diff integration
+        },
+        config = true
     },
     'f-person/git-blame.nvim',
     'lewis6991/gitsigns.nvim',
@@ -123,7 +123,8 @@ require("lazy").setup({
     },
     {
         'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+        build =
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     },
 
     -- Code preview
@@ -150,9 +151,9 @@ require("lazy").setup({
         opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
         -- stylua: ignore
         keys = {
-            { "<leader>Ss", function() require("persistence").load() end, desc = "Restore Session" },
+            { "<leader>Ss", function() require("persistence").load() end,                desc = "Restore Session" },
             { "<leader>Sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-            { "<leader>Sd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+            { "<leader>Sd", function() require("persistence").stop() end,                desc = "Don't Save Current Session" },
         },
     },
 
@@ -219,23 +220,6 @@ require("lazy").setup({
 
     -- Galaxyline
     'glepnir/galaxyline.nvim',
-
-    -- Notifications
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {
-            -- add any options here
-        },
-        dependencies = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            "rcarriga/nvim-notify",
-        }
-    },
 
     -- Auto tab width
     'tpope/vim-sleuth',
