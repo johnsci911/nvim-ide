@@ -101,10 +101,16 @@ require("lazy").setup({
     'NvChad/nvim-colorizer.lua',
 
     -- Git
+    {
+      "NeogitOrg/neogit",
+      dependencies = {
+        "nvim-lua/plenary.nvim",         -- required
+        "sindrets/diffview.nvim",        -- optional - Diff integration
+      },
+      config = true
+    },
     'f-person/git-blame.nvim',
     'lewis6991/gitsigns.nvim',
-    'kdheepak/lazygit.nvim',
-    'sindrets/diffview.nvim',
 
     -- Swap windows
     'wesQ3/vim-windowswap',

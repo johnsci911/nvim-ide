@@ -195,7 +195,8 @@ wk.register({
     t = {
         name = '+tab length and terminal',
         s    = { '<Cmd>FloatermNew --wintype=split --height=0.4<CR>', 'terminal' },
-        g    = { '<Cmd>FloatermNew --wintype=float --position=center --height=0.8 lazygit<CR>', 'lazygit' },
+        -- g    = { '<Cmd>FloatermNew --wintype=float --position=center --height=0.8 Neogit<CR>', 'lazygit' },
+        g    = { '<Cmd>Neogit<CR>', 'lazygit' },
         t    = { '<Cmd>FloatermToggle<CR>', 'toggle' },
         b    = { '<Cmd>FloatermNew btop<CR>', 'btop' },
         T    = {
