@@ -8,6 +8,7 @@ require('telescope').load_extension('project')
 require('telescope').load_extension('glyph')
 require('telescope').load_extension('bookmarks')
 require('telescope').load_extension('neoclip')
+require("telescope").load_extension("conflicts")
 
 require('telescope').setup {
     defaults = {

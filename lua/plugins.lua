@@ -119,7 +119,10 @@ require("lazy").setup({
     'nvim-lua/popup.nvim',
     {
         'nvim-telescope/telescope.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' }
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            "Snikimonkd/telescope-git-conflicts.nvim",
+        }
     },
     {
         'nvim-telescope/telescope-fzf-native.nvim',

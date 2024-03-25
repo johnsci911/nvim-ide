@@ -194,10 +194,11 @@ wk.register({
     t = {
         name = '+tab length and terminal',
         s    = { '<Cmd>FloatermNew --wintype=split --height=0.4<CR>', 'terminal' },
-        -- g    = { '<Cmd>FloatermNew --wintype=float --position=center --height=0.8 Neogit<CR>', 'lazygit' },
-        g    = { '<Cmd>Neogit<CR>', 'lazygit' },
+        g    = { '<Cmd>Neogit<CR>', 'Neogit' },
+        b    = { '<Cmd>Telescope git_branches<CR>', 'Git branches' },
+        c    = { '<Cmd>Telescope conflicts<CR>', 'Git conflicts' },
         t    = { '<Cmd>FloatermToggle<CR>', 'toggle' },
-        b    = { '<Cmd>FloatermNew btop<CR>', 'btop' },
+        B    = { '<Cmd>FloatermNew btop<CR>', 'btop' },
         T    = {
             name = 'Switch tab length',
             a    = { '<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>', 'Width = 2' },
