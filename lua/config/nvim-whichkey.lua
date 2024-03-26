@@ -113,6 +113,8 @@ wk.register({
         w    = { '<Cmd>StripWhitespace<CR>', 'Strip whitespace' },
         m    = { '<Cmd>MarkdownPreviewToggle<CR>', 'Markdown preview' },
         t    = { '<cmd>AerialToggle!<CR>', 'AerialToggle' },
+        d    = { '<Cmd>Noice dismiss<CR>', 'Dismiss notification' },
+        D    = { '<Cmd>Telescope noice<CR>', 'Notification history' },
     },
     b = {
         name = '+buffers',
@@ -176,15 +178,15 @@ wk.register({
         name = 'Window Swap',
     },
     g = {
-        name  = '+Git',
-        g     = { '<Cmd>Neogit<CR>', 'Neogit' },
-        p     = { '<Cmd>Neogit pull<CR>', 'Git Pull' },
-        P     = { '<Cmd>Neogit Push<CR>', 'Git Push' },
-        b     = { '<Cmd>Telescope git_branches<CR>', 'Git branches' },
-        B     = { '<Cmd>GitBlameToggle<CR>', 'blame' },
-        d     = { '<Cmd>DiffviewOpen<CR>', 'Diff view open' },
-        D     = { '<Cmd>DiffviewClose<CR>', 'Diff view close' },
-        h     = {
+        name = '+Git',
+        g    = { '<Cmd>Neogit<CR>', 'Neogit' },
+        p    = { '<Cmd>Neogit pull<CR>', 'Git Pull' },
+        P    = { '<Cmd>Neogit Push<CR>', 'Git Push' },
+        b    = { '<Cmd>Telescope git_branches<CR>', 'Git branches' },
+        B    = { '<Cmd>GitBlameToggle<CR>', 'blame' },
+        d    = { '<Cmd>DiffviewOpen<CR>', 'Diff view open' },
+        D    = { '<Cmd>DiffviewClose<CR>', 'Diff view close' },
+        h    = {
             name  = 'Hunk',
             p     = { '<Cmd>Gitsigns preview_hunk<CR>', 'Git Preview Hunk' },
             P     = { '<Cmd>Gitsigns preview_hunk_inline<CR>', 'Git Preview Hunk Inline' },
