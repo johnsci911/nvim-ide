@@ -70,17 +70,17 @@ gls.left[2] = {
   ViMode = {
     provider = function()
       local alias = {
-        n     = 'NORMAL',
-        i     = 'INSERT',
-        c     = 'COMMAND',
-        V     = 'VISUAL',
+        n      = 'NORMAL',
+        i      = 'INSERT',
+        c      = 'COMMAND',
+        V      = 'VISUAL',
         [''] = 'VISUAL',
-        v     = 'VISUAL',
-        R     = 'REPLACE',
-        t     = 'TERMINAL',
+        v      = 'VISUAL',
+        R      = 'REPLACE',
+        t      = 'TERMINAL',
       }
-      vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color())
-      return alias[vim.fn.mode()] .. ' '
+      vim.api.nvim_command('hi GalaxyViMode guifg=' .. (mode_color() or colors.cyan) )
+      return alias[vim.fn.mode()] or 'QUESTION'
     end,
     highlight = { colors.bg, colors.bg },
     separator = "",
