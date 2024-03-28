@@ -35,7 +35,7 @@ require("lazy").setup({
         "mhartington/formatter.nvim",
         event = "VeryLazy",
         opts = function()
-            return require "config.nvim-formatter"
+            -- return require "config.nvim-formatter"
         end
     },
     {
