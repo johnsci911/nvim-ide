@@ -179,14 +179,19 @@ wk.register({
     },
     g = {
         name = '+Git',
-        g    = { '<Cmd>Neogit<CR>', 'Neogit' },
-        p    = { '<Cmd>Neogit pull<CR>', 'Git Pull' },
-        P    = { '<Cmd>Neogit Push<CR>', 'Git Push' },
-        b    = { '<Cmd>Telescope git_branches<CR>', 'Git branches' },
-        B    = { '<Cmd>GitBlameToggle<CR>', 'blame' },
-        d    = { '<Cmd>DiffviewOpen<CR>', 'Diff view open' },
-        D    = { '<Cmd>DiffviewClose<CR>', 'Diff view close' },
-        h    = {
+        g = { '<Cmd>Neogit<CR>', 'Neogit' },
+        p = { '<Cmd>Neogit pull<CR>', 'Git Pull' },
+        P = { '<Cmd>Neogit Push<CR>', 'Git Push' },
+        b = { '<Cmd>Telescope git_branches<CR>', 'Git branches' },
+        c = { '<Cmd>Telescope git_commits<CR>', 'Git commits' },
+        B = { '<Cmd>Telescope git_bcommits<CR>', 'Git buffer commits' },
+        s = { '<Cmd>Telescope git_status<CR>', 'Git status' },
+        S = { '<Cmd>Telescope git_stash<CR>', 'Git stash' },
+        C = { '<Cmd>Telescope conflicts<CR>', 'Git conflicts' },
+        v = { '<Cmd>GitBlameToggle<CR>', 'Git blame toggle' },
+        d = { '<Cmd>DiffviewOpen<CR>', 'Diff view open' },
+        D = { '<Cmd>DiffviewClose<CR>', 'Diff view close' },
+        h = {
             name  = 'Hunk',
             p     = { '<Cmd>Gitsigns preview_hunk<CR>', 'Git Preview Hunk' },
             P     = { '<Cmd>Gitsigns preview_hunk_inline<CR>', 'Git Preview Hunk Inline' },
@@ -210,7 +215,6 @@ wk.register({
     t = {
         name = '+Tab length and terminal',
         s    = { '<Cmd>FloatermNew --wintype=split --height=0.4<CR>', 'terminal' },
-        c    = { '<Cmd>Telescope conflicts<CR>', 'Git conflicts' },
         t    = { '<Cmd>FloatermToggle<CR>', 'toggle' },
         B    = { '<Cmd>FloatermNew btop<CR>', 'btop' },
         T    = {
