@@ -23,7 +23,3 @@ require("tokyonight").setup({
   lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
 })
 
--- Call theme twice because IDK why!
-vim.cmd[[colorscheme tokyonight]]
-vim.cmd[[colorscheme tokyonight]]
-

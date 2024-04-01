@@ -33,13 +33,18 @@ require("catppuccin").setup({
     integrations = {
         cmp = true,
         gitsigns = true,
-        nvimtree = false,
+        nvimtree = true,
         telescope = true,
         indent_blankline = {
             enabled = true,
             colored_indent_levels = true
         },
         barbar = true,
+        noice = true,
+        mini = true,
+        treesitter = true,
+        treesitter_context = true,
+        which_key = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
     highlight_overrides = {
