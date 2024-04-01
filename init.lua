@@ -2,8 +2,8 @@ require('plugins')
 require('globals')
 require('keymaps')
 require('settings')
--- require('theme.catppuccin')
-require('theme.tokyonight')
+require('theme.catppuccin')
+-- require('theme.tokyonight')
 
 -- Plugins
 require('config.nvim-autopairs')
