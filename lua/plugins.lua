@@ -53,11 +53,17 @@ require("lazy").setup({
 
     'onsails/lspkind-nvim',
     'kosayoda/nvim-lightbulb',
+
+    -- Indentations
     'folke/trouble.nvim',
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
-        opts = {}
+        opts = {},
+    },
+    {
+        "echasnovski/mini.indentscope",
+        main = "indentscope",
     },
 
     -- Debug Lint
