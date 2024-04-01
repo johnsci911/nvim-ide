@@ -61,10 +61,7 @@ require("lazy").setup({
         main = "ibl",
         opts = {},
     },
-    {
-        "echasnovski/mini.indentscope",
-        main = "indentscope",
-    },
+    "echasnovski/mini.indentscope",
 
     -- Debug Lint
     'mfussenegger/nvim-dap',

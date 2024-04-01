@@ -1,7 +1,8 @@
 require('mini.indentscope').setup {
+    version = false,
     symbol = "|",
     options = {
-        try_as_border = true,
+        try_as_border = false,
         indent_at_cursor = true,
     },
     draw = {
@@ -18,6 +19,7 @@ require('mini.indentscope').setup {
             "lazy",
             "mason",
             "notify",
+            "NeogitStatus"
         },
         callback = function()
             vim.b.miniindentscope_disable = true
