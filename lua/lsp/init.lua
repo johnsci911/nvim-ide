@@ -81,6 +81,7 @@ local servers = {
   'lua_ls',
   'volar',
   'eslint',
+  'omnisharp',
 }
 
 require("mason").setup()
