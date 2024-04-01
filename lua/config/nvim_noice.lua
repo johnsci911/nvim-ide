@@ -1,3 +1,8 @@
+require('notify').setup {
+    background_colour = "#000000",
+    render = "minimal",
+}
+
 require('noice').setup {
     lsp = {
         override = {
@@ -16,7 +21,7 @@ require('noice').setup {
                     { find = "; before #%d+" },
                 },
             },
-            view = "mini",
+            view = "notify",
         },
     },
     presets = {
