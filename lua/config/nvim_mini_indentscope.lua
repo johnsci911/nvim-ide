@@ -2,8 +2,8 @@ require('mini.indentscope').setup {
     version = false,
     symbol = "|",
     options = {
-        border = 'top',
-        try_as_border = false,
+        border = 'both',
+        try_as_border = true,
         indent_at_cursor = true,
     },
     draw = {
