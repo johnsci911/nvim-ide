@@ -21,6 +21,7 @@ require('mini.indentscope').setup {
             "mason",
             "notify",
             "NeogitStatus",
+            "floaterm",
         },
         callback = function()
             vim.b.miniindentscope_disable = true

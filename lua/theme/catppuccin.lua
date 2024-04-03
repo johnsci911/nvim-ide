@@ -2,9 +2,9 @@ require("catppuccin").setup({
     flavour = "macchiato", -- latte, frappe, macchiato, mocha
     background = { -- :h background
         light = "latte",
-        dark = "mocha",
+        dark = "macchiato",
     },
-    transparent_background = true,
+    transparent_background = false,
     show_end_of_buffer = false, -- show the '~' characters after the end of buffers
     term_colors = true,
     dim_inactive = {
@@ -41,10 +41,13 @@ require("catppuccin").setup({
         },
         barbar = true,
         noice = true,
-        mini = true,
         treesitter = true,
         treesitter_context = true,
         which_key = true,
+        mini = {
+            enabled = true,
+            indentscope_color = "Green",
+        }
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
     highlight_overrides = {
