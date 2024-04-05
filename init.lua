@@ -3,7 +3,6 @@ require('globals')
 require('keymaps')
 require('settings')
 require('theme.catppuccin')
--- require('theme.tokyonight')
 
 -- Plugins
 require('config.nvim-autopairs')
@@ -42,6 +41,7 @@ require('config.nvim-silicon')
 require('config.nvim_mini_indentscope')
 require('config.nvim_noice')
 require('config.nvim_neogit')
+require('config.nvim_tabnine')
 
 -- LSP
 require('lsp')

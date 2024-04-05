@@ -71,8 +71,8 @@ require("lazy").setup({
     'mattn/emmet-vim',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
-    "hrsh7th/nvim-cmp",
-    "roobert/tailwindcss-colorizer-cmp.nvim",
+    'hrsh7th/nvim-cmp',
+    'roobert/tailwindcss-colorizer-cmp.nvim',
     'hrsh7th/vim-vsnip',
     'hrsh7th/cmp-vsnip',
     {
@@ -80,6 +80,7 @@ require("lazy").setup({
         build = './install.sh',
         dependencies = 'hrsh7th/nvim-cmp',
     },
+    { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
 
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -124,7 +125,7 @@ require("lazy").setup({
     {
         "NeogitOrg/neogit",
         dependencies = {
-            "nvim-lua/plenary.nvim", -- required
+            "nvim-lua/plenary.nvim",  -- required
             "sindrets/diffview.nvim", -- optional - Diff integration
         },
         config = true
