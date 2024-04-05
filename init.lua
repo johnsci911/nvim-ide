@@ -41,7 +41,7 @@ require('config.nvim-silicon')
 require('config.nvim_mini_indentscope')
 require('config.nvim_noice')
 require('config.nvim_neogit')
--- require('config.nvim_tabnine')
+require('config.nvim_tabnine')
 
 -- LSP
 require('lsp')
