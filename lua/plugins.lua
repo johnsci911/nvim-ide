@@ -182,9 +182,16 @@ require("lazy").setup({
 
     -- Org Mode
     {
-        "nvim-neorg/neorg",
-        build = ":Neorg sync-parsers",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        'nvim-neorg/neorg',
+        dependencies = { 'luarocks.nvim' },
+        lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        version = "*", -- Pin Neorg to the latest stable release
+        config = true,
+    },
+    {
+        "vhyrro/luarocks.nvim",
+        priority = 1000,
+        config = true,
     },
 
     'ghassan0/telescope-glyph.nvim',
