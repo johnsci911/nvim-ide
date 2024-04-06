@@ -79,7 +79,10 @@ require("lazy").setup({
         build = './install.sh',
         dependencies = 'hrsh7th/nvim-cmp',
     },
-    { 'codota/tabnine-nvim', build = "./dl_binaries.sh" },
+    {
+        'codota/tabnine-nvim',
+        build = "./dl_binaries.sh"
+    },
 
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
