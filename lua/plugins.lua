@@ -71,7 +71,6 @@ require("lazy").setup({
     'mattn/emmet-vim',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
-    'hrsh7th/nvim-cmp',
     'roobert/tailwindcss-colorizer-cmp.nvim',
     'hrsh7th/vim-vsnip',
     'hrsh7th/cmp-vsnip',
