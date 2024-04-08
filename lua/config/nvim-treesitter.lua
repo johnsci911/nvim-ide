@@ -28,6 +28,7 @@ require 'nvim-treesitter.configs'.setup {
         'xml',
         'yuck',
         'typescript',
+        'markdown_inline'
     }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     modules = {},
     sync_install = true,
