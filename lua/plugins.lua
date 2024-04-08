@@ -48,6 +48,10 @@ require("lazy").setup({
             }
         }
     },
+    {
+        'folke/trouble.nvim',
+        branch = "dev",
+    },
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
 
@@ -55,7 +59,6 @@ require("lazy").setup({
     'kosayoda/nvim-lightbulb',
 
     -- Indentations
-    'folke/trouble.nvim',
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",

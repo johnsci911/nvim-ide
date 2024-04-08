@@ -209,7 +209,7 @@ wk.register({
         q    = { '<Cmd>FzfLua quickfix<CR>', 'quickfix' },
         s    = { '<Cmd>FzfLua lsp_document_symbols<CR>', 'document symbols' },
         S    = { '<Cmd>FzfLua lsp_workspace_symbols<CR>', 'workspace symbols' },
-        t    = { '<Cmd>TroubleToggle<CR>', 'Lsp trouble' },
+        t    = { '<Cmd>Trouble diagnostics<CR>', 'Lsp trouble' },
         T    = { '<Cmd>TSPlaygroundToggle<CR>', 'Treesitter Playground' },
     },
     t = {
