@@ -22,7 +22,6 @@ require 'nvim-treesitter.configs'.setup {
         'sxhkdrc',
         'rust',
         'svelte',
-        'swift',
         'ssh_config',
         'vim',
         'xml',
