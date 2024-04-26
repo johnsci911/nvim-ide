@@ -21,6 +21,8 @@ vim.o.splitright = true -- Vertical splits will automatically be to the right
 vim.o.conceallevel = 0 -- So that I can see `` in markdown files
 vim.cmd('set ts=4') -- Insert 2 spaces for a tab
 vim.cmd('set sw=4') -- Change the number of space characters inserted for indentation
+vim.o.shiftwidth = 4 -- Default showed shiftwidth = 4
+vim.o.softtabstop = 4 -- Default softtabstop = 4
 vim.bo.expandtab = true -- Converts tabs to spaces
 vim.wo.number = true -- set numbered lines
 vim.wo.relativenumber = true -- set relative number
