@@ -1,10 +1,12 @@
 require 'nvim-treesitter.configs'.setup {
     ensure_installed = {
+        'html',
+        'php_only',
         'php',
+        'bash',
         'css',
         'javascript',
         'lua',
-        'html',
         'c',
         'c_sharp',
         'cmake',
