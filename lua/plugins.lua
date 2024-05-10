@@ -134,7 +134,6 @@ require("lazy").setup({
             "sindrets/diffview.nvim", -- optional - Diff integration
         },
         config = true,
-        branch = "nightly",
     },
     'f-person/git-blame.nvim',
     'lewis6991/gitsigns.nvim',
