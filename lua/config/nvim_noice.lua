@@ -1,6 +1,9 @@
 require('notify').setup {
     background_colour = "#000000",
     render = "minimal",
+    message = {
+        height = 1,
+    },
 }
 
 require('noice').setup {
@@ -14,7 +17,7 @@ require('noice').setup {
     routes = {
         {
             filter = {
-                event = "msg_show",
+                event = "msg_showmode",
                 any = {
                     { find = "%d+L, %d+B" },
                     { find = "; after #%d+" },
@@ -24,10 +27,16 @@ require('noice').setup {
             view = "notify",
         },
     },
-    presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
+    views = {
+        cmdline_popup = {
+            border = {
+                style = "none",
+                padding = { 2, 3 },
+            },
+            filter_options = {},
+            win_options = {
+                winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            },
+        },
     },
 }
