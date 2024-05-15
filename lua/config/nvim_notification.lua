@@ -1,10 +1,12 @@
 require('notify').setup {
     background_colour = "#000000",
-    render = "minimal",
-    message = {
-        height = 1,
+    render = "default",
+    stages = "fade_in_slide_out",
+    time_formats = {
+      notification = " %a %b %d, %Y -  %H:%M",
+      notification_history = " %a %b %d, %Y -  %H:%M"
     },
-    max_height = 1,
+    max_height = 3,
 }
 
 require('noice').setup {
