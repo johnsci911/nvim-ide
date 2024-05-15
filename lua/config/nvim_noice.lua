@@ -4,6 +4,7 @@ require('notify').setup {
     message = {
         height = 1,
     },
+    max_height = 1,
 }
 
 require('noice').setup {
