@@ -129,9 +129,8 @@ require("lazy").setup({
     -- Git
     {
         "NeogitOrg/neogit",
-        branch = "nightly",
+        branch = "master",
         dependencies = {
-            "nvim-lua/plenary.nvim",  -- required
             "sindrets/diffview.nvim", -- optional - Diff integration
         },
         config = true,
