@@ -118,7 +118,10 @@ require("lazy").setup({
     'ryanoasis/vim-devicons',
 
     -- Status Line and Bufferline
-    'romgrk/barbar.nvim',
+    {
+        'romgrk/barbar.nvim',
+        version = '^1.0.0'
+    },
 
     -- Keymappings
     'folke/which-key.nvim',
