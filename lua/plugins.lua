@@ -50,7 +50,7 @@ require("lazy").setup({
     },
     {
         'folke/trouble.nvim',
-        branch = "dev",
+        branch = "main",
     },
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
