@@ -1,24 +1,6 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  pattern = '*',
-  callback = function()
-    if vim.bo.filetype == 'NvimTree' then
-      require 'bufferline.api'.set_offset(31, 'FileTree')
-    end
-  end
-})
-
-vim.api.nvim_create_autocmd('BufWinLeave', {
-  pattern = '*',
-  callback = function()
-    if vim.fn.expand('<afile>'):match('NvimTree') then
-      require 'bufferline.api'.set_offset(0)
-    end
-  end
-})
-
 -- Move barbar to right side of File tree (WIP because when tree is closed barbar wont go back to left)
 -- local nvim_tree_events = require('nvim-tree.events')
 -- local bufferline_api = require('bufferline.api')
