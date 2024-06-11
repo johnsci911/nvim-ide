@@ -12,8 +12,8 @@ local M = {
   }
 }
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  command = "FormatWriteLock"
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--   command = "FormatWriteLock"
+-- })
 
 return M
