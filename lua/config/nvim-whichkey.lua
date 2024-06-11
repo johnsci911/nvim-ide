@@ -211,6 +211,7 @@ wk.register({
         S    = { '<Cmd>FzfLua lsp_workspace_symbols<CR>', 'workspace symbols' },
         t    = { '<Cmd>Trouble diagnostics<CR>', 'Lsp trouble' },
         T    = { '<Cmd>TSPlaygroundToggle<CR>', 'Treesitter Playground' },
+        F    = { '<Cmd>FormatWrite<CR>', 'Format Write' },
     },
     t = {
         name = '+Tab length and terminal',
