@@ -197,6 +197,7 @@ wk.register({
             P     = { '<Cmd>Gitsigns preview_hunk_inline<CR>', 'Git Preview Hunk Inline' },
             s     = { '<Cmd>Gitsigns stage_hunk<CR>', 'Git Stage Hunk' },
             r     = { '<Cmd>Gitsigns reset_hunk<CR>', 'Git Reset Hunk' },
+            R     = { '<Cmd>Gitsigns refresh<CR>', 'Git Signs Refresh' },
             u     = { '<Cmd>Gitsigns undo_stage_hunk<CR>', 'Git Undo Stage Hunk' },
             ['['] = { '<Cmd>Gitsigns prev_hunk<CR>', 'Git Hunk Previous' },
             [']'] = { '<Cmd>Gitsigns next_hunk<CR>', 'Git Hunk Next' },
