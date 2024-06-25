@@ -29,14 +29,13 @@
 #### Packages Required
 - Neovim 0.9+ (required)
 - ripgrep
-- fd and Chafa - for some reason required by Telescope media files <-- TODO use plugin with sharper preview
-- fzf
+- fzf, fd and Chafa - Required by Telescope media files
 - Tabnine code complection (Create your own account. Free version is awesome)
 - Neorg Note taking plugin (GCC 14+)
+- Silicon - Required for <b>nvim-silicon</b> a code snapshot plugin
 
 ##### Compatible OS
-- Mac and Linux (Prefer LINUX)
-- Windows - You have to use your own docker container or equivalent - **I don't have time for windows :p**
+- Mac and Linux
 
 #### LSP Auto-install
 * C++ (clang)
@@ -60,6 +59,8 @@
 * Norg - Neo ORG
 
 #### TODO
-* Improve keybindings for Tabnine autocompletion
+* ~~Improve keybindings for Tabnine autocompletion~~
 * Formatters for various web frameworks (disabled by default)
+* Use uberzug to preview media files
+* Fix 'FzfLua files' command in whichkey
 
