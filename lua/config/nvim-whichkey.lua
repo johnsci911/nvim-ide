@@ -77,7 +77,6 @@ wk.register({
     ['f'] = { '<Cmd>FzfLua grep_curbuf<CR>', 'Fuzzy find current buffer' },
     ['h'] = { '<C-W>s', 'Split Vertical' },
     ['v'] = { '<C-W>v', 'Split Horizontal' },
-    ['m'] = { '<Cmd>call WindowSwap#EasyWindowSwap()<CR>', 'Swap Window' },
     ['q'] = { '<Cmd>q<CR>', 'quit' },
     ['T'] = { '<Cmd>set expandtab<CR> | <Cmd>%retab!<CR>', 'Convert tab to space' },
     ['P'] = { '<Cmd>Telescope project<CR>', 'Search Project' },
@@ -173,9 +172,6 @@ wk.register({
     },
     S = {
         name = 'Sessions', -- Plugin: persistence
-    },
-    w = {
-        name = 'Window Swap',
     },
     g = {
         name = '+Git',

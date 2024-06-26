@@ -141,9 +141,6 @@ require("lazy").setup({
     'f-person/git-blame.nvim',
     'lewis6991/gitsigns.nvim',
 
-    -- Swap windows
-    'wesQ3/vim-windowswap',
-
     -- Telescope
     'nvim-lua/popup.nvim',
     {
