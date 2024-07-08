@@ -83,6 +83,7 @@ local servers = {
   'eslint',
   'omnisharp',
   'taplo',
+  'sqlls',
 }
 
 require("mason").setup()

@@ -132,7 +132,6 @@ require("lazy").setup({
     -- Git
     {
         "NeogitOrg/neogit",
-        branch = "decouple-global-statusbuffer",
         dependencies = {
             "sindrets/diffview.nvim", -- optional - Diff integration
         },
