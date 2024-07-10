@@ -17,6 +17,7 @@ require 'nvim-treesitter.configs'.setup {
         'go',
         'vue',
         'xml',
+        'regex',
         'yaml',
         'toml',
         'sql',

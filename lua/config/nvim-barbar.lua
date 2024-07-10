@@ -1,32 +1,6 @@
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+vim.g.barbar_auto_setup = false -- disable auto-setup
 
--- Move barbar to right side of File tree (WIP because when tree is closed barbar wont go back to left)
--- local nvim_tree_events = require('nvim-tree.events')
--- local bufferline_api = require('bufferline.api')
---
--- local function get_tree_size()
---   return require'nvim-tree.view'.View.width + 1
--- end
---
--- nvim_tree_events.subscribe('TreeOpen', function()
---   bufferline_api.set_offset(get_tree_size())
--- end)
---
--- nvim_tree_events.subscribe('Resize', function()
---   bufferline_api.set_offset(get_tree_size())
--- end)
---
--- nvim_tree_events.subscribe('TreeClose', function()
---   bufferline_api.set_offset(0)
--- end)
---
-
-map('n', '<TAB>', ':BufferNext<CR>', opts)
-map('n', '<S-TAB>', ':BufferPrevious<CR>', opts)
-map('n', '<C-p>', ':BufferPick<CR>', opts)
-
-require'barbar'.setup {
+require 'barbar'.setup {
   -- WARN: do not copy everything below into your config!
   --       It is just an example of what configuration options there are.
   --       The defaults are suitable for most people.
@@ -74,10 +48,10 @@ require'barbar'.setup {
     button = '',
     -- Enables / disables diagnostic symbols
     diagnostics = {
-      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ﬀ'},
-      [vim.diagnostic.severity.WARN] = {enabled = false},
-      [vim.diagnostic.severity.INFO] = {enabled = false},
-      [vim.diagnostic.severity.HINT] = {enabled = true},
+      [vim.diagnostic.severity.ERROR] = { enabled = true, icon = 'ﬀ' },
+      [vim.diagnostic.severity.WARN] = { enabled = false },
+      [vim.diagnostic.severity.INFO] = { enabled = false },
+      [vim.diagnostic.severity.HINT] = { enabled = true },
     },
     gitsigns = {
       added = {enabled = false, icon = '+'},
@@ -92,25 +66,25 @@ require'barbar'.setup {
       -- Requires `nvim-web-devicons` if `true`
       enabled = true,
     },
-    separator = {left = '▎', right = ''},
+    separator = { left = '▎', right = '' },
 
     -- If true, add an additional separator at the end of the buffer list
     separator_at_end = true,
 
     -- Configure the icons on the bufferline when modified or pinned.
     -- Supports all the base icon options.
-    modified = {button = '●'},
-    pinned = {button = '', filename = true},
+    modified = { button = '●' },
+    pinned = { button = '', filename = true },
 
     -- Use a preconfigured buffer appearance— can be 'default', 'powerline', or 'slanted'
     preset = 'default',
 
     -- Configure the icons on the bufferline based on the visibility of a buffer.
     -- Supports all the base icon options, plus `modified` and `pinned`.
-    alternate = {filetype = {enabled = false}},
-    current = {buffer_index = true},
-    inactive = {button = '×'},
-    visible = {modified = {buffer_number = false}},
+    alternate = { filetype = { enabled = false } },
+    current = { buffer_index = true },
+    inactive = { button = '×' },
+    visible = { modified = { buffer_number = false } },
   },
 
   -- If true, new buffers will be inserted at the start/end of the list.
@@ -146,9 +120,9 @@ require'barbar'.setup {
       align = 'center', -- *optionally* specify an alignment (either 'left', 'center', or 'right')
     },
     -- Or, specify the event which the sidebar executes when leaving:
-    ['neo-tree'] = {event = 'BufWipeout'},
+    ['neo-tree'] = { event = 'BufWipeout' },
     -- Or, specify all three
-    Outline = {event = 'BufWinLeave', text = 'symbols-outline', align = 'right'},
+    Outline = { event = 'BufWinLeave', text = 'symbols-outline', align = 'right' },
   },
 
   -- New buffer letters are assigned in this order. This order is
@@ -160,3 +134,4 @@ require'barbar'.setup {
   -- where X is the buffer number. But only a static string is accepted here.
   no_name_title = nil,
 }
+

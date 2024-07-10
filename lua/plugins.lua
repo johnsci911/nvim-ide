@@ -88,13 +88,15 @@ require("lazy").setup({
     },
 
     -- Treesitter
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate'
+    },
     'windwp/nvim-ts-autotag',
     'nvim-treesitter/nvim-treesitter-context',
     'HiPhish/nvim-ts-rainbow2',
     'nvim-treesitter/playground',
     'windwp/nvim-autopairs',
-    'posva/vim-vue',
 
     -- Notification
     {

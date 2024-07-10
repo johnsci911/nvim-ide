@@ -1,11 +1,17 @@
-require 'lspconfig'.volar.setup {
-  cmd = { "vue-language-server", "--stdio" },
+local lspconfig = require('lspconfig')
+
+-- lspconfig.tsserver.setup {}
+lspconfig.volar.setup {
   filetypes = {
     'typescript',
     'javascript',
     'javascriptreact',
     'typescriptreact',
-    'vue',
-    'json'
-  }
+    'vue'
+  },
+  init_options = {
+    vue = {
+      hybridMode = false,
+    },
+  },
 }

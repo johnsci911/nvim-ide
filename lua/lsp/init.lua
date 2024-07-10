@@ -84,6 +84,7 @@ local servers = {
   'omnisharp',
   'taplo',
   'sqlls',
+  'marksman',
 }
 
 require("mason").setup()

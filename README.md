@@ -13,7 +13,7 @@
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
-- **Neorg** - ORG Mode for organization (Similar to Emacs) ('NEW!')
+- **Neorg** - ORG Mode for organization (Similar to Emacs)
 
 #### What's new
 - C# (Omnisharp WIP)
@@ -24,10 +24,10 @@
 - Tabnine autocompletion support
 - Update Icon to fix nerd fonts incompatibility
 - Laravel blade syntax highlighting (Beta) 🔥
-- Neogit - for vim superpowers
+- Neogit - for GIT superpowers
 
 #### Packages Required
-- Neovim 0.9+ (required)
+- Neovim 0.10.*
 - ripgrep
 - fzf, fd and Chafa - Required by Telescope media files
 - Tabnine code complection (Create your own account. Free version is awesome)
@@ -63,4 +63,3 @@
 * Formatters for various web frameworks (disabled by default)
 * Use uberzug to preview media files
 * Fix 'FzfLua files' command in whichkey
-
