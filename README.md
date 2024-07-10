@@ -63,3 +63,4 @@
 * Formatters for various web frameworks (disabled by default)
 * Use uberzug to preview media files
 * Fix 'FzfLua files' command in whichkey
+* Use ueberzug to preview media files
