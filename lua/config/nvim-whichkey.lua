@@ -117,6 +117,7 @@ wk.register({
     },
     b = {
         name = '+buffers',
+        p    = { '<Cmd>BufferPick<CR>', 'Buffer Pick' },
         w    = { '<Cmd>BufferWipeout<CR>', 'Wipeout Buffer' },
         D    = { '<Cmd>BufferCloseAllButCurrent<CR>', 'Close all but current' },
         P    = { '<Cmd>BufferPin<CR>', 'Pin buffer' },
