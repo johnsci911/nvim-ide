@@ -6,7 +6,6 @@ require('theme.catppuccin')
 
 -- Plugins
 require('config.nvim-autopairs')
-require('config.nvim-barbar')
 require('config.nvim-comment')
 require('config.nvim-diffview')
 require('config.nvim-easyalign')
