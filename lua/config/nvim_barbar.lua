@@ -82,7 +82,7 @@ require'barbar'.setup {
     -- Configure the icons on the bufferline based on the visibility of a buffer.
     -- Supports all the base icon options, plus `modified` and `pinned`.
     alternate = {filetype = {enabled = false}},
-    current = {buffer_index = true},
+    current = {buffer_index = false},
     inactive = {button = '×'},
     visible = {modified = {buffer_number = false}},
   },
