@@ -120,6 +120,7 @@ require("lazy").setup({
     'ryanoasis/vim-devicons',
 
     -- Status Line and Bufferline TODO: find tabbar plugin for 0.10.^
+    'romgrk/barbar.nvim',
 
     -- Keymappings
     'folke/which-key.nvim',
