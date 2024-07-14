@@ -1,6 +1,16 @@
 local wk = require("which-key")
 
+local flash = require("flash")
+
 wk.add({
+  -- Other keymaps from global
+  { "<leader>rn", desc = "LSP rename" },
+
+  -- Flash
+  { "s", mode = { "n", "x", "o" }, function() flash.jump() end, desc = "Flash" },
+  { "S", mode = { "n", "x", "o" }, function() flash.treesitter() end, desc = "Flash Treesitter" },
+
+  -- Whichkey local mappings
   { "<leader>/",  "<Cmd>CommentToggle<CR>",                                      desc = "Comment line" },
   { "<leader>.",  '<Cmd>e $MYVIMRC<CR>',                                         desc = 'My VIMRC' },
   { "<leader>=",  '<C-W>=',                                                      desc = 'Balance windows' },

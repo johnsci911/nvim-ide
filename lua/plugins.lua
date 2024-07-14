@@ -124,6 +124,7 @@ require("lazy").setup({
 
     -- Keymappings
     'folke/which-key.nvim',
+    'echasnovski/mini.icons',
 
     -- Colors
     'NvChad/nvim-colorizer.lua',
@@ -211,7 +212,10 @@ require("lazy").setup({
     },
 
     -- Navigation
-    'phaazon/hop.nvim',
+    {
+      "folke/flash.nvim",
+      event = "VeryLazy",
+    },
     'nacro90/numb.nvim',
     'kyazdani42/nvim-tree.lua',
 
