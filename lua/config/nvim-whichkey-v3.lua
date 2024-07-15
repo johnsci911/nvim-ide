@@ -9,6 +9,7 @@ wk.add({
   -- Flash
   { "s", mode = { "n", "x", "o" }, function() flash.jump() end, desc = "Flash" },
   { "S", mode = { "n", "x", "o" }, function() flash.treesitter() end, desc = "Flash Treesitter" },
+  { "sf", mode = { "n", "x", "o" }, function() flash.treesitter_search() end, desc = "Treesitter Search" },
 
   -- Whichkey local mappings
   { "<leader>/",  "<Cmd>CommentToggle<CR>",                                      desc = "Comment line" },
