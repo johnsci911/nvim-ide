@@ -150,7 +150,7 @@ wk.add({
   { "<leader>lF", '<Cmd>FormatWrite<CR>',                              desc = 'Format Write' },
 
   { "<leader>t",  group = "Tab length and terminal" },
-  { "<leader>ts", '<Cmd>FloatermNew --wintype=split --height=0.4<CR>', desc = 'terminal' },
+  { "<leader>ts", '<Cmd>FloatermNew --wintype=split --height=0.4<CR>', desc = 'terminal win=split' },
   { "<leader>tt", '<Cmd>FloatermToggle<CR>',                           desc = 'toggle terminal' },
   { "<leader>tB", '<Cmd>FloatermNew btop<CR>',                         desc = 'btop' },
   {
