@@ -35,7 +35,7 @@ wk.add({
   { "<leader>,",  group = "Emmet" },
   { "<leader>,;", ':call emmet#expandAbbr(1,"")<cr>',                            desc = 'expand word' },
   { "<leader>,,", ':call emmet#expandAbbr(3,"")<cr>',                            desc = 'expand abbr' },
-  { "<leader>,,", ':call emmet#toggleComment()<cr>',                             desc = 'toggle comment' },
+  { "<leader>,/", ':call emmet#toggleComment()<cr>',                             desc = 'toggle comment' },
   { "<leader>,u", ':call emmet#updateTag()<cr>',                                 desc = 'update tag' },
   { "<leader>,d", ':call emmet#balanceTag(1)<cr>',                               desc = 'balance tag in' },
   { "<leader>,D", ':call emmet#balanceTag(-1)<cr>',                              desc = 'balance tag out' },
