@@ -10,6 +10,18 @@ wk.add({
   { "<TAB>",   mode = { "n" }, "<Cmd>BufferNext<CR>",     desc = "Buffer Next" },
   { "<S-TAB>", mode = { "n" }, "<Cmd>BufferPrevious<CR>", desc = "Buffer Prev" },
 
+-- Save file (Control+S) (Default if not using TMUX)
+  -- { '<C-h>',   mode = { "n" }, '<C-w>h',                  desc = 'Move to window left' },
+  -- { '<C-j>',   mode = { "n" }, '<C-w>j',                  desc = 'Move to window down' },
+  -- { '<C-k>',   mode = { "n" }, '<C-w>k',                  desc = 'Move to window up' },
+  -- { '<C-l>',   mode = { "n" }, '<C-w>l',                  desc = 'Move to window right' },
+
+-- TMUX navigation
+  { '<C-h>',   mode = { "n" }, '<Cmd>TmuxNavigateLeft<CR>',   desc = 'Move to window left' },
+  { '<C-j>',   mode = { "n" }, '<Cmd>TmuxNavigateDown<CR>',   desc = 'Move to window down' },
+  { '<C-k>',   mode = { "n" }, '<Cmd>TmuxNavigateUp<CR>',     desc = 'Move to window up' },
+  { '<C-l>',   mode = { "n" }, '<Cmd>TmuxNavigateRight<CR>',  desc = 'Move to window right' },
+
   -- Flash
   { "s",  mode = { "n", "x", "o" }, function() flash.jump() end,              desc = "Flash" },
   { "S",  mode = { "n", "x", "o" }, function() flash.treesitter() end,        desc = "Flash Treesitter" },

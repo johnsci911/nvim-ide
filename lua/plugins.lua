@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",     -- latest stable release
+    "--branch=stable", -- latest stable release
     lazypath,
   })
 end
@@ -133,7 +133,7 @@ require("lazy").setup({
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "sindrets/diffview.nvim",       -- optional - Diff integration
+      "sindrets/diffview.nvim", -- optional - Diff integration
     },
     config = true,
   },
@@ -189,7 +189,7 @@ require("lazy").setup({
   {
     'nvim-neorg/neorg',
     dependencies = { 'luarocks.nvim' },
-    lazy = false,     -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = "v7.0.0",
     config = true,
   },
@@ -261,4 +261,7 @@ require("lazy").setup({
 
   -- Auto tab width
   'tpope/vim-sleuth',
+
+  -- TMUX navigation
+  'christoomey/vim-tmux-navigator'
 })
