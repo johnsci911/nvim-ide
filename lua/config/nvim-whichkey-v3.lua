@@ -151,7 +151,7 @@ wk.add({
     { "<leader>ghR", '<Cmd>Gitsigns refresh<CR>',                                   desc = 'Git Signs Refresh' },
     { "<leader>ghu", '<Cmd>Gitsigns undo_stage_hunk<CR>',                           desc = 'Git Undo Stage Hunk' },
     { "<leader>gh[", '<Cmd>Gitsigns prev_hunk<CR>',                                 desc = 'Git Hunk Previous' },
-    { "<leader>gh[", '<Cmd>Gitsigns next_hunk<CR>',                                 desc = 'Git Hunk Next' },
+    { "<leader>gh]", '<Cmd>Gitsigns next_hunk<CR>',                                 desc = 'Git Hunk Next' },
   },
 
   { "<leader>l",     group = "LSP" },
