@@ -40,7 +40,7 @@ require("catppuccin").setup({
             colored_indent_levels = true
         },
         barbar = true,
-        noice = true,
+        -- noice = true,
         treesitter = true,
         treesitter_context = true,
         which_key = true,

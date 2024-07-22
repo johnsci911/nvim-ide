@@ -26,7 +26,7 @@ require("flash").setup {
     exclude = {
       "notify",
       "cmp_menu",
-      "noice",
+      -- "noice",
       "flash_prompt",
       function(win)
         -- exclude non-focusable windows

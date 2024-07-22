@@ -73,8 +73,7 @@ wk.add({
   { "<leader>aw",    '<Cmd>StripWhitespace<CR>',                                    desc = 'Strip whitespace' },
   { "<leader>am",    '<Cmd>MarkdownPreviewToggle<CR>',                              desc = 'Markdown preview' },
   { "<leader>at",    '<cmd>AerialToggle!<CR>',                                      desc = 'AerialToggle' },
-  { "<leader>ad",    '<Cmd>Noice dismiss<CR>',                                      desc = 'Dismiss notification' },
-  { "<leader>aD",    '<Cmd>Telescope noice<CR>',                                    desc = 'Notification history' },
+  { "<leader>ad",    '<Cmd>Telescope notify<CR>',                                   desc = 'Filter Notification' },
 
   { "<leader>b",     group = "Buffers" },
   { "<leader>bp",    '<Cmd>BufferPick<CR>',                                         desc = 'Buffer Pick' },
