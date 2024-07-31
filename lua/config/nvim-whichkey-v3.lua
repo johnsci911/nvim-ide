@@ -142,6 +142,9 @@ wk.add({
   { "<leader>gv",    '<Cmd>GitBlameToggle<CR>',                                     desc = 'Git blame toggle' },
   { "<leader>gd",    '<Cmd>DiffviewOpen<CR>',                                       desc = 'Diff view open' },
   { "<leader>gD",    '<Cmd>DiffviewClose<CR>',                                      desc = 'Diff view close' },
+  { "<leader>gh",    '<Cmd>DiffviewFileHistory<CR>',                                desc = 'Diff view file history' },
+  { "<leader>gH",    '<Cmd>DiffviewFileHistory %<CR>',                              desc = 'Diff view current file history' },
+  { "<leader>gx",    '<Cmd>DiffviewClose<CR>',                                    desc = 'Diff view close' },
   {
     { "<leader>gh",  group = "Git Hunks" },
     { "<leader>ghp", '<Cmd>Gitsigns preview_hunk<CR>',                              desc = 'Git Preview Hunk' },
