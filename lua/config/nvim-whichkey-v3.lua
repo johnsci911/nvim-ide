@@ -144,7 +144,11 @@ wk.add({
   { "<leader>gD",    '<Cmd>DiffviewClose<CR>',                                      desc = 'Diff view close' },
   { "<leader>gh",    '<Cmd>DiffviewFileHistory<CR>',                                desc = 'Diff view file history' },
   { "<leader>gH",    '<Cmd>DiffviewFileHistory %<CR>',                              desc = 'Diff view current file history' },
-  { "<leader>gx",    '<Cmd>DiffviewClose<CR>',                                    desc = 'Diff view close' },
+  { "<leader>gx",    '<Cmd>DiffviewClose<CR>',                                      desc = 'Diff view close' },
+  { "<leader>gl",    function()
+      require('gitgraph').draw({}, { all = true, max_count = 5000 })
+    end,                                                                            desc = "GitGraph - Draw",
+  },
   {
     { "<leader>gh",  group = "Git Hunks" },
     { "<leader>ghp", '<Cmd>Gitsigns preview_hunk<CR>',                              desc = 'Git Preview Hunk' },

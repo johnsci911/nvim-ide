@@ -125,6 +125,10 @@ require("lazy").setup({
     },
     config = true,
   },
+  {
+    'isakbm/gitgraph.nvim',
+    dependencies = { 'sindrets/diffview.nvim' },
+  },
   'f-person/git-blame.nvim',
   'lewis6991/gitsigns.nvim',
 
