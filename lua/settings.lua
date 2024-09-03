@@ -49,3 +49,5 @@ if vim.g.neovide then
   vim.g.neovide_floating_blur_amount_y = 1.0
 end
 
+vim.cmd('let g:python3_host_prog = "$VIRTUAL_ENV/bin/python3"')
+
