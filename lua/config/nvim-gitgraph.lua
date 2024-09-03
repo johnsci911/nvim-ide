@@ -39,4 +39,9 @@ require("gitgraph").setup {
     GLRUCL = '',
     GLRUCR = '',
   },
+  format = {
+    timestamp = '',
+    fields = {},
+  },
+  log_level = 0,
 }
