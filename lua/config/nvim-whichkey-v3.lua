@@ -10,6 +10,9 @@ wk.add({
   { "<TAB>",   mode = { "n" }, "<Cmd>BufferNext<CR>",     desc = "Buffer Next" },
   { "<S-TAB>", mode = { "n" }, "<Cmd>BufferPrevious<CR>", desc = "Buffer Prev" },
 
+  -- AI/LSP completion
+  { "<leader>nc", "<Cmd>NeoCodeium chat<CR>", desc = "NeoCodeium Chat" },
+
 -- Save file (Control+S) (Default if not using TMUX)
   -- { '<C-h>',   mode = { "n" }, '<C-w>h',                  desc = 'Move to window left' },
   -- { '<C-j>',   mode = { "n" }, '<C-w>j',                  desc = 'Move to window down' },

@@ -77,15 +77,28 @@ require("lazy").setup({
   'roobert/tailwindcss-colorizer-cmp.nvim',
   'hrsh7th/vim-vsnip',
   'hrsh7th/cmp-vsnip',
+  'hrsh7th/nvim-cmp',
+
+  -- AI
   {
-    'tzachar/cmp-tabnine',
-    build = './install.sh',
-    dependencies = 'hrsh7th/nvim-cmp',
+    "monkoose/neocodeium",
+    event = "VeryLazy",
+    config = function()
+      local neocodeium = require("neocodeium")
+      neocodeium.setup()
+      vim.keymap.set("i", "<Tab>", neocodeium.accept)
+      vim.keymap.set("i", "<C-c>", neocodeium.clear)
+    end,
   },
-  {
-    'codota/tabnine-nvim',
-    build = "./dl_binaries.sh"
-  },
+  -- {
+  --   'tzachar/cmp-tabnine',
+  --   build = './install.sh',
+  --   dependencies = 'hrsh7th/nvim-cmp',
+  -- },
+  -- {
+  --   'codota/tabnine-nvim',
+  --   build = "./dl_binaries.sh"
+  -- },
 
   -- Treesitter
   {

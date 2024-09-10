@@ -1,16 +1,27 @@
 vim.o.completeopt = "menuone,noselect"
 
-local cmp = require 'cmp'
-
+local cmp = require('cmp')
 local lspkind = require('lspkind')
+local neocodeium = require('neocodeium')
+local commands = require('neocodeium.commands')
 
 local source_mapping = {
     buffer = "[Buffer]",
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
-    cmp_tabnine = "[Tabnine]",
+    -- cmp_tabnine = "[Tabnine]",
     path = "[Path]",
 }
+
+cmp.event:on('menu_opened', function()
+    neocodeium.clear()
+end)
+
+neocodeium.setup({
+    enabled = function()
+        return not cmp.visible()
+    end,
+})
 
 cmp.setup {
     snippet = {
@@ -47,14 +58,14 @@ cmp.setup {
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            { name = 'cmp_tabnine' },
+            -- { name = 'cmp_tabnine' },
         },
         {
             { name = 'buffer' },
         }
     ),
     completion = {
-        autoComplete = false
+        autoComplete = false,
     },
     formatting = {
         format = function(entry, vim_item)
