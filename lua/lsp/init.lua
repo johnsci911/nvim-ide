@@ -70,7 +70,7 @@ local servers = {
   'cssls',
   'jsonls',
   'vimls',
-  'tsserver',
+  'ts_ls',
   'jsonls',
   'html',
   'emmet_ls',
