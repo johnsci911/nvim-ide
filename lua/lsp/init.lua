@@ -68,7 +68,6 @@ local servers = {
   'pyright',
   'intelephense',
   'cssls',
-  'jsonls',
   'vimls',
   'ts_ls',
   'jsonls',
