@@ -7,6 +7,7 @@ require('notify').setup {
     notification_history = " %a %b %d, %Y -  %H:%M"
   },
   max_height = 3,
+  timeout = 800,
 }
 
 vim.notify = require("notify")
