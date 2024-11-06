@@ -59,7 +59,7 @@
 * Norg - Neo ORG
 
 #### TODO
-* ~~Improve keybindings for Tabnine autocompletion~~
 * Formatters for various web frameworks (disabled by default)
-* Use uberzug to preview media files
 * Fix 'FzfLua files' command in whichkey
+* Git-graph (Disabled for now)
+* [Yazi](https://github.com/sxyazi/yazi) as file manager. [Installation here!](https://yazi-rs.github.io/docs/installation/#homebrew)

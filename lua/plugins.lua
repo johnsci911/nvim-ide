@@ -125,10 +125,10 @@ require("lazy").setup({
     },
     config = true,
   },
-  {
-    'isakbm/gitgraph.nvim',
-    dependencies = { 'sindrets/diffview.nvim' },
-  },
+  -- {
+  --   'isakbm/gitgraph.nvim',
+  --   dependencies = { 'sindrets/diffview.nvim' },
+  -- },
   'f-person/git-blame.nvim',
   'lewis6991/gitsigns.nvim',
 
@@ -225,8 +225,11 @@ require("lazy").setup({
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
     ft = { "markdown" },
-    build = function() vim.fn["mkdp#util#install"]() end,
   },
   -- Floating Terminal
   'voldikss/vim-floaterm',

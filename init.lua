@@ -42,7 +42,8 @@ require('config.nvim_notification')
 require('config.nvim_neogit')
 require('config.nvim_tabnine')
 require('config.nvim_barbar')
-require('config.nvim-gitgraph')
+-- require('config.nvim-gitgraph')
+require('config.nvim-markdown-preview')
 
 -- LSP
 require('lsp')
