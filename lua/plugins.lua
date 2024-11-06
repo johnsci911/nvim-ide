@@ -202,6 +202,7 @@ require("lazy").setup({
     "catppuccin/nvim",
     name = "catppuccin"
   },
+  'projekt0n/caret.nvim',
 
   -- Navigation
   {

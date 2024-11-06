@@ -46,14 +46,14 @@ end
 
 local mode_color = function()
   local mode_colors = {
-    n     = colors.cyan,
-    i     = colors.green,
-    c     = colors.orange,
-    V     = colors.magenta,
+    n      = colors.cyan,
+    i      = colors.green,
+    c      = colors.orange,
+    V      = colors.magenta,
     [''] = colors.magenta,
-    v     = colors.magenta,
-    R     = colors.red,
-    t     = colors.green,
+    v      = colors.magenta,
+    R      = colors.red,
+    t      = colors.green,
   }
 
   return mode_colors[vim.fn.mode()]

@@ -3,6 +3,7 @@ require('globals')
 require('keymaps')
 require('settings')
 require('theme.catppuccin')
+-- require('theme.caret')
 
 -- Plugins
 require('config.nvim-autopairs')
