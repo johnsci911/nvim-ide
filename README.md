@@ -27,7 +27,7 @@
 - Neogit - for GIT superpowers
 
 #### Packages Required
-- Neovim 0.10.*
+- Neovim 0.10.2
 - ripgrep
 - fzf, fd and Chafa - Required by Telescope media files
 - Tabnine code complection (Create your own account. Free version is awesome)
