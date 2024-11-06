@@ -13,7 +13,7 @@ vim.cmd('set whichwrap+=<,>,[,],h,l') -- move to next line with theses keys
 vim.cmd('syntax on') -- move to next line with theses keys
 vim.o.pumheight = 10 -- Makes popup menu smaller
 vim.o.fileencoding = "utf-8" -- The encoding written to file
-vim.o.cmdheight = 2 -- More space for displaying messages
+vim.o.cmdheight = 1 -- More space for displaying messages
 vim.o.mouse = "a" -- Enable your mouse
 vim.o.splitbelow = true -- Horizontal splits will automatically be below
 vim.o.termguicolors = true -- set term giu colors most terminals support this
