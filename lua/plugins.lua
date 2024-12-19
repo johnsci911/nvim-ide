@@ -31,13 +31,7 @@ require("lazy").setup({
   },
 
   -- LSP
-  {
-    "mhartington/formatter.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return require "config.nvim-formatter"
-    end
-  },
+  "mhartington/formatter.nvim",
   {
     "williamboman/mason.nvim",
     opts = {
@@ -259,5 +253,9 @@ require("lazy").setup({
   'tpope/vim-sleuth',
 
   -- TMUX navigation
-  'christoomey/vim-tmux-navigator'
+  'christoomey/vim-tmux-navigator',
+
+  -- Typist
+  'nvzone/typr',
+  'nvzone/volt',
 })
