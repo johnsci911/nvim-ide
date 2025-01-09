@@ -118,6 +118,7 @@ for _, name in pairs(servers) do
 end
 
 -- Configure SourceKit for Swift manually
+-- `brew install swift`
 lspconfig.sourcekit.setup {
   cmd = { "xcrun", "sourcekit-lsp" },
   filetypes = { "swift", "objective-c", "objective-cpp" },
