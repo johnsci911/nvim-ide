@@ -309,7 +309,7 @@ require'fzf-lua'.setup {
     -- cmd            = "find . -type f -printf '%P\n'",
     find_opts         = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
     rg_opts           = [[--color=never --files --hidden --follow -g "!.git"]],
-    fd_opts           = [[--color=never --type f --hidden --follow --exclude .git]],
+    fd_opts           = [[--color=never --type f --hidden --no-ignore --follow --exclude .git]],
     -- by default, cwd appears in the header only if {opts} contain a cwd
     -- parameter to a different folder than the current working directory
     -- uncomment if you wish to force display of the cwd as part of the
