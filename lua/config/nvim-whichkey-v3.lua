@@ -67,13 +67,14 @@ wk.add({
   { "<leader>,t",    '<Cmd>TSBufDisable<CR>',                                       desc = 'Treesitter disable current buffer' },
   { "<leader>,T",    '<Cmd>TSBufEnable<CR>',                                        desc = 'Treesitter enable current buffer' },
 
-  { "<leader>a",     group = "Actions" },
+  { "<leader>a",     group = "Actions and AI" },
   { "<leader>ac",    '<Cmd>ColorizerToggle<CR>',                                    desc = 'Bracket Colorizer' },
   { "<leader>as",    '<Cmd>noh<CR>',                                                desc = 'Remove search highlight' },
   { "<leader>aw",    '<Cmd>StripWhitespace<CR>',                                    desc = 'Strip whitespace' },
   { "<leader>am",    '<Cmd>MarkdownPreviewToggle<CR>',                              desc = 'Markdown preview' },
   { "<leader>at",    '<cmd>AerialToggle!<CR>',                                      desc = 'AerialToggle' },
   { "<leader>ad",    '<Cmd>Telescope notify<CR>',                                   desc = 'Filter Notification' },
+  { "<leader>ai",    '<Cmd>TabnineChat<CR>',                                        desc = 'Tabnine Chat' },
 
   { "<leader>b",     group = "Buffers" },
   { "<leader>bp",    '<Cmd>BufferPick<CR>',                                         desc = 'Buffer Pick' },
