@@ -80,6 +80,10 @@
         bind C-j select-pane -D
         bind C-k select-pane -U
         bind C-l select-pane -R
+
+        bind M-r command-prompt -p "Rename pane:" "select-pane -T '%%'"
+        bind C-s command-prompt -p "Rename session:" -I "#S" "rename-session '%%'"
+        bind C-n command-prompt -p "New session name:" "new-session -s '%%'"
         ```
 
 #### Packages Required
