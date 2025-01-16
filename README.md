@@ -6,6 +6,9 @@
 
 #### Awesome Plugins that are used
 - **Tabnine** - AI base autocompletion integrated with cmp
+    - After all plugins are installed you'll need to build tabnine
+        - `cd ~/.local/share/nvim/lazy/tabnine-nvim/chat`
+        - `cargo build --release`
 - **lsp-trouble** - to jumping between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
 - **vim-windowswap** - to swap windows
@@ -25,14 +28,69 @@
 - Update Icon to fix nerd fonts incompatibility
 - Laravel blade syntax highlighting (Beta) 🔥
 - Neogit - for GIT superpowers
+- TMUX navigation
+    * Config: ~/.tmux.conf
+        ```
+        set-option -sa terminal-overrides ",xterm*:Tc"
+
+        # Options to make tmux more pleasant
+        set -g mouse on
+
+        # List of plugins
+        set -g @plugin 'tmux-plugins/tpm'
+        set -g @plugin 'tmux-plugins/tmux-sensible'
+        set -g @plugin 'christoomey/vim-tmux-navigator'
+        set -g @plugin 'tmux-plugins/tmux-cpu'
+        set -g @plugin 'catppuccin/tmux#v2.1.2'
+
+        # Catpuccin Theme
+            set -g @catpuccin_flavor 'mocha'
+
+            # Configure the catppuccin plugin
+            set -g @catppuccin_flavor "mocha"
+            set -g @catppuccin_window_status_style "rounded"
+
+            # Load catppuccin
+            run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
+            # For TPM, instead use `run ~/.config/tmux/plugins/tmux/catppuccin.tmux`
+
+            # Make the status line pretty and add some modules
+            set -g status-right-length 100
+            set -g status-left-length 100
+            set -g status-left ""
+            set -g status-right "#{E:@catppuccin_status_application}"
+            set -agF status-right "#{E:@catppuccin_status_cpu}"
+            set -ag status-right "#{E:@catppuccin_status_session}"
+            set -ag status-right "#{E:@catppuccin_status_uptime}"
+
+            run ~/.config/tmux/plugins/tmux-plugins/tmux-cpu/cpu.tmux
+            # Or, if using TPM, just run TPM
+        # End Catpuccin theme
+
+        # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+        run '~/.tmux/plugins/tpm/tpm'
+
+        unbind C-b
+        set-option -g prefix M-s
+        bind-key M-s send-prefix
+
+        # VIM Movement between panes
+        # smart pane switching with awareness of vim splits
+        bind C-h select-pane -L
+        bind C-j select-pane -D
+        bind C-k select-pane -U
+        bind C-l select-pane -R
+        ```
 
 #### Packages Required
-- Neovim 0.10.2
+- Neovim >= 0.10.2
 - ripgrep
 - fzf, fd and Chafa - Required by Telescope media files
 - Tabnine code complection (Create your own account. Free version is awesome)
 - Neorg Note taking plugin (GCC 14+)
 - Silicon - Required for <b>nvim-silicon</b> a code snapshot plugin
+- Cargo
+- Python
 
 ##### Compatible OS
 - Mac and Linux
