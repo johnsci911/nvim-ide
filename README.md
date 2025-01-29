@@ -5,7 +5,7 @@
 <h5 align="center">A neovim configuration base from the vim community</h5>
 
 #### Awesome Plugins that are used
-- **Tabnine** - AI base autocompletion integrated with cmp
+- **Tabnine** - AI base autocompletion integrated with cmp (For multi-line autocompletion)
 - **lsp-trouble** - to jumping between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
 - **vim-windowswap** - to swap windows
@@ -14,6 +14,7 @@
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
 - **Neorg** - ORG Mode for organization (Similar to Emacs)
+- **Avante.nvim** AI assistant like cursor
 
 #### What's new
 - C# (Omnisharp WIP)
@@ -21,7 +22,6 @@
 - Notifications
 - Clipboards!
 - Lazy.nvim (Faster loading package manager)
-- Tabnine autocompletion support
 - Update Icon to fix nerd fonts incompatibility
 - Laravel blade syntax highlighting (Beta) 🔥
 - Neogit - for GIT superpowers
@@ -63,3 +63,4 @@
 * Fix 'FzfLua files' command in whichkey
 * Git-graph (Disabled for now)
 * [Yazi](https://github.com/sxyazi/yazi) as file manager. [Installation here!](https://yazi-rs.github.io/docs/installation/#homebrew)
+* Try out Deepseek AI model within Avante.nvim
