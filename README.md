@@ -63,4 +63,4 @@
 * Fix 'FzfLua files' command in whichkey
 * Git-graph (Disabled for now)
 * [Yazi](https://github.com/sxyazi/yazi) as file manager. [Installation here!](https://yazi-rs.github.io/docs/installation/#homebrew)
-* Try out Deepseek AI model within Avante.nvim
+* Avante.nvim - Testing Ollama open source models and OpenAI with it
