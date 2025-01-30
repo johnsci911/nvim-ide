@@ -116,7 +116,7 @@ require("lazy").setup({
           __inherited_from = "openai",
           api_key_name = "",
           endpoint = "http://127.0.0.1:11434/v1",
-          model = "incept5/llama3.1-claude:latest",
+          model = "incept5/llama3.1-claude:latest", -- Llama3.1 with Anthropic's Claude Sonnet 3.5 prompt
         },
       },
       dual_boost = {
