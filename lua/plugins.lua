@@ -87,15 +87,106 @@ require("lazy").setup({
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
 
     -- OpenAI
+    -- opts = {
+    --   provider = "openai",
+    --   auto_suggestions_provider = "openai",
+    --   openai = {
+    --     endpoint = "https://api.openai.com/v1",
+    --     model = "gpt-4o-mini",
+    --     timeout = 30000, -- timeout in milliseconds
+    --     temperature = 0,
+    --     max_tokens = 4096,
+    --   },
+    -- },
+
+    -- Ollama
     opts = {
-      provider = "openai",
-      auto_suggestions_provider = "openai",
-      openai = {
-        endpoint = "https://api.openai.com/v1",
-        model = "gpt-4o-mini",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 4096,
+      provider = "ollama",
+      use_absolute_path = true,
+      vendors = {
+        ---@type AvanteProvider
+        ollama = {
+          endpoint = "http://localhost:11434/v1",
+          -- model = "deepseek-r1:1.5b", -- Fastest
+          -- model = "deepseek-r1:7b", -- I feel like this model is more for writers
+          model = "deepseek-coder-v2:16b", -- Heavy but awesome!
+          parse_curl_args = function(opts, code_opts)
+            return {
+              url = opts.endpoint .. "/chat/completions",
+              headers = {
+                ["Accept"] = "application/json",
+                ["Content-Type"] = "application/json",
+                ['x-api-key'] = 'ollama',
+              },
+              body = {
+                model = opts.model,
+                messages = require("avante.providers").copilot.parse_messages(code_opts),             -- you can make your own message, but this is very advanced
+                max_tokens = 2048,
+                stream = true,
+              },
+            }
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            require("avante.providers").openai.parse_response(data_stream, event_state, opts)
+          end,
+        },
+      },
+      behaviour = {
+        auto_suggestions = false,     -- I have tabnine to handle this
+        auto_set_highlight_group = true,
+        auto_set_keymaps = true,
+        auto_apply_diff_after_generation = false,
+        support_paste_from_clipboard = true,
+      },
+      mappings = {
+        --- @class AvanteConflictMappings
+        diff = {
+          ours = 'co',
+          theirs = 'ct',
+          all_theirs = 'ca',
+          both = 'cb',
+          cursor = 'cc',
+          next = ']x',
+          prev = '[x',
+        },
+        suggestion = {
+          accept = '<M-l>',
+          next = '<M-]>',
+          prev = '<M-[>',
+          dismiss = '<C-]>',
+        },
+        jump = {
+          next = ']]',
+          prev = '[[',
+        },
+        submit = {
+          normal = '<CR>',
+          insert = '<C-s>',
+        },
+      },
+      hints = { enabled = true },
+      windows = {
+        ---@type "right" | "left" | "top" | "bottom"
+        position = 'right',       -- the position of the sidebar
+        wrap = true,              -- similar to vim.o.wrap
+        width = 40,               -- default % based on available width
+        sidebar_header = {
+          align = 'center',       -- left, center, right for title
+          rounded = true,
+        },
+      },
+      highlights = {
+        ---@type AvanteConflictHighlights
+        diff = {
+          current = 'DiffText',
+          incoming = 'DiffAdd',
+        },
+      },
+      --- @class AvanteConflictUserConfig
+      diff = {
+        autojump = true,
+        ---@type string | fun(): any
+        list_opener = 'copen',
       },
     },
 
