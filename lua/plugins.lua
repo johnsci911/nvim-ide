@@ -101,38 +101,34 @@ require("lazy").setup({
 
     -- Ollama
     opts = {
+      -- provider = "openai",
       provider = "ollama",
       use_absolute_path = true,
+      openai = {
+        endpoint = "https://api.openai.com/v1",
+        model = "gpt-4o-mini",
+        timeout = 30000, -- timeout in milliseconds
+        temperature = 0,
+        max_tokens = 4096,
+      },
       vendors = {
-        ---@type AvanteProvider
         ollama = {
-          endpoint = "http://localhost:11434/v1",
-          -- model = "deepseek-r1:1.5b", -- Fastest
-          -- model = "deepseek-r1:7b", -- I feel like this model is more for writers
-          model = "deepseek-coder-v2:16b", -- Heavy but awesome!
-          parse_curl_args = function(opts, code_opts)
-            return {
-              url = opts.endpoint .. "/chat/completions",
-              headers = {
-                ["Accept"] = "application/json",
-                ["Content-Type"] = "application/json",
-                ['x-api-key'] = 'ollama',
-              },
-              body = {
-                model = opts.model,
-                messages = require("avante.providers").copilot.parse_messages(code_opts),             -- you can make your own message, but this is very advanced
-                max_tokens = 2048,
-                stream = true,
-              },
-            }
-          end,
-          parse_response_data = function(data_stream, event_state, opts)
-            require("avante.providers").openai.parse_response(data_stream, event_state, opts)
-          end,
+          __inherited_from = "openai",
+          api_key_name = "",
+          endpoint = "http://127.0.0.1:11434/v1",
+          model = "incept5/llama3.1-claude:latest",
         },
       },
+      dual_boost = {
+        enabled = false,
+        first_provider = "ollama",
+        second_provider = "openai",
+        prompt =
+        "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+        timeout = 60000, -- Timeout in milliseconds
+      },
       behaviour = {
-        auto_suggestions = false,     -- I have tabnine to handle this
+        auto_suggestions = false, -- I have tabnine to handle this
         auto_set_highlight_group = true,
         auto_set_keymaps = true,
         auto_apply_diff_after_generation = false,
@@ -167,11 +163,11 @@ require("lazy").setup({
       hints = { enabled = true },
       windows = {
         ---@type "right" | "left" | "top" | "bottom"
-        position = 'right',       -- the position of the sidebar
-        wrap = true,              -- similar to vim.o.wrap
-        width = 40,               -- default % based on available width
+        position = 'right', -- the position of the sidebar
+        wrap = true,        -- similar to vim.o.wrap
+        width = 40,         -- default % based on available width
         sidebar_header = {
-          align = 'center',       -- left, center, right for title
+          align = 'center', -- left, center, right for title
           rounded = true,
         },
       },
