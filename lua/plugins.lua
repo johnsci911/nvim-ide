@@ -119,14 +119,14 @@ require("lazy").setup({
           model = "incept5/llama3.1-claude:latest", -- Llama3.1 with Anthropic's Claude Sonnet 3.5 prompt
         },
       },
-      dual_boost = {
-        enabled = false,
-        first_provider = "ollama",
-        second_provider = "openai",
-        prompt =
-        "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
-        timeout = 60000, -- Timeout in milliseconds
-      },
+      -- dual_boost = {
+      --   enabled = false,
+      --   first_provider = "ollama",
+      --   second_provider = "openai",
+      --   prompt =
+      --   "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+      --   timeout = 60000, -- Timeout in milliseconds
+      -- },
       behaviour = {
         auto_suggestions = false, -- I have tabnine to handle this
         auto_set_highlight_group = true,
