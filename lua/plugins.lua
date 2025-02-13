@@ -383,6 +383,7 @@ require("lazy").setup({
     name = "catppuccin"
   },
   'projekt0n/caret.nvim',
+  "rjshkhr/shadow.nvim",
 
   -- Navigation
   {

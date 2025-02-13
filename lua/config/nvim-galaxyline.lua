@@ -17,14 +17,14 @@ gl.short_line_list = {
 -- Colors
 local colors = {
   -- Macchiato
-  bg         = macchiato.surface0,
-  fg         = macchiato.text,
-  section_bg = macchiato.base,
+  -- bg         = macchiato.surface0,
+  -- fg         = macchiato.text,
+  -- section_bg = macchiato.base,
 
   -- Nord
-  -- bg         = '#2E3440',
-  -- fg         = '#f8f8f2',
-  -- section_bg = '#3B4252',
+  bg         = '#2E3440',
+  fg         = '#f8f8f2',
+  section_bg = '#3B4252',
 
   yellow     = '#f1fa8c',
   cyan       = '#8be9fd',
