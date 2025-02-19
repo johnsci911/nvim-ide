@@ -79,7 +79,7 @@ require("lazy").setup({
       explorer = { enabled = true },
       -- indent = { enabled = false },
       -- input = { enabled = true },
-      -- picker = { enabled = true },
+      picker = { enabled = true },
       -- notifier = { enabled = true },
       -- quickfile = { enabled = true },
       -- scope = { enabled = true },
