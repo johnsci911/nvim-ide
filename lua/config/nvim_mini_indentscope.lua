@@ -14,6 +14,7 @@ require('mini.indentscope').setup {
             "help",
             "alpha",
             "dashboard",
+            "snacks",
             "nvimtree",
             "Trouble",
             "trouble",
