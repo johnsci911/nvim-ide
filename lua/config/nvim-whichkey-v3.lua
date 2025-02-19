@@ -42,7 +42,7 @@ wk.add({
   { "<leader>q",     '<Cmd>q<CR>',                                                  desc = 'quit' },
   { "<leader>T",     '<Cmd>set expandtab<CR> | <Cmd>%retab!<CR>',                   desc = 'Convert tab to space' },
   { "<leader>P",     '<Cmd>Telescope project<CR>',                                  desc = 'Search Project' },
-  { "<leader>p",     '<Cmd>lua Snacks.picker.files()<CR>',                                       desc = 'search files' },
+  { "<leader>p",     '<Cmd>lua Snacks.picker.files()<CR>',                          desc = 'search files' },
   { "<leader>`",     '<Cmd>:e<CR>',                                                 desc = 'Reload' },
   { "<leader>@",     '<Cmd>FzfLua lsp_document_symbols<CR>',                        desc = 'Search for symbols' },
   { "<leader>G",     '<Cmd>Telescope glyph<CR>',                                    desc = 'Search glyphs' },
@@ -129,6 +129,7 @@ wk.add({
   { "<leader>sg",    '<Cmd>Telescope glyph<CR>',                                    desc = 'Find Glyphs' },
 
   { "<leader>S",     group = "Sessions" },
+  { "<leader>So",    "<Cmd>lua Snacks.dashboard.open()<CR>",                        desc = "Dashboard" },
 
   { "<leader>g",     group = "Git" },
   { "<leader>gg",    '<Cmd>Neogit<CR>',                                             desc = 'Neogit' },
