@@ -120,6 +120,7 @@ require("lazy").setup({
   },
   {
     'codota/tabnine-nvim',
+    commit = "49be0a5c6c6662679074a2a560c80b7053de89d7",
     build = "./dl_binaries.sh"
   },
   {
