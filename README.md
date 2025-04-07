@@ -58,6 +58,142 @@
 * Blade
 * Norg - Neo ORG
 
+#### I hate arrow keys :)
+* If using Karabiner-Elements
+    * Go to `~/.config/karabiner/` and edit `karabiner.json`
+    ```
+    {
+        "profiles": [
+            {
+                "complex_modifications": {
+                    "rules": [
+                        {
+                            "description": "Use Tab + hjkl for navigation",
+                            "manipulators": [
+                                {
+                                    "from": {
+                                        "key_code": "tab",
+                                        "modifiers": { "optional": ["any"] }
+                                    },
+                                    "to": [
+                                        {
+                                            "set_variable": {
+                                                "name": "tab_pressed",
+                                                "value": 1
+                                            }
+                                        }
+                                    ],
+                                    "to_after_key_up": [
+                                        {
+                                            "set_variable": {
+                                                "name": "tab_pressed",
+                                                "value": 0
+                                            }
+                                        }
+                                    ],
+                                    "to_if_alone": [{ "key_code": "tab" }],
+                                    "type": "basic"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "name": "tab_pressed",
+                                            "type": "variable_if",
+                                            "value": 1
+                                        }
+                                    ],
+                                    "from": {
+                                        "key_code": "j",
+                                        "modifiers": { "optional": ["any"] }
+                                    },
+                                    "to": [{ "key_code": "down_arrow" }],
+                                    "type": "basic"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "name": "tab_pressed",
+                                            "type": "variable_if",
+                                            "value": 1
+                                        }
+                                    ],
+                                    "from": {
+                                        "key_code": "k",
+                                        "modifiers": { "optional": ["any"] }
+                                    },
+                                    "to": [{ "key_code": "up_arrow" }],
+                                    "type": "basic"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "name": "tab_pressed",
+                                            "type": "variable_if",
+                                            "value": 1
+                                        }
+                                    ],
+                                    "from": {
+                                        "key_code": "h",
+                                        "modifiers": { "optional": ["any"] }
+                                    },
+                                    "to": [{ "key_code": "left_arrow" }],
+                                    "type": "basic"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "name": "tab_pressed",
+                                            "type": "variable_if",
+                                            "value": 1
+                                        }
+                                    ],
+                                    "from": {
+                                        "key_code": "l",
+                                        "modifiers": { "optional": ["any"] }
+                                    },
+                                    "to": [{ "key_code": "right_arrow" }],
+                                    "type": "basic"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "devices": [
+                    {
+                        "identifiers": { "is_keyboard": true },
+                        "simple_modifications": [
+                            {
+                                "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                                "to": [{ "key_code": "left_control" }]
+                            },
+                            {
+                                "from": { "key_code": "left_command" },
+                                "to": [{ "key_code": "left_option" }]
+                            },
+                            {
+                                "from": { "key_code": "left_control" },
+                                "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                            },
+                            {
+                                "from": { "key_code": "left_option" },
+                                "to": [{ "key_code": "left_command" }]
+                            },
+                            {
+                                "from": { "key_code": "right_option" },
+                                "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                            }
+                        ]
+                    }
+                ],
+                "name": "Personal",
+                "selected": true,
+                "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+            }
+        ]
+    }
+
+    ```
+
 #### TODO
 * Formatters for various web frameworks (disabled by default)
 * Fix 'FzfLua files' command in whichkey
