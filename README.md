@@ -155,6 +155,19 @@
                                     "type": "basic"
                                 }
                             ]
+                        },
+                        {
+                        "description": "Play/Pause using Global + Space",
+                            "manipulators": [
+                                {
+                                    "from": {
+                                        "key_code": "spacebar",
+                                        "modifiers": { "mandatory": ["left_control", "left_option"] }
+                                    },
+                                    "to": [{ "key_code": "play_or_pause" }],
+                                    "type": "basic"
+                                }
+                            ]
                         }
                     ]
                 },
