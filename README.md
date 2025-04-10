@@ -75,7 +75,7 @@
                                 {
                                     "from": {
                                         "key_code": "spacebar",
-                                        "modifiers": { "mandatory": ["left_control", "left_option"] }
+                                        "modifiers": { "mandatory": ["fn"] }
                                     },
                                     "to": [{ "key_code": "play_or_pause" }],
                                     "type": "basic"
