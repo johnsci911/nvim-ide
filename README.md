@@ -63,10 +63,25 @@
     * Go to `~/.config/karabiner/` and edit `karabiner.json`
     ```
     {
+        "global": { "show_in_menu_bar": false },
+        "machine_specific": { "krbn-empty-machine-identifier": { "enable_multitouch_extension": true } },
         "profiles": [
             {
                 "complex_modifications": {
                     "rules": [
+                        {
+                            "description": "Play/Pause using Global + Space",
+                            "manipulators": [
+                                {
+                                    "from": {
+                                        "key_code": "spacebar",
+                                        "modifiers": { "mandatory": ["left_control", "left_option"] }
+                                    },
+                                    "to": [{ "key_code": "play_or_pause" }],
+                                    "type": "basic"
+                                }
+                            ]
+                        },
                         {
                             "description": "Use Tab + hjkl for navigation",
                             "manipulators": [
@@ -155,19 +170,6 @@
                                     "type": "basic"
                                 }
                             ]
-                        },
-                        {
-                        "description": "Play/Pause using Global + Space",
-                            "manipulators": [
-                                {
-                                    "from": {
-                                        "key_code": "spacebar",
-                                        "modifiers": { "mandatory": ["left_control", "left_option"] }
-                                    },
-                                    "to": [{ "key_code": "play_or_pause" }],
-                                    "type": "basic"
-                                }
-                            ]
                         }
                     ]
                 },
@@ -198,13 +200,22 @@
                         ]
                     }
                 ],
+                "fn_function_keys": [
+                    {
+                        "from": { "key_code": "f5" },
+                        "to": [{ "apple_vendor_top_case_key_code": "illumination_down" }]
+                    },
+                    {
+                        "from": { "key_code": "f6" },
+                        "to": [{ "apple_vendor_top_case_key_code": "illumination_up" }]
+                    }
+                ],
                 "name": "Personal",
                 "selected": true,
                 "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
             }
         ]
     }
-
     ```
 
 #### TODO
