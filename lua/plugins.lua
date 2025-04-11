@@ -125,52 +125,19 @@ require("lazy").setup({
   },
   {
     "yetone/avante.nvim",
-    version = "0.0.15",
     event = "VeryLazy",
+    version = false,
     lazy = false,
-
-    -- OpenAI
-    -- opts = {
-    --   provider = "openai",
-    --   auto_suggestions_provider = "openai",
-    --   openai = {
-    --     endpoint = "https://api.openai.com/v1",
-    --     model = "gpt-4o-mini",
-    --     timeout = 30000, -- timeout in milliseconds
-    --     temperature = 0,
-    --     max_tokens = 4096,
-    --   },
-    -- },
 
     -- Ollama
     opts = {
-      -- provider = "openai",
       provider = "ollama",
       use_absolute_path = true,
-      openai = {
-        endpoint = "https://api.openai.com/v1",
-        model = "gpt-4o-mini",
-        timeout = 30000, -- timeout in milliseconds
-        temperature = 0,
-        max_tokens = 4096,
+      ollama = {
+        endpoint = "http://127.0.0.1:11434",
+        -- model = "incept5/llama3.1-claude:latest"
+        model = "qwen2.5-coder:7b", -- Qwen 2.5 Coder 7B
       },
-      vendors = {
-        ollama = {
-          __inherited_from = "openai",
-          api_key_name = "",
-          endpoint = "http://127.0.0.1:11434/v1",
-          -- model = "incept5/llama3.1-claude:latest", -- Llama3.1 with Anthropic's Claude Sonnet 3.5 prompt
-          model = "qwen2.5-coder:7b", -- Qwen 2.5 Coder 7B
-        },
-      },
-      -- dual_boost = {
-      --   enabled = false,
-      --   first_provider = "ollama",
-      --   second_provider = "openai",
-      --   prompt =
-      --   "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
-      --   timeout = 60000, -- Timeout in milliseconds
-      -- },
       behaviour = {
         auto_suggestions = false, -- I have tabnine to handle this
         auto_set_highlight_group = true,
