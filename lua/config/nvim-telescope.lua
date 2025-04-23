@@ -2,7 +2,6 @@ local actions = require('telescope.actions')
 -- Global remapping
 ------------------------------
 -- '--color=never',
-require('telescope').load_extension('media_files')
 require('telescope').load_extension('project')
 require('telescope').load_extension('glyph')
 require('telescope').load_extension('bookmarks')
@@ -76,10 +75,6 @@ require('telescope').setup {
       }
     },
     extensions = {
-      media_files = {
-        filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "pdf" },
-        find_cmd = "rg"
-      },
       glyph = {
         action = function(glyph)
           vim.fn.setreg("*", glyph.value)

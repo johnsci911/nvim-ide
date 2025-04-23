@@ -112,7 +112,6 @@ wk.add({
   { "<leader>sb",    '<cmd>FzfLua buffers<CR>',                                     desc = 'Buffers' },
   { "<leader>sf",    '<Cmd>FzfLua grep_curbuf<CR>',                                 desc = 'files' },
   { "<leader>sh",    '<Cmd>FzfLua command_history<CR>',                             desc = 'history' },
-  { "<leader>si",    '<Cmd>Telescope media_files<CR>',                              desc = 'media files' },
   { "<leader>sM",    '<Cmd>FzfLua man_pages<CR>',                                   desc = 'man_pages' },
   { "<leader>so",    '<Cmd>Telescope vim_options<CR>',                              desc = 'vim_options' },
   { "<leader>sw",    '<Cmd>Telescope find_files<CR>',                               desc = 'File Browser' },

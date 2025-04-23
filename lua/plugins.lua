@@ -345,7 +345,6 @@ require("lazy").setup({
     cmd = "Silicon",
   },
 
-  'nvim-telescope/telescope-media-files.nvim',
   'nvim-telescope/telescope-project.nvim',
   {
     'dhruvmanila/telescope-bookmarks.nvim',

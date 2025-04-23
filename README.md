@@ -29,7 +29,7 @@
 #### Packages Required
 - Neovim 0.10.2
 - ripgrep
-- fzf, fd and Chafa - Required by Telescope media files
+- fzf, fd - Required by Telescope
 - Tabnine code complection (Create your own account. Free version is awesome)
 - Neorg Note taking plugin (GCC 14+)
 - Silicon - Required for <b>nvim-silicon</b> a code snapshot plugin
