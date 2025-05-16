@@ -141,13 +141,28 @@ require("lazy").setup({
 
     -- Ollama
     opts = {
-      provider = "ollama",
-      cursor_applying_provider = "ollama",
+      provider = "openai",
+      cursor_applying_provider = "openai",
       use_absolute_path = true,
       ollama = {
         endpoint = "http://127.0.0.1:11434",
         -- model = "incept5/llama3.1-claude:latest"
         model = "qwen2.5-coder:7b", -- Qwen 2.5 Coder 7B
+      },
+      openai = {
+        endpoint = "https://api.openai.com/v1",
+        model = "gpt-4.1-mini",
+        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        temperature = 0,
+        max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models)
+        reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+      },
+      dual_boost = {
+        enabled = true,
+        first_provider = "ollama",
+        second_provider = "openai",
+        prompt = "Using two models",
+        timeout = 60000, -- Timeout in milliseconds
       },
       behaviour = {
         auto_suggestions = false, -- I have tabnine to handle this
