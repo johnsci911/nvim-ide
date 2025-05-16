@@ -142,6 +142,7 @@ require("lazy").setup({
     -- Ollama
     opts = {
       provider = "ollama",
+      cursor_applying_provider = "ollama",
       use_absolute_path = true,
       ollama = {
         endpoint = "http://127.0.0.1:11434",
@@ -154,6 +155,7 @@ require("lazy").setup({
         auto_set_keymaps = true,
         auto_apply_diff_after_generation = false,
         support_paste_from_clipboard = true,
+        enable_cursor_planning_mode = true,
       },
       mappings = {
         --- @class AvanteConflictMappings
