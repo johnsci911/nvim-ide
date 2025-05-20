@@ -1,5 +1,5 @@
 local highlight = {
-    "CursorColumn",
+    -- "CursorColumn",
     "Whitespace",
 }
 require("ibl").setup {

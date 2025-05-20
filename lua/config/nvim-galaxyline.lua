@@ -22,14 +22,9 @@ local colors = {
   -- section_bg = macchiato.base,
 
   -- Nord
-  -- bg         = '#242B2D',
-  -- fg         = '#f8f8f2',
-  -- section_bg = '#3B4252',
-
-  -- Shadow
   bg         = '#242B2D',
   fg         = '#f8f8f2',
-  section_bg = '#323B3E',
+  section_bg = '#3B4252',
 
   yellow     = '#f1fa8c',
   cyan       = '#8be9fd',

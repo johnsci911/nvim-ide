@@ -286,7 +286,6 @@ require("lazy").setup({
   },
   'windwp/nvim-ts-autotag',
   'nvim-treesitter/nvim-treesitter-context',
-  'HiPhish/nvim-ts-rainbow2',
   'nvim-treesitter/playground',
   'windwp/nvim-autopairs',
 
@@ -419,8 +418,7 @@ require("lazy").setup({
     "catppuccin/nvim",
     name = "catppuccin"
   },
-  'projekt0n/caret.nvim',
-  "rjshkhr/shadow.nvim",
+  'thesimonho/kanagawa-paper.nvim',
 
   -- Navigation
   {
