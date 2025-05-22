@@ -133,14 +133,24 @@ require("lazy").setup({
     commit = "49be0a5c6c6662679074a2a560c80b7053de89d7",
     build = "./dl_binaries.sh"
   },
+
+  -- Code Companion
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/mcphub.nvim",
+      "ravitemer/codecompanion-history.nvim",
     },
   },
+  {
+    "Davidyz/VectorCode",
+    version = "*",                     -- optional, depending on whether you're on nightly or release
+    build = "pipx upgrade vectorcode", -- optional but recommended. This keeps your CLI up-to-date.
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
@@ -162,10 +172,10 @@ require("lazy").setup({
       openai = {
         endpoint = "https://api.openai.com/v1",
         model = "gpt-4.1-mini",
-        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        timeout = 30000,               -- Timeout in milliseconds, increase this for reasoning models
         temperature = 0,
         max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models)
-        reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+        reasoning_effort = "medium",   -- low|medium|high, only used for reasoning models
         disable_tools = true,
       },
       dual_boost = {
