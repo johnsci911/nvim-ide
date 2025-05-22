@@ -43,6 +43,7 @@ require('config.nvim_notification')
 require('config.nvim_neogit')
 require('config.nvim_barbar')
 require('config.nvim-intelephense')
+require('config.nvim-codecompanion')
 -- require('config.nvim-gitgraph')
 
 -- LSP

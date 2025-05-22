@@ -76,7 +76,7 @@ require("lazy").setup({
           {
             pane = 1,
             { section = "header" },
-            { section = "keys", gap = 0 },
+            { section = "keys",  gap = 0 },
           },
           {
             pane = 2,
@@ -132,6 +132,14 @@ require("lazy").setup({
     'codota/tabnine-nvim',
     commit = "49be0a5c6c6662679074a2a560c80b7053de89d7",
     build = "./dl_binaries.sh"
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim",
+    },
   },
   {
     "yetone/avante.nvim",
