@@ -75,6 +75,8 @@ wk.add({
   { "<leader>at",    '<cmd>AerialToggle!<CR>',                                      desc = 'AerialToggle' },
   { "<leader>ad",    '<Cmd>Telescope notify<CR>',                                   desc = 'Filter Notification' },
   { "<leader>ai",    '<Cmd>TabnineChat<CR>',                                        desc = 'Tabnine Chat' },
+  { "<leader>ac",    '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Chat' },
+  { "<leader>aC",    '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat' },
 
   { "<leader>b",     group = "Buffers" },
   { "<leader>bp",    '<Cmd>BufferPick<CR>',                                         desc = 'Buffer Pick' },

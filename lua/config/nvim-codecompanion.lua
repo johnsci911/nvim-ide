@@ -103,7 +103,9 @@ require("codecompanion").setup({
     },
   },
   adapters = {
-    show_model_choices = true,
+    opts = {
+      show_model_choices = true,
+    },
     ollama = function()
       return require("codecompanion.adapters").extend("ollama", {
         env = {
@@ -112,7 +114,7 @@ require("codecompanion").setup({
         schema = {
           model = {
             -- default = "GandalfBaum/llama3.2-claude3.7:latest",
-            default = "GandalfBaum/llama3.2-claude3.7:latest",
+            default = "qwen2.5-coder:7b",
           },
           num_ctx = {
             default = 16384,
