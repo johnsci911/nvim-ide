@@ -147,7 +147,9 @@ require("lazy").setup({
       ollama = {
         endpoint = "http://127.0.0.1:11434",
         -- model = "incept5/llama3.1-claude:latest"
-        model = "qwen2.5-coder:7b", -- Qwen 2.5 Coder 7B
+        -- model = "qwen2.5-coder:7b", -- Qwen 2.5 Coder 7B
+        model = "GandalfBaum/llama3.2-claude3.7:latest",
+        disable_tools = true,
       },
       openai = {
         endpoint = "https://api.openai.com/v1",
@@ -156,6 +158,7 @@ require("lazy").setup({
         temperature = 0,
         max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models)
         reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+        disable_tools = true,
       },
       dual_boost = {
         enabled = true,
