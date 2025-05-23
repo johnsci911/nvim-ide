@@ -101,6 +101,12 @@ local function switch_model()
         _G.codecompanion_config.strategies.inline.adapter = adapter_name
         _G.codecompanion_config.strategies.agent.adapter = adapter_name
 
+        -- Capitalized adapter_name
+        local adapter_name_capitalized = string.gsub(adapter_name, "^%l", string.upper)
+
+        _G.codecompanion_config.display.chat.intro_message = "  ✨ Using " ..
+            adapter_name_capitalized .. ": " .. choice .. ". Press ? for options ✨"
+
         -- Clear adapter caches
         if codecompanion.adapters_cache then
           codecompanion.adapters_cache[adapter_name] = nil
@@ -120,93 +126,53 @@ local function switch_model()
   end)
 end
 
+local function get_current_model()
+  local adapter_name = _G.codecompanion_config.strategies.chat.adapter or "ollama"
+  local adapter_fn = _G.codecompanion_config.adapters[adapter_name]
+  if adapter_fn then
+    local adapter = adapter_fn()
+    local model = adapter.schema and adapter.schema.model and adapter.schema.model.default
+    if model and model ~= "" then
+      return "✨ " ..model .. ":"
+    end
+  end
+  return "unknown"
+end
+
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, {})
 
 -- Save config globally to allow dynamic edits
 _G.codecompanion_config = {
   display = {
     chat = {
-      intro_message = "Welcome! Ask away✨! Press ? for options",
-      show_header_separator = true,
-      separator = "─",
-      show_references = true,
-      show_settings = true,
-      show_token_count = true,
-      start_in_insert_mode = true,
-      auto_scroll = true,
-      opts = {
-        ---Decorate the user message before it's sent to the LLM
-        ---@param message string
-        ---@param adapter CodeCompanion.Adapter
-        ---@param context table
-        ---@return string
-        prompt_decorator = function(message, adapter, context)
-          return string.format([[<prompt>%s</prompt>]], message)
-        end,
-      },
-      icons = {
-        pinned_buffer = " ",
-        watched_buffer = "👀 ",
-      },
-      debug_window = {
-        width = vim.o.columns - 5,
-        height = vim.o.lines - 2,
-      },
-      window = {
-        layout = "vertical",
-        position = nil,
-        border = "single",
-        height = 0.8,
-        width = 0.45,
-        relative = "editor",
-        full_height = true,
-        opts = {
-          breakindent = true,
-          cursorcolumn = false,
-          cursorline = false,
-          foldcolumn = "0",
-          linebreak = true,
-          list = false,
-          numberwidth = 2,
-          signcolumn = "no",
-          spell = false,
-          wrap = true,
-        },
-      },
-      tools = {
-        ["cmd_runnder"] = {
-          opts = {
-            requires_approval = true,
-          }
-        },
-      },
-      token_count = function(tokens)
-        return " (" .. tokens .. " tokens)"
-      end,
+      intro_message = "  ✨ Using Ollama: qwen2.5-coder:7b. Press ? for options ✨",
+      show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+      separator = "─", -- The separator between the different messages in the chat buffer
+      show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
+      show_settings = false, -- Show LLM settings at the top of the chat buffer?
+      show_token_count = true, -- Show the token count for each response?
+      start_in_insert_mode = false, -- Open the chat buffer in insert mode?
     },
-    roles = {
-      ---The header name for the LLM's messages
-      ---@type string|fun(adapter: CodeCompanion.Adapter): string
-      llm = function(adapter)
-        return "CodeCompanion (" .. adapter.formatted_name .. ")"
-      end,
-
-      ---The header name for your messages
-      ---@type string
-      user = "Me",
-    },
-    diff = {
-      enabled = true,
-      close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
-      layout = "vertical",  -- vertical|horizontal split for default provider
-      opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
-      provider = "default", -- default|mini_diff
-    },
+  },
+  diff = {
+    enabled = true,
+    close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
+    layout = "vertical",  -- vertical|horizontal split for default provider
+    opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+    provider = "default", -- default|mini_diff
   },
   extensions = {
     vectorcode = {
       opts = {
         add_tool = true,
+      }
+    },
+    mcphub = {
+      callback = "mcphub.extensions.codecompanion",
+      opts = {
+        make_vars = true,
+        make_slash_commands = true,
+        show_result_in_chat = true
       }
     },
     history = {
@@ -232,6 +198,17 @@ _G.codecompanion_config = {
   strategies = {
     chat = {
       adapter = "ollama",
+      roles = {
+        ---The header name for the LLM's messages
+        ---@type string|fun(adapter: CodeCompanion.Adapter): string
+        llm = function(adapter)
+          return get_current_model()
+        end,
+
+        ---The header name for your messages
+        ---@type string
+        user = "Me:",
+      }
     },
     inline = {
       adapter = "ollama",
@@ -251,7 +228,7 @@ _G.codecompanion_config = {
         },
         schema = {
           model = {
-            default = models.ollama[1] or "qwen2.5-coder:7b",
+            default = "qwen2.5-coder:7b",
           },
           num_ctx = {
             default = 16384,
@@ -277,40 +254,6 @@ _G.codecompanion_config = {
         },
       })
     end,
-  },
-  prompt_library = {
-    ["Docusaurus"] = {
-      strategy = "chat",
-      description = "Write documentation for me",
-      opts = {
-        index = 11,
-        is_slash_cmd = false,
-        auto_submit = false,
-        short_name = "docs",
-      },
-      references = {
-        {
-          type = "file",
-          path = {
-            "doc/.vitepress/config.mjs",
-            "lua/codecompanion/config.lua",
-            "README.md",
-          },
-        },
-      },
-      prompts = {
-        {
-          role = "user",
-          content =
-          [[I'm rewriting the documentation for my plugin CodeCompanion.nvim, as I'm moving to a vitepress website. Can you help me rewrite it?
-
-I'm sharing my vitepress config file so you have the context of how the documentation website is structured in the `sidebar` section of that file.
-
-I'm also sharing my `config.lua` file which I'm mapping to the `configuration` section of the sidebar.
-]],
-        },
-      },
-    },
   },
 }
 
