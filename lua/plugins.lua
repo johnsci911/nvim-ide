@@ -134,7 +134,7 @@ require("lazy").setup({
     build = "./dl_binaries.sh"
   },
 
-  -- Code Companion
+  -- AI Code Companion
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
@@ -143,6 +143,20 @@ require("lazy").setup({
       "ravitemer/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
     },
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" }
+  },
+  {
+    "echasnovski/mini.diff",
+    config = function()
+      local diff = require("mini.diff")
+      diff.setup({
+        -- Disabled by default
+        source = diff.gen_source.none(),
+      })
+    end,
   },
   {
     "Davidyz/VectorCode",

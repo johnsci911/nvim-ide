@@ -134,6 +134,16 @@ _G.codecompanion_config = {
       show_token_count = true,
       start_in_insert_mode = true,
       auto_scroll = true,
+      opts = {
+        ---Decorate the user message before it's sent to the LLM
+        ---@param message string
+        ---@param adapter CodeCompanion.Adapter
+        ---@param context table
+        ---@return string
+        prompt_decorator = function(message, adapter, context)
+          return string.format([[<prompt>%s</prompt>]], message)
+        end,
+      },
       icons = {
         pinned_buffer = " ",
         watched_buffer = "👀 ",
@@ -163,9 +173,34 @@ _G.codecompanion_config = {
           wrap = true,
         },
       },
+      tools = {
+        ["cmd_runnder"] = {
+          opts = {
+            requires_approval = true,
+          }
+        },
+      },
       token_count = function(tokens)
         return " (" .. tokens .. " tokens)"
       end,
+    },
+    roles = {
+      ---The header name for the LLM's messages
+      ---@type string|fun(adapter: CodeCompanion.Adapter): string
+      llm = function(adapter)
+        return "CodeCompanion (" .. adapter.formatted_name .. ")"
+      end,
+
+      ---The header name for your messages
+      ---@type string
+      user = "Me",
+    },
+    diff = {
+      enabled = true,
+      close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
+      layout = "vertical",  -- vertical|horizontal split for default provider
+      opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+      provider = "default", -- default|mini_diff
     },
   },
   extensions = {
@@ -266,7 +301,8 @@ _G.codecompanion_config = {
       prompts = {
         {
           role = "user",
-          content = [[I'm rewriting the documentation for my plugin CodeCompanion.nvim, as I'm moving to a vitepress website. Can you help me rewrite it?
+          content =
+          [[I'm rewriting the documentation for my plugin CodeCompanion.nvim, as I'm moving to a vitepress website. Can you help me rewrite it?
 
 I'm sharing my vitepress config file so you have the context of how the documentation website is structured in the `sidebar` section of that file.
 

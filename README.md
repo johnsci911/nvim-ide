@@ -14,7 +14,7 @@
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
 - **Neorg** - ORG Mode for organization (Similar to Emacs)
-- **Avante.nvim** AI assistant like cursor
+- **CodeCompanion** AI chat superpowers
 
 #### What's new
 - C# (Omnisharp WIP)
@@ -223,4 +223,3 @@
 * Fix 'FzfLua files' command in whichkey
 * Git-graph (Disabled for now)
 * [Yazi](https://github.com/sxyazi/yazi) as file manager. [Installation here!](https://yazi-rs.github.io/docs/installation/#homebrew)
-* Avante.nvim - Testing Ollama open source models and OpenAI with it
