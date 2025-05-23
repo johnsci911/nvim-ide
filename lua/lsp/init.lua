@@ -70,7 +70,7 @@ local servers = {
   "tailwindcss",
   "graphql",
   "lua_ls",
-  "volar",
+  "vue_ls",
   "eslint",
   "omnisharp",
   "taplo",

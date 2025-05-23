@@ -1,7 +1,5 @@
-local lspconfig = require('lspconfig')
-
--- lspconfig.tsserver.setup {}
-lspconfig.volar.setup {
+vim.lsp.config('vue_ls', {
+  -- add filetypes for typescript, javascript and vue
   filetypes = {
     'typescript',
     'javascript',
@@ -11,7 +9,8 @@ lspconfig.volar.setup {
   },
   init_options = {
     vue = {
-      hybridMode = false,
+      -- disable hybrid mode
+      hybridMode = true,
     },
   },
-}
+})
