@@ -74,10 +74,12 @@ wk.add({
   { "<leader>am",    '<Cmd>MarkdownPreviewToggle<CR>',                              desc = 'Markdown preview' },
   { "<leader>at",    '<cmd>AerialToggle!<CR>',                                      desc = 'AerialToggle' },
   { "<leader>ad",    '<Cmd>Telescope notify<CR>',                                   desc = 'Filter Notification' },
-  { "<leader>ai",    '<Cmd>TabnineChat<CR>',                                        desc = 'Tabnine Chat' },
-  { "<leader>ac",    '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Chat' },
-  { "<leader>aC",    '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat' },
-  { "<leader>aM",    '<Cmd>CCSwitchModel<CR>',                                      desc = 'Switch CodeCompanion Model' },
+
+  { "<leader>ai",     group = "AI Chat" },
+  { "<leader>ait",   '<Cmd>TabnineChat<CR>',                                        desc = 'Tabnine Chat' },
+  { "<leader>aic",   '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI CodeCompanion Chat' },
+  { "<leader>aiC",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI CodeCompanion Chat toggle' },
+  { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Switch CodeCompanion Model' },
 
   { "<leader>b",     group = "Buffers" },
   { "<leader>bp",    '<Cmd>BufferPick<CR>',                                         desc = 'Buffer Pick' },
