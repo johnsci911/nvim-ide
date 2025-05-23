@@ -1,38 +1,74 @@
+local codecompanion = require("codecompanion")
+
+local models = {
+  ollama = {
+    "qwen2.5-coder:7b",
+    "GandalfBaum/llama3.2-claude3.7:latest",
+  },
+  openai = {
+    "gpt-4.1-mini",
+  },
+}
+
+local function switch_model()
+  local adapter_name = "ollama"
+  local available_models = models[adapter_name]
+  if not available_models then
+    print("No models configured for adapter: " .. adapter_name)
+    return
+  end
+
+  vim.ui.select(available_models, {
+    prompt = "Select model for " .. adapter_name,
+  }, function(choice)
+    if choice then
+      -- Update the adapter schema default model
+      local adapters = require("codecompanion.adapters")
+      local adapter = adapters[adapter_name]
+      if adapter and adapter.schema and adapter.schema.model then
+        adapter.schema.model.default = choice
+        print("Switched " .. adapter_name .. " model to: " .. choice)
+      else
+        print("Failed to update model for adapter: " .. adapter_name)
+      end
+    else
+      print("Model selection cancelled")
+    end
+  end)
+end
+
+vim.api.nvim_create_user_command("CCSwitchModel", switch_model, {})
+
+-- Keybinding example (commented out, enable when needed)
+-- { "<leader>cm",    '<Cmd>CCSwitchModel<CR>',                                    desc = 'Switch CodeCompanion Model' },
+
 require("codecompanion").setup({
   display = {
     chat = {
       intro_message = "Welcome! Ask away✨! Press ? for options",
-      show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
-      separator = "─", -- The separator between the different messages in the chat buffer
-      show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
-      show_settings = true, -- Show LLM settings at the top of the chat buffer?
-      show_token_count = true, -- Show the token count for each response?
-      start_in_insert_mode = true, -- Open the chat buffer in insert mode?
-
+      show_header_separator = true,
+      separator = "─",
+      show_references = true,
+      show_settings = true,
+      show_token_count = true,
+      start_in_insert_mode = true,
       auto_scroll = true,
-      -- Change the default icons
       icons = {
         pinned_buffer = " ",
         watched_buffer = "👀 ",
       },
-
-      -- Alter the sizing of the debug window
       debug_window = {
-        ---@return number|fun(): number
         width = vim.o.columns - 5,
-        ---@return number|fun(): number
         height = vim.o.lines - 2,
       },
-
-      -- Options to customize the UI of the chat buffer
       window = {
-        layout = "vertical", -- float|vertical|horizontal|buffer
-        position = nil,      -- left|right|top|bottom (nil will default depending on vim.opt.plitright|vim.opt.splitbelow)
+        layout = "vertical",
+        position = nil,
         border = "single",
         height = 0.8,
         width = 0.45,
         relative = "editor",
-        full_height = true, -- when set to false, vsplit will be used to open the chat buffer vs. botright/topleft vsplit
+        full_height = true,
         opts = {
           breakindent = true,
           cursorcolumn = false,
@@ -46,8 +82,6 @@ require("codecompanion").setup({
           wrap = true,
         },
       },
-
-      ---Customize how tokens are displayed
       token_count = function(tokens)
         return " (" .. tokens .. " tokens)"
       end,
@@ -62,31 +96,19 @@ require("codecompanion").setup({
     history = {
       enabled = true,
       opts = {
-        -- Keymap to open history from chat buffer (default: gh)
         keymap = "gh",
-        -- Keymap to save the current chat manually (when auto_save is disabled)
         save_chat_keymap = "sc",
-        -- Save all chats by default (disable to save only manually using 'sc')
         auto_save = true,
-        -- Number of days after which chats are automatically deleted (0 to disable)
         expiration_days = 0,
-        -- Picker interface ("telescope" or "snacks" or "fzf-lua" or "default")
         picker = "telescope",
-        ---Automatically generate titles for new chats
         auto_generate_title = true,
         title_generation_opts = {
-          ---Adapter for generating titles (defaults to active chat's adapter)
-          adapter = nil, -- e.g "copilot"
-          ---Model for generating titles (defaults to active chat's model)
-          model = nil,   -- e.g "gpt-4o"
+          adapter = nil,
+          model = nil,
         },
-        ---On exiting and entering neovim, loads the last chat on opening chat
         continue_last_chat = false,
-        ---When chat is cleared with `gx` delete the chat from history
         delete_on_clearing_chat = false,
-        ---Directory path to save the chats
         dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
-        ---Enable detailed logging for history extension
         enable_logging = false,
       }
     }
@@ -126,11 +148,10 @@ require("codecompanion").setup({
       return require("codecompanion.adapters").extend("openai", {
         env = {
           OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
-          -- OPENAI_API_BASE = "https://api.openai.com/v1",
         },
         schema = {
           model = {
-            default = "gpt-4.1-mini", -- Your OpenAI model
+            default = "gpt-4.1-mini",
           },
           temperature = {
             default = 0,
@@ -177,3 +198,4 @@ I'm also sharing my `config.lua` file which I'm mapping to the `configuration` s
     },
   },
 })
+
