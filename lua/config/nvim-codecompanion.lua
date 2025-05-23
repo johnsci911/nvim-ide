@@ -1,48 +1,129 @@
 local codecompanion = require("codecompanion")
 
+-- Function to fetch model list from `ollama list` command (plain text parsing)
+local function fetch_ollama_models()
+  local models = {}
+
+  local handle = io.popen("ollama list")
+  if not handle then
+    print("Failed to run 'ollama list'")
+    return models
+  end
+
+  local output = handle:read("*a")
+  handle:close()
+
+  local first_line_skipped = false
+  for line in output:gmatch("[^\r\n]+") do
+    if not first_line_skipped then
+      first_line_skipped = true -- skip header line
+    else
+      local model = line:match("^(%S+)")
+      if model then
+        table.insert(models, model)
+      end
+    end
+  end
+
+  return models
+end
+
 local models = {
-  ollama = {
-    "qwen2.5-coder:7b",
-    "GandalfBaum/llama3.2-claude3.7:latest",
-  },
+  ollama = fetch_ollama_models(),
   openai = {
     "gpt-4.1-mini",
   },
 }
 
+-- Fallback if no models found for ollama
+if #models.ollama == 0 then
+  models.ollama = {
+    "qwen2.5-coder:7b",
+    "GandalfBaum/llama3.2-claude3.7:latest",
+  }
+end
+
+-- Switch model and adapter dynamically
 local function switch_model()
-  local adapter_name = "ollama"
-  local available_models = models[adapter_name]
-  if not available_models then
-    print("No models configured for adapter: " .. adapter_name)
+  -- Build adapter list dynamically based on available models
+  local available_adapters = {}
+  for adapter_name, model_list in pairs(models) do
+    if model_list and #model_list > 0 then
+      table.insert(available_adapters, adapter_name)
+    end
+  end
+
+  if #available_adapters == 0 then
+    print("No adapters with available models found")
     return
   end
 
-  vim.ui.select(available_models, {
-    prompt = "Select model for " .. adapter_name,
-  }, function(choice)
-    if choice then
-      -- Update the adapter schema default model
-      local adapters = require("codecompanion.adapters")
-      local adapter = adapters[adapter_name]
-      if adapter and adapter.schema and adapter.schema.model then
-        adapter.schema.model.default = choice
-        print("Switched " .. adapter_name .. " model to: " .. choice)
-      else
-        print("Failed to update model for adapter: " .. adapter_name)
-      end
-    else
-      print("Model selection cancelled")
+  vim.ui.select(available_adapters, {
+    prompt = "Select adapter:",
+  }, function(adapter_name)
+    if not adapter_name then
+      print("Model switch cancelled")
+      return
     end
+
+    local available_models = models[adapter_name]
+    if not available_models or #available_models == 0 then
+      print("No models configured for adapter: " .. adapter_name)
+      return
+    end
+
+    vim.ui.select(available_models, {
+      prompt = "Select model for " .. adapter_name,
+    }, function(choice)
+      if choice then
+        -- Update adapter function in config to the chosen model and update strategies
+        _G.codecompanion_config.adapters[adapter_name] = function()
+          local base_env = {}
+          if adapter_name == "ollama" then
+            base_env = { url = "http://127.0.0.1:11434" }
+          elseif adapter_name == "openai" then
+            base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
+          end
+
+          return require("codecompanion.adapters").extend(adapter_name, {
+            env = base_env,
+            schema = {
+              model = { default = choice },
+              num_ctx = adapter_name == "ollama" and { default = 16384 } or nil,
+              temperature = adapter_name == "openai" and { default = 0 } or nil,
+              max_tokens = adapter_name == "openai" and { default = 16384 } or nil,
+            },
+          })
+        end
+
+        -- Update strategies to use the new adapter globally
+        _G.codecompanion_config.strategies.chat.adapter = adapter_name
+        _G.codecompanion_config.strategies.inline.adapter = adapter_name
+        _G.codecompanion_config.strategies.agent.adapter = adapter_name
+
+        -- Clear adapter caches
+        if codecompanion.adapters_cache then
+          codecompanion.adapters_cache[adapter_name] = nil
+        end
+        if codecompanion.adapters_instances then
+          codecompanion.adapters_instances[adapter_name] = nil
+        end
+
+        -- Re-setup with updated config
+        codecompanion.setup(_G.codecompanion_config)
+
+        print("Switched to adapter '" .. adapter_name .. "' with model '" .. choice .. "'")
+      else
+        print("Model selection cancelled")
+      end
+    end)
   end)
 end
 
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, {})
 
--- Keybinding example (commented out, enable when needed)
--- { "<leader>cm",    '<Cmd>CCSwitchModel<CR>',                                    desc = 'Switch CodeCompanion Model' },
-
-require("codecompanion").setup({
+-- Save config globally to allow dynamic edits
+_G.codecompanion_config = {
   display = {
     chat = {
       intro_message = "Welcome! Ask away✨! Press ? for options",
@@ -135,8 +216,7 @@ require("codecompanion").setup({
         },
         schema = {
           model = {
-            -- default = "GandalfBaum/llama3.2-claude3.7:latest",
-            default = "qwen2.5-coder:7b",
+            default = models.ollama[1] or "qwen2.5-coder:7b",
           },
           num_ctx = {
             default = 16384,
@@ -186,8 +266,7 @@ require("codecompanion").setup({
       prompts = {
         {
           role = "user",
-          content =
-          [[I'm rewriting the documentation for my plugin CodeCompanion.nvim, as I'm moving to a vitepress website. Can you help me rewrite it?
+          content = [[I'm rewriting the documentation for my plugin CodeCompanion.nvim, as I'm moving to a vitepress website. Can you help me rewrite it?
 
 I'm sharing my vitepress config file so you have the context of how the documentation website is structured in the `sidebar` section of that file.
 
@@ -197,5 +276,7 @@ I'm also sharing my `config.lua` file which I'm mapping to the `configuration` s
       },
     },
   },
-})
+}
 
+-- Set up CodeCompanion with the initial config
+codecompanion.setup(_G.codecompanion_config)
