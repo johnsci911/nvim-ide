@@ -71,7 +71,6 @@ wk.add({
   { "<leader>ac",    '<Cmd>ColorizerToggle<CR>',                                    desc = 'Bracket Colorizer' },
   { "<leader>as",    '<Cmd>noh<CR>',                                                desc = 'Remove search highlight' },
   { "<leader>aw",    '<Cmd>StripWhitespace<CR>',                                    desc = 'Strip whitespace' },
-  { "<leader>am",    '<Cmd>MarkdownPreviewToggle<CR>',                              desc = 'Markdown preview' },
   { "<leader>at",    '<cmd>AerialToggle!<CR>',                                      desc = 'AerialToggle' },
   { "<leader>ad",    '<Cmd>Telescope notify<CR>',                                   desc = 'Filter Notification' },
 

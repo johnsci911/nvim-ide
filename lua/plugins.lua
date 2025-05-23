@@ -323,16 +323,6 @@ require("lazy").setup({
   -- Close buffer
   'moll/vim-bbye',
 
-  -- Markdown Preview
-  {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
-    ft = { "markdown" },
-  },
   -- Floating Terminal
   'voldikss/vim-floaterm',
 
