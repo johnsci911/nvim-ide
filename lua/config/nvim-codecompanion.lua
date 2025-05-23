@@ -162,11 +162,6 @@ _G.codecompanion_config = {
     provider = "default", -- default|mini_diff
   },
   extensions = {
-    vectorcode = {
-      opts = {
-        add_tool = true,
-      }
-    },
     mcphub = {
       callback = "mcphub.extensions.codecompanion",
       opts = {
