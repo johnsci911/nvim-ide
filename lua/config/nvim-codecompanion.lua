@@ -237,7 +237,17 @@ vim.api.nvim_create_user_command("CCSwitchModel", switch_model, {})
 
 -- Save config globally to allow dynamic edits
 _G.codecompanion_config = {
+  opts = {
+    system_prompt = SYSTEM_PROMPT,
+  },
   display = {
+    diff = {
+      enabled = true,
+      close_chat_at = 240,
+      layout = "vertical",
+      opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+      provider = "default", -- default|mini_diff
+    },
     chat = {
       intro_message = "  ✨ Using Ollama: qwen2.5-coder:7b. Press ? for options ✨",
       show_header_separator = false,
@@ -293,7 +303,7 @@ _G.codecompanion_config = {
         send = {
           modes = {
             n = "<CR>",
-            i = "<C-CR>",
+            i = "<C-s>",
           },
           index = 1,
           callback = "keymaps.send",
@@ -684,8 +694,6 @@ _G.codecompanion_config = {
   },
 }
 
-codecompanion.setup(_G.codecompanion_config)
-
 local spinner = require("spinner")
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
 
@@ -700,3 +708,5 @@ vim.api.nvim_create_autocmd({ "User" }, {
     end
   end,
 })
+
+codecompanion.setup(_G.codecompanion_config)
