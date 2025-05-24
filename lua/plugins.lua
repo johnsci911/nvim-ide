@@ -158,6 +158,7 @@ require("lazy").setup({
       })
     end,
   },
+  "jellydn/spinner.nvim",
 
   -- Treesitter
   {

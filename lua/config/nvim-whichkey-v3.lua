@@ -76,9 +76,15 @@ wk.add({
 
   { "<leader>ai",     group = "AI Chat" },
   { "<leader>ait",   '<Cmd>TabnineChat<CR>',                                        desc = 'Tabnine Chat' },
-  { "<leader>aic",   '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI CodeCompanion Chat' },
-  { "<leader>aiC",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI CodeCompanion Chat toggle' },
-  { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Switch CodeCompanion Model' },
+  { "<leader>aI",    '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Chat' },
+  { "<leader>aic",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat toggle' },
+
+  { "<C-a>id",        mode = { "v" }, '<Cmd>CodeCompanion /inline-doc<CR>',         desc = 'AI Inline Doc' },
+  { "<C-a>iD",        mode = { "v" }, '<Cmd>CodeCompanion /doc<CR>',                desc = 'AI Doc' },
+  { "<C-a>if",        mode = { "v" }, '<Cmd>CodeCompanion /refactor<CR>',           desc = 'AI Refactor' },
+  { "<C-a>ir",        mode = { "v" }, '<Cmd>CodeCompanion /review<CR>',             desc = 'AI Review' },
+  { "<C-a>in",        mode = { "v" }, '<Cmd>CodeCompanion /naming<CR>',             desc = 'AI Better Naming' },
+  { "<C-a>is",        mode = { "v" }, '<Cmd>CCSwitchModel<CR>',                     desc = 'AI Switch Model' },
 
   { "<leader>b",     group = "Buffers" },
   { "<leader>bp",    '<Cmd>BufferPick<CR>',                                         desc = 'Buffer Pick' },

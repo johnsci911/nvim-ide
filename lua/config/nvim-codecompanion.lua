@@ -59,7 +59,7 @@ local function switch_model()
   end
 
   vim.ui.select(available_adapters, {
-    prompt = "Select adapter:",
+    prompt = "Select AI Model:",
   }, function(adapter_name)
     if not adapter_name then
       print("Model switch cancelled")
@@ -133,7 +133,7 @@ local function get_current_model()
     local adapter = adapter_fn()
     local model = adapter.schema and adapter.schema.model and adapter.schema.model.default
     if model and model ~= "" then
-      return "✨ " ..model .. ":"
+      return "✨ " .. model .. ":"
     end
   end
   return "unknown"
@@ -152,6 +152,9 @@ _G.codecompanion_config = {
       show_settings = false, -- Show LLM settings at the top of the chat buffer?
       show_token_count = true, -- Show the token count for each response?
       start_in_insert_mode = false, -- Open the chat buffer in insert mode?
+      window = {
+        layout = "vertical" -- float|vertical|horizontal|buffer
+      },
     },
   },
   diff = {
@@ -203,7 +206,34 @@ _G.codecompanion_config = {
         ---The header name for your messages
         ---@type string
         user = "Me:",
-      }
+      },
+      keymaps = {
+        send = {
+          modes = {
+            n = "<CR>",
+            i = "<C-CR>",
+          },
+          index = 1,
+          callback = "keymaps.send",
+          description = "Send",
+        },
+        close = {
+          modes = {
+            n = "q",
+          },
+          index = 3,
+          callback = "keymaps.close",
+          description = "Close Chat",
+        },
+        stop = {
+          modes = {
+            n = "<C-c>",
+          },
+          index = 4,
+          callback = "keymaps.stop",
+          description = "Stop Request",
+        },
+      },
     },
     inline = {
       adapter = "ollama",
@@ -254,3 +284,19 @@ _G.codecompanion_config = {
 
 -- Set up CodeCompanion with the initial config
 codecompanion.setup(_G.codecompanion_config)
+
+local spinner = require("spinner")
+local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+-- Show spinner while requests are in progress
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "CodeCompanionRequest*",
+  group = group,
+  callback = function(request)
+    if request.match == "CodeCompanionRequestStarted" then
+      spinner.show()
+    elseif request.match == "CodeCompanionRequestFinished" then
+      spinner.hide()
+    end
+  end,
+})
