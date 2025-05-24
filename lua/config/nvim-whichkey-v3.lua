@@ -76,7 +76,7 @@ wk.add({
 
   { "<leader>ai",     group = "AI Chat" },
   { "<leader>ait",   '<Cmd>TabnineChat<CR>',                                        desc = 'Tabnine Chat' },
-  { "<leader>aI",    '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Chat' },
+  { "<leader>aia",   '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Actions' },
   { "<leader>aic",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat toggle' },
   { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Model Switch' },
 
