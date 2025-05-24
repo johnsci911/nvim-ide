@@ -123,15 +123,11 @@ require("lazy").setup({
   'roobert/tailwindcss-colorizer-cmp.nvim',
   'hrsh7th/vim-vsnip',
   'hrsh7th/cmp-vsnip',
+  'hrsh7th/nvim-cmp',
   {
     'tzachar/cmp-tabnine',
     build = './install.sh',
     dependencies = 'hrsh7th/nvim-cmp',
-  },
-  {
-    'codota/tabnine-nvim',
-    commit = "49be0a5c6c6662679074a2a560c80b7053de89d7",
-    build = "./dl_binaries.sh"
   },
 
   -- AI Code Companion

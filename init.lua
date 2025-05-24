@@ -33,7 +33,7 @@ require('config.nvim-galaxyline')
 require('config.nvim-lint')
 require('config.nvim-neoclip')
 require('config.nvim-colorizer')
-require('config.nvim-cmp-tabnine') -- Planning to use free and see what happens
+require('config.nvim-cmp-tabnine')
 require('config.nvim-cmp')
 require('config.nvim-treesitter-context')
 require('config.nvim-neorg')
