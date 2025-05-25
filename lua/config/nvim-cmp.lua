@@ -22,13 +22,22 @@ cmp.setup {
         end,
     },
     mapping = {
+        ['<C-x>'] = cmp.mapping(
+            cmp.mapping.complete({
+                config = {
+                    sources = cmp.config.sources({
+                        { name = 'cmp_ai' },
+                    }),
+                },
+            }),
+            { 'i' }
+        ),
         ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-space>'] = cmp.mapping.complete(),
         ['<C-c>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
@@ -47,7 +56,7 @@ cmp.setup {
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            { name = 'cmp_ai' },
+            -- { name = 'cmp_ai' },
         },
         {
             { name = 'buffer' },
@@ -81,7 +90,8 @@ cmp.setup {
 
             vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
 
-            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+            -- return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+            return vim_item
         end,
     },
 }
