@@ -8,7 +8,7 @@ local source_mapping = {
     buffer = "[Buffer]",
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
-    cmp_tabnine = "[Tabnine]",
+    cmp_ai = "[AI]",
     path = "[Path]",
 }
 
@@ -47,14 +47,14 @@ cmp.setup {
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            { name = 'cmp_tabnine' },
+            -- { name = 'cmp_ai' },
         },
         {
             { name = 'buffer' },
         }
     ),
     completion = {
-        autoComplete = false
+        autoComplete = true
     },
     formatting = {
         format = function(entry, vim_item)
@@ -63,7 +63,7 @@ cmp.setup {
             vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
             vim_item.menu = source_mapping[entry.source.name]
 
-            if entry.source.name == "cmp_tabnine" then
+            if entry.source.name == "cmp_ai" then
                 local detail = (entry.completion_item.labelDetails or {}).detail
 
                 vim_item.kind = ""

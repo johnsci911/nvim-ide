@@ -123,18 +123,17 @@ require("lazy").setup({
   'roobert/tailwindcss-colorizer-cmp.nvim',
   'hrsh7th/vim-vsnip',
   'hrsh7th/cmp-vsnip',
-  'hrsh7th/nvim-cmp',
   {
-    'tzachar/cmp-tabnine',
-    build = './install.sh',
-    dependencies = 'hrsh7th/nvim-cmp',
+    'tzachar/cmp-ai',
+    commit = "ff2d683",
+    dependencies = 'nvim-lua/plenary.nvim'
   },
+  { 'hrsh7th/nvim-cmp', commit = "30d2593" },
 
   -- AI Code Companion
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
-      "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
