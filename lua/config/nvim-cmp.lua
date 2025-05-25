@@ -85,3 +85,22 @@ cmp.setup {
         end,
     },
 }
+
+local compare = require('cmp.config.compare')
+
+cmp.setup({
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            require('cmp_ai.compare'),
+            compare.offset,
+            compare.exact,
+            compare.score,
+            compare.recently_used,
+            compare.kind,
+            compare.sort_text,
+            compare.length,
+            compare.order,
+        },
+    },
+})

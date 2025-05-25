@@ -1,4 +1,4 @@
-local cmp_ai = require('cmp_ai')
+local cmp_ai = require('cmp_ai.config')
 
 cmp_ai:setup({
   max_lines = 100,
