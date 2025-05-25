@@ -1,7 +1,7 @@
 local cmp_ai = require('cmp_ai.config')
 
 cmp_ai:setup({
-  max_lines = 100,
+  max_lines = 1000,
   provider = 'Ollama',
   provider_options = {
     model = 'qwen2.5-coder:7b-base-q6_K',
