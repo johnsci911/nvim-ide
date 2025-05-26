@@ -8,7 +8,7 @@ local source_mapping = {
     buffer = "[Buffer]",
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
-    -- cmp_ai = "[AI]",
+    minuet = "[AI]",
     path = "[Path]",
 }
 
