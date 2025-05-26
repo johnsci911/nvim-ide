@@ -22,16 +22,6 @@ cmp.setup {
         end,
     },
     mapping = {
-        -- ['<C-x>'] = cmp.mapping(
-        --     cmp.mapping.complete({
-        --         config = {
-        --             sources = cmp.config.sources({
-        --                 { name = 'cmp_ai' },
-        --             }),
-        --         },
-        --     }),
-        --     { 'i' }
-        -- ),
         ["<c-x>"] = require('minuet').make_cmp_map(),
         ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),

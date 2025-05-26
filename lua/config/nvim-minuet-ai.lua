@@ -1,4 +1,6 @@
-require('minuet').setup {
+local minuet = require('minuet')
+
+minuet.setup {
     -- provider = 'openai_fim_compatible',
     provider = 'openai',
     n_completions = 1, -- recommend for local model for resource saving
@@ -68,3 +70,18 @@ require('minuet').setup {
         }
     },
 }
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MinuetRequestStartedPre",
+  callback = function()
+    vim.notify("Minuet request started")
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MinuetRequestFinishedPost",
+  callback = function()
+    vim.notify("Minuet request finished")
+  end,
+})
+
