@@ -44,6 +44,7 @@ require('config.nvim_neogit')
 require('config.nvim_barbar')
 require('config.nvim-intelephense')
 require('config.nvim-codecompanion')
+require('config.nvim-minuet-ai')
 -- require('config.nvim-gitgraph')
 
 -- LSP

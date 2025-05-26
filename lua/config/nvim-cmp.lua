@@ -32,6 +32,7 @@ cmp.setup {
             }),
             { 'i' }
         ),
+        ["<A-y>"] = require('minuet').make_cmp_map(),
         ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -50,20 +51,21 @@ cmp.setup {
     },
     sources = cmp.config.sources(
         {
+            { name = 'minuet' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' }, -- For vsnip users.
             -- { name = 'luasnip' }, -- For luasnip users.
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            -- { name = 'cmp_ai' },
+            { name = 'cmp_ai' },
         },
         {
             { name = 'buffer' },
         }
     ),
     completion = {
-        autoComplete = true
+        autoComplete = false
     },
     formatting = {
         format = function(entry, vim_item)
