@@ -8,7 +8,7 @@ local source_mapping = {
     buffer = "[Buffer]",
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
-    cmp_ai = "[AI]",
+    -- cmp_ai = "[AI]",
     path = "[Path]",
 }
 
@@ -22,17 +22,17 @@ cmp.setup {
         end,
     },
     mapping = {
-        ['<C-x>'] = cmp.mapping(
-            cmp.mapping.complete({
-                config = {
-                    sources = cmp.config.sources({
-                        { name = 'cmp_ai' },
-                    }),
-                },
-            }),
-            { 'i' }
-        ),
-        ["<A-y>"] = require('minuet').make_cmp_map(),
+        -- ['<C-x>'] = cmp.mapping(
+        --     cmp.mapping.complete({
+        --         config = {
+        --             sources = cmp.config.sources({
+        --                 { name = 'cmp_ai' },
+        --             }),
+        --         },
+        --     }),
+        --     { 'i' }
+        -- ),
+        ["<c-x>"] = require('minuet').make_cmp_map(),
         ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -51,14 +51,13 @@ cmp.setup {
     },
     sources = cmp.config.sources(
         {
-            { name = 'minuet' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' }, -- For vsnip users.
             -- { name = 'luasnip' }, -- For luasnip users.
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            { name = 'cmp_ai' },
+            -- { name = 'minuet' },
         },
         {
             { name = 'buffer' },
@@ -74,7 +73,7 @@ cmp.setup {
             vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
             vim_item.menu = source_mapping[entry.source.name]
 
-            if entry.source.name == "cmp_ai" then
+            if entry.source.name == "minuet" then
                 local detail = (entry.completion_item.labelDetails or {}).detail
 
                 vim_item.kind = ""
@@ -92,27 +91,7 @@ cmp.setup {
 
             vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
 
-            -- return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
-            return vim_item
+            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
         end,
     },
 }
-
-local compare = require('cmp.config.compare')
-
-cmp.setup({
-    sorting = {
-        priority_weight = 2,
-        comparators = {
-            require('cmp_ai.compare'),
-            compare.offset,
-            compare.exact,
-            compare.score,
-            compare.recently_used,
-            compare.kind,
-            compare.sort_text,
-            compare.length,
-            compare.order,
-        },
-    },
-})
