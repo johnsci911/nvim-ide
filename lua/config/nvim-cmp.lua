@@ -8,7 +8,7 @@ local source_mapping = {
     buffer = "[Buffer]",
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
-    cmp_tabnine = "[Tabnine]",
+    cmp_ai = "[AI]",
     path = "[Path]",
 }
 
@@ -22,13 +22,22 @@ cmp.setup {
         end,
     },
     mapping = {
+        ['<C-x>'] = cmp.mapping(
+            cmp.mapping.complete({
+                config = {
+                    sources = cmp.config.sources({
+                        { name = 'cmp_ai' },
+                    }),
+                },
+            }),
+            { 'i' }
+        ),
         ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-space>'] = cmp.mapping.complete(),
         ['<C-c>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
@@ -47,14 +56,14 @@ cmp.setup {
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            { name = 'cmp_tabnine' },
+            -- { name = 'cmp_ai' },
         },
         {
             { name = 'buffer' },
         }
     ),
     completion = {
-        autoComplete = false
+        autoComplete = true
     },
     formatting = {
         format = function(entry, vim_item)
@@ -63,7 +72,7 @@ cmp.setup {
             vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
             vim_item.menu = source_mapping[entry.source.name]
 
-            if entry.source.name == "cmp_tabnine" then
+            if entry.source.name == "cmp_ai" then
                 local detail = (entry.completion_item.labelDetails or {}).detail
 
                 vim_item.kind = ""
@@ -81,7 +90,27 @@ cmp.setup {
 
             vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
 
-            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+            -- return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+            return vim_item
         end,
     },
 }
+
+local compare = require('cmp.config.compare')
+
+cmp.setup({
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            require('cmp_ai.compare'),
+            compare.offset,
+            compare.exact,
+            compare.score,
+            compare.recently_used,
+            compare.kind,
+            compare.sort_text,
+            compare.length,
+            compare.order,
+        },
+    },
+})

@@ -139,7 +139,7 @@ local models = {
 -- Fallback if no models found for ollama
 if #models.ollama == 0 then
   models.ollama = {
-    "qwen2.5-coder:7b",
+    "qwen2.5-coder:7b-base-q6_K",
     "GandalfBaum/llama3.2-claude3.7:latest",
   }
 end
@@ -345,7 +345,7 @@ _G.codecompanion_config = {
         },
         schema = {
           model = {
-            default = "qwen2.5-coder:7b",
+            default = "qwen2.5-coder:7b-base-q6_K",
           },
           num_ctx = {
             default = 16384,

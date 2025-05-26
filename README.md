@@ -5,7 +5,6 @@
 <h5 align="center">A neovim configuration base from the vim community</h5>
 
 #### Awesome Plugins that are used
-- **Tabnine** - AI base autocompletion integrated with cmp (For multi-line autocompletion)
 - **lsp-trouble** - to jumping between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
 - **vim-windowswap** - to swap windows
@@ -30,7 +29,6 @@
 - Neovim 0.10.2
 - ripgrep
 - fzf, fd - Required by Telescope
-- Tabnine code complection (Create your own account. Free version is awesome)
 - Neorg Note taking plugin (GCC 14+)
 - Silicon - Required for <b>nvim-silicon</b> a code snapshot plugin
 
