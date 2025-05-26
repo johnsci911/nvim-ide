@@ -124,7 +124,6 @@ require("lazy").setup({
   'hrsh7th/vim-vsnip',
   'hrsh7th/cmp-vsnip',
   'nvim-lua/plenary.nvim',
-  'tzachar/cmp-ai',
   'hrsh7th/nvim-cmp',
 
   -- AI Code Companion
@@ -151,6 +150,7 @@ require("lazy").setup({
     end,
   },
   "jellydn/spinner.nvim",
+  'milanglacier/minuet-ai.nvim',
 
   -- Treesitter
   {
