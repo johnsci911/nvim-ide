@@ -709,14 +709,13 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
 })
 
-local function is_codecompanion_buffer(bufnr)
-  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-  return ft == "codecompanion" or vim.api.nvim_buf_get_name(bufnr):match("codecompanion")
+local function is_codecompanion_buffer()
+  return vim.bo.filetype == 'codecompanion' or vim.bo.filetype == "conf"
 end
 
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function(args)
-    if is_codecompanion_buffer(args.buf) then
+    if is_codecompanion_buffer() then
       vim.cmd("SupermavenStop")
     else
       vim.cmd("SupermavenRestart")
