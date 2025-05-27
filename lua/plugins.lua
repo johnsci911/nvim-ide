@@ -151,6 +151,7 @@ require("lazy").setup({
   },
   "jellydn/spinner.nvim",
   'milanglacier/minuet-ai.nvim',
+  'supermaven-inc/supermaven-nvim',
 
   -- Treesitter
   {

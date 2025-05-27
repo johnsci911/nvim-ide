@@ -13,20 +13,19 @@
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
 - **Neorg** - ORG Mode for organization (Similar to Emacs)
-- **CodeCompanion** AI chat superpowers
+- **CodeCompanion** AI chat superpowers (I added a model switcher feature: <leader>ais)
+- AI: Supermaven (online), cmp minuet (offline) (WIP)
 
 #### What's new
-- C# (Omnisharp WIP)
-- Re-add Galaxyline status line
-- Notifications
+- Fast AI tools - (CodeCompanion, Supermaven, Minuet) 🔥
+- Re-add Galaxyline status line - (Will replace because of compatibility issues)
 - Clipboards!
-- Lazy.nvim (Faster loading package manager)
-- Update Icon to fix nerd fonts incompatibility
-- Laravel blade syntax highlighting (Beta) 🔥
+- Laravel blade syntax highlighting (Still Beta)
 - Neogit - for GIT superpowers
 
 #### Packages Required
-- Neovim 0.10.2
+- Neovim 0.11.*
+- MCP Hub (Required for CodeCompanion)
 - ripgrep
 - fzf, fd - Required by Telescope
 - Neorg Note taking plugin (GCC 14+)

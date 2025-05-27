@@ -10,6 +10,7 @@ local source_mapping = {
     nvim_lua = "[Lua]",
     minuet = "[AI]",
     path = "[Path]",
+    supermaven = "[⚡]" -- Lightning icon
 }
 
 cmp.setup {
@@ -47,7 +48,7 @@ cmp.setup {
             -- { name = 'ultisnips' }, -- For ultisnips users.
             -- { name = 'snippy' }, -- For snippy users.
             { name = 'path' },
-            -- { name = 'minuet' },
+            { name = 'supermaven' },
         },
         {
             { name = 'buffer' },
