@@ -710,7 +710,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 })
 
 local function is_codecompanion_buffer()
-  return vim.bo.filetype == 'codecompanion' or vim.bo.filetype == "conf"
+  return vim.bo.filetype == 'codecompanion' or vim.bo.filetype == "conf" or vim.bo.filetype == ''
 end
 
 vim.api.nvim_create_autocmd("BufEnter", {
