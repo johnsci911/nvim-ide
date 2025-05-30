@@ -710,7 +710,42 @@ vim.api.nvim_create_autocmd({ "User" }, {
 })
 
 local function is_codecompanion_buffer()
-  return vim.bo.filetype == 'codecompanion' or vim.bo.filetype == "conf" or vim.bo.filetype == ''
+  local buftype = vim.bo.buftype
+  local filetype = vim.bo.filetype
+
+  -- Only normal file buffers
+  if buftype ~= "" then
+    return false
+  end
+
+  -- Exclude unwanted filetypes
+  local excluded_filetypes = {
+    "log",
+    "NvimTree",
+    "TelescopePrompt",
+    "DiffviewFiles",
+    "floaterm",
+    "Trouble",
+    "neorg",
+    "NeogitStatus",
+    "minuet-ai",
+    "supermaven",
+    "git",
+    "gitcommit",
+    "gitrebase",
+    "help",
+    "man",
+    "qf",
+  }
+
+  for _, ft in ipairs(excluded_filetypes) do
+    if filetype == ft then
+      return false
+    end
+  end
+
+  -- Include codecompanion buffers and empty filetype buffers
+  return filetype == "codecompanion" or filetype == "conf" or filetype == ""
 end
 
 vim.api.nvim_create_autocmd("BufEnter", {
