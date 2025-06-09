@@ -78,6 +78,7 @@ wk.add({
   { "<leader>aia",   '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Actions' },
   { "<leader>aic",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat toggle' },
   { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Model Switch' },
+  { "<leader>aih",   '<Cmd>CodeCompanionHistory<CR>',                               desc = 'AI History' },
 
   { "<C-a>i",         mode = { "v" },  group = "AI commands" },
   { "<C-a>id",        mode = { "v" }, '<Cmd>CodeCompanion /inline-doc<CR>',         desc = 'AI Inline Doc' },
