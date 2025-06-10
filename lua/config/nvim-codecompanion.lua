@@ -718,10 +718,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function(args)
     if is_codecompanion_buffer(args.buf) then
       vim.cmd("SupermavenStop")
-      print("Supermaven stopped for codecompanion buffer")
+      -- print("Supermaven stopped for codecompanion buffer")
     else
       vim.cmd("SupermavenRestart")
-      print("Supermaven started for non-codecompanion buffer")
+      -- print("Supermaven started for non-codecompanion buffer")
     end
   end,
 })
