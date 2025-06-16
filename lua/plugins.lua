@@ -322,10 +322,7 @@ require("lazy").setup({
 
       -- Default sets of terminals you'd like to open
       terminals = {
-        { name = "Terminal" },
-        -- cmd can be function too
-        { name = "Terminal" },
-        -- More terminals
+        { name = "Term1" },
       },
     },
     cmd = "FloatermToggle",
