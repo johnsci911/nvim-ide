@@ -7,8 +7,11 @@ wk.add({
   { "<leader>rn", desc = "LSP rename" },
 
   -- Buffers (Barbar)
-  { "<TAB>",   mode = { "n" }, "<Cmd>BufferNext<CR>",     desc = "Buffer Next" },
-  { "<S-TAB>", mode = { "n" }, "<Cmd>BufferPrevious<CR>", desc = "Buffer Prev" },
+  { "<TAB>",   mode = { "n" }, "<Cmd>BufferNext<CR>",        desc = "Buffer Next" },
+  { "<S-TAB>", mode = { "n" }, "<Cmd>BufferPrevious<CR>",    desc = "Buffer Prev" },
+
+-- Floaterm
+  { "<F1>", mode = { "n" }, "<Cmd>Floaterm<CR>",             desc = "Floaterm" },
 
 -- Save file (Control+S) (Default if not using TMUX)
   -- { '<C-h>',   mode = { "n" }, '<C-w>h',                  desc = 'Move to window left' },
@@ -188,15 +191,10 @@ wk.add({
   { "<leader>lT",    '<Cmd>TSPlaygroundToggle<CR>',                                 desc = 'Treesitter Playground' },
   { "<leader>lF",    '<Cmd>FormatWrite<CR>',                                        desc = 'Format Write' },
 
-  { "<leader>t",     group = "Tab length and terminal" },
-  { "<leader>ts",    '<Cmd>FloatermNew --wintype=split --height=0.4<CR>',           desc = 'terminal win=split' },
-  { "<leader>tt",    '<Cmd>FloatermToggle<CR>',                                     desc = 'toggle terminal' },
-  { "<leader>tB",    '<Cmd>FloatermNew btop<CR>',                                   desc = 'btop' },
-  {
-    { "<leader>tT",  group = "Switch tab length" },
-    { "<leader>tTa", '<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>',                       desc = 'Width = 2' },
-    { "<leader>tTb", '<Cmd>set ts=4<CR> | <Cmd>set sw=4<CR>',                       desc = 'Width = 4' },
-  },
+  { "<leader>t",   group = "Tab length and terminal" },
+  { "<leader>tT",  group = "Switch tab length" },
+  { "<leader>tTa", '<Cmd>set ts=2<CR> | <Cmd>set sw=2<CR>',                       desc = 'Width = 2' },
+  { "<leader>tTb", '<Cmd>set ts=4<CR> | <Cmd>set sw=4<CR>',                       desc = 'Width = 4' },
 
   { "<leader>cp",    ":Silicon<CR>",                                                desc = "Code snapshot" },
 })

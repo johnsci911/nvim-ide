@@ -3,7 +3,6 @@ require('globals')
 require('keymaps')
 require('settings')
 -- require('theme.catppuccin')
--- require('theme.material')
 require('theme.kanagawa')
 
 -- Plugins

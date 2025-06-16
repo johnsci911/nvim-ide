@@ -312,7 +312,24 @@ require("lazy").setup({
   'moll/vim-bbye',
 
   -- Floating Terminal
-  'voldikss/vim-floaterm',
+  {
+    "nvzone/floaterm",
+    dependencies = "nvzone/volt",
+    opts = {
+      border = true,
+      size_h = 60,
+      size_w = 60,
+
+      -- Default sets of terminals you'd like to open
+      terminals = {
+        { name = "Terminal" },
+        -- cmd can be function too
+        { name = "Terminal" },
+        -- More terminals
+      },
+    },
+    cmd = "FloatermToggle",
+  },
 
   -- Comment
   'terrortylor/nvim-comment',

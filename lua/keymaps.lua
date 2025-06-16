@@ -64,12 +64,5 @@ vim.cmd('command! -nargs=0 LspVirtualTextToggle lua require("lsp/virtual_text").
 
 -- Floaterm
 vim.cmd([[
-  nnoremap <silent> <F4> :FloatermNew<CR>
-  tnoremap <silent> <F4> <C-\><C-n>:FloatermNew<CR>
-  nnoremap <silent> <F2> :FloatermPrev<CR>
-  tnoremap <silent> <F2> <C-\><C-n>:FloatermPrev<CR>
-  nnoremap <silent> <F3> :FloatermNext<CR>
-  tnoremap <silent> <F3> <C-\><C-n>:FloatermNext<CR>
-  nnoremap <silent> <F1> :FloatermToggle<CR>
   tnoremap <silent> <F1> <C-\><C-n>:FloatermToggle<CR>
 ]])
