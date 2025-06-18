@@ -317,8 +317,10 @@ require("lazy").setup({
     dependencies = "nvzone/volt",
     opts = {
       border = true,
-      size_h = 60,
-      size_w = 60,
+      size = {
+        h = 90,
+        w = 70,
+      },
 
       -- Default sets of terminals you'd like to open
       terminals = {
