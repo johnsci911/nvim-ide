@@ -5,16 +5,16 @@
 <h5 align="center">A neovim configuration base from the vim community</h5>
 
 #### Awesome Plugins that are used
-- **lsp-trouble** - to jumping between lsp warnings
+- **lsp-trouble** - to jump between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
 - **vim-windowswap** - to swap windows
 - **nvim-telescope** - to preview files while searching
-- **ctrlsf.vim** and **vim-visual-multi** - to find and replace some text with multi-cursor support
+- **ctrlsf.vim** and **vim-visual-multi** - to find and replace text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
 - **Neoclip** - Clipboard
 - **Neorg** - ORG Mode for organization (Similar to Emacs)
 - **CodeCompanion** AI chat superpowers (I added a model switcher feature: <leader>ais)
-- AI: Supermaven (online), cmp minuet (offline) (WIP)
+- **AI** - Supermaven (online), cmp minuet (offline) - Code suggestion while you type.
 
 #### What's new
 - Fast AI tools - (CodeCompanion, Supermaven, Minuet) 🔥
@@ -216,7 +216,7 @@
     ```
 
 #### TODO
-* Formatters for various web frameworks (disabled by default)
+* Formatters for frameworks (disabled by default)
 * Fix 'FzfLua files' command in whichkey
 * Git-graph (Disabled for now)
 * [Yazi](https://github.com/sxyazi/yazi) as file manager. [Installation here!](https://yazi-rs.github.io/docs/installation/#homebrew)
