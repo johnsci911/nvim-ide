@@ -356,7 +356,7 @@ require("lazy").setup({
   "ekalinin/Dockerfile.vim",
 
   -- Galaxyline
-  'glepnir/galaxyline.nvim',
+  'jkcachero/galaxyline.nvim',
 
   -- Auto tab width
   'tpope/vim-sleuth',
