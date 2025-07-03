@@ -36,7 +36,7 @@ require("nvim-tree").setup({
     timeout = 400,
   },
   view = {
-    adaptive_size = true,
+    adaptive_size = false,
   },
   update_focused_file = {
     enable = true,
@@ -46,7 +46,7 @@ require("nvim-tree").setup({
   },
   actions = {
     open_file = {
-      quit_on_open = true,
+      quit_on_open = false,
     }
   }
 })

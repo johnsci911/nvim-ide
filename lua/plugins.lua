@@ -311,10 +311,17 @@ require("lazy").setup({
   -- Close buffer
   'moll/vim-bbye',
 
+  -- Typist
+  'nvzone/typr',
+  'nvzone/volt',
+  {
+    "nvzone/minty",
+    cmd = { "Shades", "Huefy" },
+  },
+
   -- Floating Terminal
   {
     "nvzone/floaterm",
-    dependencies = "nvzone/volt",
     opts = {
       border = true,
       size = {
@@ -356,8 +363,4 @@ require("lazy").setup({
 
   -- TMUX navigation
   'christoomey/vim-tmux-navigator',
-
-  -- Typist
-  'nvzone/typr',
-  'nvzone/volt',
 })
