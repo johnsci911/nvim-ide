@@ -1,4 +1,7 @@
 vim.lsp.config('vue_ls', {
+  cmd = {
+    "vue-language-server", "--stdio"
+  },
   -- add filetypes for typescript, javascript and vue
   filetypes = {
     'typescript',
