@@ -55,6 +55,15 @@
 * Blade
 * Norg - Neo ORG
 
+#### Linters
+- md - ~/.vale.ini
+    ```
+    MinAlertLevel = suggestion
+
+    [*.md]
+    IgnoreRules = Vale.spelling
+    ```
+
 #### I hate arrow keys :)
 * If using Karabiner-Elements
     * Go to `~/.config/karabiner/` and edit `karabiner.json`
