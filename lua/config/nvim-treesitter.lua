@@ -1,5 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
     ensure_installed = {
+        'tsx',
         'html',
         'php_only',
         'php',
