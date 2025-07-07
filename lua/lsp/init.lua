@@ -70,12 +70,12 @@ local servers = {
   "tailwindcss",
   "graphql",
   "lua_ls",
-  "vue_ls",
   "eslint",
   "omnisharp",
   "taplo",
   "sqlls",
   "marksman",
+  "ts_ls",
 }
 
 -- Setup Mason for LSP management

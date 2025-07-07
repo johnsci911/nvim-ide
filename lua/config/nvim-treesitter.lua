@@ -18,7 +18,6 @@ require 'nvim-treesitter.configs'.setup {
         'vue',
         'xml',
         'regex',
-        'htmldjango',
         'yaml',
         'toml',
         'sql',
@@ -100,7 +99,6 @@ parser_config.blade = {
 vim.filetype.add({
     pattern = {
         ['.*%.blade%.php'] = 'blade',
-        ['.*%.html'] = 'htmldjango',
         ['.*%.html%.jinja'] = 'htmldjango',
         ['.*%.html%.jinja2'] = 'htmldjango',
         ['.*%.html%.j2'] = 'htmldjango',

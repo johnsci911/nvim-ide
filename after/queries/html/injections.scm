@@ -34,3 +34,14 @@
       (quoted_attribute_value
         (attribute_value) @injection.content)
       (#set! injection.language "php_only"))))
+
+;; Babel JSX inside <script type="text/babel">
+(script_element
+  (attribute
+    (attribute_name) @attr-name
+    (#eq? @attr-name "type")
+    (attribute_value) @attr-value
+    (#eq? @attr-value "\"text/babel\""))
+  (script_content) @jsx)
+  (#set! injection.language "tsx")
+
