@@ -7,7 +7,7 @@ require'lspconfig'.ts_ls.setup{
         languages = {
           "javascript",
           "typescript",
-          -- "vue"
+          "vue",
         },
       },
     },

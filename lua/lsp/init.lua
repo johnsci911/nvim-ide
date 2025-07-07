@@ -76,6 +76,7 @@ local servers = {
   "sqlls",
   "marksman",
   "ts_ls",
+  "svelte",
 }
 
 -- Setup Mason for LSP management
