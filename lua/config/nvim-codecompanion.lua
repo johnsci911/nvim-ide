@@ -132,8 +132,11 @@ local function fetch_ollama_models()
 end
 
 local models = {
+  openai = {
+    "gpt-4.1-mini",
+    "gpt-4.1",
+  },
   ollama = fetch_ollama_models(),
-  openai = { "gpt-4.1-mini" },
 }
 
 -- Fallback if no models found for ollama
@@ -234,7 +237,6 @@ local function get_current_model()
 end
 
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, {})
-
 -- Save config globally to allow dynamic edits
 _G.codecompanion_config = {
   opts = {
@@ -249,7 +251,7 @@ _G.codecompanion_config = {
       provider = "default", -- default|mini_diff
     },
     chat = {
-      intro_message = "  ✨ Using Ollama: qwen2.5-coder:7b. Press ? for options ✨",
+      intro_message = "✨ Using OpenAI: gpt-4.1-mini. Press ? for options ✨",
       show_header_separator = false,
       separator = "─",
       show_references = true,
@@ -294,7 +296,7 @@ _G.codecompanion_config = {
   },
   strategies = {
     chat = {
-      adapter = "ollama",
+      adapter = "openai",
       roles = {
         llm = function(adapter) return get_current_model() end,
         user = "Me:",
@@ -328,10 +330,10 @@ _G.codecompanion_config = {
       },
     },
     inline = {
-      adapter = "ollama",
+      adapter = "openai",
     },
     agent = {
-      adapter = "ollama",
+      adapter = "openai",
     },
   },
   adapters = {
