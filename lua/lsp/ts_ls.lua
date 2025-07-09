@@ -15,16 +15,17 @@ local npm_root = vim.fn.system("npm root -g"):gsub("%s+", "")
 local vue_ts_plugin_path = npm_root .. "/@vue/typescript-plugin"
 
 lspconfig.ts_ls.setup{
-  on_init = function(client, _)
-    client.config.init_options = client.config.init_options or {}
-    client.config.init_options.plugins = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  init_options = {
+    plugins = {
       {
         name = "@vue/typescript-plugin",
         location = vue_ts_plugin_path,
         languages = { "javascript", "typescript", "vue" },
       },
-    }
-    client.config.init_options.typescript = {
+    },
+    typescript = {
       preferences = {
         importModuleSpecifierPreference = "relative",
         includeCompletionsForModuleExports = true,
@@ -39,12 +40,24 @@ lspconfig.ts_ls.setup{
         includeCompletionsWithSnippetText = true,
         completeFunctionCalls = true,
       },
-    }
-    client.config.init_options.javascript = client.config.init_options.typescript
-    client.notify("workspace/didChangeConfiguration", { settings = client.config.init_options })
-  end,
-  on_attach = on_attach,
-  capabilities = capabilities,
+    },
+    javascript = {
+      preferences = {
+        importModuleSpecifierPreference = "relative",
+        includeCompletionsForModuleExports = true,
+        includeCompletionsWithInsertText = true,
+        quotePreference = "auto",
+        allowTextChangesInNewFiles = true,
+        providePrefixAndSuffixTextForRename = true,
+        allowRenameOfImportPath = true,
+        provideRefactorNotApplicableReason = true,
+        includeAutomaticOptionalChainCompletions = true,
+        includeCompletionsForImportStatements = true,
+        includeCompletionsWithSnippetText = true,
+        completeFunctionCalls = true,
+      },
+    },
+  },
   filetypes = { "javascript", "typescript", "vue" },
 }
 
