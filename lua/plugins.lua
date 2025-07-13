@@ -321,20 +321,9 @@ require("lazy").setup({
 
   -- Floating Terminal
   {
-    "nvzone/floaterm",
-    opts = {
-      border = true,
-      size = {
-        h = 90,
-        w = 70,
-      },
-
-      -- Default sets of terminals you'd like to open
-      terminals = {
-        { name = "Term1" },
-      },
-    },
-    cmd = "FloatermToggle",
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = true
   },
 
   -- Comment

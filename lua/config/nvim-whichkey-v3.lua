@@ -1,6 +1,7 @@
 local wk = require("which-key")
 
 local flash = require("flash")
+local toggleterm = require("config.nvim-toggleterm")
 
 wk.add({
   -- Other keymaps from global
@@ -11,7 +12,10 @@ wk.add({
   { "<S-TAB>", mode = { "n" }, "<Cmd>BufferPrevious<CR>",    desc = "Buffer Prev" },
 
 -- Floaterm
-  { "<F1>", mode = { "n" }, "<Cmd>Floaterm<CR>",             desc = "Floaterm" },
+  { "<F1>", mode = { "n" }, function() toggleterm.f1_action() end, desc = "Toggle Terminals or Create New" },
+  { "<F2>", mode = { "n" }, "<Cmd>TermSelect<CR>", desc = "Terminal Select" },
+  { "<F3>", mode = { "n" }, "<Cmd>ToggleTermSetName<CR>", desc = "Set Terminal Name" },
+  { "<F4>", mode = { "n" }, function() toggleterm.create_titled_terminal_popup() end, desc = "Create New Titled Terminal (Popup)" },
 
 -- Save file (Control+S) (Default if not using TMUX)
   -- { '<C-h>',   mode = { "n" }, '<C-w>h',                  desc = 'Move to window left' },

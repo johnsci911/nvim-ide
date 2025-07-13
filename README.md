@@ -7,7 +7,6 @@
 #### Awesome Plugins that are used
 - **lsp-trouble** - to jump between lsp warnings
 - **nvim-treesitter** - for accurate syntax highlighting
-- **vim-windowswap** - to swap windows
 - **nvim-telescope** - to preview files while searching
 - **ctrlsf.vim** and **vim-visual-multi** - to find and replace text with multi-cursor support
 - **vim-easy-align** - (gaip) Easy align texts
@@ -22,6 +21,7 @@
 - Clipboards!
 - Laravel blade syntax highlighting (Still Beta)
 - Neogit - for GIT superpowers
+- Toggleterm - Replaced vim-floaterm since I want the ability to rename and select terminals
 
 #### Packages Required
 - Neovim 0.11.*
@@ -45,15 +45,16 @@
 * python
 * vim
 * yaml
-* vue
 * emmet ls
 * c-sharp
 * TailwindCSS
 * GraphQL
+* svelte
+* typescript
 
 #### Custom Syntax Highlighting
 * Blade
-* Norg - Neo ORG
+* Vue - custom typescript config since it's not supported as of now
 
 #### Linters
 - md - ~/.vale.ini
@@ -226,6 +227,6 @@
 
 #### TODO
 * Formatters for frameworks (disabled by default)
-* Fix 'FzfLua files' command in whichkey
 * Git-graph (Disabled for now)
 * [Yazi](https://github.com/sxyazi/yazi) as file manager. [Installation here!](https://yazi-rs.github.io/docs/installation/#homebrew)
+* Remove bloat
