@@ -87,7 +87,7 @@ local function create_titled_terminal_popup()
     if input and input ~= "" then
       create_named_terminal(input)
     else
-      print("Terminal title is required")
+      print("Create new terminal cancelled")
     end
   end)
 end
