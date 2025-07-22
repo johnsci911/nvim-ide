@@ -68,7 +68,7 @@
 #### I hate arrow keys :)
 * If using Karabiner-Elements
     * Go to `~/.config/karabiner/` and edit `karabiner.json`
-    ```
+    ```json
     {
         "global": { "show_in_menu_bar": false },
         "machine_specific": { "krbn-empty-machine-identifier": { "enable_multitouch_extension": true } },
@@ -223,6 +223,14 @@
             }
         ]
     }
+    ```
+
+- Install omnisharp (UNIX) [MAC-OS]
+    ```bash
+    curl -L https://github.com/OmniSharp/omnisharp-roslyn/releases/latest/download/omnisharp-osx.tar.gz -o omnisharp-osx.tar.gz
+    tar -xzf omnisharp-osx.tar.gz
+    chmod +x ./omnisharp
+    sudo mv ./omnisharp /usr/local/bin/omnisharp
     ```
 
 #### TODO
