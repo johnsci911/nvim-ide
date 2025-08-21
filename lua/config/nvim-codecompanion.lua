@@ -133,12 +133,13 @@ end
 
 local models = {
   openai = {
-    "gpt-5-mini",
     "gpt-4.1-mini",
     "gpt-4.1",
   },
   anthropic = {
     "claude-sonnet-4-20250514",
+    "claude-3-7-sonnet-20250219",
+    "claude-3-5-haiku-20241022",
   },
   ollama = fetch_ollama_models(),
 }
