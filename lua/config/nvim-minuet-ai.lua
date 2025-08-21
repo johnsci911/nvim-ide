@@ -32,7 +32,7 @@ minuet.setup {
             }
         },
         anthropic = {
-            model = 'claude-sonnet-4-20250514',
+            model = 'claude-3-5-haiku-20241022',
             stream = true,
             api_key = 'ANTHROPIC_API_KEY',
             optional = {}

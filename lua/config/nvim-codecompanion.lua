@@ -1,5 +1,4 @@
-local SYSTEM_PROMPT = string.format(
-  [[You are an AI programming assistant.
+local SYSTEM_PROMPT = string.format([[You are an AI programming assistant.
 You are currently plugged in to the Neovim text editor on a user's machine.
 
 Your tasks include:
@@ -24,7 +23,7 @@ You must:
 - Include the programming language name at the start of the Markdown code blocks.
 - Avoid line numbers in code blocks.
 - Avoid wrapping the whole response in triple backticks.
-- Only return code that's relevant to the task at hand. You may not need to return all of the code that the user has shared.
+- Only return code that's relevant to the task at hand.
 - The user works in an IDE called Neovim which has a concept for editors with open files, integrated unit test support, an output pane that shows the output of running the code as well as an integrated terminal.
 - The user is working on a %s machine. Please respond with system specific commands if applicable.
 
@@ -33,13 +32,10 @@ When given a task:
 2. Output the code in a single code block.
 3. You should always generate short suggestions for the next user turns that are relevant to the conversation.
 4. You can only give one reply for each conversation turn.
-5. The active document is the source code the user is looking at right now.
-]],
-  vim.loop.os_uname().sysname
-)
-local EXPLAIN = string.format(
-  [[You are a world-class coding tutor. Your code explanations perfectly balance high-level concepts and granular details. Your approach ensures that students not only understand how to write code, but also grasp the underlying principles that guide effective programming.
-When asked for your name, you must respond with "Inteligent man".
+5. The active document is the source code the user are looking at right now.]], vim.loop.os_uname().sysname)
+
+local EXPLAIN = [[You are a world-class coding tutor. Your code explanations perfectly balance high-level concepts and granular details. Your approach ensures that students not only understand how to write code, but also grasp the underlying principles that guide effective programming.
+When asked for your name, you must respond with "Intelligent man".
 Follow the user's requirements carefully & to the letter.
 Your expertise is strictly limited to software development topics.
 Follow Microsoft content policies.
@@ -63,11 +59,9 @@ Think step by step:
 Focus on being clear, helpful, and thorough without assuming extensive prior knowledge.
 Use developer-friendly terms and analogies in your explanations.
 Identify 'gotchas' or less obvious parts of the code that might trip up someone new.
-Provide clear and relevant examples aligned with any provided context.
-]]
-)
-local REVIEW = string.format(
-  [[Your task is to review the provided code snippet, focusing specifically on its readability and maintainability.
+Provide clear and relevant examples aligned with any provided context.]]
+
+local REVIEW = [[Your task is to review the provided code snippet, focusing specifically on its readability and maintainability.
 Identify any issues related to:
 - Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
 - The presence of unnecessary comments, or the lack of necessary ones.
@@ -85,11 +79,9 @@ Format your feedback as follows:
 - Explain the high-level issue or problem briefly.
 - Provide a specific suggestion for improvement.
 
-If the code snippet has no readability issues, simply confirm that the code is clear and well-written as is.
-]]
-)
-local REFACTOR = string.format(
-  [[Your task is to refactor the provided code snippet, focusing specifically on its readability and maintainability.
+If the code snippet has no readability issues, simply confirm that the code is clear and well-written as is.]]
+
+local REFACTOR = [[Your task is to refactor the provided code snippet, focusing specifically on its readability and maintainability.
 Identify any issues related to:
 - Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
 - The presence of unnecessary comments, or the lack of necessary ones.
@@ -97,37 +89,58 @@ Identify any issues related to:
 - High nesting levels that make the code difficult to follow.
 - The use of excessively long names for variables or functions.
 - Any inconsistencies in naming, formatting, or overall coding style.
-- Repetitive code patterns that could be more efficiently handled through abstraction or optimization.
-]]
-)
+- Repetitive code patterns that could be more efficiently handled through abstraction or optimization.]]
 
+-- Enhanced model management with persistence
+local config_file = vim.fn.stdpath("data") .. "/codecompanion_model_config.json"
 
-local codecompanion = require("codecompanion")
+local function save_model_preference(adapter, model)
+  local config = { current_adapter = adapter, current_model = model }
+  local file = io.open(config_file, "w")
+  if file then
+    file:write(vim.json.encode(config))
+    file:close()
+  end
+end
 
--- Fetch model list from `ollama list` command (plain text parsing)
+local function load_model_preference()
+  local file = io.open(config_file, "r")
+  if file then
+    local content = file:read("*a")
+    file:close()
+    local ok, config = pcall(vim.json.decode, content)
+    if ok and config then
+      return config.current_adapter, config.current_model
+    end
+  end
+  return "openai", "gpt-4.1-mini" -- defaults
+end
+
+-- Enhanced model fetching with better error handling
 local function fetch_ollama_models()
-  local handle = io.popen("ollama list")
+  local handle = io.popen("ollama list 2>/dev/null")
   if not handle then
-    print("Failed to run 'ollama list'")
     return {}
   end
 
   local output = handle:read("*a")
-  handle:close()
+  local success = handle:close()
+
+  if not success or output == "" then
+    return {}
+  end
 
   local models = {}
-  local first_line_skipped = false
-  for line in output:gmatch("[^\r\n]+") do
-    if first_line_skipped then
+  local lines = vim.split(output, "\n")
+  for i = 2, #lines do -- Skip header
+    local line = lines[i]
+    if line and line ~= "" then
       local model = line:match("^(%S+)")
       if model then
         table.insert(models, model)
       end
-    else
-      first_line_skipped = true -- skip header line
     end
   end
-
   return models
 end
 
@@ -144,118 +157,172 @@ local models = {
   ollama = fetch_ollama_models(),
 }
 
--- Fallback if no models found for ollama
+-- Fallback models
 if #models.ollama == 0 then
-  models.ollama = {
-    "qwen2.5-coder:7b-base-q6_K",
-    "GandalfBaum/llama3.2-claude3.7:latest",
-  }
+  models.ollama = { "qwen2.5-coder:7b-base-q6_K", "GandalfBaum/llama3.2-claude3.7:latest" }
 end
 
--- Switch model and adapter dynamically
-local function switch_model()
-  local available_adapters = {}
-  for adapter_name, model_list in pairs(models) do
-    if model_list and #model_list > 0 then
-      table.insert(available_adapters, adapter_name)
-    end
-  end
+-- Initialize global config early to avoid undefined references
+_G.codecompanion_config = {
+  strategies = { chat = { adapter = "openai" } },
+  adapters = {},
+}
 
-  if #available_adapters == 0 then
-    print("No adapters with available models found")
-    return
-  end
-
-  vim.ui.select(available_adapters, { prompt = "Select AI Model:" }, function(adapter_name)
-    if not adapter_name then
-      print("Model switch cancelled")
-      return
-    end
-
-    local available_models = models[adapter_name]
-    if not available_models or #available_models == 0 then
-      print("No models configured for adapter: " .. adapter_name)
-      return
-    end
-
-    vim.ui.select(available_models, { prompt = "Select model for " .. adapter_name }, function(choice)
-      if not choice then
-        print("Model selection cancelled")
-        return
-      end
-
-      _G.codecompanion_config.adapters[adapter_name] = function()
-        local base_env = {}
-        if adapter_name == "ollama" then
-          base_env = { url = "http://127.0.0.1:11434" }
-        elseif adapter_name == "openai" then
-          base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
-        elseif adapter_name == "anthropic" then
-          base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
-        end
-
-        return require("codecompanion.adapters").extend(adapter_name, {
-          env = base_env,
-          schema = {
-            model = { default = choice },
-            num_ctx = adapter_name == "ollama" and { default = 16384 } or nil,
-            temperature = adapter_name == "openai" and { default = 0 } or nil,
-            max_tokens = adapter_name == "openai" and { default = 16384 } or nil,
-          },
-        })
-      end
-
-      -- Update strategies to use the new adapter globally
-      for _, strategy in pairs(_G.codecompanion_config.strategies) do
-        strategy.adapter = adapter_name
-      end
-
-      local adapter_name_capitalized = adapter_name:gsub("^%l", string.upper)
-      _G.codecompanion_config.display.chat.intro_message = "  ✨ Using " ..
-          adapter_name_capitalized .. ": " .. choice .. ". Press ? for options ✨"
-
-      -- Clear adapter caches
-      if codecompanion.adapters_cache then
-        codecompanion.adapters_cache[adapter_name] = nil
-      end
-      if codecompanion.adapters_instances then
-        codecompanion.adapters_instances[adapter_name] = nil
-      end
-
-      -- Re-setup with updated config
-      codecompanion.setup(_G.codecompanion_config)
-
-      print("Switched to adapter '" .. adapter_name .. "' with model '" .. choice .. "'")
-    end)
-  end)
+-- Helper functions (defined early to avoid reference errors)
+local function get_current_adapter()
+  return _G.codecompanion_config.strategies.chat.adapter or "openai"
 end
 
-local function get_current_model()
-  local adapter_name = _G.codecompanion_config.strategies.chat.adapter or "ollama"
+local function get_current_model_name()
+  local adapter_name = get_current_adapter()
   local adapter_fn = _G.codecompanion_config.adapters[adapter_name]
   if adapter_fn then
     local adapter = adapter_fn()
-    local model = adapter.schema and adapter.schema.model and adapter.schema.model.default
-    if model and model ~= "" then
-      return "✨ " .. model .. ":"
-    end
+    return adapter.schema and adapter.schema.model and adapter.schema.model.default or "unknown"
   end
   return "unknown"
 end
 
-vim.api.nvim_create_user_command("CCSwitchModel", switch_model, {})
--- Save config globally to allow dynamic edits
+local function get_current_model()
+  local adapter = get_current_adapter()
+  local model = get_current_model_name()
+  local icons = { openai = "🟢", anthropic = "🟠", ollama = "🔵" }
+  return (icons[adapter] or "🤖") .. " " .. model
+end
+
+local function apply_model_config(adapter_name, model_name)
+  _G.codecompanion_config.adapters[adapter_name] = function()
+    local base_env = {}
+    local schema = { model = { default = model_name } }
+
+    if adapter_name == "ollama" then
+      base_env = { url = "http://127.0.0.1:11434" }
+      schema.num_ctx = { default = 16384 }
+    elseif adapter_name == "openai" then
+      base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
+      schema.temperature = { default = 0 }
+      schema.max_tokens = { default = 16384 }
+    elseif adapter_name == "anthropic" then
+      base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
+    end
+
+    return require("codecompanion.adapters").extend(adapter_name, {
+      env = base_env,
+      schema = schema,
+    })
+  end
+
+  -- Update all strategies
+  for _, strategy in pairs(_G.codecompanion_config.strategies) do
+    strategy.adapter = adapter_name
+  end
+
+  _G.codecompanion_config.display.chat.intro_message = "✨ Using " ..
+    adapter_name:gsub("^%l", string.upper) .. ": " .. model_name .. ". Press ? for options ✨"
+
+  -- Clear caches and re-setup
+  local codecompanion = require("codecompanion")
+  if codecompanion.adapters_cache then
+    codecompanion.adapters_cache[adapter_name] = nil
+  end
+  codecompanion.setup(_G.codecompanion_config)
+end
+
+-- Enhanced model switching with better UX
+local function switch_model()
+  local available_adapters = {}
+  for adapter_name, model_list in pairs(models) do
+    if model_list and #model_list > 0 then
+      local status = adapter_name == get_current_adapter() and " (current)" or ""
+      table.insert(available_adapters, adapter_name .. status)
+    end
+  end
+
+  if #available_adapters == 0 then
+    vim.notify("No adapters with available models found", vim.log.levels.WARN)
+    return
+  end
+
+  vim.ui.select(available_adapters, {
+    prompt = "🤖 Select AI Provider:",
+    format_item = function(item)
+      local adapter = item:gsub(" %(current%)", "")
+      local icon = adapter == "openai" and "🟢" or adapter == "anthropic" and "🟠" or "🔵"
+      return icon .. " " .. adapter:gsub("^%l", string.upper)
+    end
+  }, function(selection)
+    if not selection then return end
+
+    local adapter_name = selection:match("^[^%s]+"):gsub(" %(current%)", "")
+    local available_models = models[adapter_name]
+
+    vim.ui.select(available_models, {
+      prompt = "Select model for " .. adapter_name:gsub("^%l", string.upper) .. ":",
+      format_item = function(model)
+        local current = get_current_model_name()
+        return model == current and "✓ " .. model or "  " .. model
+      end
+    }, function(choice)
+      if not choice then return end
+
+      apply_model_config(adapter_name, choice)
+      save_model_preference(adapter_name, choice)
+
+      vim.notify("✨ Switched to " .. adapter_name:gsub("^%l", string.upper) .. ": " .. choice, vim.log.levels.INFO)
+    end)
+  end)
+end
+
+-- Quick model switching functions
+local function quick_switch_to_gpt4()
+  apply_model_config("openai", "gpt-4.1 mini")
+  save_model_preference("openai", "gpt-4.1 mini")
+  vim.notify("⚡ Quick switch to GPT-4", vim.log.levels.INFO)
+end
+
+local function quick_switch_to_claude()
+  apply_model_config("anthropic", "claude-3-5-sonnet-20241022")
+  save_model_preference("anthropic", "claude-3-5-sonnet-20241022")
+  vim.notify("⚡ Quick switch to Claude", vim.log.levels.INFO)
+end
+
+local function quick_switch_to_local()
+  local model = models.ollama[1] or "qwen2.5-coder:7b-base-q6_K"
+  apply_model_config("ollama", model)
+  save_model_preference("ollama", model)
+  vim.notify("⚡ Quick switch to Local: " .. model, vim.log.levels.INFO)
+end
+
+-- Enhanced commands
+vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
+vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
+vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
+vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
+vim.api.nvim_create_user_command("CCCurrentModel", function()
+  vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
+end, { desc = "Show current model" })
+
+-- Enhanced keymaps (add these to your main keymap file)
+-- vim.keymap.set("n", "<leader>cs", switch_model, { desc = "Switch AI model" })
+-- vim.keymap.set("n", "<leader>c4", quick_switch_to_gpt4, { desc = "Quick GPT-4" })
+-- vim.keymap.set("n", "<leader>cc", quick_switch_to_claude, { desc = "Quick Claude" })
+-- vim.keymap.set("n", "<leader>cl", quick_switch_to_local, { desc = "Quick Local" })
+
+-- Statusline integration function (for your statusline plugin)
+_G.get_codecompanion_status = function()
+  return get_current_model()
+end
+
+-- Complete config
 _G.codecompanion_config = {
-  opts = {
-    system_prompt = SYSTEM_PROMPT,
-  },
+  opts = { system_prompt = SYSTEM_PROMPT },
   display = {
     diff = {
       enabled = true,
       close_chat_at = 240,
       layout = "vertical",
       opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
-      provider = "default", -- default|mini_diff
+      provider = "default",
     },
     chat = {
       intro_message = "✨ Using OpenAI: gpt-4.1-mini. Press ? for options ✨",
@@ -382,7 +449,6 @@ _G.codecompanion_config = {
     end,
   },
   prompt_library = {
-    -- Custom the default prompt
     ["Generate a Commit Message"] = {
       prompts = {
         {
@@ -458,7 +524,6 @@ _G.codecompanion_config = {
         },
       },
     },
-    -- Add custom prompts
     ["Generate a Commit Message for Staged"] = {
       strategy = "chat",
       description = "Generate a commit message for staged change",
@@ -659,7 +724,7 @@ _G.codecompanion_config = {
     },
     ["Naming"] = {
       strategy = "inline",
-      description = "Give betting naming for the provided code snippet.",
+      description = "Give better naming for the provided code snippet.",
       opts = {
         modes = { "v" },
         short_name = "naming",
@@ -687,7 +752,7 @@ _G.codecompanion_config = {
     },
     ["Better Naming"] = {
       strategy = "chat",
-      description = "Give betting naming for the provided code snippet.",
+      description = "Give better naming for the provided code snippet.",
       opts = {
         short_name = "better-naming",
         auto_submit = false,
@@ -703,6 +768,13 @@ _G.codecompanion_config = {
   },
 }
 
+-- Load saved preference on startup
+local saved_adapter, saved_model = load_model_preference()
+if saved_adapter and saved_model then
+  apply_model_config(saved_adapter, saved_model)
+end
+
+-- Setup with enhanced spinner integration
 local spinner = require("spinner")
 local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
 
@@ -712,12 +784,14 @@ vim.api.nvim_create_autocmd({ "User" }, {
   callback = function(request)
     if request.match == "CodeCompanionRequestStarted" then
       spinner.show()
+      vim.notify("🤖 Processing request...", vim.log.levels.INFO, { timeout = 1000 })
     elseif request.match == "CodeCompanionRequestFinished" then
       spinner.hide()
     end
   end,
 })
 
+-- Enhanced buffer management
 local function is_codecompanion_buffer(bufnr)
   local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
   return ft == "codecompanion" or vim.api.nvim_buf_get_name(bufnr):match("codecompanion")
@@ -727,12 +801,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function(args)
     if is_codecompanion_buffer(args.buf) then
       vim.cmd("SupermavenStop")
-      -- print("Supermaven stopped for codecompanion buffer")
     else
       vim.cmd("SupermavenRestart")
-      -- print("Supermaven started for non-codecompanion buffer")
     end
   end,
 })
 
-codecompanion.setup(_G.codecompanion_config)
+require("codecompanion").setup(_G.codecompanion_config)
+
