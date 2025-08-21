@@ -31,6 +31,12 @@ minuet.setup {
                 -- top_p = 0.9,
             }
         },
+        anthropic = {
+            model = 'claude-sonnet-4-20250514',
+            stream = true,
+            api_key = 'ANTHROPIC_API_KEY',
+            optional = {}
+        }
     },
     presets = {
         preset_1 = {

@@ -133,8 +133,12 @@ end
 
 local models = {
   openai = {
+    "gpt-5-mini",
     "gpt-4.1-mini",
     "gpt-4.1",
+  },
+  anthropic = {
+    "claude-sonnet-4-20250514",
   },
   ollama = fetch_ollama_models(),
 }
@@ -185,6 +189,8 @@ local function switch_model()
           base_env = { url = "http://127.0.0.1:11434" }
         elseif adapter_name == "openai" then
           base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
+        elseif adapter_name == "anthropic" then
+          base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
         end
 
         return require("codecompanion.adapters").extend(adapter_name, {
