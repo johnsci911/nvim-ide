@@ -34,7 +34,8 @@ When given a task:
 4. You can only give one reply for each conversation turn.
 5. The active document is the source code the user are looking at right now.]], vim.loop.os_uname().sysname)
 
-local EXPLAIN = [[You are a world-class coding tutor. Your code explanations perfectly balance high-level concepts and granular details. Your approach ensures that students not only understand how to write code, but also grasp the underlying principles that guide effective programming.
+local EXPLAIN =
+[[You are a world-class coding tutor. Your code explanations perfectly balance high-level concepts and granular details. Your approach ensures that students not only understand how to write code, but also grasp the underlying principles that guide effective programming.
 When asked for your name, you must respond with "Intelligent man".
 Follow the user's requirements carefully & to the letter.
 Your expertise is strictly limited to software development topics.
@@ -61,7 +62,8 @@ Use developer-friendly terms and analogies in your explanations.
 Identify 'gotchas' or less obvious parts of the code that might trip up someone new.
 Provide clear and relevant examples aligned with any provided context.]]
 
-local REVIEW = [[Your task is to review the provided code snippet, focusing specifically on its readability and maintainability.
+local REVIEW =
+[[Your task is to review the provided code snippet, focusing specifically on its readability and maintainability.
 Identify any issues related to:
 - Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
 - The presence of unnecessary comments, or the lack of necessary ones.
@@ -81,7 +83,8 @@ Format your feedback as follows:
 
 If the code snippet has no readability issues, simply confirm that the code is clear and well-written as is.]]
 
-local REFACTOR = [[Your task is to refactor the provided code snippet, focusing specifically on its readability and maintainability.
+local REFACTOR =
+[[Your task is to refactor the provided code snippet, focusing specifically on its readability and maintainability.
 Identify any issues related to:
 - Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
 - The presence of unnecessary comments, or the lack of necessary ones.
@@ -155,6 +158,10 @@ local models = {
     "claude-3-5-haiku-20241022",
   },
   ollama = fetch_ollama_models(),
+  openrouter = {
+    "qwen/qwen-2.5-coder-32b-instruct:free",
+    "qwen/qwen3-coder:free",
+  },
 }
 
 -- Fallback models
@@ -186,30 +193,51 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🟢", anthropic = "🟠", ollama = "🔵" }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
 local function apply_model_config(adapter_name, model_name)
-  _G.codecompanion_config.adapters[adapter_name] = function()
-    local base_env = {}
-    local schema = { model = { default = model_name } }
-
-    if adapter_name == "ollama" then
-      base_env = { url = "http://127.0.0.1:11434" }
-      schema.num_ctx = { default = 16384 }
-    elseif adapter_name == "openai" then
-      base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
-      schema.temperature = { default = 0 }
-      schema.max_tokens = { default = 16384 }
-    elseif adapter_name == "anthropic" then
-      base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
+  local adapters = _G.codecompanion_config.adapters
+  local adapter_fn = adapters[adapter_name]
+  if adapter_fn then
+    local adapter = adapter_fn()
+    if adapter.schema and adapter.schema.model then
+      adapter.schema.model.default = model_name
     end
-
-    return require("codecompanion.adapters").extend(adapter_name, {
-      env = base_env,
-      schema = schema,
-    })
+    if adapter_name == "openrouter" then
+      adapter.env.api_key = os.getenv("OPENROUTER_API_KEY")
+    end
+    -- Update the adapter function to return this updated adapter
+    adapters[adapter_name] = function()
+      return adapter
+    end
+  else
+    -- fallback: define adapter function as before
+    adapters[adapter_name] = function()
+      local base_env = {}
+      local schema = { model = { default = model_name } }
+      if adapter_name == "ollama" then
+        base_env = { url = "http://127.0.0.1:11434" }
+        schema.num_ctx = { default = 16384 }
+      elseif adapter_name == "openai" then
+        base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
+        schema.temperature = { default = 0 }
+        schema.max_tokens = { default = 16384 }
+      elseif adapter_name == "anthropic" then
+        base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
+      elseif adapter_name == "openrouter" then
+        base_env = {
+          url = "https://openrouter.ai/api",
+          api_key = os.getenv("OPENROUTER_API_KEY"),
+          chat_url = "/v1/chat/completions",
+        }
+      end
+      return require("codecompanion.adapters").extend(adapter_name, {
+        env = base_env,
+        schema = schema,
+      })
+    end
   end
 
   -- Update all strategies
@@ -218,7 +246,7 @@ local function apply_model_config(adapter_name, model_name)
   end
 
   _G.codecompanion_config.display.chat.intro_message = "✨ Using " ..
-    adapter_name:gsub("^%l", string.upper) .. ": " .. model_name .. ". Press ? for options ✨"
+      adapter_name:gsub("^%l", string.upper) .. ": " .. model_name .. ". Press ? for options ✨"
 
   -- Clear caches and re-setup
   local codecompanion = require("codecompanion")
@@ -247,7 +275,7 @@ local function switch_model()
     prompt = "🤖 Select AI Provider:",
     format_item = function(item)
       local adapter = item:gsub(" %(current%)", "")
-      local icon = adapter == "openai" and "🟢" or adapter == "anthropic" and "🟠" or "🔵"
+      local icon = adapter == "openai" and "🚀" or adapter == "anthropic" and "💡" or adapter == "ollama" and "🐑" or "💻"
       return icon .. " " .. adapter:gsub("^%l", string.upper)
     end
   }, function(selection)
@@ -443,6 +471,20 @@ _G.codecompanion_config = {
           },
           max_tokens = {
             default = 16384,
+          },
+        },
+      })
+    end,
+    openrouter = function()
+      return require("codecompanion.adapters").extend("openai_compatible", {
+        env = {
+          url = "https://openrouter.ai/api",
+          api_key = "OPENROUTER_API_KEY",
+          chat_url = "/v1/chat/completions",
+        },
+        schema = {
+          model = {
+            default = "qwen/qwen-2.5-coder-32b-instruct:free",
           },
         },
       })
@@ -808,4 +850,3 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 require("codecompanion").setup(_G.codecompanion_config)
-
