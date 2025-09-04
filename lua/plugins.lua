@@ -134,6 +134,7 @@ require("lazy").setup({
       "ravitemer/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
     },
+    version = "17.19.1",
   },
   {
     "MeanderingProgrammer/render-markdown.nvim",
