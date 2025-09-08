@@ -172,7 +172,9 @@ end
 -- Initialize global config early to avoid undefined references
 _G.codecompanion_config = {
   strategies = { chat = { adapter = "openai" } },
-  adapters = {},
+  adapters = {
+    http = {},
+  },
 }
 
 -- Helper functions (defined early to avoid reference errors)
@@ -182,7 +184,7 @@ end
 
 local function get_current_model_name()
   local adapter_name = get_current_adapter()
-  local adapter_fn = _G.codecompanion_config.adapters[adapter_name]
+  local adapter_fn = _G.codecompanion_config.adapters.http[adapter_name]
   if adapter_fn then
     local adapter = adapter_fn()
     return adapter.schema and adapter.schema.model and adapter.schema.model.default or "unknown"
@@ -198,7 +200,7 @@ local function get_current_model()
 end
 
 local function apply_model_config(adapter_name, model_name)
-  local adapters = _G.codecompanion_config.adapters
+  local adapters = _G.codecompanion_config.adapters.http
   local adapter_fn = adapters[adapter_name]
   if adapter_fn then
     local adapter = adapter_fn()
@@ -208,12 +210,10 @@ local function apply_model_config(adapter_name, model_name)
     if adapter_name == "openrouter" then
       adapter.env.api_key = os.getenv("OPENROUTER_API_KEY")
     end
-    -- Update the adapter function to return this updated adapter
     adapters[adapter_name] = function()
       return adapter
     end
   else
-    -- fallback: define adapter function as before
     adapters[adapter_name] = function()
       local base_env = {}
       local schema = { model = { default = model_name } }
@@ -303,8 +303,8 @@ end
 
 -- Quick model switching functions
 local function quick_switch_to_gpt4()
-  apply_model_config("openai", "gpt-4.1 mini")
-  save_model_preference("openai", "gpt-4.1 mini")
+  apply_model_config("openai", "gpt-4.1-mini")
+  save_model_preference("openai", "gpt-4.1-mini")
   vim.notify("⚡ Quick switch to GPT-4", vim.log.levels.INFO)
 end
 
@@ -342,7 +342,7 @@ _G.get_codecompanion_status = function()
 end
 
 -- Complete config
-_G.codecompanion_config = {
+_G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, {
   opts = { system_prompt = SYSTEM_PROMPT },
   display = {
     diff = {
@@ -439,56 +439,58 @@ _G.codecompanion_config = {
     },
   },
   adapters = {
-    opts = {
-      show_model_choices = true,
+    http = {
+      opts = {
+        show_model_choices = true,
+      },
+      ollama = function()
+        return require("codecompanion.adapters").extend("ollama", {
+          env = {
+            url = "http://127.0.0.1:11434",
+          },
+          schema = {
+            model = {
+              default = "qwen2.5-coder:7b-base-q6_K",
+            },
+            num_ctx = {
+              default = 16384,
+            },
+          },
+        })
+      end,
+      openai = function()
+        return require("codecompanion.adapters").extend("openai", {
+          env = {
+            OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
+          },
+          schema = {
+            model = {
+              default = "gpt-4.1-mini",
+            },
+            temperature = {
+              default = 0,
+            },
+            max_tokens = {
+              default = 16384,
+            },
+          },
+        })
+      end,
+      openrouter = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          env = {
+            url = "https://openrouter.ai/api",
+            api_key = "OPENROUTER_API_KEY",
+            chat_url = "/v1/chat/completions",
+          },
+          schema = {
+            model = {
+              default = "qwen/qwen-2.5-coder-32b-instruct:free",
+            },
+          },
+        })
+      end,
     },
-    ollama = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        env = {
-          url = "http://127.0.0.1:11434",
-        },
-        schema = {
-          model = {
-            default = "qwen2.5-coder:7b-base-q6_K",
-          },
-          num_ctx = {
-            default = 16384,
-          },
-        },
-      })
-    end,
-    openai = function()
-      return require("codecompanion.adapters").extend("openai", {
-        env = {
-          OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
-        },
-        schema = {
-          model = {
-            default = "gpt-4.1-mini",
-          },
-          temperature = {
-            default = 0,
-          },
-          max_tokens = {
-            default = 16384,
-          },
-        },
-      })
-    end,
-    openrouter = function()
-      return require("codecompanion.adapters").extend("openai_compatible", {
-        env = {
-          url = "https://openrouter.ai/api",
-          api_key = "OPENROUTER_API_KEY",
-          chat_url = "/v1/chat/completions",
-        },
-        schema = {
-          model = {
-            default = "qwen/qwen-2.5-coder-32b-instruct:free",
-          },
-        },
-      })
-    end,
   },
   prompt_library = {
     ["Generate a Commit Message"] = {
@@ -808,7 +810,7 @@ _G.codecompanion_config = {
       },
     },
   },
-}
+})
 
 -- Load saved preference on startup
 local saved_adapter, saved_model = load_model_preference()
@@ -850,3 +852,4 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 require("codecompanion").setup(_G.codecompanion_config)
+
