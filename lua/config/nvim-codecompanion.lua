@@ -161,6 +161,9 @@ local models = {
   openrouter = {
     "qwen/qwen-2.5-coder-32b-instruct:free",
     "qwen/qwen3-coder:free",
+    "qwen/qwen3-32b", -- None coder
+    "qwen/qwen-2.5-coder-32b-instruct",
+    "qwen/qwen3-coder-30b-a3b-instruct",
   },
 }
 
