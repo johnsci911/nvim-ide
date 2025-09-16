@@ -6,6 +6,7 @@ require('theme.catppuccin')
 -- require('theme.kanagawa')
 
 -- Plugins
+require('config.nvim-autosession')
 require('config.nvim-autopairs')
 require('config.nvim-comment')
 require('config.nvim-diffview')

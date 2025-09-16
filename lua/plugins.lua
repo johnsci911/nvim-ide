@@ -1,3 +1,5 @@
+vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
+
 vim.cmd([[
     let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
 ]])
@@ -46,58 +48,8 @@ require("lazy").setup({
     'folke/trouble.nvim',
     branch = "main",
   },
-  {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    ---@type snacks.Config
-    opts = {
-      dashboard = {
-        enabled = true,
-        preset = {
-          -- Used by the `header` section
-          header = [[
-    _  ___   ________  ___    ___  ___  ____
-   / |/ / | / /  _/  |/  /___/ _ \/ _ \/ __/
-/    /| |/ // // /|_/ /___/ ___/ // / _/
- /_/|_/ |___/___/_/  /_/   /_/  /____/___/  ]],
-          keys = {
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          },
-        },
-        sections = {
-          {
-            pane = 1,
-            { section = "header" },
-            { section = "keys",  gap = 0 },
-          },
-          {
-            pane = 2,
-            { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = { 2, 2 } },
-            { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
-            { section = "startup" },
-          },
-        },
-      },
-      explorer = { enabled = true },
-      -- indent = { enabled = false },
-      -- input = { enabled = true },
-      picker = { enabled = true },
-      -- notifier = { enabled = true },
-      -- quickfile = { enabled = true },
-      -- scope = { enabled = true },
-      -- scroll = { enabled = true },
-      -- statuscolumn = { enabled = true },
-      -- words = { enabled = true },
-    },
-  },
+  "folke/snacks.nvim",
+  "rmagatti/auto-session",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
 
@@ -254,18 +206,6 @@ require("lazy").setup({
   },
 
   "AckslD/nvim-neoclip.lua",
-
-  {
-    "folke/persistence.nvim",
-    event = "BufReadPre",
-    opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals" } },
-    -- stylua: ignore
-    keys = {
-      { "<leader>Sr", function() require("persistence").load() end,                desc = "Restore Session" },
-      { "<leader>Sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-      { "<leader>Sd", function() require("persistence").stop() end,                desc = "Don't Save Current Session" },
-    },
-  },
 
   -- Org Mode
   {

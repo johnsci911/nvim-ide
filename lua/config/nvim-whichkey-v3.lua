@@ -147,7 +147,10 @@ wk.add({
   { "<leader>sg",    '<Cmd>Telescope glyph<CR>',                                    desc = 'Find Glyphs' },
 
   { "<leader>S",     group = "Sessions" },
-  { "<leader>Ss",    "<Cmd>lua Snacks.dashboard.open()<CR>",                        desc = "Dashboard" },
+  { "<leader>Sr",    "<Cmd>Autosession restore<CR>",                                desc = 'Restore Session' },
+  { "<leader>Ss",    "<Cmd>Autosession save<CR>",                                   desc = 'Save Session' },
+  { "<leader>SS",    "<Cmd>SaveSession<CR>",                                        desc = 'Save named Session' },
+  { "<leader>Sl",    "<Cmd>AutoSession search<CR>",                                 desc = 'Search Session - Control + D to delete' },
   -- "folke/persistence.nvim" in plugins.lua
   -- Sr - Restore Session
   -- Sl - Last Session
