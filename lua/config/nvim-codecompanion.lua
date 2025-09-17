@@ -274,34 +274,71 @@ local function switch_model()
     return
   end
 
-  vim.ui.select(available_adapters, {
-    prompt = "🤖 Select AI Provider:",
-    format_item = function(item)
-      local adapter = item:gsub(" %(current%)", "")
-      local icon = adapter == "openai" and "🚀" or adapter == "anthropic" and "💡" or adapter == "ollama" and "🐑" or "💻"
-      return icon .. " " .. adapter:gsub("^%l", string.upper)
-    end
-  }, function(selection)
-    if not selection then return end
-
-    local adapter_name = selection:match("^[^%s]+"):gsub(" %(current%)", "")
-    local available_models = models[adapter_name]
-
-    vim.ui.select(available_models, {
-      prompt = "Select model for " .. adapter_name:gsub("^%l", string.upper) .. ":",
-      format_item = function(model)
-        local current = get_current_model_name()
-        return model == current and "✓ " .. model or "  " .. model
+  require('telescope.pickers').new({}, {
+    prompt_title = "🤖 AI Providers",
+    layout_config = {
+      width = 0.3,
+      height = 0.3
+    },
+    finder = require('telescope.finders').new_table({
+      results = available_adapters,
+      entry_maker = function(entry)
+        local adapter = entry:gsub(" %(current%)", "")
+        local icon = adapter == "openai" and "🚀" or
+            adapter == "anthropic" and "💡" or
+            adapter == "ollama" and "🐑" or "💻"
+        return {
+          value = entry,
+          display = icon .. " " .. adapter:gsub("^%l", string.upper),
+          ordinal = entry
+        }
       end
-    }, function(choice)
-      if not choice then return end
+    }),
+    sorter = require('telescope.sorters').get_generic_fuzzy_sorter(),
+    attach_mappings = function(prompt_bufnr, map)
+      map('i', '<CR>', function()
+        local selection = require('telescope.actions.state').get_selected_entry()
+        require('telescope.actions').close(prompt_bufnr)
 
-      apply_model_config(adapter_name, choice)
-      save_model_preference(adapter_name, choice)
+        local adapter_name = selection.value:match("^[^%s]+"):gsub(" %(current%)", "")
+        local available_models = models[adapter_name]
 
-      vim.notify("✨ Switched to " .. adapter_name:gsub("^%l", string.upper) .. ": " .. choice, vim.log.levels.INFO)
-    end)
-  end)
+        require('telescope.pickers').new({}, {
+          prompt_title = "Models: " .. adapter_name:gsub("^%l", string.upper),
+          layout_config = {
+            width = 0.3,
+            height = 0.3
+          },
+          finder = require('telescope.finders').new_table({
+            results = available_models,
+            entry_maker = function(model)
+              local current = get_current_model_name()
+              return {
+                value = model,
+                display = model == current and "✓ " .. model or "  " .. model,
+                ordinal = model
+              }
+            end
+          }),
+          sorter = require('telescope.sorters').get_generic_fuzzy_sorter(),
+          attach_mappings = function(model_prompt_bufnr, model_map)
+            model_map('i', '<CR>', function()
+              local model_selection = require('telescope.actions.state').get_selected_entry()
+              require('telescope.actions').close(model_prompt_bufnr)
+
+              apply_model_config(adapter_name, model_selection.value)
+              save_model_preference(adapter_name, model_selection.value)
+
+              vim.notify("✨ Switched to " .. adapter_name:gsub("^%l", string.upper) .. ": " .. model_selection.value,
+                vim.log.levels.INFO)
+            end)
+            return true
+          end
+        }):find()
+      end)
+      return true
+    end
+  }):find()
 end
 
 -- Quick model switching functions
@@ -855,4 +892,3 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 require("codecompanion").setup(_G.codecompanion_config)
-

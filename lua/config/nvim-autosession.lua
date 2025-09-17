@@ -7,10 +7,16 @@ require('auto-session').setup({
   auto_session_root_dir = session_dir,
   auto_save = true,
   auto_restore = true,
-  auto_create = false,
-  auto_restore_last_session = false,
-  cwd_change_handling = true,
-  single_session_mode = false,
+  auto_create = true,  -- Changed to true to automatically create sessions
+  auto_restore_last_session = true,  -- Changed to true to restore last session
+  cwd_change_handling = {
+    restore_upcoming_session = true,  -- Restore session when changing directories
+  },
+  session_lens = {
+    load_on_setup = true,
+    theme_conf = { border = true },
+    previewer = false
+  }
 })
 
 -- Floating input prompt function
