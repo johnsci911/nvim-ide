@@ -7,7 +7,7 @@ require('auto-session').setup({
   auto_session_root_dir = session_dir,
   auto_save = true,
   auto_restore = true,
-  auto_create = true,
+  auto_create = false,
   auto_restore_last_session = true,
   cwd_change_handling = {
     restore_upcoming_session = true,
