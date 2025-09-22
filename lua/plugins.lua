@@ -260,11 +260,7 @@ require("lazy").setup({
   },
 
   -- Floating Terminal
-  {
-    'akinsho/toggleterm.nvim',
-    version = "*",
-    config = true
-  },
+  'rebelot/terminal.nvim',
 
   -- Comment
   'terrortylor/nvim-comment',

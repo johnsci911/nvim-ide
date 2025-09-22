@@ -21,7 +21,6 @@
 - Clipboards!
 - Laravel blade syntax highlighting (Still Beta)
 - Neogit - for GIT superpowers
-- Toggleterm - Replaced vim-floaterm since I want the ability to rename and select terminals
 
 #### Packages Required
 - Neovim 0.11.*

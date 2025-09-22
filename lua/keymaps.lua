@@ -61,8 +61,3 @@ vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
 -- vim.cmd('nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- scroll up hover doc
 vim.cmd('command! -nargs=0 LspVirtualTextToggle lua require("lsp/virtual_text").toggle()')
-
--- Floaterm
-vim.cmd([[
-  tnoremap <silent> <F1> <C-\><C-n>:FloatermToggle<CR>
-]])
