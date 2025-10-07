@@ -10,11 +10,6 @@ wk.add({
   { "<TAB>",   mode = { "n" }, "<Cmd>BufferNext<CR>",        desc = "Buffer Next" },
   { "<S-TAB>", mode = { "n" }, "<Cmd>BufferPrevious<CR>",    desc = "Buffer Prev" },
 
--- Floaterm
-  -- { "<F1>", mode = { "n", "t" }, function() toggleterm.f1_action() end, desc = "Toggle Terminals or Create New" },
-  -- { "<F2>", mode = { "n", "t" }, "<Cmd>TermSelect<CR>", desc = "Terminal Select" },
-  -- { "<F3>", mode = { "n", "t" }, "<Cmd>ToggleTermSetName<CR>", desc = "Set Terminal Name" },
-  -- { "<F4>", mode = { "n", "t" }, function() toggleterm.create_titled_terminal_popup() end, desc = "Create New Titled Terminal (Popup)" },
 
 -- Save file (Control+S) (Default if not using TMUX)
   -- { '<C-h>',   mode = { "n" }, '<C-w>h',                  desc = 'Move to window left' },
