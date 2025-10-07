@@ -34,16 +34,7 @@ require("lazy").setup({
 
   -- LSP
   "mhartington/formatter.nvim",
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        'eslint-lsp',
-        'prettier',
-        'typescript-language-server',
-      }
-    }
-  },
+  "williamboman/mason.nvim",
   {
     'folke/trouble.nvim',
     branch = "main",
@@ -260,7 +251,7 @@ require("lazy").setup({
   },
 
   -- Floating Terminal
-  'rebelot/terminal.nvim',
+  'voldikss/vim-floaterm',
 
   -- Comment
   'terrortylor/nvim-comment',

@@ -12,7 +12,7 @@ vim.api.nvim_set_keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', {noremap = true
 vim.cmd([[
   nnoremap <silent> <C-s> :w<CR>
   nnoremap <silent> <C-Q> :wq!<CR>
-  nnoremap <silent> <C-c> <Esc>
+nnoremap <silent> <C-c> <Esc>
 ]])
 
 -- Terminal window navigation
@@ -28,7 +28,19 @@ vim.cmd([[
   tnoremap <Esc> <C-\><C-n>
 ]])
 
--- resize with arrows
+-- Floaterm
+vim.cmd([[
+  nnoremap <silent> <F4> :call FloatermNewNamed()<CR>
+  tnoremap <silent> <F4> <C-\><C-n>:call FloatermNewNamed()<CR>
+  nnoremap <silent> <F2> :FloatermPrev<CR>
+  tnoremap <silent> <F2> <C-\><C-n>:FloatermPrev<CR>
+  nnoremap <silent> <F3> :FloatermNext<CR>
+  tnoremap <silent> <F3> <C-\><C-n>:FloatermNext<CR>
+  nnoremap <silent> <F1> :FloatermToggle<CR>
+  tnoremap <silent> <F1> <C-\><C-n>:FloatermToggle<CR>
+]])
+
+-- Resize with arrows
 vim.cmd([[
   nnoremap <silent> <M-k> : resize -2<CR>
   nnoremap <silent> <M-j> : resize +2<CR>
@@ -36,7 +48,7 @@ vim.cmd([[
   nnoremap <silent> <M-l> : vertical resize +2<CR>
 ]])
 
--- better indenting
+-- Better indenting
 vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true, silent = true})
 
@@ -61,3 +73,25 @@ vim.cmd('nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>')
 -- vim.cmd('nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- scroll up hover doc
 vim.cmd('command! -nargs=0 LspVirtualTextToggle lua require("lsp/virtual_text").toggle()')
+
+vim.cmd([[
+  function! FloatermNewNamed()
+    call inputsave()
+    let terminal_name = input("Enter terminal name: ")
+    call inputrestore()
+
+    if terminal_name != ""
+      " Register the terminal in the custom registry
+      lua require('config.terminal_manager').register_terminal(terminal_name)
+
+      " Show debug info
+      lua print("Registered terminal name:", require('config.terminal_manager').get_last_registered_name())
+
+      " Create floaterm with custom name
+      execute "FloatermNew --name=" . terminal_name
+      echo "Created terminal: " . terminal_name
+    else
+      execute "FloatermNew"
+    endif
+  endfunction
+]])
