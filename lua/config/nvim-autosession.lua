@@ -5,17 +5,17 @@ end
 
 require('auto-session').setup({
   auto_session_root_dir = session_dir,
-  auto_save = true,
+  auto_save = false,
   auto_restore = true,
   auto_create = false,
-  auto_restore_last_session = true,
+  auto_restore_last_session = false,
   cwd_change_handling = {
     restore_upcoming_session = true,
   },
   session_lens = {
     load_on_setup = true,
     theme_conf = { border = true },
-    previewer = false
+    previewer = true
   }
 })
 
