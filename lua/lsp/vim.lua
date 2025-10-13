@@ -1,4 +1,4 @@
 -- npm install -g vim-language-server
-require 'lspconfig'.vimls.setup {
+vim.lsp.config.vimls = {
   cmd = { "vim-language-server", "--stdio" },
 }

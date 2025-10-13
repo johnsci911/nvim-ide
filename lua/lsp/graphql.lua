@@ -1,4 +1,4 @@
-require 'lspconfig'.graphql.setup {
+vim.lsp.config.graphql = {
   cmd = {
     "graphql-lsp",
     "server",

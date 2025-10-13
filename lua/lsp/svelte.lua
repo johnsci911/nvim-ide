@@ -1,4 +1,4 @@
-require'lspconfig'.svelte.setup{
+vim.lsp.config.svelte = {
   cmd = { 'svelteserver', '--stdio' },
   filetypes = {
     'svelte'

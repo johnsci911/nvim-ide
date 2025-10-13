@@ -90,7 +90,7 @@ require("mason-lspconfig").setup({
 local lspconfig = require("lspconfig")
 
 for _, name in pairs(servers) do
-  lspconfig[name].setup {
+  vim.lsp.config(name, {
     on_attach = on_attach,
     capabilities = capabilities,
     autostart = true,
@@ -115,13 +115,13 @@ for _, name in pairs(servers) do
         diagnostics = { globals = { "vim" } },
       },
     },
-  }
+  })
 end
 
 -- Configure SourceKit for Swift manually
 -- `brew install swift`
-lspconfig.sourcekit.setup {
+vim.lsp.config("sourcekit", {
   cmd = { "xcrun", "sourcekit-lsp" },
   filetypes = { "swift", "objective-c", "objective-cpp" },
   root_dir = lspconfig.util.root_pattern(".git", "*.xcodeproj", "*.xcworkspace"),
-}
+})

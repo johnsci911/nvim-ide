@@ -1,5 +1,5 @@
 -- npm i -g bash-language-server
-require 'lspconfig'.bashls.setup {
+vim.lsp.config.bashls = {
   cmd = {
     "bash-language-server",
     "start"

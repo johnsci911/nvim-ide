@@ -1,5 +1,5 @@
 -- npm i -g pyright
-require 'lspconfig'.pyright.setup {
+vim.lsp.config.pyright = {
   cmd = { "pyright-langserver", "--stdio" },
   handlers = {
     ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {

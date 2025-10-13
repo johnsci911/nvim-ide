@@ -1,4 +1,4 @@
-require 'lspconfig'.lua_ls.setup {
+vim.lsp.config.lua_ls = {
   cmd = {
     DATA_PATH .. "/mason/packages/lua-language-server/lua-language-server"
   },

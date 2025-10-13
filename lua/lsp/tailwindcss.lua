@@ -1,4 +1,4 @@
-require 'lspconfig'.tailwindcss.setup {
+vim.lsp.config.tailwindcss = {
   cmd = {
     "tailwindcss-language-server",
     "--stdio"

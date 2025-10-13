@@ -1,5 +1,4 @@
-local lspconfig = require('lspconfig')
-lspconfig.intelephense.setup {
+vim.lsp.config.intelephense = {
   settings = {
     intelephense = {
       stubs = {

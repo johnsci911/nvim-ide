@@ -3,7 +3,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- npm install -g vscode-json-languageserver
-require 'lspconfig'.jsonls.setup {
+vim.lsp.config.jsonls = {
   capabilities = capabilities,
   cmd = { "vscode-json-language-server", "--stdio" },
   filetypes = {

@@ -14,7 +14,7 @@ end
 local npm_root = vim.fn.system("npm root -g"):gsub("%s+", "")
 local vue_ts_plugin_path = npm_root .. "/@vue/typescript-plugin"
 
-lspconfig.ts_ls.setup{
+vim.lsp.config.ts_ls = {
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
