@@ -77,6 +77,7 @@ local servers = {
   "marksman",
   "ts_ls",
   "svelte",
+  "csharp_ls",
 }
 
 -- Setup Mason for LSP management
