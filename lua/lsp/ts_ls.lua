@@ -1,4 +1,3 @@
-local lspconfig = require("lspconfig")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
@@ -22,7 +21,7 @@ vim.lsp.config.ts_ls = {
       {
         name = "@vue/typescript-plugin",
         location = vue_ts_plugin_path,
-        languages = { "javascript", "typescript", "vue" },
+        languages = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
       },
     },
     typescript = {
@@ -58,6 +57,6 @@ vim.lsp.config.ts_ls = {
       },
     },
   },
-  filetypes = { "javascript", "typescript", "vue" },
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.jsx", "vue" },
 }
 
