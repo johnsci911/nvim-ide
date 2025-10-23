@@ -343,6 +343,24 @@ local function switch_model()
   }):find()
 end
 
+local function get_git_diff()
+  local output = vim.fn.system("git diff")
+  if type(output) == "table" then
+    -- If it's a table, join it with newlines
+    return table.concat(output, "\n")
+  end
+  return output
+end
+
+local function get_git_staged_diff()
+  local output = vim.fn.system("git diff --staged")
+  if type(output) == "table" then
+    -- If it's a table, join it with newlines
+    return table.concat(output, "\n")
+  end
+  return output
+end
+
 -- Quick model switching functions
 local function quick_switch_to_gpt4()
   apply_model_config("openai", "gpt-4.1-mini")
@@ -611,7 +629,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
             return
                 "Write commit message with commitizen convention. Write clear, informative commit messages that explain the 'what' and 'why' behind changes, not just the 'how'."
                 .. "\n\n```\n"
-                .. vim.fn.system("git diff")
+                .. get_git_diff()
                 .. "\n```"
           end,
           opts = {
@@ -619,6 +637,30 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           },
         },
       },
+    },
+    ["Generate a Commit Message for Staged"] = {
+      strategy = "chat",
+      description = "Generate a commit message for staged change",
+      opts = {
+        short_name = "staged-commit",
+        auto_submit = true,
+        is_slash_cmd = true,
+      },
+      prompts = {
+        {
+          role = "user",
+          content = function()
+            return
+                "Write commit message for the change with commitizen convention. Write clear, informative commit messages that explain the 'what' and 'why' behind changes, not just the 'how'."
+                .. "\n\n```\n"
+                .. get_git_staged_diff()
+                .. "\n```"
+          end,
+          opts = {
+            contains_code = true,
+          },
+        },
+      }
     },
     ["Explain"] = {
       strategy = "chat",
