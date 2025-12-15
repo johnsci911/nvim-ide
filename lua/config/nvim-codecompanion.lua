@@ -176,7 +176,7 @@ end
 
 -- Initialize global config early to avoid undefined references
 _G.codecompanion_config = {
-  strategies = { chat = { adapter = "openai" } },
+  interactions = { chat = { adapter = "openai" } },
   adapters = {
     http = {},
   },
@@ -184,7 +184,7 @@ _G.codecompanion_config = {
 
 -- Helper functions (defined early to avoid reference errors)
 local function get_current_adapter()
-  return _G.codecompanion_config.strategies.chat.adapter or "openai"
+  return _G.codecompanion_config.interactions.chat.adapter or "openai"
 end
 
 local function get_current_model_name()
@@ -245,9 +245,9 @@ local function apply_model_config(adapter_name, model_name)
     end
   end
 
-  -- Update all strategies
-  for _, strategy in pairs(_G.codecompanion_config.strategies) do
-    strategy.adapter = adapter_name
+  -- Update allinteractions
+  for _, interaction in pairs(_G.codecompanion_config.interactions) do
+    interaction.adapter = adapter_name
   end
 
   _G.codecompanion_config.display.chat.intro_message = "✨ Using " ..
@@ -524,7 +524,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       }
     }
   },
-  strategies = {
+  interactions = {
     chat = {
       adapter = "openai",
       roles = {
@@ -639,10 +639,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Generate a Commit Message for Staged"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Generate a commit message for staged change",
       opts = {
-        short_name = "staged-commit",
+        alias = "staged-commit",
         auto_submit = true,
         is_slash_cmd = true,
       },
@@ -663,12 +663,12 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       }
     },
     ["Explain"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Explain how code in a buffer works",
       opts = {
         default_prompt = true,
         modes = { "v" },
-        short_name = "explain",
+        alias = "explain",
         auto_submit = true,
         user_prompt = false,
         stop_context_insertion = true,
@@ -699,10 +699,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Explain Code"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Explain how code works",
       opts = {
-        short_name = "explain-code",
+        alias = "explain-code",
         auto_submit = false,
         is_slash_cmd = true,
       },
@@ -721,10 +721,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Generate a Commit Message for Staged"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Generate a commit message for staged change",
       opts = {
-        short_name = "staged-commit",
+        alias = "staged-commit",
         auto_submit = true,
         is_slash_cmd = true,
       },
@@ -745,11 +745,11 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Inline Document"] = {
-      strategy = "inline",
+      interaction = "inline",
       description = "Add documentation for code.",
       opts = {
         modes = { "v" },
-        short_name = "inline-doc",
+        alias = "inline-doc",
         auto_submit = true,
         user_prompt = false,
         stop_context_insertion = true,
@@ -774,11 +774,11 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Document"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Write documentation for code.",
       opts = {
         modes = { "v" },
-        short_name = "doc",
+        alias = "doc",
         auto_submit = true,
         user_prompt = false,
         stop_context_insertion = true,
@@ -803,11 +803,11 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Review"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Review the provided code snippet.",
       opts = {
         modes = { "v" },
-        short_name = "review",
+        alias = "review",
         auto_submit = true,
         user_prompt = false,
         stop_context_insertion = true,
@@ -839,10 +839,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Review Code"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Review code and provide suggestions for improvement.",
       opts = {
-        short_name = "review-code",
+        alias = "review-code",
         auto_submit = false,
         is_slash_cmd = true,
       },
@@ -862,11 +862,11 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Refactor"] = {
-      strategy = "inline",
+      interaction = "inline",
       description = "Refactor the provided code snippet.",
       opts = {
         modes = { "v" },
-        short_name = "refactor",
+        alias = "refactor",
         auto_submit = true,
         user_prompt = false,
         stop_context_insertion = true,
@@ -897,10 +897,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Refactor Code"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Refactor the provided code snippet.",
       opts = {
-        short_name = "refactor-code",
+        alias = "refactor-code",
         auto_submit = false,
         is_slash_cmd = true,
       },
@@ -919,11 +919,11 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Naming"] = {
-      strategy = "inline",
+      interaction = "inline",
       description = "Give better naming for the provided code snippet.",
       opts = {
         modes = { "v" },
-        short_name = "naming",
+        alias = "naming",
         auto_submit = true,
         user_prompt = false,
         stop_context_insertion = true,
@@ -947,10 +947,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     ["Better Naming"] = {
-      strategy = "chat",
+      interaction = "chat",
       description = "Give better naming for the provided code snippet.",
       opts = {
-        short_name = "better-naming",
+        alias = "better-naming",
         auto_submit = false,
         is_slash_cmd = true,
       },
