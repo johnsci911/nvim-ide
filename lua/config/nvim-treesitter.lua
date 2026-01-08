@@ -4,6 +4,7 @@ require 'nvim-treesitter.configs'.setup {
         'html',
         'php_only',
         'php',
+        'blade',
         'bash',
         'css',
         'javascript',

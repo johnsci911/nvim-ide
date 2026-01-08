@@ -159,13 +159,19 @@ local models = {
   },
   ollama = fetch_ollama_models(),
   openrouter = {
+    -- Qwen
     "qwen/qwen-2.5-coder-32b-instruct:free",
     "qwen/qwen3-coder:free",
+    "qwen/qwen2.5-coder-7b-instruct", -- Literal Free but not good
+    "qwen/qwen3-coder",
+    "qwen/qwen3-coder:exacto",
     "qwen/qwen3-32b", -- None coder
     "qwen/qwen-2.5-coder-32b-instruct",
     "qwen/qwen3-coder-30b-a3b-instruct",
+    -- OpenAI
     "openai/gpt-4.1-mini",
     "openai/gpt-5-mini",
+    "openai/gpt-5.1-codex-mini",
   },
 }
 
