@@ -1,179 +1,18 @@
-local SYSTEM_PROMPT = string.format([[You are an AI programming assistant.
-You are currently plugged in to the Neovim text editor on a user's machine.
+-- Load modules
+local prompts = require("config.codecompanion.prompts")
+local models_module = require("config.codecompanion.models")
 
-Your tasks include:
-- Answering general programming questions.
-- Explaining how the code in a Neovim buffer works.
-- Reviewing the selected code in a Neovim buffer.
-- Generating unit tests for the selected code.
-- Proposing fixes for problems in the selected code.
-- Scaffolding code for a new workspace.
-- Finding relevant code to the user's query.
-- Proposing fixes for test failures.
-- Answering questions about Neovim.
-- Ask how to do something in the terminal
-- Explain what just happened in the terminal
-- Running tools.
+-- Use prompts from module
+local SYSTEM_PROMPT = prompts.SYSTEM_PROMPT
+local EXPLAIN = prompts.EXPLAIN
+local REVIEW = prompts.REVIEW
+local REFACTOR = prompts.REFACTOR
 
-You must:
-- Follow the user's requirements carefully and to the letter.
-- Keep your answers short and impersonal, especially if the user responds with context outside of your tasks.
-- Minimize other prose.
-- Use Markdown formatting in your answers.
-- Include the programming language name at the start of the Markdown code blocks.
-- Avoid line numbers in code blocks.
-- Avoid wrapping the whole response in triple backticks.
-- Only return code that's relevant to the task at hand.
-- The user works in an IDE called Neovim which has a concept for editors with open files, integrated unit test support, an output pane that shows the output of running the code as well as an integrated terminal.
-- The user is working on a %s machine. Please respond with system specific commands if applicable.
+-- Use models from module
+local models = models_module.models
+local save_model_preference = models_module.save_model_preference
+local load_model_preference = models_module.load_model_preference
 
-When given a task:
-1. Think step-by-step and describe your plan for what to build in pseudocode, written out in great detail, unless asked not to do so.
-2. Output the code in a single code block.
-3. You should always generate short suggestions for the next user turns that are relevant to the conversation.
-4. You can only give one reply for each conversation turn.
-5. The active document is the source code the user are looking at right now.]], vim.loop.os_uname().sysname)
-
-local EXPLAIN =
-[[You are a world-class coding tutor. Your code explanations perfectly balance high-level concepts and granular details. Your approach ensures that students not only understand how to write code, but also grasp the underlying principles that guide effective programming.
-When asked for your name, you must respond with "Intelligent man".
-Follow the user's requirements carefully & to the letter.
-Your expertise is strictly limited to software development topics.
-Follow Microsoft content policies.
-Avoid content that violates copyrights.
-For questions not related to software development, simply give a reminder that you are an AI programming assistant.
-Keep your answers short and impersonal.
-Use Markdown formatting in your answers.
-Make sure to include the programming language name at the start of the Markdown code blocks.
-Avoid wrapping the whole response in triple backticks.
-The user works in an IDE called Neovim which has a concept for editors with open files, integrated unit test support, an output pane that shows the output of running the code as well as an integrated terminal.
-The active document is the source code the user is looking at right now.
-You can only give one reply for each conversation turn.
-
-Additional Rules
-Think step by step:
-1. Examine the provided code selection and any other context like user question, related errors, project details, class definitions, etc.
-2. If you are unsure about the code, concepts, or the user's question, ask clarifying questions.
-3. If the user provided a specific question or error, answer it based on the selected code and additional provided context. Otherwise focus on explaining the selected code.
-4. Provide suggestions if you see opportunities to improve code readability, performance, etc.
-
-Focus on being clear, helpful, and thorough without assuming extensive prior knowledge.
-Use developer-friendly terms and analogies in your explanations.
-Identify 'gotchas' or less obvious parts of the code that might trip up someone new.
-Provide clear and relevant examples aligned with any provided context.]]
-
-local REVIEW =
-[[Your task is to review the provided code snippet, focusing specifically on its readability and maintainability.
-Identify any issues related to:
-- Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
-- The presence of unnecessary comments, or the lack of necessary ones.
-- Overly complex expressions that could benefit from simplification.
-- High nesting levels that make the code difficult to follow.
-- The use of excessively long names for variables or functions.
-- Any inconsistencies in naming, formatting, or overall coding style.
-- Repetitive code patterns that could be more efficiently handled through abstraction or optimization.
-
-Your feedback must be concise, directly addressing each identified issue with:
-- A clear description of the problem.
-- A concrete suggestion for how to improve or correct the issue.
-
-Format your feedback as follows:
-- Explain the high-level issue or problem briefly.
-- Provide a specific suggestion for improvement.
-
-If the code snippet has no readability issues, simply confirm that the code is clear and well-written as is.]]
-
-local REFACTOR =
-[[Your task is to refactor the provided code snippet, focusing specifically on its readability and maintainability.
-Identify any issues related to:
-- Naming conventions that are unclear, misleading or doesn't follow conventions for the language being used.
-- The presence of unnecessary comments, or the lack of necessary ones.
-- Overly complex expressions that could benefit from simplification.
-- High nesting levels that make the code difficult to follow.
-- The use of excessively long names for variables or functions.
-- Any inconsistencies in naming, formatting, or overall coding style.
-- Repetitive code patterns that could be more efficiently handled through abstraction or optimization.]]
-
--- Enhanced model management with persistence
-local config_file = vim.fn.stdpath("data") .. "/codecompanion_model_config.json"
-
-local function save_model_preference(adapter, model)
-  local config = { current_adapter = adapter, current_model = model }
-  local file = io.open(config_file, "w")
-  if file then
-    file:write(vim.json.encode(config))
-    file:close()
-  end
-end
-
-local function load_model_preference()
-  local file = io.open(config_file, "r")
-  if file then
-    local content = file:read("*a")
-    file:close()
-    local ok, config = pcall(vim.json.decode, content)
-    if ok and config then
-      return config.current_adapter, config.current_model
-    end
-  end
-  return "openai", "gpt-4.1-mini" -- defaults
-end
-
--- Enhanced model fetching with better error handling
-local function fetch_ollama_models()
-  local handle = io.popen("ollama list 2>/dev/null")
-  if not handle then
-    return {}
-  end
-
-  local output = handle:read("*a")
-  local success = handle:close()
-
-  if not success or output == "" then
-    return {}
-  end
-
-  local models = {}
-  local lines = vim.split(output, "\n")
-  for i = 2, #lines do -- Skip header
-    local line = lines[i]
-    if line and line ~= "" then
-      local model = line:match("^(%S+)")
-      if model then
-        table.insert(models, model)
-      end
-    end
-  end
-  return models
-end
-
-local models = {
-  openai = {
-    "gpt-4.1-mini",
-    "gpt-4.1",
-  },
-  anthropic = {
-    "claude-sonnet-4-20250514",
-    "claude-3-7-sonnet-20250219",
-    "claude-3-5-haiku-20241022",
-  },
-  ollama = fetch_ollama_models(),
-  openrouter = {
-    -- Qwen
-    "qwen/qwen-2.5-coder-32b-instruct:free",
-    "qwen/qwen3-coder:free",
-    "qwen/qwen2.5-coder-7b-instruct", -- Literal Free but not good
-    "qwen/qwen3-coder",
-    "qwen/qwen3-coder:exacto",
-    "qwen/qwen3-32b", -- None coder
-    "qwen/qwen-2.5-coder-32b-instruct",
-    "qwen/qwen3-coder-30b-a3b-instruct",
-    -- OpenAI
-    "openai/gpt-4.1-mini",
-    "openai/gpt-5-mini",
-    "openai/gpt-5.1-codex-mini",
-  },
-}
 
 -- Fallback models
 if #models.ollama == 0 then
@@ -206,7 +45,7 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
@@ -220,6 +59,8 @@ local function apply_model_config(adapter_name, model_name)
     end
     if adapter_name == "openrouter" then
       adapter.env.api_key = os.getenv("OPENROUTER_API_KEY")
+    elseif adapter_name == "gemini" then
+      adapter.env.api_key = os.getenv("GEMINI_API_KEY")
     end
     adapters[adapter_name] = function()
       return adapter
@@ -237,6 +78,8 @@ local function apply_model_config(adapter_name, model_name)
         schema.max_tokens = { default = 16384 }
       elseif adapter_name == "anthropic" then
         base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
+      elseif adapter_name == "gemini" then
+        base_env = { api_key = os.getenv("GEMINI_API_KEY") }
       elseif adapter_name == "openrouter" then
         base_env = {
           url = "https://openrouter.ai/api",
@@ -294,7 +137,9 @@ local function switch_model()
         local adapter = entry:gsub(" %(current%)", "")
         local icon = adapter == "openai" and "🚀" or
             adapter == "anthropic" and "💡" or
-            adapter == "ollama" and "🐑" or "💻"
+            adapter == "gemini" and "✨" or
+            adapter == "ollama" and "🐑" or
+            adapter == "openrouter" and "🌐" or "💻"
         return {
           value = entry,
           display = icon .. " " .. adapter:gsub("^%l", string.upper),
@@ -387,11 +232,25 @@ local function quick_switch_to_local()
   vim.notify("⚡ Quick switch to Local: " .. model, vim.log.levels.INFO)
 end
 
+local function quick_switch_to_gemini()
+  apply_model_config("gemini", "gemini-2.0-flash-exp")
+  save_model_preference("gemini", "gemini-2.0-flash-exp")
+  vim.notify("⚡ Quick switch to Gemini", vim.log.levels.INFO)
+end
+
+local function quick_switch_to_openrouter()
+  apply_model_config("openrouter", "qwen/qwen-2.5-coder-32b-instruct:free")
+  save_model_preference("openrouter", "qwen/qwen-2.5-coder-32b-instruct:free")
+  vim.notify("⚡ Quick switch to OpenRouter", vim.log.levels.INFO)
+end
+
 -- Enhanced commands
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
+vim.api.nvim_create_user_command("CCQuickGemini", quick_switch_to_gemini, { desc = "Quick switch to Gemini" })
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
+vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
@@ -416,7 +275,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       close_chat_at = 240,
       layout = "vertical",
       opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
-      provider = "default",
+      provider = "mini_diff",
     },
     chat = {
       intro_message = "✨ Using OpenAI: gpt-4.1-mini. Press ? for options ✨",
@@ -434,7 +293,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
     close_chat_at = 240,
     layout = "vertical",
     opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
-    provider = "default",
+    provider = "mini_diff",
   },
   extensions = {
     mcphub = {
@@ -530,6 +389,21 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       }
     }
   },
+  tools = {
+    -- Enable the insert_edit_into_file tool for applying changes from chat
+    insert_edit_into_file = {
+      enabled = true,
+      opts = {
+        -- Require approval before editing buffers (default: false)
+        require_approval_before = {
+          buffer = true,  -- Ask before editing open buffers
+          file = true,    -- Ask before editing files
+        },
+        -- Require confirmation after execution (default: true)
+        require_confirmation_after = true,
+      },
+    },
+  },
   interactions = {
     chat = {
       adapter = "openai",
@@ -606,6 +480,18 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
             },
             max_tokens = {
               default = 16384,
+            },
+          },
+        })
+      end,
+      gemini = function()
+        return require("codecompanion.adapters").extend("gemini", {
+          env = {
+            api_key = os.getenv("GEMINI_API_KEY"),
+          },
+          schema = {
+            model = {
+              default = "gemini-2.0-flash-exp",
             },
           },
         })
@@ -967,6 +853,45 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
         },
       },
     },
+    ["Find and Replace"] = {
+      interaction = "inline",
+      description = "Find and replace code with confirmation.",
+      opts = {
+        modes = { "v" },
+        alias = "find-replace",
+        auto_submit = false,
+        user_prompt = true,
+        stop_context_insertion = true,
+      },
+      prompts = {
+        {
+          role = "user",
+          content = function(context)
+            local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+
+            -- Prompt user for find and replace patterns
+            local find_pattern = vim.fn.input("Find pattern: ")
+            if find_pattern == "" then
+              vim.notify("Find pattern cannot be empty", vim.log.levels.WARN)
+              return nil
+            end
+
+            local replace_pattern = vim.fn.input("Replace with: ")
+
+            return string.format(
+              "In the following code, find all instances of '%s' and replace them with '%s'. Return ONLY the modified code without explanations:\\n\\n```%s\\n%s\\n```",
+              find_pattern,
+              replace_pattern,
+              context.filetype,
+              code
+            )
+          end,
+          opts = {
+            contains_code = true,
+          },
+        },
+      },
+    },
   },
 })
 
@@ -1008,18 +933,37 @@ vim.api.nvim_create_autocmd({ "User" }, {
   end,
 })
 
--- Enhanced buffer management
+-- Enhanced buffer management - Disable Supermaven in AI chat
 local function is_codecompanion_buffer(bufnr)
   local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-  return ft == "codecompanion" or vim.api.nvim_buf_get_name(bufnr):match("codecompanion")
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  return ft == "codecompanion"
+    or bufname:match("codecompanion")
+    or bufname:match("CodeCompanion")
 end
 
-vim.api.nvim_create_autocmd("BufEnter", {
+local codecompanion_group = vim.api.nvim_create_augroup("CodeCompanionSupermaven", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+  group = codecompanion_group,
   callback = function(args)
     if is_codecompanion_buffer(args.buf) then
-      vim.cmd("SupermavenStop")
-    else
-      vim.cmd("SupermavenRestart")
+      vim.cmd("silent! SupermavenStop")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  group = codecompanion_group,
+  callback = function(args)
+    if is_codecompanion_buffer(args.buf) then
+      -- Small delay to ensure we're in a normal buffer
+      vim.defer_fn(function()
+        local current_buf = vim.api.nvim_get_current_buf()
+        if not is_codecompanion_buffer(current_buf) then
+          vim.cmd("silent! SupermavenRestart")
+        end
+      end, 100)
     end
   end,
 })

@@ -80,6 +80,7 @@ wk.add({
   { "<leader>aic",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat toggle' },
   { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Model Switch' },
   { "<leader>aih",   '<Cmd>CodeCompanionHistory<CR>',                               desc = 'AI History' },
+  { "<leader>aig",   '<Cmd>CodeCompanion /staged-commit<CR>',                       desc = 'AI Generate Commit' },
 
   { "<C-a>i",         mode = { "v" },  group = "AI commands" },
   { "<C-a>id",        mode = { "v" }, '<Cmd>CodeCompanion /inline-doc<CR>',         desc = 'AI Inline Doc' },
@@ -87,6 +88,7 @@ wk.add({
   { "<C-a>if",        mode = { "v" }, '<Cmd>CodeCompanion /refactor<CR>',           desc = 'AI Refactor' },
   { "<C-a>ir",        mode = { "v" }, '<Cmd>CodeCompanion /review<CR>',             desc = 'AI Review' },
   { "<C-a>in",        mode = { "v" }, '<Cmd>CodeCompanion /naming<CR>',             desc = 'AI Better Naming' },
+  { "<C-a>iR",        mode = { "v" }, '<Cmd>CodeCompanion /find-replace<CR>',       desc = 'AI Find & Replace' },
   { "<C-a>is",        mode = { "v" }, '<Cmd>CCSwitchModel<CR>',                     desc = 'AI Switch Model' },
 
   { "<leader>b",     group = "Buffers" },

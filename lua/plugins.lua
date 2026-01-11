@@ -72,8 +72,10 @@ require("lazy").setup({
   -- AI Code Companion
   {
     "olimorris/codecompanion.nvim",
+    branch = "main", -- Use main branch for latest features
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
+      "nvim-lua/plenary.nvim",
       "ravitemer/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
     },
