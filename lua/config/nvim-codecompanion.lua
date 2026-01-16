@@ -24,9 +24,19 @@ _G.codecompanion_config = {
   },
 }
 
+-- Simple global state for current adapter/model (updated by apply_model_config)
+_G.codecompanion_current_state = {
+  adapter = "openai",
+  model = "gpt-4.1-mini"
+}
+
 -- Helper functions (defined early to avoid reference errors)
 local function get_current_adapter()
-  return _G.codecompanion_config.interactions.chat.adapter or "openai"
+  local adapter = _G.codecompanion_config.interactions.chat.adapter
+  if type(adapter) == "table" then
+    return adapter.name or "openai"
+  end
+  return adapter or "openai"
 end
 
 local function get_current_model_name()
@@ -49,21 +59,7 @@ local function get_current_model_name()
     return "gemini-2.5-pro" -- default
   end
 
-  -- Handle claude_code ACP adapter
-  if adapter_name == "claude_code" then
-    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
-    if type(chat_adapter) == "table" and chat_adapter.model then
-      return chat_adapter.model
-    end
-    local acp_adapters = _G.codecompanion_config.adapters.acp
-    if acp_adapters and acp_adapters.claude_code then
-      local adapter = acp_adapters.claude_code()
-      if adapter.defaults and adapter.defaults.model then
-        return adapter.defaults.model
-      end
-    end
-    return "sonnet" -- default
-  end
+
 
   -- Handle HTTP adapters
   local adapter_fn = _G.codecompanion_config.adapters.http[adapter_name]
@@ -77,13 +73,37 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", claude_code = "🧠" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
+local function get_intro_message()
+  local adapter_name = _G.codecompanion_current_state.adapter
+  local model_name = _G.codecompanion_current_state.model
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮" }
+  local icon = icons[adapter_name] or "✨"
+
+  local display_name = adapter_name:gsub("^%l", string.upper)
+  if adapter_name == "gemini_cli" then
+    display_name = "Gemini CLI"
+  end
+
+  return icon .. " Using " .. display_name .. ": " .. model_name .. ". Press ? for options " .. icon
+end
+
 local function apply_model_config(adapter_name, model_name)
+  -- Update the simple global state first (this is what get_intro_message reads)
+  _G.codecompanion_current_state.adapter = adapter_name
+  _G.codecompanion_current_state.model = model_name
+
+  -- Update the intro_message string in config (CodeCompanion expects a string, not a function)
+  _G.codecompanion_config.display.chat.intro_message = get_intro_message()
+
   -- Handle ACP adapters (like gemini_cli) differently
   if adapter_name == "gemini_cli" then
+    -- Don't show intro message for Gemini CLI
+    _G.codecompanion_config.display.chat.intro_message = ""
+
     -- Update the ACP adapter with the new model
     _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
     _G.codecompanion_config.adapters.acp.gemini_cli = function()
@@ -101,29 +121,15 @@ local function apply_model_config(adapter_name, model_name)
     _G.codecompanion_config.interactions.inline.adapter = adapter_config
     _G.codecompanion_config.interactions.agent.adapter = adapter_config
 
-    _G.codecompanion_config.display.chat.intro_message = "🔮 Using Gemini CLI: " .. model_name .. ". Press ? for options 🔮"
-    return
-  end
-
-  -- Handle claude_code ACP adapter
-  if adapter_name == "claude_code" then
-    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
-    _G.codecompanion_config.adapters.acp.claude_code = function()
-      return require("codecompanion.adapters").extend("claude_code", {
-        defaults = {
-          model = model_name,
-        },
-      })
+    -- Refresh CodeCompanion with updated config
+    local codecompanion = require("codecompanion")
+    if codecompanion.adapters_cache then
+      codecompanion.adapters_cache["gemini_cli"] = nil
     end
-
-    local adapter_config = { name = "claude_code", model = model_name }
-    _G.codecompanion_config.interactions.chat.adapter = adapter_config
-    _G.codecompanion_config.interactions.inline.adapter = adapter_config
-    _G.codecompanion_config.interactions.agent.adapter = adapter_config
-
-    _G.codecompanion_config.display.chat.intro_message = "🧠 Using Claude Code: " .. model_name .. ". Press ? for options 🧠"
+    codecompanion.setup(_G.codecompanion_config)
     return
   end
+
 
   -- Handle HTTP adapters (existing logic)
   local adapters = _G.codecompanion_config.adapters.http
@@ -175,8 +181,6 @@ local function apply_model_config(adapter_name, model_name)
     interaction.adapter = adapter_name
   end
 
-  _G.codecompanion_config.display.chat.intro_message = "✨ Using " ..
-      adapter_name:gsub("^%l", string.upper) .. ": " .. model_name .. ". Press ? for options ✨"
 
   -- Clear caches and re-setup
   local codecompanion = require("codecompanion")
@@ -216,8 +220,7 @@ local function switch_model()
             adapter == "gemini" and "✨" or
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
-            adapter == "gemini_cli" and "🔮" or
-            adapter == "claude_code" and "🧠" or "💻"
+            adapter == "gemini_cli" and "🔮" or "💻"
         return {
           value = entry,
           display = icon .. " " .. adapter:gsub("^%l", string.upper),
@@ -243,10 +246,17 @@ local function switch_model()
           finder = require('telescope.finders').new_table({
             results = available_models,
             entry_maker = function(model)
-              local current = get_current_model_name()
+              -- Get the saved model for this specific adapter, not the global current
+              local saved_adapter, saved_model = load_model_preference()
+              local current_model = nil
+              if saved_adapter == adapter_name then
+                current_model = saved_model
+              elseif get_current_adapter() == adapter_name then
+                current_model = get_current_model_name()
+              end
               return {
                 value = model,
-                display = model == current and "✓ " .. model or "  " .. model,
+                display = model == current_model and "✓ " .. model or "  " .. model,
                 ordinal = model
               }
             end
@@ -329,13 +339,6 @@ local function quick_switch_to_gemini_cli()
   vim.notify("🔮 Quick switch to Gemini CLI: " .. default_model, vim.log.levels.INFO)
 end
 
-local function quick_switch_to_claude_code()
-  local default_model = models.claude_code[1] or "sonnet"
-  apply_model_config("claude_code", default_model)
-  save_model_preference("claude_code", default_model)
-  vim.notify("🧠 Quick switch to Claude Code: " .. default_model, vim.log.levels.INFO)
-end
-
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
@@ -343,7 +346,6 @@ vim.api.nvim_create_user_command("CCQuickGemini", quick_switch_to_gemini, { desc
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
 vim.api.nvim_create_user_command("CCQuickGeminiCLI", quick_switch_to_gemini_cli, { desc = "Quick switch to Gemini CLI (Pro)" })
-vim.api.nvim_create_user_command("CCQuickClaudeCode", quick_switch_to_claude_code, { desc = "Quick switch to Claude Code" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
@@ -363,7 +365,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       provider = "mini_diff",
     },
     chat = {
-      intro_message = "✨ Using OpenAI: gpt-4.1-mini. Press ? for options ✨",
+      intro_message = get_intro_message(),
       show_header_separator = false,
       separator = "─",
       show_references = true,

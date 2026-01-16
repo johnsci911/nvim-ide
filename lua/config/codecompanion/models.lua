@@ -60,11 +60,6 @@ M.models = {
     "gemini-3-flash-preview",
     "gemini-3-pro-preview", -- Paid
   },
-  claude_code = {
-    "sonnet",
-    "opus",
-    "haiku",
-  },
   ollama = fetch_ollama_models(),
   openrouter = {
     -- Claude (Anthropic)
