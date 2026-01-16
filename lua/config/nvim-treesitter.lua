@@ -1,94 +1,62 @@
-require 'nvim-treesitter.configs'.setup {
-    ensure_installed = {
-        'tsx',
-        'html',
-        'php_only',
-        'php',
-        'blade',
-        'bash',
-        'css',
-        'javascript',
-        'lua',
-        'c',
-        'c_sharp',
-        'cmake',
-        'cpp',
-        'dockerfile',
-        'git_config',
-        'git_rebase',
-        'go',
-        'vue',
-        'xml',
-        'regex',
-        'yaml',
-        'toml',
-        'sql',
-        'scss',
-        'sxhkdrc',
-        'rust',
-        'svelte',
-        'ssh_config',
-        'vim',
-        'xml',
-        'yuck',
-        'typescript',
-        'markdown_inline'
-    }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    modules = {},
-    sync_install = true,
-    auto_install = true,
-    ignore_install = {},
-    highlight = {
-        enable = true, -- false will disable the whole extension
-        disable = {
-            -- 'vue',
-        }
-    },
-    indent = {
-        enable = true,
-        disable = {
-            -- "python",
-            -- "html",
-            -- "javascript",
-            -- "php",
-        }
-    },
-    playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25,        -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false -- Whether the query persists across vim sessions
-    },
-    autotag = {
-        enable = true,
-        enable_rename = true,
-        enable_close = true,
-        enable_close_on_slash = true,
-    },
-    context_commentstring = {
-        enable = true,
-        config = {
-            javascriptreact = {
-                style_element = '{/*%s*/}'
-            }
-        }
-    },
-    refactor = {
-        highlight_definitions = { enable = true }
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<Leader>,s",
-            node_incremental = "<Leader>,s",
-            scope_incremental = "<Leader>,c",
-            node_decremental = "<Leader>,d",
-        }
-    },
+-- Enable treesitter-based highlighting
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function()
+        pcall(vim.treesitter.start)
+    end,
+})
+
+-- Enable treesitter-based indentation
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function()
+        if vim.treesitter.language.get_lang(vim.bo.filetype) then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
+
+-- Parsers to install (run :TSInstallAll to install)
+local ensure_installed = {
+    'tsx',
+    'html',
+    'php',
+    'bash',
+    'css',
+    'javascript',
+    'lua',
+    'c',
+    'c_sharp',
+    'cmake',
+    'cpp',
+    'dockerfile',
+    'git_config',
+    'git_rebase',
+    'go',
+    'vue',
+    'xml', 'regex',
+    'yaml',
+    'toml',
+    'sql',
+    'scss',
+    'rust',
+    'svelte',
+    'ssh_config',
+    'vim',
+    'typescript',
+    'markdown',
+    'markdown_inline',
+    'yuck',
+    'norg',
+    'blade'
 }
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+vim.api.nvim_create_user_command('TSInstallAll', function()
+    for _, lang in ipairs(ensure_installed) do
+        vim.cmd('TSInstall ' .. lang)
+    end
+end, { desc = 'Install all commonly used treesitter parsers' })
 
+-- Blade support
+local parser_config = require("nvim-treesitter.parsers")
 parser_config.blade = {
     install_info = {
         url = "https://github.com/EmranMR/tree-sitter-blade",
@@ -107,6 +75,11 @@ vim.filetype.add({
     }
 })
 
+-- Incremental selection keymaps
+vim.keymap.set('n', '<Leader>,s', ':TSUpdate<CR>', { desc = 'Treesitter: Update' })
+vim.keymap.set('n', '<Leader>,i', ':TSInstallInfo<CR>', { desc = 'Treesitter: Install Info' })
+
+-- Neorg conceal
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = { "*.norg" },
     command = "set conceallevel=3"

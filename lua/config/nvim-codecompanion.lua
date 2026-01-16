@@ -525,6 +525,13 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           description = "Stop Request",
         },
       },
+      slash_commands = {
+        image = {
+          opts = {
+            provider = "snacks",
+          },
+        },
+      },
     },
     inline = {
       adapter = "openai",
@@ -576,6 +583,9 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           env = {
             api_key = os.getenv("GEMINI_API_KEY"),
           },
+          opts = {
+            vision = true,
+          },
           schema = {
             model = {
               default = "gemini-2.0-flash-exp",
@@ -603,6 +613,9 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
         return require("codecompanion.adapters").extend("gemini_cli", {
           defaults = {
             auth_method = "oauth-personal", -- Uses your Google login / Gemini Pro subscription
+          },
+          opts = {
+            vision = true,
           },
         })
       end,

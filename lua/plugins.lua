@@ -73,6 +73,9 @@ require("lazy").setup({
   {
     "olimorris/codecompanion.nvim",
     branch = "main", -- Use main branch for latest features
+    opts = {
+      log_level = "ERROR",
+    },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
@@ -97,18 +100,15 @@ require("lazy").setup({
   "jellydn/spinner.nvim",
   'milanglacier/minuet-ai.nvim',
   'supermaven-inc/supermaven-nvim',
-
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate'
+    build = ':TSUpdate',
   },
   'windwp/nvim-ts-autotag',
   'nvim-treesitter/nvim-treesitter-context',
-  'nvim-treesitter/playground',
   'windwp/nvim-autopairs',
 
-  -- Notification
   {
     "rcarriga/nvim-notify",
   },
@@ -117,14 +117,11 @@ require("lazy").setup({
   'kyazdani42/nvim-web-devicons',
   'ryanoasis/vim-devicons',
 
-  -- Status Line and Bufferline TODO: find tabbar plugin for 0.10.^
   'romgrk/barbar.nvim',
 
-  -- Keymappings
   'folke/which-key.nvim',
   'echasnovski/mini.icons',
 
-  -- Colors
   'NvChad/nvim-colorizer.lua',
 
   -- Git
@@ -183,7 +180,6 @@ require("lazy").setup({
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
   },
 
-  -- Code preview
   {
     'michaelrommel/nvim-silicon',
     lazy = true,
@@ -215,7 +211,7 @@ require("lazy").setup({
   },
 
   'ghassan0/telescope-glyph.nvim',
-  'ibhagwan/fzf-lua',
+
   'dyng/ctrlsf.vim',
 
   -- Themes
@@ -255,7 +251,6 @@ require("lazy").setup({
   -- Floating Terminal
   'voldikss/vim-floaterm',
 
-  -- Comment
   'terrortylor/nvim-comment',
 
   -- Project Rooter

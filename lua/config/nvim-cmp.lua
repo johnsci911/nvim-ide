@@ -1,7 +1,6 @@
 vim.o.completeopt = "menuone,noselect"
 
 local cmp = require 'cmp'
-
 local lspkind = require('lspkind')
 
 local source_mapping = {
@@ -10,7 +9,7 @@ local source_mapping = {
     nvim_lua = "[Lua]",
     minuet = "[AI]",
     path = "[Path]",
-    supermaven = "[⚡]" -- Lightning icon
+    supermaven = "[⚡]"
 }
 
 cmp.setup {
@@ -58,31 +57,29 @@ cmp.setup {
         autoComplete = false
     },
     formatting = {
-        format = function(entry, vim_item)
-            -- if you have lspkind installed, you can use it like
-            -- in the following line:
-            vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
-            vim_item.menu = source_mapping[entry.source.name]
+        format = lspkind.cmp_format({
+            mode = "symbol_text",
+            maxwidth = 80,
+            ellipsis_char = "...",
+            before = function(entry, vim_item)
+                vim_item.menu = source_mapping[entry.source.name]
 
-            if entry.source.name == "minuet" then
-                local detail = (entry.completion_item.labelDetails or {}).detail
+                if entry.source.name == "minuet" then
+                    local detail = (entry.completion_item.labelDetails or {}).detail
 
-                vim_item.kind = ""
+                    vim_item.kind = ""
 
-                if detail and detail:find('.*%%.*') then
-                    vim_item.kind = vim_item.kind .. ' ' .. detail
+                    if detail and detail:find('.*%%.*') then
+                        vim_item.kind = vim_item.kind .. ' ' .. detail
+                    end
+
+                    if (entry.completion_item.data or {}).multiline then
+                        vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+                    end
                 end
 
-                if (entry.completion_item.data or {}).multiline then
-                    vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-                end
-            end
-
-            local maxwidth = 80
-
-            vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-
-            return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
-        end,
+                return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+            end,
+        }),
     },
 }

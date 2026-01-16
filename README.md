@@ -13,10 +13,10 @@
 - **Neoclip** - Clipboard
 - **Neorg** - ORG Mode for organization (Similar to Emacs)
 - **CodeCompanion** AI chat superpowers (I added a model switcher feature: <leader>ais)
-- **AI** - Supermaven (online), cmp minuet (offline) - Code suggestion while you type.
+- **AI** Complation - Supermaven (online), cmp minuet (offline) - Code suggestion while you type.
 
 #### What's new
-- Fast AI tools - (CodeCompanion, Supermaven, Minuet) 🔥
+- Fast AI tools - (CodeCompanion (ACP), Supermaven, Minuet) 🔥
 - Re-add Galaxyline status line - (Will replace because of compatibility issues)
 - Clipboards!
 - Laravel blade syntax highlighting (Still Beta)
