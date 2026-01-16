@@ -102,8 +102,6 @@ local function apply_model_config(adapter_name, model_name)
     _G.codecompanion_config.interactions.agent.adapter = adapter_config
 
     _G.codecompanion_config.display.chat.intro_message = "🔮 Using Gemini CLI: " .. model_name .. ". Press ? for options 🔮"
-
-    require("codecompanion").setup(_G.codecompanion_config)
     return
   end
 
@@ -124,8 +122,6 @@ local function apply_model_config(adapter_name, model_name)
     _G.codecompanion_config.interactions.agent.adapter = adapter_config
 
     _G.codecompanion_config.display.chat.intro_message = "🧠 Using Claude Code: " .. model_name .. ". Press ? for options 🧠"
-
-    require("codecompanion").setup(_G.codecompanion_config)
     return
   end
 
@@ -276,7 +272,7 @@ local function switch_model()
   }):find()
 end
 
-local function get_git_diff()
+_G.get_git_diff = function()
   local output = vim.fn.system("git diff")
   if type(output) == "table" then
     -- If it's a table, join it with newlines
@@ -285,7 +281,7 @@ local function get_git_diff()
   return output
 end
 
-local function get_git_staged_diff()
+_G.get_git_staged_diff = function()
   local output = vim.fn.system("git diff --staged")
   if type(output) == "table" then
     -- If it's a table, join it with newlines

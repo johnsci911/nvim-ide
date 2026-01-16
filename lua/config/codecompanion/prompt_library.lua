@@ -1,60 +1,14 @@
 local M = {}
 
-local function get_git_diff()
-  return vim.fn.system("git diff")
-end
 
-local function get_git_staged_diff()
-  return vim.fn.system("git diff --staged")
-end
 
 local prompts = require("config.codecompanion.prompts")
 local EXPLAIN = prompts.EXPLAIN
 local REVIEW = prompts.REVIEW
 local REFACTOR = prompts.REFACTOR
+local ACP_MANUAL = prompts.ACP_MANUAL
 
 M.library = {
-    ["Generate a Commit Message"] = {
-      prompts = {
-        {
-          role = "user",
-          content = function()
-            return
-                "Write commit message with commitizen convention. Write clear, informative commit messages that explain the 'what' and 'why' behind changes, not just the 'how'."
-                .. "\n\n```\n"
-                .. get_git_diff()
-                .. "\n```"
-          end,
-          opts = {
-            contains_code = true,
-          },
-        },
-      },
-    },
-    ["Generate a Commit Message for Staged"] = {
-      interaction = "chat",
-      description = "Generate a commit message for staged change",
-      opts = {
-        alias = "staged-commit",
-        auto_submit = true,
-        is_slash_cmd = true,
-      },
-      prompts = {
-        {
-          role = "user",
-          content = function()
-            return
-                "Write commit message for the change with commitizen convention. Write clear, informative commit messages that explain the 'what' and 'why' behind changes, not just the 'how'."
-                .. "\n\n```\n"
-                .. get_git_staged_diff()
-                .. "\n```"
-          end,
-          opts = {
-            contains_code = true,
-          },
-        },
-      }
-    },
     ["Explain"] = {
       interaction = "chat",
       description = "Explain how code in a buffer works",
@@ -113,11 +67,35 @@ M.library = {
         },
       },
     },
+    ["Generate a Commit Message"] = {
+      interaction = "chat",
+      description = "Generate a commit message",
+      opts = {
+        alias = "generate-commit",
+        auto_submit = true,
+        is_slash_cmd = true,
+      },
+      prompts = {
+        {
+          role = "user",
+          content = function()
+            return
+                "Write commit message with commitizen convention. Write clear, informative commit messages that explain the 'what' and 'why' behind changes, not just the 'how'."
+                .. "\n\n```\n"
+                .. _G.get_git_diff()
+                .. "\n```"
+          end,
+          opts = {
+            contains_code = true,
+          },
+        },
+      },
+    },
     ["Generate a Commit Message for Staged"] = {
       interaction = "chat",
       description = "Generate a commit message for staged change",
       opts = {
-        alias = "staged-commit",
+        alias = "generate-commit-staged",
         auto_submit = true,
         is_slash_cmd = true,
       },
@@ -128,7 +106,7 @@ M.library = {
             return
                 "Write commit message for the change with commitizen convention. Write clear, informative commit messages that explain the 'what' and 'why' behind changes, not just the 'how'."
                 .. "\n\n```\n"
-                .. vim.fn.system("git diff --staged")
+                .. _G.get_git_staged_diff()
                 .. "\n```"
           end,
           opts = {
@@ -393,6 +371,32 @@ M.library = {
         },
       },
     },
+    ["Autonomous Code Proposer"] = {
+      interaction = "chat",
+      description = "Suggest code change with web search, but ask for confirmation before applying.",
+      opts = {
+        alias = "acp",
+        auto_submit = false,
+        is_slash_cmd = true,
+      },
+      prompts = {
+        {
+          role = "system",
+          content = ACP_MANUAL,
+          opts = {
+            visible = false,
+          },
+        },
+        {
+          role = "user",
+          content = "Propose a change to the following code. You can use web search if needed.",
+        },
+      },
+    },
 }
 
 return M
+
+
+
+
