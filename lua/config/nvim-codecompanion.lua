@@ -31,6 +31,41 @@ end
 
 local function get_current_model_name()
   local adapter_name = get_current_adapter()
+
+  -- Handle ACP adapters (like gemini_cli) which may have model in interactions
+  if adapter_name == "gemini_cli" then
+    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
+    if type(chat_adapter) == "table" and chat_adapter.model then
+      return chat_adapter.model
+    end
+    -- Check ACP adapter defaults
+    local acp_adapters = _G.codecompanion_config.adapters.acp
+    if acp_adapters and acp_adapters.gemini_cli then
+      local adapter = acp_adapters.gemini_cli()
+      if adapter.defaults and adapter.defaults.model then
+        return adapter.defaults.model
+      end
+    end
+    return "gemini-2.5-pro" -- default
+  end
+
+  -- Handle claude_code ACP adapter
+  if adapter_name == "claude_code" then
+    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
+    if type(chat_adapter) == "table" and chat_adapter.model then
+      return chat_adapter.model
+    end
+    local acp_adapters = _G.codecompanion_config.adapters.acp
+    if acp_adapters and acp_adapters.claude_code then
+      local adapter = acp_adapters.claude_code()
+      if adapter.defaults and adapter.defaults.model then
+        return adapter.defaults.model
+      end
+    end
+    return "sonnet" -- default
+  end
+
+  -- Handle HTTP adapters
   local adapter_fn = _G.codecompanion_config.adapters.http[adapter_name]
   if adapter_fn then
     local adapter = adapter_fn()
@@ -42,11 +77,59 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", claude_code = "🧠" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
 local function apply_model_config(adapter_name, model_name)
+  -- Handle ACP adapters (like gemini_cli) differently
+  if adapter_name == "gemini_cli" then
+    -- Update the ACP adapter with the new model
+    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
+    _G.codecompanion_config.adapters.acp.gemini_cli = function()
+      return require("codecompanion.adapters").extend("gemini_cli", {
+        defaults = {
+          auth_method = "oauth-personal",
+          model = model_name,
+        },
+      })
+    end
+
+    -- For ACP adapters, use the { name, model } format in interactions
+    local adapter_config = { name = "gemini_cli", model = model_name }
+    _G.codecompanion_config.interactions.chat.adapter = adapter_config
+    _G.codecompanion_config.interactions.inline.adapter = adapter_config
+    _G.codecompanion_config.interactions.agent.adapter = adapter_config
+
+    _G.codecompanion_config.display.chat.intro_message = "🔮 Using Gemini CLI: " .. model_name .. ". Press ? for options 🔮"
+
+    require("codecompanion").setup(_G.codecompanion_config)
+    return
+  end
+
+  -- Handle claude_code ACP adapter
+  if adapter_name == "claude_code" then
+    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
+    _G.codecompanion_config.adapters.acp.claude_code = function()
+      return require("codecompanion.adapters").extend("claude_code", {
+        defaults = {
+          model = model_name,
+        },
+      })
+    end
+
+    local adapter_config = { name = "claude_code", model = model_name }
+    _G.codecompanion_config.interactions.chat.adapter = adapter_config
+    _G.codecompanion_config.interactions.inline.adapter = adapter_config
+    _G.codecompanion_config.interactions.agent.adapter = adapter_config
+
+    _G.codecompanion_config.display.chat.intro_message = "🧠 Using Claude Code: " .. model_name .. ". Press ? for options 🧠"
+
+    require("codecompanion").setup(_G.codecompanion_config)
+    return
+  end
+
+  -- Handle HTTP adapters (existing logic)
   local adapters = _G.codecompanion_config.adapters.http
   local adapter_fn = adapters[adapter_name]
   if adapter_fn then
@@ -91,7 +174,7 @@ local function apply_model_config(adapter_name, model_name)
     end
   end
 
-  -- Update allinteractions
+  -- Update all interactions
   for _, interaction in pairs(_G.codecompanion_config.interactions) do
     interaction.adapter = adapter_name
   end
@@ -136,7 +219,9 @@ local function switch_model()
             adapter == "anthropic" and "💡" or
             adapter == "gemini" and "✨" or
             adapter == "ollama" and "🐑" or
-            adapter == "openrouter" and "🌐" or "💻"
+            adapter == "openrouter" and "🌐" or
+            adapter == "gemini_cli" and "🔮" or
+            adapter == "claude_code" and "🧠" or "💻"
         return {
           value = entry,
           display = icon .. " " .. adapter:gsub("^%l", string.upper),
@@ -241,12 +326,28 @@ local function quick_switch_to_openrouter()
   vim.notify("⚡ Quick switch to OpenRouter", vim.log.levels.INFO)
 end
 
+local function quick_switch_to_gemini_cli()
+  local default_model = models.gemini_cli[1] or "gemini-2.5-pro"
+  apply_model_config("gemini_cli", default_model)
+  save_model_preference("gemini_cli", default_model)
+  vim.notify("🔮 Quick switch to Gemini CLI: " .. default_model, vim.log.levels.INFO)
+end
+
+local function quick_switch_to_claude_code()
+  local default_model = models.claude_code[1] or "sonnet"
+  apply_model_config("claude_code", default_model)
+  save_model_preference("claude_code", default_model)
+  vim.notify("🧠 Quick switch to Claude Code: " .. default_model, vim.log.levels.INFO)
+end
+
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
 vim.api.nvim_create_user_command("CCQuickGemini", quick_switch_to_gemini, { desc = "Quick switch to Gemini" })
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
+vim.api.nvim_create_user_command("CCQuickGeminiCLI", quick_switch_to_gemini_cli, { desc = "Quick switch to Gemini CLI (Pro)" })
+vim.api.nvim_create_user_command("CCQuickClaudeCode", quick_switch_to_claude_code, { desc = "Quick switch to Claude Code" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
@@ -495,6 +596,15 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
             model = {
               default = "qwen/qwen-2.5-coder-32b-instruct:free",
             },
+          },
+        })
+      end,
+    },
+    acp = {
+      gemini_cli = function()
+        return require("codecompanion.adapters").extend("gemini_cli", {
+          defaults = {
+            auth_method = "oauth-personal", -- Uses your Google login / Gemini Pro subscription
           },
         })
       end,
