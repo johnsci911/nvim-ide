@@ -24,7 +24,7 @@ require('config.nvim-stripwhitespace')
 require('config.nvim-tailwindcss')
 require('config.nvim-telescope')
 require('config.nvim-tree')
-require('config.nvim-treesitter')
+-- require('config.nvim-treesitter') -- Now loaded via plugin config
 require('config.nvim-whichkey-v3')
 require('config.nvim-indent-blankline')
 require('config.nvim-trouble')

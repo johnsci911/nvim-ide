@@ -104,8 +104,12 @@ require("lazy").setup({
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    config = function()
+      -- Load the treesitter configuration
+      require('config.nvim-treesitter')
+    end,
   },
-  'nvim-treesitter/playground',
+  -- 'nvim-treesitter/playground', -- Incompatible with current nvim-treesitter
   'windwp/nvim-ts-autotag',
   'nvim-treesitter/nvim-treesitter-context',
   'windwp/nvim-autopairs',
@@ -203,7 +207,6 @@ require("lazy").setup({
     'nvim-neorg/neorg',
     dependencies = { 'luarocks.nvim' },
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-    version = "v7.0.0",
     config = true,
   },
   {
