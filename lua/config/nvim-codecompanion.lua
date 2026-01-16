@@ -413,7 +413,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           duplicate = { n = "<C-y>", i = "<C-y>" },
         },
         ---Automatically generate titles for new chats
-        auto_generate_title = true,
+        auto_generate_title = false,
         title_generation_opts = {
           ---Adapter for generating titles (use HTTP adapter since ACP doesn't support this)
           adapter = "gemini",
