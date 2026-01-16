@@ -1,8 +1,18 @@
-(directive) @tag
-(directive_start) @tag
-(directive_end) @tag
-(comment) @comment @spell
-(directive) @function
-(directive_start) @function
-(directive_end) @function
-(keyword) @function
+; inherits: html
+
+[
+  (directive)
+  (directive_start)
+  (directive_end)
+] @tag
+
+[
+  (php_tag)
+  (php_end_tag)
+  "{{"
+  "}}"
+  "{!!"
+  "!!}"
+  "("
+  ")"
+] @punctuation.bracket
