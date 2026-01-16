@@ -47,10 +47,11 @@ M.models = {
     "claude-3-5-haiku-20241022",
   },
   gemini = {
-    "gemini-2.5-pro",
-    "gemini-2.5-flash",
     "gemini-2.5-flash-lite",
-    "gemini-2.0-flash",
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-3-flash-preview",
+    "gemini-3-pro-preview", -- Paid
   },
   gemini_cli = {
     "gemini-2.5-pro",
