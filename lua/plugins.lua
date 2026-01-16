@@ -105,9 +105,11 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
   },
+  'nvim-treesitter/playground',
   'windwp/nvim-ts-autotag',
   'nvim-treesitter/nvim-treesitter-context',
   'windwp/nvim-autopairs',
+
 
   {
     "rcarriga/nvim-notify",

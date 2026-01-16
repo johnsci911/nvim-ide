@@ -84,3 +84,42 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = { "*.norg" },
     command = "set conceallevel=3"
 })
+
+-- Treesitter configuration
+require('nvim-treesitter.configs').setup({
+    -- Enable syntax highlighting
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+    
+    -- Auto install parsers when entering a buffer
+    auto_install = false,
+    
+    -- Parsers to ensure are installed
+    ensure_installed = ensure_installed,
+    
+    -- Playground configuration
+    playground = {
+        enable = true,
+        disable = {},
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        persist_queries = false, -- Whether the query persists across vim sessions
+        keybindings = {
+            toggle_query_editor = 'o',
+            toggle_hl_groups = 'i',
+            toggle_injections = 't',
+            toggle_anonymous_nodes = 'a',
+            toggle_language_display = 'I',
+            focus_language = 'f',
+            unfocus_language = 'F',
+            update = 'R',
+            goto_node = '<cr>',
+            show_help = '?',
+        },
+    }
+})
+
+-- Playground keymaps
+vim.keymap.set('n', '<Leader>,p', ':TSPlaygroundToggle<CR>', { desc = 'Treesitter: Toggle Playground' })
+vim.keymap.set('n', '<Leader>,h', ':TSHighlightCapturesUnderCursor<CR>', { desc = 'Treesitter: Highlight Captures' })
