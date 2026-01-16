@@ -54,6 +54,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- List of LSP servers to configure
+-- Note: omnisharp and csharp_ls are configured in their own files
 local servers = {
   "bashls",
   "clangd",
@@ -71,19 +72,22 @@ local servers = {
   "graphql",
   "lua_ls",
   "eslint",
-  "omnisharp",
   "taplo",
   "sqlls",
   "marksman",
   "ts_ls",
   "svelte",
-  "csharp_ls",
 }
 
 -- Setup Mason for LSP management
 require("mason").setup()
+
+-- Combine servers with C# servers for Mason installation
+-- Note: csharp_ls removed due to broken NuGet package, using omnisharp instead
+local mason_servers = vim.list_extend(vim.deepcopy(servers), { "omnisharp" })
+
 require("mason-lspconfig").setup({
-  ensure_installed = servers,
+  ensure_installed = mason_servers,
   automatic_installation = true,
 })
 

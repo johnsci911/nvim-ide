@@ -63,4 +63,4 @@ require('lsp.omnisharp')
 require('lsp.graphql')
 require('lsp.ts_ls')
 require('lsp.svelte')
-require('lsp.csharp_ls')
+-- require('lsp.csharp_ls') -- Disabled: NuGet package is broken, using omnisharp instead

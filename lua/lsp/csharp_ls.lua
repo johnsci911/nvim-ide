@@ -1,9 +1,7 @@
-vim.lsp.enable("csharp_ls")
-
-vim.lsp.config("csharp_ls", {
+-- csharp_ls configuration using modern vim.lsp.config API
+-- Note: Currently disabled due to broken NuGet package
+vim.lsp.config.csharp_ls = {
   cmd = { "csharp-ls" },
   filetypes = { "cs" },
-  init_options = {
-    AutomaticWorkspaceInit = true,
-  }
-})
+  root_dir = vim.fs.root(0, { "*.sln", "*.csproj", ".git" }),
+}
