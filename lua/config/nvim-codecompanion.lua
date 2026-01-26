@@ -59,6 +59,23 @@ local function get_current_model_name()
     return "gemini-2.5-pro" -- default
   end
 
+  if adapter_name == "opencode" then
+    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
+    if type(chat_adapter) == "table" and chat_adapter.model then
+      return chat_adapter.model
+    end
+    -- Check ACP adapter defaults
+    local acp_adapters = _G.codecompanion_config.adapters.acp
+    if acp_adapters and acp_adapters.opencode then
+      local adapter = acp_adapters.opencode()
+      if adapter.commands and adapter.commands.default then
+        -- Default model for OpenCode
+        return "opencode/big-pickle"
+      end
+    end
+    return "opencode/big-pickle" -- fallback default
+  end
+
 
 
   -- Handle HTTP adapters
@@ -73,19 +90,21 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", opencode = "🤖" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
 local function get_intro_message()
   local adapter_name = _G.codecompanion_current_state.adapter
   local model_name = _G.codecompanion_current_state.model
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", opencode = "🤖" }
   local icon = icons[adapter_name] or "✨"
 
   local display_name = adapter_name:gsub("^%l", string.upper)
   if adapter_name == "gemini_cli" then
     display_name = "Gemini CLI"
+  elseif adapter_name == "opencode" then
+    display_name = "OpenCode"
   end
 
   return icon .. " Using " .. display_name .. ": " .. model_name .. ". Press ? for options " .. icon
@@ -106,14 +125,32 @@ local function apply_model_config(adapter_name, model_name)
 
     -- Update the ACP adapter with the new model
     _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
-    _G.codecompanion_config.adapters.acp.gemini_cli = function()
-      return require("codecompanion.adapters").extend("gemini_cli", {
-        defaults = {
-          auth_method = "oauth-personal",
-          model = model_name,
-        },
-      })
-    end
+     _G.codecompanion_config.adapters.acp.gemini_cli = function()
+       return require("codecompanion.adapters").extend("gemini_cli", {
+         defaults = {
+           auth_method = "oauth-personal",
+           model = model_name,
+         },
+       })
+     end
+     
+     -- Add OpenCode ACP adapter
+     _G.codecompanion_config.adapters.acp.opencode = function()
+       return require("codecompanion.adapters").extend("opencode", {
+         commands = {
+           default = { "opencode", "acp" },
+           big_pickle = { "opencode", "acp", "-m", "opencode/big-pickle" },
+           gpt_5_nano = { "opencode", "acp", "-m", "opencode/gpt-5-nano" },
+           claude_sonnet_45 = { "opencode", "acp", "-m", "github-copilot/claude-sonnet-4.5" },
+           claude_opus_45 = { "opencode", "acp", "-m", "github-copilot/claude-opus-4.5" },
+           gemini_3_pro = { "opencode", "acp", "-m", "github-copilot/gemini-3-pro-preview" },
+           perplexity_sonar = { "opencode", "acp", "-m", "perplexity/sonar-pro" }
+         },
+         env = {
+           OPENCODE_API_KEY = os.getenv("OPENCODE_API_KEY")
+         }
+       })
+     end
 
     -- For ACP adapters, use the { name, model } format in interactions
     local adapter_config = { name = "gemini_cli", model = model_name }
@@ -121,14 +158,56 @@ local function apply_model_config(adapter_name, model_name)
     _G.codecompanion_config.interactions.inline.adapter = adapter_config
     _G.codecompanion_config.interactions.agent.adapter = adapter_config
 
-    -- Refresh CodeCompanion with updated config
-    local codecompanion = require("codecompanion")
-    if codecompanion.adapters_cache then
-      codecompanion.adapters_cache["gemini_cli"] = nil
-    end
-    codecompanion.setup(_G.codecompanion_config)
-    return
-  end
+     -- Refresh CodeCompanion with updated config
+     local codecompanion = require("codecompanion")
+     if codecompanion.adapters_cache then
+       codecompanion.adapters_cache["gemini_cli"] = nil
+     end
+     codecompanion.setup(_G.codecompanion_config)
+     return
+   end
+
+   if adapter_name == "opencode" then
+     -- Update the simple global state first (this is what get_intro_message reads)
+     _G.codecompanion_current_state.adapter = adapter_name
+     _G.codecompanion_current_state.model = model_name
+
+     -- Update intro_message string in config (CodeCompanion expects a string, not a function)
+     _G.codecompanion_config.display.chat.intro_message = get_intro_message()
+
+     -- Update the ACP adapter with the new model
+     _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
+     _G.codecompanion_config.adapters.acp.opencode = function()
+       return require("codecompanion.adapters").extend("opencode", {
+         commands = {
+           default = { "opencode", "acp" },
+           big_pickle = { "opencode", "acp", "-m", model_name },
+           gpt_5_nano = { "opencode", "acp", "-m", model_name },
+           claude_sonnet_45 = { "opencode", "acp", "-m", model_name },
+           claude_opus_45 = { "opencode", "acp", "-m", model_name },
+           gemini_3_pro = { "opencode", "acp", "-m", model_name },
+           perplexity_sonar = { "opencode", "acp", "-m", model_name }
+         },
+         env = {
+           OPENCODE_API_KEY = os.getenv("OPENCODE_API_KEY")
+         }
+       })
+     end
+
+     -- For ACP adapters, use the { name, model } format in interactions
+     local adapter_config = { name = "opencode", model = model_name }
+     _G.codecompanion_config.interactions.chat.adapter = adapter_config
+     _G.codecompanion_config.interactions.inline.adapter = adapter_config
+     _G.codecompanion_config.interactions.agent.adapter = adapter_config
+
+     -- Refresh CodeCompanion with updated config
+     local codecompanion = require("codecompanion")
+     if codecompanion.adapters_cache then
+       codecompanion.adapters_cache["opencode"] = nil
+     end
+     codecompanion.setup(_G.codecompanion_config)
+     return
+   end
 
 
   -- Handle HTTP adapters (existing logic)
@@ -220,7 +299,8 @@ local function switch_model()
             adapter == "gemini" and "✨" or
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
-            adapter == "gemini_cli" and "🔮" or "💻"
+            adapter == "gemini_cli" and "🔮" or
+            adapter == "opencode" and "🤖" or "💻"
         return {
           value = entry,
           display = icon .. " " .. adapter:gsub("^%l", string.upper),
@@ -339,6 +419,37 @@ local function quick_switch_to_gemini_cli()
   vim.notify("🔮 Quick switch to Gemini CLI: " .. default_model, vim.log.levels.INFO)
 end
 
+local function quick_switch_to_opencode()
+  local model = models.opencode[1] or "opencode/big-pickle"
+  apply_model_config("opencode", model)
+  save_model_preference("opencode", model)
+  vim.notify("🤖 Quick switch to OpenCode: " .. model, vim.log.levels.INFO)
+end
+
+vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { 
+  desc = "Quick switch to OpenCode (Big Pickle)" 
+})
+
+local function quick_switch_to_opencode_claude()
+  apply_model_config("opencode", "github-copilot/claude-sonnet-4.5")
+  save_model_preference("opencode", "github-copilot/claude-sonnet-4.5")
+  vim.notify("🤖 Quick switch to OpenCode Claude Sonnet 4.5", vim.log.levels.INFO)
+end
+
+vim.api.nvim_create_user_command("CCQuickOpenCodeClaude", quick_switch_to_opencode_claude, { 
+  desc = "Quick switch to OpenCode Claude Sonnet" 
+})
+
+local function quick_switch_to_opencode_gpt()
+  apply_model_config("opencode", "opencode/gpt-5-nano")
+  save_model_preference("opencode", "opencode/gpt-5-nano")
+  vim.notify("🤖 Quick switch to OpenCode GPT-5 Nano", vim.log.levels.INFO)
+end
+
+vim.api.nvim_create_user_command("CCQuickOpenCodeGPT", quick_switch_to_opencode_gpt, { 
+  desc = "Quick switch to OpenCode GPT-5 Nano" 
+})
+
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
@@ -346,6 +457,9 @@ vim.api.nvim_create_user_command("CCQuickGemini", quick_switch_to_gemini, { desc
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
 vim.api.nvim_create_user_command("CCQuickGeminiCLI", quick_switch_to_gemini_cli, { desc = "Quick switch to Gemini CLI (Pro)" })
+vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { desc = "Quick switch to OpenCode (Big Pickle)" })
+vim.api.nvim_create_user_command("CCQuickOpenCodeClaude", quick_switch_to_opencode_claude, { desc = "Quick switch to OpenCode Claude Sonnet" })
+vim.api.nvim_create_user_command("CCQuickOpenCodeGPT", quick_switch_to_opencode_gpt, { desc = "Quick switch to OpenCode GPT-5 Nano" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })

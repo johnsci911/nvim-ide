@@ -96,11 +96,27 @@ M.models = {
     "meta-llama/llama-3.3-70b-instruct",
     "meta-llama/llama-3.1-8b-instruct:free",
   },
+  opencode = {
+    "opencode/big-pickle",                   -- Free (primary default)
+    "opencode/gpt-5-nano",                   -- Like GPT-5.1-mini equivalent
+    "github-copilot/gpt-5.1-codex-mini",     -- Like your codex mini
+    "github-copilot/claude-sonnet-4.5",      -- Premium tier
+    "github-copilot/claude-opus-4.5",        -- High-end option
+    "github-copilot/gemini-3-pro-preview",   -- Like your Gemini Pro
+    "perplexity/sonar-pro",                  -- Cheaper reasoning model
+    "anthropic/claude-sonnet-4-5-20250929",  -- Direct Anthropic
+    "anthropic/claude-opus-4-5-20251101",    -- Direct Anthropic premium
+  },
 }
 
 -- Fallback models
 if #M.models.ollama == 0 then
   M.models.ollama = { "qwen2.5-coder:7b-base-q6_K", "GandalfBaum/llama3.2-claude3.7:latest" }
+end
+
+-- Add OpenCode fallback
+if #M.models.opencode == 0 then
+  M.models.opencode = { "opencode/big-pickle", "opencode/gpt-5-nano" }
 end
 
 -- Persistence functions
