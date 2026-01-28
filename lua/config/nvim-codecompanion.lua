@@ -27,7 +27,9 @@ _G.codecompanion_config = {
 -- Simple global state for current adapter/model (updated by apply_model_config)
 _G.codecompanion_current_state = {
   adapter = "openai",
-  model = "gpt-4.1-mini"
+
+  model = "gpt-4.1-mini",
+  mode = "building" -- "planning" or "building"
 }
 
 -- Helper functions (defined early to avoid reference errors)
@@ -178,18 +180,34 @@ local function apply_model_config(adapter_name, model_name)
      -- Update the ACP adapter with the new model
      _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
      _G.codecompanion_config.adapters.acp.opencode = function()
+       -- Dynamically update opencode.json config to ensure model persistence
+       local config_path = vim.fn.expand("~/.config/opencode/opencode.json")
+       local file = io.open(config_path, "r")
+       if file then
+         local content = file:read("*a")
+         file:close()
+         local ok, json = pcall(vim.json.decode, content)
+         if ok and json then
+           if json.model ~= model_name then
+             json.model = model_name
+             local wfile = io.open(config_path, "w")
+             if wfile then
+               wfile:write(vim.json.encode(json))
+               wfile:close()
+               vim.notify("Updated opencode config to: " .. model_name, vim.log.levels.INFO)
+             end
+           end
+         end
+       end
+
        return require("codecompanion.adapters").extend("opencode", {
          commands = {
            default = { "opencode", "acp" },
-           big_pickle = { "opencode", "acp", "-m", model_name },
-           gpt_5_nano = { "opencode", "acp", "-m", model_name },
-           claude_sonnet_45 = { "opencode", "acp", "-m", model_name },
-           claude_opus_45 = { "opencode", "acp", "-m", model_name },
-           gemini_3_pro = { "opencode", "acp", "-m", model_name },
-           perplexity_sonar = { "opencode", "acp", "-m", model_name }
          },
          env = {
-           OPENCODE_API_KEY = os.getenv("OPENCODE_API_KEY")
+           OPENCODE_API_KEY = os.getenv("OPENCODE_API_KEY"),
+           OPENCODE_MODEL = model_name,
+           MODEL = model_name,
          }
        })
      end
@@ -362,6 +380,17 @@ local function switch_model()
   }):find()
 end
 
+local function toggle_mode()
+  if _G.codecompanion_current_state.mode == "planning" then
+    _G.codecompanion_current_state.mode = "building"
+    vim.notify("🔨 BUILDING MODE", vim.log.levels.INFO)
+  else
+    _G.codecompanion_current_state.mode = "planning"
+    vim.notify("📋 PLANNING MODE", vim.log.levels.INFO)
+  end
+  -- No need to reload config as the system_prompt function reads the global state dynamically
+end
+
 _G.get_git_diff = function()
   local output = vim.fn.system("git diff")
   if type(output) == "table" then
@@ -469,7 +498,35 @@ _G.get_codecompanion_status = function()
 end
 
 _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, {
-  opts = { system_prompt = SYSTEM_PROMPT },
+  opts = {
+    system_prompt = function(default_prompt)
+      local mode_prompt = ""
+      if _G.codecompanion_current_state.mode == "planning" then
+        mode_prompt = [[
+
+You are currently in PLANNING MODE.
+Your goal is to ANALYZE, DESIGN, and PLAN.
+Do NOT output code for implementation yet.
+Focus on understanding the problem, exploring the codebase, and creating a detailed plan.
+]]
+      else
+        mode_prompt = [[
+
+You are currently in BUILDING MODE.
+Your goal is to IMPLEMENT and EXECUTE changes.
+You have full access to tools and should write code to solve the user's problem.
+]]
+      end
+
+      if type(SYSTEM_PROMPT) == "function" then
+        return SYSTEM_PROMPT(default_prompt) .. mode_prompt
+      elseif type(SYSTEM_PROMPT) == "string" then
+        return SYSTEM_PROMPT .. mode_prompt
+      else
+        return default_prompt .. mode_prompt
+      end
+    end
+  },
   display = {
     diff = {
       enabled = true,
@@ -637,6 +694,18 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           index = 4,
           callback = "keymaps.stop",
           description = "Stop Request",
+        },
+        mode_toggle = {
+          modes = {
+            n = "<Tab>",
+            i = "<Tab>",
+          },
+          index = 5,
+          callback = function() 
+            toggle_mode() 
+          end,
+          description = "Toggle Plan/Build Mode",
+          opts = { nowait = true },
         },
       },
       slash_commands = {

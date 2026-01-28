@@ -98,14 +98,16 @@ M.models = {
   },
   opencode = {
     "opencode/big-pickle",                   -- Free (primary default)
-    "opencode/gpt-5-nano",                   -- Like GPT-5.1-mini equivalent
-    "github-copilot/gpt-5.1-codex-mini",     -- Like your codex mini
-    "github-copilot/claude-sonnet-4.5",      -- Premium tier
-    "github-copilot/claude-opus-4.5",        -- High-end option
-    "github-copilot/gemini-3-pro-preview",   -- Like your Gemini Pro
-    "perplexity/sonar-pro",                  -- Cheaper reasoning model
-    "anthropic/claude-sonnet-4-5-20250929",  -- Direct Anthropic
-    "anthropic/claude-opus-4-5-20251101",    -- Direct Anthropic premium
+    -- "opencode/gpt-5-nano",                   -- Like GPT-5.1-mini equivalent
+    -- "github-copilot/gpt-5.1-codex-mini",     -- Like your codex mini
+    -- "github-copilot/claude-sonnet-4.5",      -- Premium tier
+    -- "github-copilot/claude-opus-4.5",        -- High-end option
+    -- "github-copilot/gemini-3-pro-preview",   -- Like your Gemini Pro
+    -- "perplexity/sonar-pro",                  -- Cheaper reasoning model
+    -- "anthropic/claude-sonnet-4-5-20250929",  -- Direct Anthropic
+    -- "anthropic/claude-opus-4-5-20251101",    -- Direct Anthropic premium
+    -- "z.ai/glm-4.7",                          -- z.ai Paid
+    "z.ai/glm-4.7-flash",                    -- z.ai Free
   },
 }
 
