@@ -60,6 +60,15 @@ M.models = {
     "gemini-3-flash-preview",
     "gemini-3-pro-preview", -- Paid
   },
+  opencode = {
+    "opencode",
+    "minimax/MiniMax-M2.1",
+    "minimax/MiniMax-M2",
+    "anthropic/claude-sonnet-4-20250514",
+    "anthropic/claude-3-5-sonnet-20241022",
+    "google/gemini-2.5-flash",
+    "google/gemini-2.5-pro",
+  },
   ollama = fetch_ollama_models(),
   openrouter = {
     -- Claude (Anthropic)

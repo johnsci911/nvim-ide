@@ -57,6 +57,34 @@ local function get_current_model_name()
       end
     end
     return "gemini-2.5-pro" -- default
+  elseif adapter_name == "opencode" then
+    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
+    if type(chat_adapter) == "table" and chat_adapter.model then
+      return chat_adapter.model
+    end
+    -- Check ACP adapter defaults
+    local acp_adapters = _G.codecompanion_config.adapters.acp
+    if acp_adapters and acp_adapters.opencode then
+      local adapter = acp_adapters.opencode()
+      if adapter.defaults and adapter.defaults.model then
+        return adapter.defaults.model
+      end
+    end
+    return "opencode" -- default
+  elseif adapter_name == "minimax" then
+    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
+    if type(chat_adapter) == "table" and chat_adapter.model then
+      return chat_adapter.model
+    end
+    -- Check ACP adapter defaults
+    local acp_adapters = _G.codecompanion_config.adapters.acp
+    if acp_adapters and acp_adapters.minimax then
+      local adapter = acp_adapters.minimax()
+      if adapter.defaults and adapter.defaults.model then
+        return adapter.defaults.model
+      end
+    end
+    return "minimax/MiniMax-M2.1" -- default
   end
 
 
@@ -73,19 +101,23 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", opencode = "⚡", minimax = "🎯" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
 local function get_intro_message()
   local adapter_name = _G.codecompanion_current_state.adapter
   local model_name = _G.codecompanion_current_state.model
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮" }
+  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", opencode = "⚡", minimax = "🎯" }
   local icon = icons[adapter_name] or "✨"
 
   local display_name = adapter_name:gsub("^%l", string.upper)
   if adapter_name == "gemini_cli" then
     display_name = "Gemini CLI"
+  elseif adapter_name == "opencode" then
+    display_name = "OpenCode CLI"
+  elseif adapter_name == "minimax" then
+    display_name = "MiniMax"
   end
 
   return icon .. " Using " .. display_name .. ": " .. model_name .. ". Press ? for options " .. icon
@@ -125,6 +157,60 @@ local function apply_model_config(adapter_name, model_name)
     local codecompanion = require("codecompanion")
     if codecompanion.adapters_cache then
       codecompanion.adapters_cache["gemini_cli"] = nil
+    end
+    codecompanion.setup(_G.codecompanion_config)
+    return
+  elseif adapter_name == "opencode" then
+    -- Don't show intro message for OpenCode
+    _G.codecompanion_config.display.chat.intro_message = ""
+
+    -- Update the ACP adapter with the new model
+    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
+    _G.codecompanion_config.adapters.acp.opencode = function()
+      return require("codecompanion.adapters").extend("opencode", {
+        defaults = {
+          model = model_name,
+        },
+      })
+    end
+
+    -- For ACP adapters, use the { name, model } format in interactions
+    local adapter_config = { name = "opencode", model = model_name }
+    _G.codecompanion_config.interactions.chat.adapter = adapter_config
+    _G.codecompanion_config.interactions.inline.adapter = adapter_config
+    _G.codecompanion_config.interactions.agent.adapter = adapter_config
+
+    -- Refresh CodeCompanion with updated config
+    local codecompanion = require("codecompanion")
+    if codecompanion.adapters_cache then
+      codecompanion.adapters_cache["opencode"] = nil
+    end
+    codecompanion.setup(_G.codecompanion_config)
+    return
+  elseif adapter_name == "minimax" then
+    -- Don't show intro message for MiniMax
+    _G.codecompanion_config.display.chat.intro_message = ""
+
+    -- Update the ACP adapter with the new model
+    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
+    _G.codecompanion_config.adapters.acp.minimax = function()
+      return require("codecompanion.adapters").extend("opencode", {
+        defaults = {
+          model = model_name,
+        },
+      })
+    end
+
+    -- For ACP adapters, use the { name, model } format in interactions
+    local adapter_config = { name = "minimax", model = model_name }
+    _G.codecompanion_config.interactions.chat.adapter = adapter_config
+    _G.codecompanion_config.interactions.inline.adapter = adapter_config
+    _G.codecompanion_config.interactions.agent.adapter = adapter_config
+
+    -- Refresh CodeCompanion with updated config
+    local codecompanion = require("codecompanion")
+    if codecompanion.adapters_cache then
+      codecompanion.adapters_cache["minimax"] = nil
     end
     codecompanion.setup(_G.codecompanion_config)
     return
@@ -220,7 +306,9 @@ local function switch_model()
             adapter == "gemini" and "✨" or
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
-            adapter == "gemini_cli" and "🔮" or "💻"
+            adapter == "gemini_cli" and "🔮" or
+            adapter == "opencode" and "⚡" or
+            adapter == "minimax" and "🎯" or "💻"
         return {
           value = entry,
           display = icon .. " " .. adapter:gsub("^%l", string.upper),
@@ -339,6 +427,20 @@ local function quick_switch_to_gemini_cli()
   vim.notify("🔮 Quick switch to Gemini CLI: " .. default_model, vim.log.levels.INFO)
 end
 
+local function quick_switch_to_opencode()
+  local default_model = models.opencode[1] or "opencode"
+  apply_model_config("opencode", default_model)
+  save_model_preference("opencode", default_model)
+  vim.notify("⚡ Quick switch to OpenCode CLI: " .. default_model, vim.log.levels.INFO)
+end
+
+local function quick_switch_to_minimax()
+  local default_model = models.opencode[2] or "minimax/MiniMax-M2.1"
+  apply_model_config("minimax", default_model)
+  save_model_preference("minimax", default_model)
+  vim.notify("🎯 Quick switch to MiniMax: " .. default_model, vim.log.levels.INFO)
+end
+
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
@@ -346,6 +448,8 @@ vim.api.nvim_create_user_command("CCQuickGemini", quick_switch_to_gemini, { desc
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
 vim.api.nvim_create_user_command("CCQuickGeminiCLI", quick_switch_to_gemini_cli, { desc = "Quick switch to Gemini CLI (Pro)" })
+vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { desc = "Quick switch to OpenCode CLI" })
+vim.api.nvim_create_user_command("CCQuickMiniMax", quick_switch_to_minimax, { desc = "Quick switch to MiniMax" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
@@ -616,6 +720,26 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           },
           opts = {
             vision = true,
+          },
+        })
+      end,
+      opencode = function()
+        return require("codecompanion.adapters").extend("opencode", {
+          defaults = {
+            model = "opencode",
+          },
+          opts = {
+            vision = false,
+          },
+        })
+      end,
+      minimax = function()
+        return require("codecompanion.adapters").extend("opencode", {
+          defaults = {
+            model = "minimax/MiniMax-M2.1",
+          },
+          opts = {
+            vision = false,
           },
         })
       end,
