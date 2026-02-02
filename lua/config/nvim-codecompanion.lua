@@ -101,20 +101,18 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", opencode = "⚡", minimax = "🎯" }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", minimax = "🎯" }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
 local function get_intro_message()
   local adapter_name = _G.codecompanion_current_state.adapter
   local model_name = _G.codecompanion_current_state.model
-  local icons = { openai = "🚀", anthropic = "💡", gemini = "✨", ollama = "🐑", openrouter = "🌐", gemini_cli = "🔮", opencode = "⚡", minimax = "🎯" }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", minimax = "🎯" }
   local icon = icons[adapter_name] or "✨"
 
   local display_name = adapter_name:gsub("^%l", string.upper)
-  if adapter_name == "gemini_cli" then
-    display_name = "Gemini CLI"
-  elseif adapter_name == "opencode" then
+  if adapter_name == "opencode" then
     display_name = "OpenCode CLI"
   elseif adapter_name == "minimax" then
     display_name = "MiniMax"
@@ -303,10 +301,8 @@ local function switch_model()
         local adapter = entry:gsub(" %(current%)", "")
         local icon = adapter == "openai" and "🚀" or
             adapter == "anthropic" and "💡" or
-            adapter == "gemini" and "✨" or
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
-            adapter == "gemini_cli" and "🔮" or
             adapter == "opencode" and "⚡" or
             adapter == "minimax" and "🎯" or "💻"
         return {
@@ -444,10 +440,8 @@ end
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
-vim.api.nvim_create_user_command("CCQuickGemini", quick_switch_to_gemini, { desc = "Quick switch to Gemini" })
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
-vim.api.nvim_create_user_command("CCQuickGeminiCLI", quick_switch_to_gemini_cli, { desc = "Quick switch to Gemini CLI (Pro)" })
 vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { desc = "Quick switch to OpenCode CLI" })
 vim.api.nvim_create_user_command("CCQuickMiniMax", quick_switch_to_minimax, { desc = "Quick switch to MiniMax" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()

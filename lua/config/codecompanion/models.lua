@@ -46,28 +46,14 @@ M.models = {
     "claude-3-5-sonnet-20241022",
     "claude-3-5-haiku-20241022",
   },
-  gemini = {
-    "gemini-2.5-flash-lite",
-    "gemini-2.5-flash",
-    "gemini-2.5-pro",
-    "gemini-3-flash-preview",
-    "gemini-3-pro-preview", -- Paid
-  },
-  gemini_cli = {
-    "gemini-2.5-flash-lite",
-    "gemini-2.5-flash",
-    "gemini-2.5-pro",
-    "gemini-3-flash-preview",
-    "gemini-3-pro-preview", -- Paid
-  },
   opencode = {
     "opencode",
     "minimax/MiniMax-M2.1",
     "minimax/MiniMax-M2",
     "anthropic/claude-sonnet-4-20250514",
     "anthropic/claude-3-5-sonnet-20241022",
-    "google/gemini-2.5-flash",
-    "google/gemini-2.5-pro",
+    "anthropic/claude-sonnet-4-5",
+    "anthropic/claude-opus-4-5",
   },
   ollama = fetch_ollama_models(),
   openrouter = {
