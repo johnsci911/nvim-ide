@@ -84,7 +84,7 @@ local function get_current_model_name()
         return adapter.defaults.model
       end
     end
-    return "minimax/MiniMax-M2.1" -- default
+    return "opencode" -- default
   end
 
 
@@ -436,6 +436,8 @@ local function quick_switch_to_minimax()
   save_model_preference("minimax", default_model)
   vim.notify("🎯 Quick switch to MiniMax: " .. default_model, vim.log.levels.INFO)
 end
+
+
 
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })

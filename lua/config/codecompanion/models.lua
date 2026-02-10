@@ -54,7 +54,27 @@ M.models = {
     "anthropic/claude-3-5-sonnet-20241022",
     "anthropic/claude-sonnet-4-5",
     "anthropic/claude-opus-4-5",
+    -- OpenRouter verified models
+    "openrouter/anthropic/claude-sonnet-4.5",
+    "openrouter/anthropic/claude-3.5-sonnet",
+    "openrouter/anthropic/claude-opus-4.5",
+    "openrouter/anthropic/claude-sonnet-4",
+    "openrouter/openai/gpt-5.1-codex-mini",
+    "openrouter/openai/gpt-5.1-codex",
+    "openrouter/openai/gpt-5.1-codex-max",
+    "openrouter/openai/gpt-5.1",
+    "openrouter/openai/gpt-4o",
+    "openrouter/openai/gpt-4.1-mini",
+    "openrouter/google/gemini-2.5-pro",
+    "openrouter/google/gemini-2.5-flash",
+    "openrouter/google/gemini-3-flash-preview",
+    "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+    "openrouter/deepseek/deepseek-r1",
+    "openrouter/deepseek/deepseek-chat",
+    "openrouter/meta-llama/llama-3.3-70b-instruct",
+    "openrouter/meta-llama/llama-3.1-8b-instruct:free",
   },
+
   ollama = fetch_ollama_models(),
   openrouter = {
     -- Claude (Anthropic)
