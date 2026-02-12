@@ -81,8 +81,8 @@ wk.add({
   { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Model Switch' },
   { "<leader>aih",   '<Cmd>CodeCompanionHistory<CR>',                               desc = 'AI History' },
   { "<leader>aig",   '<Cmd>CodeCompanion /staged-commit<CR>',                       desc = 'AI Generate Commit' },
-  { "<leader>aiG",   '<Cmd>CCQuickGeminiCLI<CR>',                                   desc = 'AI Quick Gemini CLI (Pro)' },
-  { "<leader>aiC",   '<Cmd>CCQuickClaudeCode<CR>',                                  desc = 'AI Quick Claude Code' },
+  { "<leader>aim",   '<Cmd>CCRefreshModels<CR>',                                    desc = 'AI Refresh Models' },
+  { "<leader>aiM",   '<Cmd>CCListAdapters<CR>',                                     desc = 'AI List Adapters' },
 
   { "<C-a>i",         mode = { "v" },  group = "AI commands" },
   { "<C-a>id",        mode = { "v" }, '<Cmd>CodeCompanion /inline-doc<CR>',         desc = 'AI Inline Doc' },
