@@ -16,7 +16,8 @@
 - **AI** Complation - Supermaven (online), cmp minuet (offline) - Code suggestion while you type.
 
 #### What's new
-- Fast AI tools - (CodeCompanion (ACP), Supermaven, Minuet) 🔥
+- Fast AI tools - CodeCompanion (ACP) 🔥 (OpenRouter, OpenCode, OpenAI)
+- Ability for ACP to read image from clipboard
 - Re-add Galaxyline status line - (Will replace because of compatibility issues)
 - Clipboards!
 - Laravel blade syntax highlighting (Still Beta)
@@ -29,6 +30,7 @@
 - fzf, fd - Required by Telescope
 - Neorg Note taking plugin (GCC 14+)
 - Silicon - Required for <b>nvim-silicon</b> a code snapshot plugin
+- pngpaste - Required for pasting images from clipboard
 
 ##### Compatible OS
 - Mac and Linux
