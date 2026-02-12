@@ -450,6 +450,61 @@ vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
 
+_G.paste_image_from_clipboard = function()
+  local chat_bufnr = vim.api.nvim_get_current_buf()
+
+  local codecompanion = require("codecompanion")
+  local chat_obj = codecompanion.buf_get_chat(chat_bufnr)
+  if not chat_obj then
+    vim.notify("No active chat buffer", vim.log.levels.WARN)
+    return
+  end
+
+  local temp_file = vim.fn.tempname() .. ".png"
+
+  local success = false
+  if vim.fn.has("macunix") == 1 then
+    if vim.fn.executable("pngpaste") == 1 then
+      vim.fn.system("pngpaste " .. temp_file)
+      success = vim.v.shell_error == 0 and vim.fn.filereadable(temp_file) == 1
+    else
+      vim.notify("Install pngpaste (brew install pngpaste) for clipboard images on macOS", vim.log.levels.WARN)
+      return
+    end
+  elseif vim.fn.has("unix") == 1 then
+    if vim.fn.executable("xclip") == 1 then
+      vim.fn.system("xclip -selection clipboard -t image/png -o > " .. temp_file)
+      success = vim.v.shell_error == 0 and vim.fn.filereadable(temp_file) == 1
+    elseif vim.fn.executable("wl-paste") == 1 then
+      vim.fn.system("wl-paste -t image/png > " .. temp_file)
+      success = vim.v.shell_error == 0 and vim.fn.filereadable(temp_file) == 1
+    end
+
+    if not success then
+      vim.notify("Clipboard image not available. Install img-clip.nvim for better support.", vim.log.levels.WARN)
+      return
+    end
+  else
+    vim.notify("Clipboard images not supported on this platform", vim.log.levels.WARN)
+    return
+  end
+
+  local image_utils = require("codecompanion.utils.images")
+  local encoded = image_utils.encode_image({ path = temp_file })
+  if type(encoded) == "string" then
+    vim.notify("Failed to encode image: " .. encoded, vim.log.levels.ERROR)
+    return
+  end
+
+  local ok, err = pcall(function()
+    chat_obj:add_image_message(encoded)
+  end)
+
+  if not ok then
+    vim.notify("Failed to add image to chat: " .. err, vim.log.levels.ERROR)
+  end
+end
+
 _G.get_codecompanion_status = function()
   return get_current_model()
 end
@@ -623,6 +678,17 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           index = 4,
           callback = "keymaps.stop",
           description = "Stop Request",
+        },
+        paste_image = {
+          modes = {
+            n = "<leader>aip",
+            i = "<leader>aip",
+          },
+          index = 100,
+          callback = function()
+            _G.paste_image_from_clipboard()
+          end,
+          description = "Paste image from clipboard",
         },
       },
       slash_commands = {
