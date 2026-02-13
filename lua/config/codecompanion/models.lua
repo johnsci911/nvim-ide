@@ -161,6 +161,7 @@ local static_openrouter = {
 }
 
 local static_opencode = {
+  "minimax/MiniMax-M2.5",
   "minimax/MiniMax-M2.1",
   "minimax/MiniMax-M2",
   "openrouter/anthropic/claude-sonnet-4.5",
