@@ -39,7 +39,6 @@ local provider_meta = {
   gemini      = { label = "PAID",  billing = "Google AI Studio",         hl = "DiagnosticWarn"  },
   gemini_cli  = { label = "FREE",  billing = "Google OAuth (Free Tier)", hl = "DiagnosticOk"    },
   opencode    = { label = "PAID",  billing = "OpenCode Account",         hl = "DiagnosticWarn"  },
-  minimax     = { label = "PAID",  billing = "OpenCode / MiniMax",       hl = "DiagnosticWarn"  },
 }
 
 -- Helper functions (defined early to avoid reference errors)
@@ -83,20 +82,6 @@ local function get_current_model_name()
       end
     end
     return "opencode" -- default
-  elseif adapter_name == "minimax" then
-    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
-    if type(chat_adapter) == "table" and chat_adapter.model then
-      return chat_adapter.model
-    end
-    -- Check ACP adapter defaults
-    local acp_adapters = _G.codecompanion_config.adapters.acp
-    if acp_adapters and acp_adapters.minimax then
-      local adapter = acp_adapters.minimax()
-      if adapter.defaults and adapter.defaults.model then
-        return adapter.defaults.model
-      end
-    end
-    return "opencode" -- default
   end
 
 
@@ -113,21 +98,19 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", minimax = "🎯" }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", }
   return (icons[adapter] or "🤖") .. " " .. model
 end
 
 local function get_intro_message()
   local adapter_name = _G.codecompanion_current_state.adapter
   local model_name = _G.codecompanion_current_state.model
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", minimax = "🎯" }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", }
   local icon = icons[adapter_name] or "✨"
 
   local display_name = adapter_name:gsub("^%l", string.upper)
   if adapter_name == "opencode" then
     display_name = "OpenCode CLI"
-  elseif adapter_name == "minimax" then
-    display_name = "MiniMax"
   end
 
   return icon .. " Using " .. display_name .. ": " .. model_name .. ". Press ? for options " .. icon
@@ -308,30 +291,6 @@ local function apply_model_config(adapter_name, model_name)
     end
     codecompanion.setup(_G.codecompanion_config)
     return
-  elseif adapter_name == "minimax" then
-    -- Update the ACP adapter with the new model
-    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
-    _G.codecompanion_config.adapters.acp.minimax = function()
-      return require("codecompanion.adapters").extend("opencode", {
-        defaults = {
-          model = model_name,
-        },
-      })
-    end
-
-    -- For ACP adapters, use the { name, model } format in interactions
-    local adapter_config = { name = "minimax", model = model_name }
-    _G.codecompanion_config.interactions.chat.adapter = adapter_config
-    _G.codecompanion_config.interactions.inline.adapter = adapter_config
-    _G.codecompanion_config.interactions.agent.adapter = adapter_config
-
-    -- Refresh CodeCompanion with updated config
-    local codecompanion = require("codecompanion")
-    if codecompanion.adapters_cache then
-      codecompanion.adapters_cache["minimax"] = nil
-    end
-    codecompanion.setup(_G.codecompanion_config)
-    return
   end
 
 
@@ -425,7 +384,7 @@ local function switch_model()
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
             adapter == "opencode" and "⚡" or
-            adapter == "minimax" and "🎯" or "💻"
+            "💻"
         local cost_tag = meta.label == "FREE"
             and " [FREE]"
             or  " [PAID - " .. meta.billing .. "]"
@@ -583,24 +542,12 @@ local function quick_switch_to_opencode()
   end)
 end
 
-local function quick_switch_to_minimax()
-  local default_model = models.opencode[2] or "minimax/MiniMax-M2.1"
-  confirm_paid_switch("minimax", default_model, function()
-    apply_model_config("minimax", default_model)
-    save_model_preference("minimax", default_model)
-    show_provider_banner("minimax", default_model)
-  end)
-end
-
-
-
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
 vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { desc = "Quick switch to OpenCode CLI" })
-vim.api.nvim_create_user_command("CCQuickMiniMax", quick_switch_to_minimax, { desc = "Quick switch to MiniMax" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
@@ -686,7 +633,7 @@ _G.get_codecompanion_status = function()
 end
 
 _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, {
-  opts = { system_prompt = SYSTEM_PROMPT },
+  opts = { system_prompt = SYSTEM_PROMPT, log_level = "ERROR" },
   display = {
     diff = {
       enabled = true,
@@ -971,16 +918,6 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           },
         })
       end,
-      minimax = function()
-        return require("codecompanion.adapters").extend("opencode", {
-          defaults = {
-            model = "minimax/MiniMax-M2.1",
-          },
-          opts = {
-            vision = false,
-          },
-        })
-      end,
     },
   },
   prompt_library = require("config.codecompanion.prompt_library").library,
@@ -1062,3 +999,25 @@ vim.api.nvim_create_autocmd("BufLeave", {
 })
 
 require("codecompanion").setup(_G.codecompanion_config)
+
+-- Patch: fix ACP apply_default_model substring matching picking wrong model
+-- (e.g. "MiniMax-M2.5-highspeed" matching before "MiniMax-M2.5")
+do
+  local Connection = require("codecompanion.acp")
+  if Connection and Connection.apply_default_model then
+    local original = Connection.apply_default_model
+    Connection.apply_default_model = function(self)
+      -- Filter out highspeed models from available list before matching
+      if self._models and self._models.availableModels then
+        local filtered = {}
+        for _, model in ipairs(self._models.availableModels) do
+          if not model.modelId:find("%-highspeed$") then
+            table.insert(filtered, model)
+          end
+        end
+        self._models.availableModels = filtered
+      end
+      return original(self)
+    end
+  end
+end
