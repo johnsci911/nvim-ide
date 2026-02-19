@@ -74,9 +74,19 @@ local function fetch_openai_models()
   return result
 end
 
+local OPENROUTER_MAX_OUTPUT_COST_PER_M = 2
+
 local function fetch_openrouter_models()
+  local max_per_token = OPENROUTER_MAX_OUTPUT_COST_PER_M / 1000000
+  local py_script = string.format(
+    [[import sys,json;data=json.load(sys.stdin).get('data',[]);]] ..
+    [[cost=lambda m:float((m.get('pricing') or {}).get('completion','999') or '999');]] ..
+    [[print('\n'.join([m['id'] for m in data if cost(m)<=%s]))]],
+    tostring(max_per_token)
+  )
+
   local handle = io.popen(
-    "curl -s 'https://openrouter.ai/api/v1/models' 2>/dev/null | python3 -c \"import sys,json;print('\\n'.join([m['id'] for m in json.load(sys.stdin)['data'][:100]]))\" 2>/dev/null || echo ''"
+    "curl -s 'https://openrouter.ai/api/v1/models' 2>/dev/null | python3 -c \"" .. py_script .. "\" 2>/dev/null || echo ''"
   )
 
   if not handle then
@@ -146,42 +156,36 @@ local static_openai = {
 }
 
 local static_openrouter = {
-  "anthropic/claude-sonnet-4.5",
-  "anthropic/claude-opus-4.5",
-  "anthropic/claude-sonnet-4",
-  "anthropic/claude-3.5-sonnet",
-  "anthropic/claude-3-opus",
-  "anthropic/claude-3-haiku",
-  "openai/gpt-5.1",
-  "openai/gpt-4o",
-  "google/gemini-2.5-pro",
-  "deepseek/deepseek-r1",
   "qwen/qwen-2.5-coder-32b-instruct:free",
+  "meta-llama/llama-3.1-8b-instruct:free",
   "meta-llama/llama-3.3-70b-instruct",
+  "deepseek/deepseek-chat",
+  "google/gemini-2.5-flash",
 }
 
 local static_opencode = {
+  -- Direct Anthropic provider (billed to ANTHROPIC_API_KEY, NOT OpenRouter)
+  "anthropic/claude-opus-4-6",
+  "anthropic/claude-sonnet-4-5",
+  "anthropic/claude-sonnet-4-20250514",
+  "anthropic/claude-3-5-sonnet-20241022",
+  -- OpenCode native models
+  "opencode/minimax/minimax-m2.1",
+  "opencode/minimax/minimax-m2",
+  "opencode/anthropic/claude-sonnet-4-20250514",
+  "opencode/anthropic/claude-3-5-sonnet-20241022",
+  "opencode/anthropic/claude-sonnet-4-5",
+  "opencode/anthropic/claude-opus-4-5",
+  -- MiniMax models
   "minimax/MiniMax-M2.5",
   "minimax/MiniMax-M2.1",
   "minimax/MiniMax-M2",
-  "openrouter/anthropic/claude-sonnet-4.5",
-  "openrouter/anthropic/claude-3.5-sonnet",
-  "openrouter/anthropic/claude-opus-4.5",
-  "openrouter/anthropic/claude-sonnet-4",
-  "openrouter/openai/gpt-5.1-codex-mini",
-  "openrouter/openai/gpt-5.1-codex",
-  "openrouter/openai/gpt-5.1-codex-max",
-  "openrouter/openai/gpt-5.1",
-  "openrouter/openai/gpt-4o",
-  "openrouter/openai/gpt-4.1-mini",
-  "openrouter/google/gemini-2.5-pro",
-  "openrouter/google/gemini-2.5-flash",
-  "openrouter/google/gemini-3-flash-preview",
+  -- OpenRouter-routed models (billed to OPENROUTER_API_KEY, <$2/M output only)
   "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
-  "openrouter/deepseek/deepseek-r1",
-  "openrouter/deepseek/deepseek-chat",
-  "openrouter/meta-llama/llama-3.3-70b-instruct",
   "openrouter/meta-llama/llama-3.1-8b-instruct:free",
+  "openrouter/meta-llama/llama-3.3-70b-instruct",
+  "openrouter/deepseek/deepseek-chat",
+  "openrouter/google/gemini-2.5-flash",
 }
 
 local static_anthropic = {
@@ -192,36 +196,80 @@ local static_anthropic = {
   "claude-3-5-haiku-20241022",
 }
 
--- Dynamic model fetching (with fallback to static)
+local function fetch_anthropic_models()
+  local api_key = os.getenv("ANTHROPIC_API_KEY")
+  if not api_key or api_key == "" then
+    return nil
+  end
+
+  local tmpfile = os.tmpname()
+  os.execute(string.format(
+    'curl -s -H "x-api-key: %s" -H "anthropic-version: 2023-06-01" "https://api.anthropic.com/v1/models?limit=50" > %s 2>/dev/null',
+    api_key, tmpfile
+  ))
+
+  local file = io.open(tmpfile, "r")
+  if not file then
+    os.remove(tmpfile)
+    return nil
+  end
+
+  local content = file:read("*a")
+  file:close()
+  os.remove(tmpfile)
+
+  if content == "" then
+    return nil
+  end
+
+  local ok, result = pcall(function()
+    local json = vim.json.decode(content)
+    local models = {}
+    for _, m in ipairs(json.data or {}) do
+      if m.id then
+        table.insert(models, m.id)
+      end
+    end
+    return models
+  end)
+
+  if not ok or not result then
+    return nil
+  end
+
+  return result
+end
+
 local ok_openai, dynamic_openai = pcall(fetch_openai_models)
 local ok_openrouter, dynamic_openrouter = pcall(fetch_openrouter_models)
 local ok_opencode, dynamic_opencode = pcall(fetch_opencode_models)
+local ok_anthropic, dynamic_anthropic = pcall(fetch_anthropic_models)
 
--- Combine OpenRouter models with OpenCode for unified access
-local function merge_openrouter_to_opencode(opencode_models, openrouter_models)
-  if not openrouter_models or #openrouter_models == 0 then
-    return opencode_models
-  end
-
+local function build_opencode_models(opencode_models, openrouter_models, anthropic_models)
   local merged = {}
   local seen = {}
 
-  -- First add OpenCode native models
-  for _, m in ipairs(opencode_models or {}) do
-    table.insert(merged, m)
-    seen[m] = true
+  local function add(m)
+    if not seen[m] then
+      table.insert(merged, m)
+      seen[m] = true
+    end
   end
 
-  -- Then add OpenRouter models (filtered to common providers)
-  local providers = { "anthropic", "openai", "google", "deepseek", "meta-llama", "qwen" }
-  for _, m in ipairs(openrouter_models) do
-    if not seen[m] then
-      for _, p in ipairs(providers) do
-        if m:find("^" .. p .. "/") then
-          table.insert(merged, m)
-          seen[m] = true
-          break
-        end
+  for _, m in ipairs(anthropic_models or {}) do
+    add("anthropic/" .. m)
+  end
+
+  for _, m in ipairs(opencode_models or {}) do
+    add(m)
+  end
+
+  local routable_providers = { "anthropic", "openai", "google", "deepseek", "meta%-llama", "qwen" }
+  for _, m in ipairs(openrouter_models or {}) do
+    for _, p in ipairs(routable_providers) do
+      if m:find("^" .. p .. "/") then
+        add("openrouter/" .. m)
+        break
       end
     end
   end
@@ -229,13 +277,13 @@ local function merge_openrouter_to_opencode(opencode_models, openrouter_models)
   return merged
 end
 
--- Model definitions
 M.models = {
   openai = ok_openai and dynamic_openai or static_openai,
-  anthropic = static_anthropic,
-  opencode = merge_openrouter_to_opencode(
+  anthropic = ok_anthropic and dynamic_anthropic or static_anthropic,
+  opencode = build_opencode_models(
     ok_opencode and dynamic_opencode or static_opencode,
-    ok_openrouter and dynamic_openrouter or static_openrouter
+    ok_openrouter and dynamic_openrouter or static_openrouter,
+    ok_anthropic and dynamic_anthropic or static_anthropic
   ),
   ollama = fetch_ollama_models(),
   openrouter = ok_openrouter and dynamic_openrouter or static_openrouter,
@@ -290,23 +338,33 @@ end
 
 function M.refresh_models(adapter)
   if adapter == "openai" then
-    local ok, models = pcall(fetch_openai_models)
-    if ok and models and #models > 0 then
-      M.models.openai = models
+    local ok, result = pcall(fetch_openai_models)
+    if ok and result and #result > 0 then
+      M.models.openai = result
+      return true
+    end
+  elseif adapter == "anthropic" then
+    local ok, result = pcall(fetch_anthropic_models)
+    if ok and result and #result > 0 then
+      M.models.anthropic = result
       return true
     end
   elseif adapter == "openrouter" then
-    local ok, models = pcall(fetch_openrouter_models)
-    if ok and models and #models > 0 then
-      M.models.openrouter = models
+    local ok, result = pcall(fetch_openrouter_models)
+    if ok and result and #result > 0 then
+      M.models.openrouter = result
       return true
     end
   elseif adapter == "opencode" then
-    local ok, models = pcall(fetch_opencode_models)
-    if ok and models and #models > 0 then
-      M.models.opencode = models
-      return true
-    end
+    local oc_ok, oc_models = pcall(fetch_opencode_models)
+    local or_ok, or_models = pcall(fetch_openrouter_models)
+    local an_ok, an_models = pcall(fetch_anthropic_models)
+    M.models.opencode = build_opencode_models(
+      oc_ok and oc_models or static_opencode,
+      or_ok and or_models or M.models.openrouter,
+      an_ok and an_models or M.models.anthropic
+    )
+    return #M.models.opencode > 0
   elseif adapter == "ollama" then
     M.models.ollama = fetch_ollama_models()
     return #M.models.ollama > 0

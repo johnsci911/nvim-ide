@@ -30,6 +30,18 @@ _G.codecompanion_current_state = {
   model = "gpt-4.1-mini"
 }
 
+-- Provider billing metadata — makes it UNMISSABLE which account gets charged
+local provider_meta = {
+  openai      = { label = "PAID",  billing = "OpenAI Account",           hl = "DiagnosticWarn"  },
+  anthropic   = { label = "PAID",  billing = "Anthropic Account",        hl = "DiagnosticWarn"  },
+  openrouter  = { label = "PAID",  billing = "OpenRouter Account",       hl = "DiagnosticError" },
+  ollama      = { label = "FREE",  billing = "Local Machine",            hl = "DiagnosticOk"    },
+  gemini      = { label = "PAID",  billing = "Google AI Studio",         hl = "DiagnosticWarn"  },
+  gemini_cli  = { label = "FREE",  billing = "Google OAuth (Free Tier)", hl = "DiagnosticOk"    },
+  opencode    = { label = "PAID",  billing = "OpenCode Account",         hl = "DiagnosticWarn"  },
+  minimax     = { label = "PAID",  billing = "OpenCode / MiniMax",       hl = "DiagnosticWarn"  },
+}
+
 -- Helper functions (defined early to avoid reference errors)
 local function get_current_adapter()
   local adapter = _G.codecompanion_config.interactions.chat.adapter
@@ -121,6 +133,123 @@ local function get_intro_message()
   return icon .. " Using " .. display_name .. ": " .. model_name .. ". Press ? for options " .. icon
 end
 
+local function show_provider_banner(adapter_name, model_name)
+  local meta = provider_meta[adapter_name] or { label = "UNKNOWN", billing = "Unknown", hl = "DiagnosticInfo" }
+  local is_paid = meta.label ~= "FREE"
+
+  local billing_note = meta.billing
+  if adapter_name == "opencode" then
+    if model_name:match("^openrouter/") then
+      billing_note = "ROUTED VIA OPENROUTER!"
+    elseif model_name:match("^anthropic/") then
+      billing_note = "DIRECT ANTHROPIC (your Anthropic key)"
+    elseif model_name:match("^opencode/") then
+      billing_note = "OpenCode Account"
+    end
+  end
+
+  local header = is_paid and "  WARNING: PAID PROVIDER ACTIVE" or "  FREE PROVIDER ACTIVE"
+  local cost_line = is_paid and "  Status  : PAID" or "  Status  : FREE"
+
+  local lines = {
+    "",
+    header,
+    "  " .. string.rep(is_paid and "=" or "-", 42),
+    "",
+    "  Provider : " .. adapter_name:gsub("^%l", string.upper),
+    "  Model    : " .. model_name,
+    "  Billing  : " .. billing_note,
+    cost_line,
+    "",
+    "  Press any key to dismiss (auto-close 4s)",
+    "",
+  }
+
+  local max_line_len = 0
+  for _, line in ipairs(lines) do
+    max_line_len = math.max(max_line_len, #line)
+  end
+  local width = math.max(max_line_len + 6, 52)
+  local height = #lines
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].bufhidden = "wipe"
+
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    width = width,
+    height = height,
+    col = math.floor((vim.o.columns - width) / 2),
+    row = math.floor((vim.o.lines - height) / 2),
+    style = "minimal",
+    border = is_paid and "double" or "rounded",
+    title = is_paid and " BILLING ALERT " or " PROVIDER INFO ",
+    title_pos = "center",
+  })
+
+  local win_hl = is_paid
+    and "Normal:DiagnosticError,FloatBorder:DiagnosticError"
+    or  "Normal:DiagnosticOk,FloatBorder:DiagnosticOk"
+  vim.api.nvim_set_option_value("winhl", win_hl, { win = win })
+
+  vim.api.nvim_buf_add_highlight(buf, -1, is_paid and "ErrorMsg" or "String", 1, 0, -1)
+  vim.api.nvim_buf_add_highlight(buf, -1, is_paid and "ErrorMsg" or "String", 2, 0, -1)
+
+  local closed = false
+  local function close_banner()
+    if not closed and vim.api.nvim_win_is_valid(win) then
+      closed = true
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+
+  for _, key in ipairs({ "<Esc>", "q", "<CR>", "<Space>", "<BS>" }) do
+    vim.keymap.set("n", key, close_banner, { buffer = buf, nowait = true })
+  end
+
+  vim.defer_fn(close_banner, 4000)
+end
+
+local function confirm_paid_switch(adapter_name, model_name, on_confirm)
+  local meta = provider_meta[adapter_name] or { label = "UNKNOWN", billing = "Unknown" }
+  local is_paid = meta.label ~= "FREE"
+
+  if adapter_name == "opencode" and model_name:match("^openrouter/") then
+    is_paid = true
+  end
+
+  if adapter_name == "opencode" and model_name:match("^anthropic/") then
+    is_paid = true
+  end
+
+  if not is_paid then
+    on_confirm()
+    return
+  end
+
+  vim.ui.select(
+    {
+      "Yes - switch to " .. adapter_name:gsub("^%l", string.upper) .. " (" .. meta.billing .. ")",
+      "Cancel",
+    },
+    {
+      prompt = "PAID PROVIDER: " .. adapter_name:gsub("^%l", string.upper)
+        .. " | Billing: " .. meta.billing
+        .. " | Model: " .. model_name
+        .. " — Continue?",
+    },
+    function(choice)
+      if choice and choice:match("^Yes") then
+        on_confirm()
+      else
+        vim.notify("Switch cancelled", vim.log.levels.INFO)
+      end
+    end
+  )
+end
+
 local function apply_model_config(adapter_name, model_name)
   -- Update the simple global state first (this is what get_intro_message reads)
   _G.codecompanion_current_state.adapter = adapter_name
@@ -131,9 +260,6 @@ local function apply_model_config(adapter_name, model_name)
 
   -- Handle ACP adapters (like gemini_cli) differently
   if adapter_name == "gemini_cli" then
-    -- Don't show intro message for Gemini CLI
-    _G.codecompanion_config.display.chat.intro_message = ""
-
     -- Update the ACP adapter with the new model
     _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
     _G.codecompanion_config.adapters.acp.gemini_cli = function()
@@ -159,9 +285,6 @@ local function apply_model_config(adapter_name, model_name)
     codecompanion.setup(_G.codecompanion_config)
     return
   elseif adapter_name == "opencode" then
-    -- Don't show intro message for OpenCode
-    _G.codecompanion_config.display.chat.intro_message = ""
-
     -- Update the ACP adapter with the new model
     _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
     _G.codecompanion_config.adapters.acp.opencode = function()
@@ -186,9 +309,6 @@ local function apply_model_config(adapter_name, model_name)
     codecompanion.setup(_G.codecompanion_config)
     return
   elseif adapter_name == "minimax" then
-    -- Don't show intro message for MiniMax
-    _G.codecompanion_config.display.chat.intro_message = ""
-
     -- Update the ACP adapter with the new model
     _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
     _G.codecompanion_config.adapters.acp.minimax = function()
@@ -290,24 +410,28 @@ local function switch_model()
   end
 
   require('telescope.pickers').new({}, {
-    prompt_title = "🤖 AI Providers",
+    prompt_title = "AI Providers (PAID = billed to your account)",
     layout_config = {
-      width = 0.3,
-      height = 0.3
+      width = 0.6,
+      height = 0.4
     },
     finder = require('telescope.finders').new_table({
       results = available_adapters,
       entry_maker = function(entry)
         local adapter = entry:gsub(" %(current%)", "")
+        local meta = provider_meta[adapter] or { label = "?", billing = "Unknown" }
         local icon = adapter == "openai" and "🚀" or
             adapter == "anthropic" and "💡" or
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
             adapter == "opencode" and "⚡" or
             adapter == "minimax" and "🎯" or "💻"
+        local cost_tag = meta.label == "FREE"
+            and " [FREE]"
+            or  " [PAID - " .. meta.billing .. "]"
         return {
           value = entry,
-          display = icon .. " " .. adapter:gsub("^%l", string.upper),
+          display = icon .. " " .. adapter:gsub("^%l", string.upper) .. cost_tag,
           ordinal = entry
         }
       end
@@ -321,16 +445,19 @@ local function switch_model()
         local adapter_name = selection.value:match("^[^%s]+"):gsub(" %(current%)", "")
         local available_models = models[adapter_name]
 
+        local meta = provider_meta[adapter_name] or { label = "?", billing = "Unknown" }
+        local picker_title = "Models: " .. adapter_name:gsub("^%l", string.upper)
+            .. " [" .. meta.label .. " - " .. meta.billing .. "]"
+
         require('telescope.pickers').new({}, {
-          prompt_title = "Models: " .. adapter_name:gsub("^%l", string.upper),
+          prompt_title = picker_title,
           layout_config = {
-            width = 0.3,
-            height = 0.3
+            width = 0.6,
+            height = 0.4
           },
           finder = require('telescope.finders').new_table({
             results = available_models,
             entry_maker = function(model)
-              -- Get the saved model for this specific adapter, not the global current
               local saved_adapter, saved_model = load_model_preference()
               local current_model = nil
               if saved_adapter == adapter_name then
@@ -338,9 +465,22 @@ local function switch_model()
               elseif get_current_adapter() == adapter_name then
                 current_model = get_current_model_name()
               end
+              local prefix = model == current_model and "✓ " or "  "
+              local suffix = ""
+              if adapter_name == "opencode" then
+                if model:match("^openrouter/") then
+                  suffix = "  [VIA OPENROUTER $$]"
+                elseif model:match("^anthropic/") then
+                  suffix = "  [DIRECT ANTHROPIC]"
+                elseif model:match("^opencode/") then
+                  suffix = "  [VIA OPENCODE]"
+                elseif model:match("^minimax/") then
+                  suffix = "  [MINIMAX]"
+                end
+              end
               return {
                 value = model,
-                display = model == current_model and "✓ " .. model or "  " .. model,
+                display = prefix .. model .. suffix,
                 ordinal = model
               }
             end
@@ -351,11 +491,11 @@ local function switch_model()
               local model_selection = require('telescope.actions.state').get_selected_entry()
               require('telescope.actions').close(model_prompt_bufnr)
 
-              apply_model_config(adapter_name, model_selection.value)
-              save_model_preference(adapter_name, model_selection.value)
-
-              vim.notify("✨ Switched to " .. adapter_name:gsub("^%l", string.upper) .. ": " .. model_selection.value,
-                vim.log.levels.INFO)
+              confirm_paid_switch(adapter_name, model_selection.value, function()
+                apply_model_config(adapter_name, model_selection.value)
+                save_model_preference(adapter_name, model_selection.value)
+                show_provider_banner(adapter_name, model_selection.value)
+              end)
             end)
             return true
           end
@@ -384,57 +524,72 @@ _G.get_git_staged_diff = function()
   return output
 end
 
--- Quick model switching functions
 local function quick_switch_to_gpt4()
-  apply_model_config("openai", "gpt-4.1-mini")
-  save_model_preference("openai", "gpt-4.1-mini")
-  vim.notify("⚡ Quick switch to GPT-4", vim.log.levels.INFO)
+  local model = "gpt-4.1-mini"
+  confirm_paid_switch("openai", model, function()
+    apply_model_config("openai", model)
+    save_model_preference("openai", model)
+    show_provider_banner("openai", model)
+  end)
 end
 
 local function quick_switch_to_claude()
-  apply_model_config("anthropic", "claude-3-5-sonnet-20241022")
-  save_model_preference("anthropic", "claude-3-5-sonnet-20241022")
-  vim.notify("⚡ Quick switch to Claude", vim.log.levels.INFO)
+  local model = "claude-3-5-sonnet-20241022"
+  confirm_paid_switch("anthropic", model, function()
+    apply_model_config("anthropic", model)
+    save_model_preference("anthropic", model)
+    show_provider_banner("anthropic", model)
+  end)
 end
 
 local function quick_switch_to_local()
   local model = models.ollama[1] or "qwen2.5-coder:7b-base-q6_K"
   apply_model_config("ollama", model)
   save_model_preference("ollama", model)
-  vim.notify("⚡ Quick switch to Local: " .. model, vim.log.levels.INFO)
+  show_provider_banner("ollama", model)
 end
 
 local function quick_switch_to_gemini()
-  apply_model_config("gemini", "gemini-2.0-flash-exp")
-  save_model_preference("gemini", "gemini-2.0-flash-exp")
-  vim.notify("⚡ Quick switch to Gemini", vim.log.levels.INFO)
+  local model = "gemini-2.0-flash-exp"
+  confirm_paid_switch("gemini", model, function()
+    apply_model_config("gemini", model)
+    save_model_preference("gemini", model)
+    show_provider_banner("gemini", model)
+  end)
 end
 
 local function quick_switch_to_openrouter()
-  apply_model_config("openrouter", "qwen/qwen-2.5-coder-32b-instruct:free")
-  save_model_preference("openrouter", "qwen/qwen-2.5-coder-32b-instruct:free")
-  vim.notify("⚡ Quick switch to OpenRouter", vim.log.levels.INFO)
+  local model = "qwen/qwen-2.5-coder-32b-instruct:free"
+  confirm_paid_switch("openrouter", model, function()
+    apply_model_config("openrouter", model)
+    save_model_preference("openrouter", model)
+    show_provider_banner("openrouter", model)
+  end)
 end
 
 local function quick_switch_to_gemini_cli()
   local default_model = models.gemini_cli[1] or "gemini-2.5-pro"
   apply_model_config("gemini_cli", default_model)
   save_model_preference("gemini_cli", default_model)
-  vim.notify("🔮 Quick switch to Gemini CLI: " .. default_model, vim.log.levels.INFO)
+  show_provider_banner("gemini_cli", default_model)
 end
 
 local function quick_switch_to_opencode()
   local default_model = models.opencode[1] or "opencode"
-  apply_model_config("opencode", default_model)
-  save_model_preference("opencode", default_model)
-  vim.notify("⚡ Quick switch to OpenCode CLI: " .. default_model, vim.log.levels.INFO)
+  confirm_paid_switch("opencode", default_model, function()
+    apply_model_config("opencode", default_model)
+    save_model_preference("opencode", default_model)
+    show_provider_banner("opencode", default_model)
+  end)
 end
 
 local function quick_switch_to_minimax()
   local default_model = models.opencode[2] or "minimax/MiniMax-M2.1"
-  apply_model_config("minimax", default_model)
-  save_model_preference("minimax", default_model)
-  vim.notify("🎯 Quick switch to MiniMax: " .. default_model, vim.log.levels.INFO)
+  confirm_paid_switch("minimax", default_model, function()
+    apply_model_config("minimax", default_model)
+    save_model_preference("minimax", default_model)
+    show_provider_banner("minimax", default_model)
+  end)
 end
 
 
@@ -450,17 +605,26 @@ vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
 vim.api.nvim_create_user_command("CCRefreshModels", function()
-  local models = require("config.codecompanion.models")
-  models.refresh_models("openrouter")
-  models.refresh_models("openai")
-  models.refresh_models("opencode")
-  vim.notify("Models refreshed!", vim.log.levels.INFO)
-end, { desc = "Refresh AI models from providers" })
+  local m = require("config.codecompanion.models")
+  local results = {}
+  for _, adapter in ipairs({ "anthropic", "openai", "openrouter", "ollama", "opencode" }) do
+    local ok = m.refresh_models(adapter)
+    local count = m.models[adapter] and #m.models[adapter] or 0
+    table.insert(results, adapter .. ": " .. (ok and (count .. " models") or "failed"))
+  end
+  vim.notify("Refresh complete\n" .. table.concat(results, "\n"), vim.log.levels.INFO)
+end, { desc = "Refresh AI models from all providers" })
 vim.api.nvim_create_user_command("CCListAdapters", function()
-  local models = require("config.codecompanion.models")
-  local adapters = models.get_available_adapters()
-  vim.notify("Adapters: " .. table.concat(adapters, ", "), vim.log.levels.INFO)
-end, { desc = "List available AI adapters" })
+  local m = require("config.codecompanion.models")
+  local lines = {}
+  for adapter, model_list in pairs(m.models) do
+    local meta = provider_meta[adapter]
+    local tag = meta and meta.label or "?"
+    table.insert(lines, string.format("%-12s [%s]  %d models", adapter, tag, #model_list))
+  end
+  table.sort(lines)
+  vim.notify("Adapters:\n" .. table.concat(lines, "\n"), vim.log.levels.INFO)
+end, { desc = "List adapters with model counts and billing" })
 
 _G.paste_image_from_clipboard = function()
   local chat_bufnr = vim.api.nvim_get_current_buf()
