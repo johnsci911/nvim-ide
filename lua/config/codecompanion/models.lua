@@ -2,6 +2,81 @@ local M = {}
 
 local config_file = vim.fn.stdpath("data") .. "/codecompanion_model_config.json"
 
+-- Static fallback models (used when dynamic fetching fails or as defaults)
+local static_openai = {
+  "gpt-5.1",
+  "gpt-5.1-mini",
+  "gpt-5.1-codex-max",
+  "gpt-4.1",
+  "gpt-4.1-mini",
+  "gpt-4o",
+  "gpt-4-turbo",
+  "o1",
+  "o3-mini",
+}
+
+local static_openrouter = {
+  "qwen/qwen-2.5-coder-32b-instruct:free",
+  "meta-llama/llama-3.1-8b-instruct:free",
+  "meta-llama/llama-3.3-70b-instruct",
+  "deepseek/deepseek-chat",
+  "google/gemini-2.5-flash",
+}
+
+local static_opencode = {
+  -- Direct Anthropic provider
+  "anthropic/claude-opus-4-6",
+  "anthropic/claude-sonnet-4-5",
+  "anthropic/claude-sonnet-4-20250514",
+  "anthropic/claude-3-5-sonnet-20241022",
+  -- OpenCode native models
+  "opencode/minimax-m2.5-free",
+  "opencode/anthropic/claude-sonnet-4-20250514",
+  "opencode/anthropic/claude-3-5-sonnet-20241022",
+  "opencode/anthropic/claude-sonnet-4-5",
+  "opencode/anthropic/claude-opus-4-5",
+  -- MiniMax via minimax.io
+  "minimax/MiniMax-M2.5",
+  "minimax/MiniMax-M2.1",
+  "minimax/MiniMax-M2",
+}
+
+local static_anthropic = {
+  "claude-sonnet-4-5-20250929",
+  "claude-opus-4-5-20251101",
+  "claude-sonnet-4-20250514",
+  "claude-3-5-sonnet-20241022",
+  "claude-3-5-haiku-20241022",
+}
+
+local static_ollama = {
+  "qwen2.5-coder:7b",
+  "qwen2.5-coder:3b",
+  "llama3.2:latest",
+  "llama3.1:latest",
+  "mistral:latest",
+  "codellama:latest",
+}
+
+-- Initialize with static models (fast startup)
+M.models = {
+  openai = static_openai,
+  anthropic = static_anthropic,
+  opencode = static_opencode,
+  ollama = static_ollama,
+  openrouter = static_openrouter,
+}
+
+-- Cache for dynamic models (loaded lazily)
+local models_cache = {
+  openai = nil,
+  anthropic = nil,
+  opencode = nil,
+  ollama = nil,
+  openrouter = nil,
+}
+
+-- Async model fetching functions
 local function fetch_ollama_models()
   local handle = io.popen("ollama list 2>/dev/null")
   if not handle then
@@ -17,7 +92,7 @@ local function fetch_ollama_models()
 
   local models = {}
   local lines = vim.split(output, "\n")
-  for i = 2, #lines do -- Skip header
+  for i = 2, #lines do
     local line = lines[i]
     if line and line ~= "" then
       local model = line:match("^(%S+)")
@@ -112,7 +187,7 @@ end
 local function fetch_opencode_models()
   local api_key = os.getenv("OPENCODE_API_KEY")
 
-  -- If no API key, try using opencode CLI directly
+  -- Try using opencode CLI directly
   if not api_key or api_key == "" then
     local handle = io.popen("opencode models 2>/dev/null")
     if not handle then
@@ -162,53 +237,6 @@ local function fetch_opencode_models()
   return models
 end
 
--- Static fallback models (used when dynamic fetching fails)
-local static_openai = {
-  "gpt-5.1",
-  "gpt-5.1-mini",
-  "gpt-5.1-codex-max",
-  "gpt-4.1",
-  "gpt-4.1-mini",
-  "gpt-4o",
-  "gpt-4-turbo",
-  "o1",
-  "o3-mini",
-}
-
-local static_openrouter = {
-  "qwen/qwen-2.5-coder-32b-instruct:free",
-  "meta-llama/llama-3.1-8b-instruct:free",
-  "meta-llama/llama-3.3-70b-instruct",
-  "deepseek/deepseek-chat",
-  "google/gemini-2.5-flash",
-}
-
-local static_opencode = {
-  -- Direct Anthropic provider (billed to ANTHROPIC_API_KEY, NOT OpenRouter)
-  "anthropic/claude-opus-4-6",
-  "anthropic/claude-sonnet-4-5",
-  "anthropic/claude-sonnet-4-20250514",
-  "anthropic/claude-3-5-sonnet-20241022",
-  -- OpenCode native models
-  "opencode/minimax-m2.5-free",
-  "opencode/anthropic/claude-sonnet-4-20250514",
-  "opencode/anthropic/claude-3-5-sonnet-20241022",
-  "opencode/anthropic/claude-sonnet-4-5",
-  "opencode/anthropic/claude-opus-4-5",
-  -- MiniMax via minimax.io (exact IDs from `opencode models`)
-  "minimax/MiniMax-M2.5",
-  "minimax/MiniMax-M2.1",
-  "minimax/MiniMax-M2",
-}
-
-local static_anthropic = {
-  "claude-sonnet-4-5-20250929",
-  "claude-opus-4-5-20251101",
-  "claude-sonnet-4-20250514",
-  "claude-3-5-sonnet-20241022",
-  "claude-3-5-haiku-20241022",
-}
-
 local function fetch_anthropic_models()
   local api_key = os.getenv("ANTHROPIC_API_KEY")
   if not api_key or api_key == "" then
@@ -253,11 +281,6 @@ local function fetch_anthropic_models()
   return result
 end
 
-local ok_openai, dynamic_openai = pcall(fetch_openai_models)
-local ok_openrouter, dynamic_openrouter = pcall(fetch_openrouter_models)
-local ok_opencode, dynamic_opencode = pcall(fetch_opencode_models)
-local ok_anthropic, dynamic_anthropic = pcall(fetch_anthropic_models)
-
 local function build_opencode_models(opencode_models, anthropic_models)
   local merged = {}
   local seen = {}
@@ -274,7 +297,6 @@ local function build_opencode_models(opencode_models, anthropic_models)
   end
 
   for _, m in ipairs(opencode_models or {}) do
-    -- Skip openrouter-prefixed and highspeed models
     if not m:find("^openrouter/") and not m:find("%-highspeed$") then
       add(m)
     end
@@ -283,39 +305,70 @@ local function build_opencode_models(opencode_models, anthropic_models)
   return merged
 end
 
-M.models = {
-  openai = ok_openai and dynamic_openai or static_openai,
-  anthropic = ok_anthropic and dynamic_anthropic or static_anthropic,
-  opencode = build_opencode_models(
-    ok_opencode and dynamic_opencode or static_opencode,
-    ok_anthropic and dynamic_anthropic or static_anthropic
-  ),
-  ollama = fetch_ollama_models(),
-  openrouter = ok_openrouter and dynamic_openrouter or static_openrouter,
-}
-
--- Fallback models (when dynamic fetching returns empty)
-if #M.models.ollama == 0 then
-  M.models.ollama = {
-    "qwen2.5-coder:7b",
-    "qwen2.5-coder:3b",
-    "llama3.2:latest",
-    "llama3.1:latest",
-    "mistral:latest",
-    "codellama:latest",
-  }
+-- Get available adapters (only those with models)
+function M.get_available_adapters()
+  local adapters = {}
+  for adapter, models in pairs(M.models) do
+    if models and #models > 0 then
+      table.insert(adapters, adapter)
+    end
+  end
+  return adapters
 end
 
-if #M.models.openai == 0 then
-  M.models.openai = static_openai
+-- Refresh models for a specific adapter (async/lazy)
+function M.refresh_models(adapter)
+  if adapter == "openai" then
+    local ok, result = pcall(fetch_openai_models)
+    if ok and result and #result > 0 then
+      M.models.openai = result
+      models_cache.openai = result
+      return true
+    end
+  elseif adapter == "anthropic" then
+    local ok, result = pcall(fetch_anthropic_models)
+    if ok and result and #result > 0 then
+      M.models.anthropic = result
+      models_cache.anthropic = result
+      return true
+    end
+  elseif adapter == "openrouter" then
+    local ok, result = pcall(fetch_openrouter_models)
+    if ok and result and #result > 0 then
+      M.models.openrouter = result
+      models_cache.openrouter = result
+      return true
+    end
+  elseif adapter == "opencode" then
+    local oc_ok, oc_models = pcall(fetch_opencode_models)
+    local an_ok, an_models = pcall(fetch_anthropic_models)
+    local merged = build_opencode_models(
+      oc_ok and oc_models or static_opencode,
+      an_ok and an_models or M.models.anthropic
+    )
+    M.models.opencode = merged
+    models_cache.opencode = merged
+    return #merged > 0
+  elseif adapter == "ollama" then
+    local result = fetch_ollama_models()
+    if result and #result > 0 then
+      M.models.ollama = result
+      models_cache.ollama = result
+      return true
+    end
+  end
+  return false
 end
 
-if #M.models.openrouter == 0 then
-  M.models.openrouter = static_openrouter
-end
-
-if #M.models.opencode == 0 then
-  M.models.opencode = static_opencode
+-- Get models for adapter (with optional lazy refresh)
+function M.get_models(adapter)
+  local models = M.models[adapter]
+  if models and #models > 0 then
+    return models
+  end
+  -- Try to refresh if empty
+  M.refresh_models(adapter)
+  return M.models[adapter] or {}
 end
 
 -- Persistence functions
@@ -338,51 +391,7 @@ function M.load_model_preference()
       return config.current_adapter, config.current_model
     end
   end
-  return "openai", "gpt-5.1-mini" -- defaults
-end
-
-function M.refresh_models(adapter)
-  if adapter == "openai" then
-    local ok, result = pcall(fetch_openai_models)
-    if ok and result and #result > 0 then
-      M.models.openai = result
-      return true
-    end
-  elseif adapter == "anthropic" then
-    local ok, result = pcall(fetch_anthropic_models)
-    if ok and result and #result > 0 then
-      M.models.anthropic = result
-      return true
-    end
-  elseif adapter == "openrouter" then
-    local ok, result = pcall(fetch_openrouter_models)
-    if ok and result and #result > 0 then
-      M.models.openrouter = result
-      return true
-    end
-  elseif adapter == "opencode" then
-    local oc_ok, oc_models = pcall(fetch_opencode_models)
-    local an_ok, an_models = pcall(fetch_anthropic_models)
-    M.models.opencode = build_opencode_models(
-      oc_ok and oc_models or static_opencode,
-      an_ok and an_models or M.models.anthropic
-    )
-    return #M.models.opencode > 0
-  elseif adapter == "ollama" then
-    M.models.ollama = fetch_ollama_models()
-    return #M.models.ollama > 0
-  end
-  return false
-end
-
-function M.get_available_adapters()
-  local adapters = {}
-  for adapter, models in pairs(M.models) do
-    if #models > 0 then
-      table.insert(adapters, adapter)
-    end
-  end
-  return adapters
+  return "openai", "gpt-5.1-mini"
 end
 
 return M

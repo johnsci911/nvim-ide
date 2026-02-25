@@ -691,6 +691,15 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           duplicate = { n = "<C-y>", i = "<C-y>" },
         },
         ---Automatically generate titles for new chats
+        auto_generate_title = true,
+        title_generation_opts = {
+          ---Force using HTTP adapter for title generation (works with ACP chats too)
+          adapter = "gemini",
+          model = "gemini-2.5-flash",
+          refresh_every_n_prompts = 0,
+          max_refreshes = 3,
+        },
+        auto_generate_title = true,
         auto_generate_title = false,
         title_generation_opts = {
           ---Adapter for generating titles (use HTTP adapter since ACP doesn't support this)
@@ -813,8 +822,62 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           end,
           description = "Paste image from clipboard",
         },
+        generate_title = {
+          modes = {
+            n = "gt",
+          },
+          index = 101,
+          callback = function()
+            local ok, gentitle = pcall(require, "config.codecompanion.gentitle")
+            if ok then
+              gentitle.generate_title_for_current_chat()
+            end
+          end,
+          description = "Generate chat title",
+        },
+          modes = {
+            n = "<leader>aip",
+            i = "<leader>aip",
+          },
+          index = 100,
+          callback = function()
+            _G.paste_image_from_clipboard()
+          end,
+          description = "Paste image from clipboard",
+        },
       },
       slash_commands = {
+        image = {
+          opts = {
+            provider = "snacks",
+          },
+        },
+        compact = {
+          description = "Clear chat history, keeping summary",
+          opts = {
+            provider = "default",
+          },
+        },
+        gentitle = {
+          callback = "config.codecompanion.gentitle",
+          description = "Generate a title for this chat",
+          opts = {
+            provider = "default",
+          },
+        },
+      },
+        image = {
+          opts = {
+            provider = "snacks",
+          },
+        },
+        compact = {
+          description = "Clear chat history, keeping summary (HTTP adapters only)",
+          opts = {
+            provider = "default",
+          },
+        },
+      },
         image = {
           opts = {
             provider = "snacks",
