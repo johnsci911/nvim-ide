@@ -149,6 +149,7 @@ wk.add({
   { "<leader>Ss",    "<Cmd>Autosession save<CR>",                                   desc = 'Save Session' },
   { "<leader>SS",    "<Cmd>SaveSession<CR>",                                        desc = 'Save named Session' },
   { "<leader>Sl",    "<Cmd>AutoSession search<CR>",                                 desc = 'Search Session - Control + D to delete' },
+  { "<leader>SR",    "<Cmd>RenameSession<CR>",                                     desc = 'Rename Session' },
   -- "folke/persistence.nvim" in plugins.lua
   -- Sr - Restore Session
   -- Sl - Last Session

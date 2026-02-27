@@ -60,7 +60,7 @@ require("lazy").setup({
   'mfussenegger/nvim-lint',
 
   -- Autocomplete
-  { 'mattn/emmet-vim', commit = '3fb2f63' }, -- pinned: before treesitter dependency
+  { 'mattn/emmet-vim', commit = '3fb2f63' }, -- pinned: temporary fix for current issue
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
   'roobert/tailwindcss-colorizer-cmp.nvim',
