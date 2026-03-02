@@ -91,8 +91,13 @@ function M.auto_generate_title()
   -- Mark as processed
   generated_titles[bufnr] = true
   
-  -- Apply title
+  -- Apply title to buffer name
   apply_title(bufnr, title)
+
+  -- Also set on the chat object so history extension saves it
+  if chat.opts then
+    chat.opts.title = title
+  end
   
   vim.schedule(function()
     vim.notify("[AutoTitle] " .. title, vim.log.levels.INFO, { timeout = 1500 })

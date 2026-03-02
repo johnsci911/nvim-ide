@@ -690,23 +690,8 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           delete = { n = "d", i = "<M-d>" },
           duplicate = { n = "<C-y>", i = "<C-y>" },
         },
-        ---Automatically generate titles for new chats
-        auto_generate_title = true,
-        title_generation_opts = {
-          ---Adapter for generating titles (use HTTP adapter since ACP doesn't support this)
-          adapter = "gemini",
-          ---Model for generating titles
-          model = "gemini-2.5-flash",
-          ---Number of user prompts after which to refresh the title (0 to disable)
-          refresh_every_n_prompts = 0, -- e.g., 3 to refresh after every 3rd user prompt
-          ---Maximum number of times to refresh the title (default: 3)
-          max_refreshes = 3,
-          format_title = function(original_title)
-            -- this can be a custom function that applies some custom
-            -- formatting to the title.
-            return original_title
-          end
-        },
+        ---Disable LLM-based title generation (we use local first-sentence extraction instead)
+        auto_generate_title = false,
         ---On exiting and entering neovim, loads the last chat on opening chat
         continue_last_chat = false,
         ---When chat is cleared with `gx` delete the chat from history
@@ -924,16 +909,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
 })
 
 local function patch_history_config()
-  -- If history extension exists, ensure title generation uses HTTP adapter (not ACP)
+  -- Ensure LLM-based title generation is disabled (we use local extraction in auto_title.lua)
   if _G.codecompanion_config.extensions and _G.codecompanion_config.extensions.history then
     if _G.codecompanion_config.extensions.history.opts then
-      -- Set title_generation_opts to use HTTP adapter since ACP doesn't support it
-      _G.codecompanion_config.extensions.history.opts.title_generation_opts = {
-        adapter = "gemini",
-        model = "gemini-2.5-flash",
-        refresh_every_n_prompts = 0,
-        max_refreshes = 3,
-      }
+      _G.codecompanion_config.extensions.history.opts.auto_generate_title = false
     end
   end
 end
