@@ -84,6 +84,7 @@ wk.add({
   { "<leader>aig",   '<Cmd>CodeCompanion /staged-commit<CR>',                       desc = 'AI Generate Commit' },
   { "<leader>aim",   '<Cmd>CCRefreshModels<CR>',                                    desc = 'AI Refresh Models' },
   { "<leader>aiM",   '<Cmd>CCListAdapters<CR>',                                     desc = 'AI List Adapters' },
+  { "<leader>aiv",   '<Cmd>CCVariant<CR>',                                          desc = 'AI Thinking Variant' },
 
   { "<C-a>i",         mode = { "v" },  group = "AI commands" },
   { "<C-a>id",        mode = { "v" }, '<Cmd>CodeCompanion /inline-doc<CR>',         desc = 'AI Inline Doc' },

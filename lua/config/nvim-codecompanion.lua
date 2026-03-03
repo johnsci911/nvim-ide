@@ -1,5 +1,6 @@
 local prompts = require("config.codecompanion.prompts")
 local models_module = require("config.codecompanion.models")
+local variant_module = require("config.codecompanion.variant")
 
 local SYSTEM_PROMPT = prompts.SYSTEM_PROMPT
 local EXPLAIN = prompts.EXPLAIN
@@ -27,7 +28,8 @@ _G.codecompanion_config = {
 -- Simple global state for current adapter/model (updated by apply_model_config)
 _G.codecompanion_current_state = {
   adapter = "openai",
-  model = "gpt-4.1-mini"
+  model = "gpt-4.1-mini",
+  variant = "medium",
 }
 
 -- Provider billing metadata — makes it UNMISSABLE which account gets charged
@@ -99,7 +101,11 @@ local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
   local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", }
-  return (icons[adapter] or "🤖") .. " " .. model
+  local variant = _G.codecompanion_current_state.variant or "medium"
+  local variant_tag = variant_module.supports_variants(adapter, model)
+    and " [" .. variant_module.get_short_display(variant) .. "]"
+    or ""
+  return (icons[adapter] or "🤖") .. " " .. model .. variant_tag
 end
 
 local function get_intro_message()
@@ -113,7 +119,8 @@ local function get_intro_message()
     display_name = "OpenCode CLI"
   end
 
-  return icon .. " Using " .. display_name .. ": " .. model_name .. ". Press ? for options " .. icon
+  local variant_display = variant_module.get_display(_G.codecompanion_current_state.variant)
+  return icon .. " Using " .. display_name .. ": " .. model_name .. "  " .. variant_display .. ". Press ? for options " .. icon
 end
 
 local function show_provider_banner(adapter_name, model_name)
@@ -302,6 +309,11 @@ local function apply_model_config(adapter_name, model_name)
     if adapter.schema and adapter.schema.model then
       adapter.schema.model.default = model_name
     end
+    -- Apply variant schema overrides (thinking_budget, reasoning_effort, etc.)
+    local vo = variant_module.get_schema_overrides(adapter_name, model_name)
+    if next(vo) then
+      adapter.schema = vim.tbl_deep_extend("force", adapter.schema or {}, vo)
+    end
     if adapter_name == "openrouter" then
       adapter.env.api_key = os.getenv("OPENROUTER_API_KEY")
     elseif adapter_name == "gemini" then
@@ -332,6 +344,9 @@ local function apply_model_config(adapter_name, model_name)
           chat_url = "/v1/chat/completions",
         }
       end
+      -- Apply variant schema overrides
+      local vo = variant_module.get_schema_overrides(adapter_name, model_name)
+      schema = vim.tbl_deep_extend("force", schema, vo)
       return require("codecompanion.adapters").extend(adapter_name, {
         env = base_env,
         schema = schema,
@@ -351,6 +366,30 @@ local function apply_model_config(adapter_name, model_name)
     codecompanion.adapters_cache[adapter_name] = nil
   end
   codecompanion.setup(_G.codecompanion_config)
+end
+
+-- Apply a thinking variant and re-apply current adapter config
+local function apply_variant(variant_name)
+  _G.codecompanion_current_state.variant = variant_name
+  variant_module.save(variant_name)
+
+  -- Re-apply current model config so the adapter picks up new schema overrides
+  local adapter_name = _G.codecompanion_current_state.adapter
+  local model_name = _G.codecompanion_current_state.model
+  apply_model_config(adapter_name, model_name)
+
+  local supported = variant_module.supports_variants(adapter_name, model_name)
+  local msg = "Thinking variant: " .. variant_module.get_display(variant_name)
+  if not supported then
+    msg = msg .. "\n⚠ Current model does not support thinking variants"
+  end
+  vim.notify(msg, vim.log.levels.INFO)
+end
+
+local function switch_variant()
+  variant_module.pick(function(variant_name)
+    apply_variant(variant_name)
+  end)
 end
 
 -- Enhanced model switching with better UX
@@ -493,7 +532,7 @@ local function quick_switch_to_gpt4()
 end
 
 local function quick_switch_to_claude()
-  local model = "claude-3-5-sonnet-20241022"
+  local model = "claude-sonnet-4-6"
   confirm_paid_switch("anthropic", model, function()
     apply_model_config("anthropic", model)
     save_model_preference("anthropic", model)
@@ -551,6 +590,7 @@ vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { 
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
 end, { desc = "Show current model" })
+vim.api.nvim_create_user_command("CCVariant", switch_variant, { desc = "Switch thinking variant (low/medium/max)" })
 vim.api.nvim_create_user_command("CCRefreshModels", function()
   local m = require("config.codecompanion.models")
   local results = {}
@@ -647,7 +687,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       show_header_separator = false,
       separator = "─",
       show_references = true,
-      show_settings = false,
+      show_settings = true,
       show_token_count = true,
       start_in_insert_mode = false,
       window = { layout = "vertical" },
@@ -881,6 +921,13 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           },
         })
       end,
+      anthropic = function()
+        return require("codecompanion.adapters").extend("anthropic", {
+          env = {
+            ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+          },
+        })
+      end,
     },
     acp = {
       gemini_cli = function()
@@ -919,7 +966,10 @@ end
 
 patch_history_config()
 
--- Load saved preference on startup
+-- Load saved variant on startup
+_G.codecompanion_current_state.variant = variant_module.load()
+
+-- Load saved model preference on startup (variant is already set, so apply_model_config uses it)
 local saved_adapter, saved_model = load_model_preference()
 if saved_adapter and saved_model then
   apply_model_config(saved_adapter, saved_model)
