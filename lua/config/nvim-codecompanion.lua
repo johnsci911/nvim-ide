@@ -840,6 +840,9 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
         },
       },
       slash_commands = {
+        compact = {
+          enabled = true,
+        },
         image = {
           opts = {
             provider = "snacks",
