@@ -1035,6 +1035,29 @@ require("codecompanion").setup(_G.codecompanion_config)
 -- Setup auto title generation for ACP (works with OpenCode)
 require("config.codecompanion.auto_title").setup()
 
+-- Patch: fix ACP stale connection not detected after process death
+-- When the ACP process (e.g. opencode) dies mid-conversation, ensure_connection()
+-- only checks if the connection object exists — not if it's still alive.
+-- This leaves a stale object whose session_id is nil, causing session_prompt()
+-- to return nil and crash at handler.lua:149 with "attempt to index a nil value".
+do
+  local ACPHandler = require("codecompanion.interactions.chat.acp.handler")
+  if ACPHandler and ACPHandler.ensure_connection then
+    local original_ensure = ACPHandler.ensure_connection
+    ACPHandler.ensure_connection = function(self)
+      if self.chat.acp_connection then
+        local conn = self.chat.acp_connection
+        -- is_connected() checks handle + _initialized + _authenticated + session_id
+        if not conn.is_connected or not conn:is_connected() then
+          pcall(function() conn:disconnect() end)
+          self.chat.acp_connection = nil
+        end
+      end
+      return original_ensure(self)
+    end
+  end
+end
+
 -- Patch: fix ACP apply_default_model substring matching picking wrong model
 -- (e.g. "MiniMax-M2.5-highspeed" matching before "MiniMax-M2.5")
 do
