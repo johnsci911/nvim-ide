@@ -41,12 +41,10 @@ local static_opencode = {
   "minimax/MiniMax-M2",
 }
 
-local static_anthropic = {
-  "claude-sonnet-4-5-20250929",
-  "claude-opus-4-5-20251101",
-  "claude-sonnet-4-20250514",
-  "claude-3-5-sonnet-20241022",
-  "claude-3-5-haiku-20241022",
+local static_claude_code = {
+  "Opus",
+  "Sonnet",
+  "Haiku",
 }
 
 local static_ollama = {
@@ -61,16 +59,15 @@ local static_ollama = {
 -- Initialize with static models (fast startup)
 M.models = {
   openai = static_openai,
-  anthropic = static_anthropic,
   opencode = static_opencode,
   ollama = static_ollama,
   openrouter = static_openrouter,
+  claude_code = static_claude_code,
 }
 
 -- Cache for dynamic models (loaded lazily)
 local models_cache = {
   openai = nil,
-  anthropic = nil,
   opencode = nil,
   ollama = nil,
   openrouter = nil,
@@ -237,71 +234,15 @@ local function fetch_opencode_models()
   return models
 end
 
-local function fetch_anthropic_models()
-  local api_key = os.getenv("ANTHROPIC_API_KEY")
-  if not api_key or api_key == "" then
-    return nil
-  end
-
-  local tmpfile = os.tmpname()
-  os.execute(string.format(
-    'curl -s -H "x-api-key: %s" -H "anthropic-version: 2023-06-01" "https://api.anthropic.com/v1/models?limit=50" > %s 2>/dev/null',
-    api_key, tmpfile
-  ))
-
-  local file = io.open(tmpfile, "r")
-  if not file then
-    os.remove(tmpfile)
-    return nil
-  end
-
-  local content = file:read("*a")
-  file:close()
-  os.remove(tmpfile)
-
-  if content == "" then
-    return nil
-  end
-
-  local ok, result = pcall(function()
-    local json = vim.json.decode(content)
-    local models = {}
-    for _, m in ipairs(json.data or {}) do
-      if m.id then
-        table.insert(models, m.id)
-      end
-    end
-    return models
-  end)
-
-  if not ok or not result then
-    return nil
-  end
-
-  return result
-end
-
-local function build_opencode_models(opencode_models, anthropic_models)
+local function build_opencode_models(opencode_models)
   local merged = {}
   local seen = {}
-
-  local function add(m)
-    if not seen[m] then
+  for _, m in ipairs(opencode_models or {}) do
+    if not m:find("^openrouter/") and not m:find("%-highspeed$") and not seen[m] then
       table.insert(merged, m)
       seen[m] = true
     end
   end
-
-  for _, m in ipairs(anthropic_models or {}) do
-    add("anthropic/" .. m)
-  end
-
-  for _, m in ipairs(opencode_models or {}) do
-    if not m:find("^openrouter/") and not m:find("%-highspeed$") then
-      add(m)
-    end
-  end
-
   return merged
 end
 
@@ -325,13 +266,6 @@ function M.refresh_models(adapter)
       models_cache.openai = result
       return true
     end
-  elseif adapter == "anthropic" then
-    local ok, result = pcall(fetch_anthropic_models)
-    if ok and result and #result > 0 then
-      M.models.anthropic = result
-      models_cache.anthropic = result
-      return true
-    end
   elseif adapter == "openrouter" then
     local ok, result = pcall(fetch_openrouter_models)
     if ok and result and #result > 0 then
@@ -341,10 +275,8 @@ function M.refresh_models(adapter)
     end
   elseif adapter == "opencode" then
     local oc_ok, oc_models = pcall(fetch_opencode_models)
-    local an_ok, an_models = pcall(fetch_anthropic_models)
     local merged = build_opencode_models(
-      oc_ok and oc_models or static_opencode,
-      an_ok and an_models or M.models.anthropic
+      oc_ok and oc_models or static_opencode
     )
     M.models.opencode = merged
     models_cache.opencode = merged
@@ -391,7 +323,7 @@ function M.load_model_preference()
       return config.current_adapter, config.current_model
     end
   end
-  return "openai", "gpt-5.1-mini"
+  return "claude_code", "Sonnet"
 end
 
 return M

@@ -35,21 +35,21 @@ _G.codecompanion_current_state = {
 -- Provider billing metadata — makes it UNMISSABLE which account gets charged
 local provider_meta = {
   openai      = { label = "PAID",  billing = "OpenAI Account",           hl = "DiagnosticWarn"  },
-  anthropic   = { label = "PAID",  billing = "Anthropic Account",        hl = "DiagnosticWarn"  },
   openrouter  = { label = "PAID",  billing = "OpenRouter Account",       hl = "DiagnosticError" },
   ollama      = { label = "FREE",  billing = "Local Machine",            hl = "DiagnosticOk"    },
   gemini      = { label = "PAID",  billing = "Google AI Studio",         hl = "DiagnosticWarn"  },
   gemini_cli  = { label = "FREE",  billing = "Google OAuth (Free Tier)", hl = "DiagnosticOk"    },
   opencode    = { label = "PAID",  billing = "OpenCode Account",         hl = "DiagnosticWarn"  },
+  claude_code = { label = "SUB",   billing = "Claude Pro (OAuth)",       hl = "DiagnosticOk"    },
 }
 
 -- Helper functions (defined early to avoid reference errors)
 local function get_current_adapter()
   local adapter = _G.codecompanion_config.interactions.chat.adapter
   if type(adapter) == "table" then
-    return adapter.name or "openai"
+    return adapter.name or "claude_code"
   end
-  return adapter or "openai"
+  return adapter or "claude_code"
 end
 
 local function get_current_model_name()
@@ -84,6 +84,19 @@ local function get_current_model_name()
       end
     end
     return "opencode" -- default
+  elseif adapter_name == "claude_code" then
+    local chat_adapter = _G.codecompanion_config.interactions.chat.adapter
+    if type(chat_adapter) == "table" and chat_adapter.model then
+      return chat_adapter.model
+    end
+    local acp_adapters = _G.codecompanion_config.adapters.acp
+    if acp_adapters and acp_adapters.claude_code then
+      local adapter = acp_adapters.claude_code()
+      if adapter.defaults and adapter.defaults.model then
+        return adapter.defaults.model
+      end
+    end
+    return "Sonnet" -- default
   end
 
 
@@ -100,7 +113,7 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", claude_code = "🧠", }
   local variant = _G.codecompanion_current_state.variant or "medium"
   local variant_tag = variant_module.supports_variants(adapter, model)
     and " [" .. variant_module.get_short_display(variant) .. "]"
@@ -111,16 +124,21 @@ end
 local function get_intro_message()
   local adapter_name = _G.codecompanion_current_state.adapter
   local model_name = _G.codecompanion_current_state.model
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", }
+  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", claude_code = "🧠", }
   local icon = icons[adapter_name] or "✨"
 
   local display_name = adapter_name:gsub("^%l", string.upper)
   if adapter_name == "opencode" then
     display_name = "OpenCode CLI"
+  elseif adapter_name == "claude_code" then
+    display_name = "Claude Code"
   end
 
-  local variant_display = variant_module.get_display(_G.codecompanion_current_state.variant)
-  return icon .. " Using " .. display_name .. ": " .. model_name .. "  " .. variant_display .. ". Press ? for options " .. icon
+  local variant_part = ""
+  if variant_module.supports_variants(adapter_name, model_name) then
+    variant_part = "  " .. variant_module.get_display(_G.codecompanion_current_state.variant)
+  end
+  return icon .. " Using " .. display_name .. ": " .. model_name .. variant_part .. ". Press ? for options " .. icon
 end
 
 local function show_provider_banner(adapter_name, model_name)
@@ -298,6 +316,27 @@ local function apply_model_config(adapter_name, model_name)
     end
     codecompanion.setup(_G.codecompanion_config)
     return
+  elseif adapter_name == "claude_code" then
+    _G.codecompanion_config.adapters.acp = _G.codecompanion_config.adapters.acp or {}
+    _G.codecompanion_config.adapters.acp.claude_code = function()
+      return require("codecompanion.adapters").extend("claude_code", {
+        defaults = {
+          model = model_name,
+        },
+      })
+    end
+
+    local adapter_config = { name = "claude_code", model = model_name }
+    _G.codecompanion_config.interactions.chat.adapter = adapter_config
+    _G.codecompanion_config.interactions.inline.adapter = adapter_config
+    _G.codecompanion_config.interactions.agent.adapter = adapter_config
+
+    local codecompanion = require("codecompanion")
+    if codecompanion.adapters_cache then
+      codecompanion.adapters_cache["claude_code"] = nil
+    end
+    codecompanion.setup(_G.codecompanion_config)
+    return
   end
 
 
@@ -419,17 +458,17 @@ local function switch_model()
         local adapter = entry:gsub(" %(current%)", "")
         local meta = provider_meta[adapter] or { label = "?", billing = "Unknown" }
         local icon = adapter == "openai" and "🚀" or
-            adapter == "anthropic" and "💡" or
             adapter == "ollama" and "🐑" or
             adapter == "openrouter" and "🌐" or
             adapter == "opencode" and "⚡" or
+            adapter == "claude_code" and "🧠" or
             "💻"
         local cost_tag = meta.label == "FREE"
             and " [FREE]"
             or  " [PAID - " .. meta.billing .. "]"
         return {
           value = entry,
-          display = icon .. " " .. adapter:gsub("^%l", string.upper) .. cost_tag,
+          display = icon .. " " .. (({ claude_code = "ClaudeCode", gemini_cli = "GeminiCLI", opencode = "OpenCode" })[adapter] or adapter:gsub("^%l", string.upper)) .. cost_tag,
           ordinal = entry
         }
       end
@@ -531,15 +570,6 @@ local function quick_switch_to_gpt4()
   end)
 end
 
-local function quick_switch_to_claude()
-  local model = "claude-sonnet-4-6"
-  confirm_paid_switch("anthropic", model, function()
-    apply_model_config("anthropic", model)
-    save_model_preference("anthropic", model)
-    show_provider_banner("anthropic", model)
-  end)
-end
-
 local function quick_switch_to_local()
   local model = models.ollama[1] or "qwen2.5-coder:7b-base-q6_K"
   apply_model_config("ollama", model)
@@ -572,6 +602,45 @@ local function quick_switch_to_gemini_cli()
   show_provider_banner("gemini_cli", default_model)
 end
 
+-- Check Claude Code ACP auth: CLAUDE_CODE_OAUTH_TOKEN must be set (non-empty).
+-- Calls on_result(true) if the token is present, false otherwise.
+-- Note: does NOT verify the token is unexpired — a 401 during a request means
+-- the token is stale and the user needs to run `claude setup-token` again.
+local function check_claude_code_auth(on_result)
+  local token = os.getenv("CLAUDE_CODE_OAUTH_TOKEN")
+  -- Schedule so callers can always treat this as async
+  vim.schedule(function()
+    on_result(token ~= nil and token ~= "")
+  end)
+end
+
+-- Show auth error with actionable instructions
+local function show_claude_code_auth_error()
+  vim.notify(
+    "Claude Code: CLAUDE_CODE_OAUTH_TOKEN is not set.\n\n"
+      .. "1. Run in your terminal:\n"
+      .. "     claude setup-token\n\n"
+      .. "2. Copy the OAuth token and export it:\n"
+      .. "     export CLAUDE_CODE_OAUTH_TOKEN=<token>\n\n"
+      .. "3. Restart Neovim (or add the export to your shell profile).",
+    vim.log.levels.ERROR,
+    { title = "Claude Code Auth" }
+  )
+end
+
+local function quick_switch_to_claude_code()
+  local default_model = models.claude_code[1] or "Sonnet"
+  check_claude_code_auth(function(authenticated)
+    if not authenticated then
+      show_claude_code_auth_error()
+      return
+    end
+    apply_model_config("claude_code", default_model)
+    save_model_preference("claude_code", default_model)
+    show_provider_banner("claude_code", default_model)
+  end)
+end
+
 local function quick_switch_to_opencode()
   local default_model = models.opencode[1] or "opencode"
   confirm_paid_switch("opencode", default_model, function()
@@ -583,9 +652,9 @@ end
 
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
 vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
-vim.api.nvim_create_user_command("CCQuickClaude", quick_switch_to_claude, { desc = "Quick switch to Claude" })
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
 vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
+vim.api.nvim_create_user_command("CCQuickClaudeCode", quick_switch_to_claude_code, { desc = "Quick switch to Claude Code ACP" })
 vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { desc = "Quick switch to OpenCode CLI" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
   vim.notify("Current model: " .. get_current_model(), vim.log.levels.INFO)
@@ -594,7 +663,7 @@ vim.api.nvim_create_user_command("CCVariant", switch_variant, { desc = "Switch t
 vim.api.nvim_create_user_command("CCRefreshModels", function()
   local m = require("config.codecompanion.models")
   local results = {}
-  for _, adapter in ipairs({ "anthropic", "openai", "openrouter", "ollama", "opencode" }) do
+  for _, adapter in ipairs({ "openai", "openrouter", "ollama", "opencode" }) do
     local ok = m.refresh_models(adapter)
     local count = m.models[adapter] and #m.models[adapter] or 0
     table.insert(results, adapter .. ": " .. (ok and (count .. " models") or "failed"))
@@ -924,13 +993,6 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           },
         })
       end,
-      anthropic = function()
-        return require("codecompanion.adapters").extend("anthropic", {
-          env = {
-            ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
-          },
-        })
-      end,
     },
     acp = {
       gemini_cli = function()
@@ -950,6 +1012,13 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
           },
           opts = {
             vision = false,
+          },
+        })
+      end,
+      claude_code = function()
+        return require("codecompanion.adapters").extend("claude_code", {
+          defaults = {
+            model = "Sonnet",
           },
         })
       end,
@@ -976,6 +1045,13 @@ _G.codecompanion_current_state.variant = variant_module.load()
 local saved_adapter, saved_model = load_model_preference()
 if saved_adapter and saved_model then
   apply_model_config(saved_adapter, saved_model)
+  if saved_adapter == "claude_code" then
+    check_claude_code_auth(function(authenticated)
+      if not authenticated then
+        show_claude_code_auth_error()
+      end
+    end)
+  end
 end
 
 -- Setup with enhanced spinner integration
@@ -989,6 +1065,14 @@ vim.api.nvim_create_autocmd({ "User" }, {
     if request.match == "CodeCompanionRequestStarted" then
       spinner.show()
       vim.notify("🤖 Processing request...", vim.log.levels.INFO, { timeout = 1000 })
+      -- If using claude_code ACP adapter, proactively check auth so the user
+      -- gets a clear message instead of the cryptic "Invalid bearer token" error.
+      local adapter_name = request.data and request.data.adapter and request.data.adapter.name
+      if adapter_name == "claude_code" then
+        check_claude_code_auth(function(ok)
+          if not ok then show_claude_code_auth_error() end
+        end)
+      end
     elseif request.match == "CodeCompanionRequestFinished" then
       spinner.hide()
     end
