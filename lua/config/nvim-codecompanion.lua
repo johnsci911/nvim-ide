@@ -682,6 +682,11 @@ vim.api.nvim_create_user_command("CCListAdapters", function()
   vim.notify("Adapters:\n" .. table.concat(lines, "\n"), vim.log.levels.INFO)
 end, { desc = "List adapters with model counts and billing" })
 
+vim.api.nvim_create_user_command("CCCleanupImages", function()
+  require("config.codecompanion.images").cleanup_all()
+  vim.notify("CodeCompanion: all cached images deleted", vim.log.levels.INFO)
+end, { desc = "Delete all cached codecompanion images" })
+
 _G.paste_image_from_clipboard = function()
   local chat_bufnr = vim.api.nvim_get_current_buf()
 
@@ -1111,6 +1116,16 @@ vim.api.nvim_create_autocmd("BufLeave", {
           vim.cmd("silent! SupermavenRestart")
         end
       end, 100)
+    end
+  end,
+})
+
+-- Clean up images when a codecompanion chat buffer is closed
+vim.api.nvim_create_autocmd("BufDelete", {
+  group = codecompanion_group,
+  callback = function(args)
+    if is_codecompanion_buffer(args.buf) then
+      require("config.codecompanion.images").cleanup_session(args.buf)
     end
   end,
 })
