@@ -924,6 +924,14 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
             require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(chat)
           end,
         },
+        mode = {
+          description = "Switch thinking variant (low / medium / max)",
+          callback = function(_chat)
+            require("config.codecompanion.variant").pick(function(variant)
+              vim.api.nvim_command("CCVariant " .. variant)
+            end)
+          end,
+        },
         btw = {
           description = "Open a new chat without stopping this one (then use } to cycle back)",
           callback = function(_chat)
