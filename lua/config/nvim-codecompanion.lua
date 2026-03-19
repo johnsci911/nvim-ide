@@ -19,7 +19,7 @@ end
 
 -- Initialize global config early to avoid undefined references
 _G.codecompanion_config = {
-  interactions = { chat = { adapter = "openai" } },
+  interactions = { chat = { adapter = { name = "claude_code", model = "Sonnet" } } },
   adapters = {
     http = {},
   },
@@ -27,17 +27,14 @@ _G.codecompanion_config = {
 
 -- Simple global state for current adapter/model (updated by apply_model_config)
 _G.codecompanion_current_state = {
-  adapter = "openai",
-  model = "gpt-4.1-mini",
+  adapter = "claude_code",
+  model = "Sonnet",
   variant = "medium",
 }
 
 -- Provider billing metadata — makes it UNMISSABLE which account gets charged
 local provider_meta = {
-  openai      = { label = "PAID",  billing = "OpenAI Account",           hl = "DiagnosticWarn"  },
-  openrouter  = { label = "PAID",  billing = "OpenRouter Account",       hl = "DiagnosticError" },
   ollama      = { label = "FREE",  billing = "Local Machine",            hl = "DiagnosticOk"    },
-  gemini      = { label = "PAID",  billing = "Google AI Studio",         hl = "DiagnosticWarn"  },
   gemini_cli  = { label = "FREE",  billing = "Google OAuth (Free Tier)", hl = "DiagnosticOk"    },
   opencode    = { label = "PAID",  billing = "OpenCode Account",         hl = "DiagnosticWarn"  },
   claude_code = { label = "SUB",   billing = "Claude Pro (OAuth)",       hl = "DiagnosticOk"    },
@@ -97,15 +94,14 @@ local function get_current_model_name()
       end
     end
     return "Sonnet" -- default
-  end
-
-
-
-  -- Handle HTTP adapters
-  local adapter_fn = _G.codecompanion_config.adapters.http[adapter_name]
-  if adapter_fn then
-    local adapter = adapter_fn()
-    return adapter.schema and adapter.schema.model and adapter.schema.model.default or "unknown"
+  elseif adapter_name == "ollama" then
+    local http_adapters = _G.codecompanion_config.adapters.http
+    local adapter_fn = http_adapters and http_adapters.ollama
+    if adapter_fn then
+      local adapter = adapter_fn()
+      return adapter.schema and adapter.schema.model and adapter.schema.model.default or "unknown"
+    end
+    return models.ollama[1] or "unknown"
   end
   return "unknown"
 end
@@ -113,7 +109,7 @@ end
 local function get_current_model()
   local adapter = get_current_adapter()
   local model = get_current_model_name()
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", claude_code = "🧠", }
+  local icons = { ollama = "🐑", opencode = "⚡", claude_code = "🧠", gemini_cli = "✨", }
   local variant = _G.codecompanion_current_state.variant or "medium"
   local variant_tag = variant_module.supports_variants(adapter, model)
     and " [" .. variant_module.get_short_display(variant) .. "]"
@@ -124,8 +120,8 @@ end
 local function get_intro_message()
   local adapter_name = _G.codecompanion_current_state.adapter
   local model_name = _G.codecompanion_current_state.model
-  local icons = { openai = "🚀", anthropic = "💡", ollama = "🐑", openrouter = "🌐", opencode = "⚡", claude_code = "🧠", }
-  local icon = icons[adapter_name] or "✨"
+  local icons = { ollama = "🐑", opencode = "⚡", claude_code = "🧠", gemini_cli = "✨", }
+  local icon = icons[adapter_name] or "🤖"
 
   local display_name = adapter_name:gsub("^%l", string.upper)
   if adapter_name == "opencode" then
@@ -337,74 +333,26 @@ local function apply_model_config(adapter_name, model_name)
     end
     codecompanion.setup(_G.codecompanion_config)
     return
-  end
-
-
-  -- Handle HTTP adapters (existing logic)
-  local adapters = _G.codecompanion_config.adapters.http
-  local adapter_fn = adapters[adapter_name]
-  if adapter_fn then
-    local adapter = adapter_fn()
-    if adapter.schema and adapter.schema.model then
-      adapter.schema.model.default = model_name
-    end
-    -- Apply variant schema overrides (thinking_budget, reasoning_effort, etc.)
-    local vo = variant_module.get_schema_overrides(adapter_name, model_name)
-    if next(vo) then
-      adapter.schema = vim.tbl_deep_extend("force", adapter.schema or {}, vo)
-    end
-    if adapter_name == "openrouter" then
-      adapter.env.api_key = os.getenv("OPENROUTER_API_KEY")
-    elseif adapter_name == "gemini" then
-      adapter.env.api_key = os.getenv("GEMINI_API_KEY")
-    end
-    adapters[adapter_name] = function()
-      return adapter
-    end
-  else
-    adapters[adapter_name] = function()
-      local base_env = {}
-      local schema = { model = { default = model_name } }
-      if adapter_name == "ollama" then
-        base_env = { url = "http://127.0.0.1:11434" }
-        schema.num_ctx = { default = 16384 }
-      elseif adapter_name == "openai" then
-        base_env = { OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") }
-        schema.temperature = { default = 0 }
-        schema.max_tokens = { default = 16384 }
-      elseif adapter_name == "anthropic" then
-        base_env = { ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY") }
-      elseif adapter_name == "gemini" then
-        base_env = { api_key = os.getenv("GEMINI_API_KEY") }
-      elseif adapter_name == "openrouter" then
-        base_env = {
-          url = "https://openrouter.ai/api",
-          api_key = os.getenv("OPENROUTER_API_KEY"),
-          chat_url = "/v1/chat/completions",
-        }
-      end
-      -- Apply variant schema overrides
-      local vo = variant_module.get_schema_overrides(adapter_name, model_name)
-      schema = vim.tbl_deep_extend("force", schema, vo)
-      return require("codecompanion.adapters").extend(adapter_name, {
-        env = base_env,
-        schema = schema,
+  elseif adapter_name == "ollama" then
+    local model_entry = model_name
+    _G.codecompanion_config.adapters.http = _G.codecompanion_config.adapters.http or {}
+    _G.codecompanion_config.adapters.http.ollama = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        env = { url = "http://127.0.0.1:11434" },
+        schema = { model = { default = model_entry }, num_ctx = { default = 16384 } },
       })
     end
+    for _, interaction in pairs(_G.codecompanion_config.interactions) do
+      interaction.adapter = "ollama"
+    end
+    local codecompanion = require("codecompanion")
+    if codecompanion.adapters_cache then
+      codecompanion.adapters_cache["ollama"] = nil
+    end
+    codecompanion.setup(_G.codecompanion_config)
+    return
   end
-
-  -- Update all interactions
-  for _, interaction in pairs(_G.codecompanion_config.interactions) do
-    interaction.adapter = adapter_name
-  end
-
-
-  -- Clear caches and re-setup
-  local codecompanion = require("codecompanion")
-  if codecompanion.adapters_cache then
-    codecompanion.adapters_cache[adapter_name] = nil
-  end
-  codecompanion.setup(_G.codecompanion_config)
+  -- No other HTTP adapters supported
 end
 
 -- Apply a thinking variant and re-apply current adapter config
@@ -457,11 +405,10 @@ local function switch_model()
       entry_maker = function(entry)
         local adapter = entry:gsub(" %(current%)", "")
         local meta = provider_meta[adapter] or { label = "?", billing = "Unknown" }
-        local icon = adapter == "openai" and "🚀" or
-            adapter == "ollama" and "🐑" or
-            adapter == "openrouter" and "🌐" or
+        local icon = adapter == "ollama" and "🐑" or
             adapter == "opencode" and "⚡" or
             adapter == "claude_code" and "🧠" or
+            adapter == "gemini_cli" and "✨" or
             "💻"
         local cost_tag = meta.label == "FREE"
             and " [FREE]"
@@ -561,38 +508,11 @@ _G.get_git_staged_diff = function()
   return output
 end
 
-local function quick_switch_to_gpt4()
-  local model = "gpt-4.1-mini"
-  confirm_paid_switch("openai", model, function()
-    apply_model_config("openai", model)
-    save_model_preference("openai", model)
-    show_provider_banner("openai", model)
-  end)
-end
-
 local function quick_switch_to_local()
   local model = models.ollama[1] or "qwen2.5-coder:7b-base-q6_K"
   apply_model_config("ollama", model)
   save_model_preference("ollama", model)
   show_provider_banner("ollama", model)
-end
-
-local function quick_switch_to_gemini()
-  local model = "gemini-2.0-flash-exp"
-  confirm_paid_switch("gemini", model, function()
-    apply_model_config("gemini", model)
-    save_model_preference("gemini", model)
-    show_provider_banner("gemini", model)
-  end)
-end
-
-local function quick_switch_to_openrouter()
-  local model = "qwen/qwen-2.5-coder-32b-instruct:free"
-  confirm_paid_switch("openrouter", model, function()
-    apply_model_config("openrouter", model)
-    save_model_preference("openrouter", model)
-    show_provider_banner("openrouter", model)
-  end)
 end
 
 local function quick_switch_to_gemini_cli()
@@ -651,9 +571,7 @@ local function quick_switch_to_opencode()
 end
 
 vim.api.nvim_create_user_command("CCSwitchModel", switch_model, { desc = "Switch AI model" })
-vim.api.nvim_create_user_command("CCQuickGPT4", quick_switch_to_gpt4, { desc = "Quick switch to GPT-4 mini" })
 vim.api.nvim_create_user_command("CCQuickLocal", quick_switch_to_local, { desc = "Quick switch to local model" })
-vim.api.nvim_create_user_command("CCQuickOpenRouter", quick_switch_to_openrouter, { desc = "Quick switch to OpenRouter" })
 vim.api.nvim_create_user_command("CCQuickClaudeCode", quick_switch_to_claude_code, { desc = "Quick switch to Claude Code ACP" })
 vim.api.nvim_create_user_command("CCQuickOpenCode", quick_switch_to_opencode, { desc = "Quick switch to OpenCode CLI" })
 vim.api.nvim_create_user_command("CCCurrentModel", function()
@@ -663,7 +581,7 @@ vim.api.nvim_create_user_command("CCVariant", switch_variant, { desc = "Switch t
 vim.api.nvim_create_user_command("CCRefreshModels", function()
   local m = require("config.codecompanion.models")
   local results = {}
-  for _, adapter in ipairs({ "openai", "openrouter", "ollama", "opencode" }) do
+  for _, adapter in ipairs({ "ollama", "opencode" }) do
     local ok = m.refresh_models(adapter)
     local count = m.models[adapter] and #m.models[adapter] or 0
     table.insert(results, adapter .. ": " .. (ok and (count .. " models") or "failed"))
@@ -871,7 +789,7 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
   },
   interactions = {
     chat = {
-      adapter = "openai",
+      adapter = { name = "claude_code", model = "Sonnet" },
       roles = {
         llm = function(adapter) return get_current_model() end,
         user = "Me:",
@@ -977,10 +895,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
       },
     },
     inline = {
-      adapter = "openai",
+      adapter = { name = "claude_code", model = "Sonnet" },
     },
     agent = {
-      adapter = "openai",
+      adapter = { name = "claude_code", model = "Sonnet" },
     },
   },
   adapters = {
@@ -999,53 +917,6 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
             },
             num_ctx = {
               default = 16384,
-            },
-          },
-        })
-      end,
-      openai = function()
-        return require("codecompanion.adapters").extend("openai", {
-          env = {
-            OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
-          },
-          schema = {
-            model = {
-              default = "gpt-4.1-mini",
-            },
-            temperature = {
-              default = 0,
-            },
-            max_tokens = {
-              default = 16384,
-            },
-          },
-        })
-      end,
-      gemini = function()
-        return require("codecompanion.adapters").extend("gemini", {
-          env = {
-            api_key = os.getenv("GEMINI_API_KEY"),
-          },
-          opts = {
-            vision = true,
-          },
-          schema = {
-            model = {
-              default = "gemini-2.0-flash-exp",
-            },
-          },
-        })
-      end,
-      openrouter = function()
-        return require("codecompanion.adapters").extend("openai_compatible", {
-          env = {
-            url = "https://openrouter.ai/api",
-            api_key = "OPENROUTER_API_KEY",
-            chat_url = "/v1/chat/completions",
-          },
-          schema = {
-            model = {
-              default = "qwen/qwen-2.5-coder-32b-instruct:free",
             },
           },
         })
