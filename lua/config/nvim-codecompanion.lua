@@ -692,12 +692,13 @@ _G.paste_image_from_clipboard = function()
     return
   end
 
-  local temp_file = vim.fn.tempname() .. ".png"
+  local images = require("config.codecompanion.images")
+  local temp_file = images.new_image_path(chat_bufnr)
 
   local success = false
   if vim.fn.has("macunix") == 1 then
     if vim.fn.executable("pngpaste") == 1 then
-      vim.fn.system("pngpaste " .. temp_file)
+      vim.fn.system("pngpaste " .. vim.fn.shellescape(temp_file))
       success = vim.v.shell_error == 0 and vim.fn.filereadable(temp_file) == 1
     else
       vim.notify("Install pngpaste (brew install pngpaste) for clipboard images on macOS", vim.log.levels.WARN)
@@ -705,10 +706,10 @@ _G.paste_image_from_clipboard = function()
     end
   elseif vim.fn.has("unix") == 1 then
     if vim.fn.executable("xclip") == 1 then
-      vim.fn.system("xclip -selection clipboard -t image/png -o > " .. temp_file)
+      vim.fn.system("xclip -selection clipboard -t image/png -o > " .. vim.fn.shellescape(temp_file))
       success = vim.v.shell_error == 0 and vim.fn.filereadable(temp_file) == 1
     elseif vim.fn.executable("wl-paste") == 1 then
-      vim.fn.system("wl-paste -t image/png > " .. temp_file)
+      vim.fn.system("wl-paste -t image/png > " .. vim.fn.shellescape(temp_file))
       success = vim.v.shell_error == 0 and vim.fn.filereadable(temp_file) == 1
     end
 
