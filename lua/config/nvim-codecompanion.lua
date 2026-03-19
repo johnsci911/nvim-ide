@@ -945,7 +945,10 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
             end
 
             local buf = vim.api.nvim_create_buf(false, true)
-            vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.list_extend({ "Context items:", "" }, items))
+            vim.bo[buf].bufhidden = "wipe"
+            local lines = { "Context items:", "" }
+            vim.list_extend(lines, items)
+            vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
             vim.bo[buf].modifiable = false
 
             local width = math.min(80, vim.o.columns - 4)
