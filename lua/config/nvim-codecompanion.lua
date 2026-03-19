@@ -918,6 +918,54 @@ _G.codecompanion_config = vim.tbl_deep_extend("force", _G.codecompanion_config, 
         compact = {
           enabled = true,
         },
+        model = {
+          description = "Switch model for this chat session",
+          callback = function(chat)
+            require("codecompanion.interactions.chat.keymaps.change_adapter").select_model(chat)
+          end,
+        },
+        btw = {
+          description = "Open a new chat without stopping this one (then use } to cycle back)",
+          callback = function(_chat)
+            require("codecompanion").chat()
+          end,
+        },
+        context = {
+          description = "Show all context items attached to this chat",
+          callback = function(chat)
+            local items = {}
+            for _, item in ipairs(chat.context_items or {}) do
+              local label = item.id or item.path or item.source or tostring(item)
+              table.insert(items, label)
+            end
+
+            if #items == 0 then
+              vim.notify("No context items in this chat", vim.log.levels.INFO)
+              return
+            end
+
+            local buf = vim.api.nvim_create_buf(false, true)
+            vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.list_extend({ "Context items:", "" }, items))
+            vim.bo[buf].modifiable = false
+
+            local width = math.min(80, vim.o.columns - 4)
+            local height = math.min(#items + 3, 20)
+            vim.api.nvim_open_win(buf, true, {
+              relative = "editor",
+              width = width,
+              height = height,
+              row = math.floor((vim.o.lines - height) / 2),
+              col = math.floor((vim.o.columns - width) / 2),
+              style = "minimal",
+              border = "rounded",
+              title = " Chat Context ",
+              title_pos = "center",
+            })
+
+            vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true })
+            vim.keymap.set("n", "<Esc>", "<cmd>close<cr>", { buffer = buf, silent = true })
+          end,
+        },
         image = {
           opts = {
             provider = "snacks",
