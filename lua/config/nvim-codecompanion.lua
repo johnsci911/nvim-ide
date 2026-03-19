@@ -1171,6 +1171,20 @@ vim.api.nvim_create_autocmd("BufLeave", {
   end,
 })
 
+-- Keep get_current_model_name() in sync when /model slash command changes the model
+vim.api.nvim_create_autocmd("User", {
+  pattern = "CodeCompanionChatModel",
+  callback = function(args)
+    local data = args.data
+    if data and data.model and data.adapter and data.adapter.name then
+      _G.codecompanion_config.interactions.chat.adapter = {
+        name = data.adapter.name,
+        model = data.model,
+      }
+    end
+  end,
+})
+
 -- Clean up images when a codecompanion chat buffer is closed
 vim.api.nvim_create_autocmd("BufDelete", {
   group = codecompanion_group,
