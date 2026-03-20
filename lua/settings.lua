@@ -51,3 +51,10 @@ end
 
 vim.cmd('let g:python3_host_prog = "$VIRTUAL_ENV/bin/python3"')
 
+-- Disable list chars (e.g. indent guides, eol markers) in terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.wo.list = false
+  end,
+})
+
