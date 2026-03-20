@@ -281,4 +281,16 @@ require("lazy").setup({
 
   -- TMUX navigation
   'christoomey/vim-tmux-navigator',
+
+  {
+    "johnsci911/NeoCode",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("neocode").setup({
+        default_adapter = "claude",
+        adapters = { claude = require("neocode.adapters.claude") },
+      })
+    end,
+  }
+
 })
