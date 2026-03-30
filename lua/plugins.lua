@@ -69,24 +69,6 @@ require("lazy").setup({
   'nvim-lua/plenary.nvim',
   'hrsh7th/nvim-cmp',
 
-  -- AI Code Companion
-  {
-    "olimorris/codecompanion.nvim",
-    branch = "main", -- Use main branch for latest features
-    opts = {
-      log_level = "ERROR",
-    },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-lua/plenary.nvim",
-      "ravitemer/mcphub.nvim",
-      "ravitemer/codecompanion-history.nvim",
-    },
-  },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" }
-  },
   {
     "echasnovski/mini.diff",
     config = function()
@@ -282,6 +264,7 @@ require("lazy").setup({
   -- TMUX navigation
   'christoomey/vim-tmux-navigator',
 
+  -- NeoCode
   {
     "johnsci911/NeoCode",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
@@ -292,5 +275,4 @@ require("lazy").setup({
       })
     end,
   }
-
 })

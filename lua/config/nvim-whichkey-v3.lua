@@ -76,24 +76,10 @@ wk.add({
   { "<leader>at",    '<cmd>AerialToggle!<CR>',                                      desc = 'AerialToggle' },
   { "<leader>ad",    '<Cmd>Telescope notify<CR>',                                   desc = 'Filter Notification' },
 
-  { "<leader>ai",     group = "AI Chat" },
-  { "<leader>aia",   '<Cmd>CodeCompanionActions<CR>',                               desc = 'AI Actions' },
-  { "<leader>aic",   '<Cmd>CodeCompanionChat Toggle<CR>',                           desc = 'AI Chat toggle' },
-  { "<leader>ais",   '<Cmd>CCSwitchModel<CR>',                                      desc = 'AI Model Switch' },
-  { "<leader>aih",   '<Cmd>CodeCompanionHistory<CR>',                               desc = 'AI History' },
-  { "<leader>aig",   '<Cmd>CodeCompanion /staged-commit<CR>',                       desc = 'AI Generate Commit' },
-  { "<leader>aim",   '<Cmd>CCRefreshModels<CR>',                                    desc = 'AI Refresh Models' },
-  { "<leader>aiM",   '<Cmd>CCListAdapters<CR>',                                     desc = 'AI List Adapters' },
-  { "<leader>aiv",   '<Cmd>CCVariant<CR>',                                          desc = 'AI Thinking Variant' },
-
-  { "<C-a>i",         mode = { "v" },  group = "AI commands" },
-  { "<C-a>id",        mode = { "v" }, '<Cmd>CodeCompanion /inline-doc<CR>',         desc = 'AI Inline Doc' },
-  { "<C-a>iD",        mode = { "v" }, '<Cmd>CodeCompanion /doc<CR>',                desc = 'AI Doc' },
-  { "<C-a>if",        mode = { "v" }, '<Cmd>CodeCompanion /refactor<CR>',           desc = 'AI Refactor' },
-  { "<C-a>ir",        mode = { "v" }, '<Cmd>CodeCompanion /review<CR>',             desc = 'AI Review' },
-  { "<C-a>in",        mode = { "v" }, '<Cmd>CodeCompanion /naming<CR>',             desc = 'AI Better Naming' },
-  { "<C-a>iR",        mode = { "v" }, '<Cmd>CodeCompanion /find-replace<CR>',       desc = 'AI Find & Replace' },
-  { "<C-a>is",        mode = { "v" }, '<Cmd>CCSwitchModel<CR>',                     desc = 'AI Switch Model' },
+  -- AI
+  { "<leader>ai",     group = "AI" },
+  { "<leader>aic",   '<Cmd>Neocode<CR>',                                            desc = 'AI NeoCode' },
+  { "<leader>aiC",   '<Cmd>NeocodeToggle<CR>',                                      desc = 'AI NeoCode toggle' },
 
   { "<leader>b",     group = "Buffers" },
   { "<leader>bp",    '<Cmd>BufferPick<CR>',                                         desc = 'Buffer Pick' },
