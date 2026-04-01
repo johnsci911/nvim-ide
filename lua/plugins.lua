@@ -261,6 +261,13 @@ require("lazy").setup({
   -- Auto tab width
   'tpope/vim-sleuth',
 
+  -- Markdown preview
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
+    opts = {},
+  },
+
   -- TMUX navigation
   'christoomey/vim-tmux-navigator',
 
