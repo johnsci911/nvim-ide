@@ -186,9 +186,9 @@ require("lazy").setup({
 
   -- Org Mode
   {
-    'nvim-neorg/neorg',
-    dependencies = { 'luarocks.nvim' },
-    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    "nvim-neorg/neorg",
+    lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = "*", -- Pin Neorg to the latest stable release
     config = true,
   },
   {
@@ -271,14 +271,32 @@ require("lazy").setup({
   -- TMUX navigation
   'christoomey/vim-tmux-navigator',
 
+  -- MCPHub
+  {
+    "ravitemer/mcphub.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    build = "npm install -g mcp-hub@latest",
+    config = function()
+      require("mcphub").setup()
+    end,
+  },
+
   -- NeoCode
   {
     "johnsci911/NeoCode",
+    branch = "neocode/local-llama-cpp-support",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     config = function()
+      local llama = require("neocode.adapters.llama")
+      llama.setup({
+        base_url = "http://localhost:8080", -- Default
+      })
       require("neocode").setup({
         default_adapter = "claude",
-        adapters = { claude = require("neocode.adapters.claude") },
+        adapters = {
+          claude = require("neocode.adapters.claude"),
+          llama = llama,
+        },
       })
     end,
   }
