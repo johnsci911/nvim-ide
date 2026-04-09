@@ -29,8 +29,7 @@ local parsers_to_install = {
     'tsx', 'html', 'php', 'bash', 'css', 'javascript', 'lua', 'c', 'c_sharp',
     'cmake', 'cpp', 'dockerfile', 'git_config', 'git_rebase', 'go', 'vue',
     'xml', 'regex', 'yaml', 'toml', 'sql', 'scss', 'rust', 'svelte',
-    'ssh_config', 'vim', 'typescript', 'markdown', 'markdown_inline', 'yuck',
-    'norg', 'blade'
+    'ssh_config', 'vim', 'typescript', 'markdown', 'markdown_inline', 'yuck', 'blade'
 }
 
 -- Command to install all parsers
