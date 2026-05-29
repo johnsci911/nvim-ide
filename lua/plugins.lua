@@ -272,7 +272,7 @@ require("lazy").setup({
   -- NeoCode
   {
     "johnsci911/NeoCode",
-    branch = "neocode/local-llama-cpp-support",
+    branch = "main",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     config = function()
       local llama = require("neocode.adapters.llama")
@@ -283,6 +283,7 @@ require("lazy").setup({
         default_adapter = "claude",
         adapters = {
           claude = require("neocode.adapters.claude"),
+          opencode = require("neocode.adapters.opencode"),
           llama = llama,
         },
       })
