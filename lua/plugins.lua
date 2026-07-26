@@ -53,7 +53,6 @@ require("lazy").setup({
     main = "ibl",
     opts = {},
   },
-  "echasnovski/mini.indentscope",
 
   -- Debug Lint
   'mfussenegger/nvim-dap',
@@ -103,7 +102,6 @@ require("lazy").setup({
 
   -- Icons
   'kyazdani42/nvim-web-devicons',
-  'ryanoasis/vim-devicons',
 
   'romgrk/barbar.nvim',
 

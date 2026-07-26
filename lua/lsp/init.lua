@@ -62,7 +62,6 @@ local servers = {
   "intelephense",
   "cssls",
   "vimls",
-  "ts_ls",
   "jsonls",
   "html",
   "emmet_ls",
