@@ -272,19 +272,14 @@ require("lazy").setup({
   -- NeoCode
   {
     "johnsci911/NeoCode",
-    branch = "main",
+    branch = "refactor/pi",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     config = function()
-      local llama = require("neocode.adapters.llama")
-      llama.setup({
-        base_url = "http://localhost:8080", -- Default
-      })
       require("neocode").setup({
-        default_adapter = "claude",
+        default_adapter = "opencode",
         adapters = {
-          claude = require("neocode.adapters.claude"),
           opencode = require("neocode.adapters.opencode"),
-          llama = llama,
+          pi = require("neocode.adapters.pi"),
         },
       })
     end,
