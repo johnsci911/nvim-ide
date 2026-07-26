@@ -277,10 +277,6 @@ require("lazy").setup({
     config = function()
       require("neocode").setup({
         default_adapter = "opencode",
-        adapters = {
-          opencode = require("neocode.adapters.opencode"),
-          pi = require("neocode.adapters.pi"),
-        },
       })
     end,
   }
